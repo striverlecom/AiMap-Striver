@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import React from 'react'
 
 export default function SubNav({ hasSession }: { hasSession: boolean }) {
   const pathname = usePathname()
@@ -36,34 +37,40 @@ export default function SubNav({ hasSession }: { hasSession: boolean }) {
     }}>
       <div style={{
         display: 'flex',
-        gap: '0.5rem',
+        alignItems: 'center',
+        gap: '0.75rem', /* Balanced spacing between items and arrows */
         overflowX: 'auto',
         scrollbarWidth: 'none',
         msOverflowStyle: 'none',
-        padding: '0.6rem 1rem', /* Thinner padding */
-        maxWidth: '1000px',
-        width: '100%'
+        padding: '0.6rem 1rem',
+        maxWidth: '100%',
       }}>
-        {days.map(d => {
+        {days.map((d, index) => {
           const isActive = pathname === d.path
           return (
-            <Link 
-              key={d.num} 
-              href={d.path}
-              prefetch={true}
-              style={{
-                padding: '0.4rem 0.8rem',
-                borderRadius: '16px',
-                fontSize: '0.8rem', /* Smaller, more discreet */
-                whiteSpace: 'nowrap',
-                transition: 'all 0.2s ease',
-                color: isActive ? '#000' : 'rgba(255,255,255,0.6)',
-                background: isActive ? '#fff' : 'transparent',
-                fontWeight: isActive ? 600 : 400
-              }}
-            >
-              {d.label}
-            </Link>
+            <React.Fragment key={d.num}>
+              {index > 0 && (
+                <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.3, flexShrink: 0, color: 'var(--muted)' }}>
+                  <path d="M1 9L5 5L1 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+              <Link 
+                href={d.path}
+                prefetch={true}
+                style={{
+                  padding: '0.4rem 0.8rem',
+                  borderRadius: '16px',
+                  fontSize: '0.8rem',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.2s ease',
+                  color: isActive ? '#000' : 'rgba(255,255,255,0.6)',
+                  background: isActive ? '#fff' : 'transparent',
+                  fontWeight: isActive ? 600 : 400
+                }}
+              >
+                {d.label}
+              </Link>
+            </React.Fragment>
           )
         })}
       </div>
