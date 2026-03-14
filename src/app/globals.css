@@ -303,6 +303,25 @@ p {
     padding: 12px 24px;
     width: 100%;
     margin-bottom: 12px;
+    font-size: 1rem !important; /* Prevent massive text on mobile buttons */
+  }
+
+  /* Homepage Typography Rescaling */
+  .home-h1 {
+    font-size: 2.2rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 16px !important;
+  }
+  
+  .home-h2 {
+    font-size: 1.15rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 32px !important;
+  }
+
+  .home-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
   }
 
 

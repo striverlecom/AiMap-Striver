@@ -19,7 +19,7 @@ export default function Home() {
       <div className="container" style={{ maxWidth: '850px', margin: '0 auto', padding: '60px 20px' }}>
         
         {/* 2. MAIN HEADLINE */}
-        <h1 style={{ 
+        <h1 className="home-h1" style={{ 
           fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
           lineHeight: 1.1, 
           letterSpacing: '-0.04em', 
@@ -31,7 +31,7 @@ export default function Home() {
         </h1>
         
         {/* 3. SUBHEADLINE */}
-        <h2 style={{ 
+        <h2 className="home-h2" style={{ 
           fontSize: '1.4rem', 
           lineHeight: 1.5, 
           fontWeight: 400, 
@@ -172,7 +172,7 @@ export default function Home() {
           <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '30px', fontWeight: 700 }}>
             Bằng Chứng Thật. Con Số Thật.
           </h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '60px' }}>
+          <div className="home-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '60px' }}>
             <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
               <p style={{ fontStyle: 'italic', marginBottom: '16px', color: 'var(--muted)' }}>"Trước kia chúng tôi mua 5 cái thẻ ChatGPT và vứt đó. Nhờ áp dụng tấm bản đồ này, tôi khui ra được nút thắt ở khâu làm Báo Giá. Chỉ bằng 1 thủ thuật tự động hóa, quy trình giảm từ 3 ngày xuống 15 phút, tiết kiệm 120 triệu tiền lương thừa mỗi năm."</p>
               <p style={{ fontWeight: 600 }}>- Anh Dũng (CEO Công Ty Xây Dựng, 40 Nhân Sự)</p>
