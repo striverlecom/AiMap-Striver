@@ -95,7 +95,7 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
   const formatVND = (num: number) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(num || 0)
 
   return (
-    <div className="container fade-in" style={{ padding: '2rem' }}>
+    <div className="container fade-in" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
         <h1 style={{fontSize: 'clamp(2rem, 5vw, 3rem)', letterSpacing: '-0.02em', marginBottom: '0.5rem'}}>BÁO CÁO KIỂM TOÁN AI</h1>
         <p style={{ color: 'var(--muted)', fontSize: '1rem' }}>Kết quả sau 7 ngày phân tích - Dựa trên dữ liệu thật</p>
@@ -136,10 +136,12 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
         </section>
 
         {/* BẢNG GIẢI PHÁP KHUYẾN NGHỊ */}
-        <section className="glass-panel">
-          <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', color: 'var(--success)' }}>💡 GIẢI PHÁP AI KHUYẾN NGHỊ</h2>
-          <div className="report-wrapper">
-            <table className="report-table">
+        <section className="glass-panel" style={{ padding: 0, overflow: 'hidden' }}>
+          <div style={{ padding: '2rem 2rem 0 2rem' }}>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', color: 'var(--success)' }}>💡 GIẢI PHÁP AI KHUYẾN NGHỊ</h2>
+          </div>
+          <div style={{ overflowX: 'auto', padding: '0 2rem 2rem 2rem', WebkitOverflowScrolling: 'touch' }}>
+            <table className="report-table" style={{ width: '100%', minWidth: '800px', borderCollapse: 'collapse' }}>
               <thead>
                 <tr>
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '2px solid var(--card-border)', color: 'var(--muted)' }}>Chỉ số</th>
@@ -250,7 +252,7 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
         
         <div style={{ textAlign: 'center', marginTop: '3rem', paddingBottom: '2rem' }}>
           <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontStyle: 'italic' }}>Striver Le · "Đừng trả tiền để thử nghiệm. Hãy trả tiền cho kết quả."</p>
-          <Link href="/dashboard" prefetch={true} className="btn-secondary" style={{ padding: '0.8rem 2rem', textDecoration: 'none' }}>Quay Lại Bảng Điều Khiển</Link>
+          <Link href="/dashboard" prefetch={true} className="btn-secondary" style={{ padding: '12px 24px', minHeight: '48px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Quay Lại Bảng Điều Khiển</Link>
         </div>
 
       </div>
