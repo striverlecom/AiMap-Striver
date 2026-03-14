@@ -15,12 +15,12 @@ type ROISolution = {
 }
 
 export default function Day6Client({ serverUser }: { serverUser: any }) {
-  let rois: ROISolution[] = []
+  let savedRois: ROISolution[] = []
   
   if (serverUser?.day6Data?.roiData) {
     try { 
       const parsed = JSON.parse(serverUser.day6Data.roiData) 
-      if (Array.isArray(parsed) && parsed.length > 0) rois = parsed;
+      if (Array.isArray(parsed) && parsed.length > 0) savedRois = parsed;
     } catch(e){}
   }
 
@@ -37,24 +37,29 @@ export default function Day6Client({ serverUser }: { serverUser: any }) {
     } catch(e){}
   }
 
-  if (rois.length === 0 && serverUser?.day5Data?.priorities) {
+  let day5Top3: any[] = []
+  if (serverUser?.day5Data?.priorities) {
     try {
       const day5 = JSON.parse(serverUser.day5Data.priorities)
-      const top3 = day5.filter((s:any) => s.isTop3).slice(0, 3)
-      
-      rois = top3.map((s:any, i:number) => ({
-        id: `sol-${i+1}`, name: s.solution || s.problem || `Chiến thắng #${i+1}`,
-        employees: 0, hoursPerWeek: parseFloat(s.hoursImpact) || 0,
-        aiReplacementPct: 0, avgSalaryMonth: 0, implementationCost: 0, extraRevenuePerHour: 0
-      }))
+      day5Top3 = day5.filter((s:any) => s.isTop3).slice(0, 3)
     } catch(e){}
   }
 
-  if (rois.length === 0) {
-    rois = Array(3).fill(0).map((_,i) => ({
-      id: `sol-${i+1}`, name: `Giải pháp #${i+1}`, employees: 0, hoursPerWeek: 0, aiReplacementPct: 0, avgSalaryMonth: 0, implementationCost: 0, extraRevenuePerHour: 0
-    }))
-  }
+  let rois: ROISolution[] = Array(3).fill(0).map((_, i) => {
+    const existingDay6 = savedRois[i] || {};
+    const d5Item = day5Top3[i] || {};
+    
+    return {
+      id: `sol-${i+1}`,
+      name: d5Item.solution || d5Item.problem || existingDay6.name || `Giải pháp #${i+1}`,
+      employees: existingDay6.employees || 0,
+      hoursPerWeek: parseFloat(d5Item.hoursImpact) || existingDay6.hoursPerWeek || 0,
+      aiReplacementPct: existingDay6.aiReplacementPct || 0,
+      avgSalaryMonth: existingDay6.avgSalaryMonth || 0,
+      implementationCost: existingDay6.implementationCost || 0,
+      extraRevenuePerHour: existingDay6.extraRevenuePerHour || 0,
+    }
+  });
 
   const [solutions, setSolutions] = useState<ROISolution[]>(rois)
   const [globalParams, setGlobalParams] = useState(params)
