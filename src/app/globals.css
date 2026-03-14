@@ -147,6 +147,10 @@ p {
   padding: 2rem;
 }
 
+.show-on-mobile {
+  display: none !important;
+}
+
 /* Modern Apple-style Text Logo */
 .nav-logo {
   font-size: 1.25rem;
@@ -401,6 +405,10 @@ p {
 
   .hide-on-mobile {
     display: none !important;
+  }
+
+  .show-on-mobile {
+    display: block !important;
   }
 
   .mobile-column-stack {

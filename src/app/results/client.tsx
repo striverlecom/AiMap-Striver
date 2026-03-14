@@ -138,8 +138,10 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
         {/* BẢNG GIẢI PHÁP KHUYẾN NGHỊ */}
         <section className="glass-panel">
           <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', color: 'var(--success)' }}>💡 GIẢI PHÁP AI KHUYẾN NGHỊ</h2>
-          <div className="report-wrapper">
-            <table className="responsive-table report-table">
+          
+          {/* DESKTOP MATRIX TABLE (Hidden on Mobile) */}
+          <div className="report-wrapper hide-on-mobile">
+            <table className="report-table">
               <thead>
                 <tr>
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '2px solid var(--card-border)', color: 'var(--muted)' }}>Chỉ số</th>
@@ -149,57 +151,95 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
             </thead>
             <tbody>
               <tr style={{ borderBottom: '1px dotted var(--card-border)' }}>
-                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }} className="hide-on-mobile">Số NV / Giải pháp</td>
-                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}><span className="mobile-label">Số NV áp dụng:</span>{r.employees}</td>)}
-                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--foreground)' }}><span className="mobile-label">TỔNG SỐ NV:</span>{totalEmployeesSol}</td>
+                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }}>Số NV / Giải pháp</td>
+                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}>{r.employees}</td>)}
+                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--foreground)' }}>{totalEmployeesSol}</td>
               </tr>
               <tr style={{ borderBottom: '1px dotted var(--card-border)' }}>
-                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }} className="hide-on-mobile">Giờ TK/tuần</td>
-                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}><span className="mobile-label">Giờ TK/tuần:</span>{r.hoursSavedWeek.toFixed(1)}</td>)}
-                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--success)' }}><span className="mobile-label">TỔNG GIỜ TK/TUẦN:</span>{totalHoursWeek.toFixed(1)}</td>
+                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }}>Giờ TK/tuần</td>
+                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}>{r.hoursSavedWeek.toFixed(1)}</td>)}
+                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--success)' }}>{totalHoursWeek.toFixed(1)}</td>
               </tr>
               <tr style={{ borderBottom: '1px dotted var(--card-border)' }}>
-                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }} className="hide-on-mobile">FTE tiết kiệm</td>
-                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}><span className="mobile-label">FTE tiết kiệm:</span>{r.fteSaved.toFixed(3)}</td>)}
-                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--success)' }}><span className="mobile-label">TỔNG FTE:</span>{totalFtes.toFixed(3)}</td>
+                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }}>FTE tiết kiệm</td>
+                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}>{r.fteSaved.toFixed(3)}</td>)}
+                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--success)' }}>{totalFtes.toFixed(3)}</td>
               </tr>
               <tr style={{ borderBottom: '1px dotted var(--card-border)' }}>
-                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }} className="hide-on-mobile">Giờ TK/tháng</td>
-                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}><span className="mobile-label">Giờ TK/tháng:</span>{r.hoursSavedMonth.toFixed(1)}</td>)}
-                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--success)' }}><span className="mobile-label">TỔNG GIỜ TK/THÁNG:</span>{totalHoursMonth.toFixed(1)}</td>
+                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }}>Giờ TK/tháng</td>
+                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}>{r.hoursSavedMonth.toFixed(1)}</td>)}
+                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--success)' }}>{totalHoursMonth.toFixed(1)}</td>
               </tr>
               <tr style={{ borderBottom: '1px dotted var(--card-border)' }}>
-                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }} className="hide-on-mobile">Tiết kiệm CP/năm</td>
-                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}><span className="mobile-label">Tiết kiệm CP/năm:</span>{formatVND(r.savingsYear)}</td>)}
-                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--success)' }}><span className="mobile-label">TỔNG TIẾT KIỆM KHẤU KHAO:</span>{formatVND(totalSavingsYear)}</td>
+                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }}>Tiết kiệm CP/năm</td>
+                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}>{formatVND(r.savingsYear)}</td>)}
+                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--success)' }}>{formatVND(totalSavingsYear)}</td>
               </tr>
               <tr style={{ borderBottom: '1px dotted var(--card-border)' }}>
-                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }} className="hide-on-mobile">DT thêm/năm</td>
-                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}><span className="mobile-label">DT thêm/năm:</span>{formatVND(r.revenueYear)}</td>)}
-                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--success)' }}><span className="mobile-label">TỔNG DT TĂNG THÊM:</span>{formatVND(totalRevenueYear)}</td>
+                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }}>DT thêm/năm</td>
+                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}>{formatVND(r.revenueYear)}</td>)}
+                <td style={{ padding: '1rem', fontWeight: 600, color: 'var(--success)' }}>{formatVND(totalRevenueYear)}</td>
               </tr>
               <tr style={{ borderBottom: '1px dotted var(--card-border)', background: 'rgba(0,255,0,0.05)' }}>
-                <td style={{ padding: '1rem', textAlign: 'left', fontWeight: 600, color: 'var(--success)' }} className="hide-on-mobile">TỔNG GIÁ TRỊ/NĂM</td>
-                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem', fontWeight: 600 }}><span className="mobile-label">GIÁ TRỊ/NĂM CHIA THEO GIẢI PHÁP:</span>{formatVND(r.tvYear)}</td>)}
-                <td style={{ padding: '1rem', fontWeight: 700, color: 'var(--success)', fontSize: '1.2rem' }}><span className="mobile-label">TỔNG GIÁ TRỊ TẠO RA/NĂM:</span>{formatVND(totalValueYear)}</td>
+                <td style={{ padding: '1rem', textAlign: 'left', fontWeight: 600, color: 'var(--success)' }}>TỔNG GIÁ TRỊ/NĂM</td>
+                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem', fontWeight: 600 }}>{formatVND(r.tvYear)}</td>)}
+                <td style={{ padding: '1rem', fontWeight: 700, color: 'var(--success)', fontSize: '1.2rem' }}>{formatVND(totalValueYear)}</td>
               </tr>
               <tr style={{ borderBottom: '1px dotted var(--card-border)' }}>
-                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }} className="hide-on-mobile">Chi phí triển khai</td>
-                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}><span className="mobile-label">Chi phí đầu tư giải pháp:</span>{formatVND(r.implementationCost)}</td>)}
-                <td style={{ padding: '1rem', fontWeight: 600 }}><span className="mobile-label">TỔNG CHI PHÍ ĐẦU TƯ:</span>{formatVND(totalInvestment)}</td>
+                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }}>Chi phí triển khai</td>
+                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}>{formatVND(r.implementationCost)}</td>)}
+                <td style={{ padding: '1rem', fontWeight: 600 }}>{formatVND(totalInvestment)}</td>
               </tr>
               <tr style={{ borderBottom: '1px dotted var(--card-border)' }}>
-                <td style={{ padding: '1rem', textAlign: 'left', fontWeight: 600, color: 'var(--warning)' }} className="hide-on-mobile">% ROI</td>
-                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem', fontWeight: 600, color: 'var(--warning)' }}><span className="mobile-label">% ROI:</span>{r.roi.toFixed(0)}%</td>)}
-                <td style={{ padding: '1rem', fontWeight: 700, color: 'var(--warning)', fontSize: '1.2rem' }}><span className="mobile-label">TỔNG ROI TÍNH GỘP:</span>{globalRoiPct.toFixed(0)}%</td>
+                <td style={{ padding: '1rem', textAlign: 'left', fontWeight: 600, color: 'var(--warning)' }}>% ROI</td>
+                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem', fontWeight: 600, color: 'var(--warning)' }}>{r.roi.toFixed(0)}%</td>)}
+                <td style={{ padding: '1rem', fontWeight: 700, color: 'var(--warning)', fontSize: '1.2rem' }}>{globalRoiPct.toFixed(0)}%</td>
               </tr>
               <tr>
-                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }} className="hide-on-mobile">Thời gian hoàn vốn</td>
-                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}><span className="mobile-label">Thời gian hoàn vốn giải pháp:</span>{r.paybackMonths.toFixed(1)} tháng</td>)}
-                <td style={{ padding: '1rem', fontWeight: 600 }}><span className="mobile-label">THỜI GIAN HOÀN VỐN TRUNG BÌNH:</span>{totalValueYear > 0 ? ((totalInvestment / totalValueYear) * 12).toFixed(1) : 0} tháng</td>
+                <td style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }}>Thời gian hoàn vốn</td>
+                {processedRois.map((r,i) => <td key={i} style={{ padding: '1rem' }}>{r.paybackMonths.toFixed(1)} tháng</td>)}
+                <td style={{ padding: '1rem', fontWeight: 600 }}>{totalValueYear > 0 ? ((totalInvestment / totalValueYear) * 12).toFixed(1) : 0} tháng</td>
               </tr>
             </tbody>
             </table>
+          </div>
+
+          {/* MOBILE CARD VIEW (Hidden on Desktop) */}
+          <div className="show-on-mobile" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingBottom: '1rem' }}>
+            {processedRois.map((r, i) => (
+              <div key={i} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--card-border)', borderRadius: '12px', padding: '1.25rem' }}>
+                <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--foreground)', marginBottom: '1rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '0.75rem' }}>
+                  {r.name}
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', fontSize: '0.9rem' }}>
+                  <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Số NV</div><div style={{ fontWeight: 500 }}>{r.employees}</div></div>
+                  <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Giờ TK/tháng</div><div style={{ fontWeight: 500, color: 'var(--success)' }}>{r.hoursSavedMonth.toFixed(1)}h</div></div>
+                  <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Giá trị/năm</div><div style={{ fontWeight: 600, color: 'var(--success)' }}>{formatVND(r.tvYear)}</div></div>
+                  <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Chi phí đầu tư</div><div style={{ fontWeight: 500 }}>{formatVND(r.implementationCost)}</div></div>
+                  <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>% ROI</div><div style={{ fontWeight: 600, color: 'var(--warning)' }}>{r.roi.toFixed(0)}%</div></div>
+                  <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Hoàn vốn</div><div style={{ fontWeight: 500 }}>{r.paybackMonths.toFixed(1)} tháng</div></div>
+                </div>
+              </div>
+            ))}
+            
+            {/* TỔNG KẾT CARD */}
+            <div style={{ background: 'rgba(50, 215, 75, 0.1)', border: '1px solid var(--success)', borderRadius: '12px', padding: '1.25rem', marginTop: '0.5rem' }}>
+              <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--success)', marginBottom: '1rem', borderBottom: '1px solid rgba(50, 215, 75, 0.3)', paddingBottom: '0.75rem', textAlign: 'center' }}>
+                TỔNG TỰ TÍNH
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.8rem', fontSize: '0.9rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng NV áp dụng:</span><strong style={{ color: 'var(--foreground)' }}>{totalEmployeesSol}</strong></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng Giờ TK/tháng:</span><strong style={{ color: 'var(--success)' }}>{totalHoursMonth.toFixed(1)}h</strong></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng FTE tiết kiệm:</span><strong style={{ color: 'var(--success)' }}>{totalFtes.toFixed(3)}</strong></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng Tiết kiệm CP/năm:</span><strong style={{ color: 'var(--success)' }}>{formatVND(totalSavingsYear)}</strong></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng DT thêm/năm:</span><strong style={{ color: 'var(--success)' }}>{formatVND(totalRevenueYear)}</strong></div>
+                <div style={{ width: '100%', height: '1px', background: 'rgba(50, 215, 75, 0.3)', margin: '4px 0' }}></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><span style={{ color: 'var(--success)', fontWeight: 600 }}>TỔNG GIÁ TRỊ/NĂM:</span><strong style={{ color: 'var(--success)', fontSize: '1.2rem' }}>{formatVND(totalValueYear)}</strong></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng Chi phí đầu tư:</span><strong style={{ color: 'var(--foreground)' }}>{formatVND(totalInvestment)}</strong></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}><span style={{ color: 'var(--warning)', fontWeight: 600 }}>TỔNG ROI %:</span><strong style={{ color: 'var(--warning)', fontSize: '1.2rem' }}>{globalRoiPct.toFixed(0)}%</strong></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Trung bình hoàn vốn:</span><strong style={{ color: 'var(--foreground)' }}>{totalValueYear > 0 ? ((totalInvestment / totalValueYear) * 12).toFixed(1) : 0} tháng</strong></div>
+              </div>
+            </div>
           </div>
         </section>
 
