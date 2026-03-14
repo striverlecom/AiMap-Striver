@@ -56,7 +56,7 @@ button {
 
 /* Base Typography */
 h1 {
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1.1;
@@ -64,7 +64,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1.2;
@@ -154,9 +154,10 @@ p {
   border: 1px solid var(--card-border);
   background: var(--card-bg);
   color: var(--foreground);
-  font-size: 1rem;
+  font-size: 16px; /* 16px minimum prevents iOS Safari auto-zoom on focus */
   outline: none;
   transition: all 0.2s ease;
+  min-height: 44px; /* Apple standard minimum touch target */
 }
 
 .input-field:focus {
@@ -263,25 +264,73 @@ p {
 
 /* Base Responsive Rules */
 @media (max-width: 768px) {
-  /* Fluid Typography */
-  h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
-  h2 { font-size: clamp(1.5rem, 6vw, 2.5rem); }
-  
   /* Layout Paddings */
   .container { padding: 0 16px; }
   
+  .glass-panel {
+    padding: 24px;
+    border-radius: 16px; /* Tighten radius on mobile */
+  }
+
   /* Touch Targets Minimum 44px */
   .btn-primary, .btn-secondary, .cta-btn {
-    min-height: 44px;
-    padding: 10px 24px;
+    min-height: 48px; /* Slightly larger for main CTAs on mobile */
+    padding: 12px 24px;
+    width: 100%;
+    margin-bottom: 12px;
   }
-  .input-field {
-    min-height: 44px;
-  }
+
 
   /* Hamburger Menu Toggle */
   .mobile-menu-btn {
     display: block;
+  }
+
+  /* Break Responsive Tables into Cards on Mobile */
+  .responsive-table, 
+  .responsive-table tbody, 
+  .responsive-table tr, 
+  .responsive-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-table thead, .responsive-table tfoot {
+    display: none; /* Hide headers */
+  }
+
+  .responsive-table tr {
+    margin-bottom: 1.5rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--card-border) !important;
+    padding: 1rem;
+  }
+
+  .responsive-table td {
+    border: none !important;
+    padding: 0.5rem 0 !important;
+    position: relative;
+    text-align: left !important;
+  }
+
+  .mobile-label {
+    display: block !important;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .mobile-column-stack {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .mobile-col-borders {
+    border-left: none !important;
+    border-right: none !important;
+    border-top: 1px solid var(--card-border);
+    border-bottom: 1px solid var(--card-border);
   }
 
   .nav-links {

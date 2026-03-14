@@ -112,31 +112,31 @@ export default function Day4Page() {
                     <tr key={row.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                       <td style={{ padding: '1rem 0.5rem' }}>
                         <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Bước / Nhiệm vụ:</div>
-                        <input className="input-field" style={{ padding: '8px' }} value={row.step} onChange={e => updateRow(engineKey, row.id, 'step', e.target.value)} />
+                        <input className="input-field" style={{ padding: '12px 16px' }} value={row.step} onChange={e => updateRow(engineKey, row.id, 'step', e.target.value)} />
                       </td>
                       <td style={{ padding: '1rem 0.5rem' }}>
                         <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Ai làm:</div>
-                        <input className="input-field" style={{ padding: '8px' }} value={row.assignee} onChange={e => updateRow(engineKey, row.id, 'assignee', e.target.value)} />
+                        <input className="input-field" style={{ padding: '12px 16px' }} value={row.assignee} onChange={e => updateRow(engineKey, row.id, 'assignee', e.target.value)} />
                       </td>
                       <td style={{ padding: '1rem 0.5rem' }}>
                         <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Giờ/tuần:</div>
-                        <input type="number" className="input-field" style={{ padding: '8px' }} value={row.hours} onChange={e => updateRow(engineKey, row.id, 'hours', parseFloat(e.target.value)||0)} />
+                        <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={row.hours} onChange={e => updateRow(engineKey, row.id, 'hours', parseFloat(e.target.value)||0)} />
                       </td>
                       <td style={{ padding: '1rem 0.5rem' }}>
                         <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Công cụ:</div>
-                        <input className="input-field" style={{ padding: '8px' }} value={row.tools} onChange={e => updateRow(engineKey, row.id, 'tools', e.target.value)} />
+                        <input className="input-field" style={{ padding: '12px 16px' }} value={row.tools} onChange={e => updateRow(engineKey, row.id, 'tools', e.target.value)} />
                       </td>
                       <td style={{ padding: '1rem 0.5rem' }}>
                         <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Vấn đề:</div>
-                        <input className="input-field" style={{ padding: '8px' }} value={row.issues} onChange={e => updateRow(engineKey, row.id, 'issues', e.target.value)} />
+                        <input className="input-field" style={{ padding: '12px 16px' }} value={row.issues} onChange={e => updateRow(engineKey, row.id, 'issues', e.target.value)} />
                       </td>
                       <td style={{ padding: '1rem 0.5rem', textAlign: 'center' }}>
                         <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px', textAlign: 'left'}}>Lãng phí Thời GIAN?</div>
-                        <input type="checkbox" style={{ transform: 'scale(1.5)', cursor: 'pointer' }} checked={row.wastedTime} onChange={e => updateRow(engineKey, row.id, 'wastedTime', e.target.checked)} />
+                        <input type="checkbox" style={{ transform: 'scale(1.5)', cursor: 'pointer', margin: '8px 0' }} checked={row.wastedTime} onChange={e => updateRow(engineKey, row.id, 'wastedTime', e.target.checked)} />
                       </td>
                       <td style={{ padding: '1rem 0.5rem', textAlign: 'center' }}>
                         <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px', textAlign: 'left'}}>Rủi ro CHẤT LƯỢNG?</div>
-                        <input type="checkbox" style={{ transform: 'scale(1.5)', cursor: 'pointer' }} checked={row.qualityRisk} onChange={e => updateRow(engineKey, row.id, 'qualityRisk', e.target.checked)} />
+                        <input type="checkbox" style={{ transform: 'scale(1.5)', cursor: 'pointer', margin: '8px 0' }} checked={row.qualityRisk} onChange={e => updateRow(engineKey, row.id, 'qualityRisk', e.target.checked)} />
                       </td>
                       <td style={{ padding: '1rem 0.5rem', textAlign: 'center' }}>
                         <button onClick={() => removeRow(engineKey, row.id)} style={{ color: 'var(--error)', fontSize: '1.2rem', background: 'none', border: 'none', cursor: 'pointer', padding: '10px' }}>×</button>

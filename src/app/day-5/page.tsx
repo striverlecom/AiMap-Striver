@@ -131,7 +131,7 @@ export default function Day5Page() {
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Giải pháp AI đề xuất:</div>
-                      <input className="input-field" style={{ padding: '8px' }} placeholder="VD: ChatGPT Plus..." value={row.solution} onChange={e => updateRow(row.id, 'solution', e.target.value)} />
+                      <input className="input-field" style={{ padding: '12px 16px' }} placeholder="VD: ChatGPT Plus..." value={row.solution} onChange={e => updateRow(row.id, 'solution', e.target.value)} />
                     </td>
                     <td style={{ padding: '1rem 0.5rem', textAlign: 'center', color: 'var(--warning)', fontWeight: 600 }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px', textAlign: 'left'}}>Giờ/tuần lãng phí:</div>
@@ -139,11 +139,11 @@ export default function Day5Page() {
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Tác động (1-5):</div>
-                      <input type="number" min="1" max="5" className="input-field" style={{ padding: '8px', textAlign: 'center' }} value={row.impact} onChange={e => updateRow(row.id, 'impact', parseInt(e.target.value)||1)} />
+                      <input type="number" min="1" max="5" className="input-field" style={{ padding: '12px 16px', textAlign: 'center' }} value={row.impact} onChange={e => updateRow(row.id, 'impact', parseInt(e.target.value)||1)} />
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Khó khăn (1-5):</div>
-                      <input type="number" min="1" max="5" className="input-field" style={{ padding: '8px', textAlign: 'center' }} value={row.effort} onChange={e => updateRow(row.id, 'effort', parseInt(e.target.value)||1)} />
+                      <input type="number" min="1" max="5" className="input-field" style={{ padding: '12px 16px', textAlign: 'center' }} value={row.effort} onChange={e => updateRow(row.id, 'effort', parseInt(e.target.value)||1)} />
                     </td>
                     <td style={{ padding: '1rem 0.5rem', textAlign: 'center', color: cat.color, fontWeight: 600, fontSize: '0.85rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px', textAlign: 'left'}}>Trạng thái:</div>
@@ -192,7 +192,7 @@ export default function Day5Page() {
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>NV phụ trách:</div>
-                      <input className="input-field" style={{ padding: '8px' }} placeholder="Tên NV..." value={row.assignee || ''} onChange={e => updateRow(row.id, 'assignee', e.target.value)} />
+                      <input className="input-field" style={{ padding: '12px 16px' }} placeholder="Tên NV..." value={row.assignee || ''} onChange={e => updateRow(row.id, 'assignee', e.target.value)} />
                     </td>
                     <td style={{ padding: '1rem 0.5rem', textAlign: 'center', fontWeight: 600, color: 'var(--warning)' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px', textAlign: 'left'}}>Tác động:</div>
@@ -200,7 +200,7 @@ export default function Day5Page() {
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Ghi chú / Mở rộng:</div>
-                      <input className="input-field" style={{ padding: '8px' }} placeholder="Ghi chú thêm..." value={row.notes || ''} onChange={e => updateRow(row.id, 'notes', e.target.value)} />
+                      <input className="input-field" style={{ padding: '12px 16px' }} placeholder="Ghi chú thêm..." value={row.notes || ''} onChange={e => updateRow(row.id, 'notes', e.target.value)} />
                     </td>
                   </tr>
                 ))}
