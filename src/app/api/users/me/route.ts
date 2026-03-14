@@ -10,17 +10,22 @@ export async function GET(req: Request) {
     const payload = await decrypt(token)
     if (!payload?.userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
+    const url = new URL(req.url)
+    const isBasic = url.searchParams.get('basic') === 'true'
+
     const user = await prisma.user.findUnique({
       where: { id: payload.userId },
-      include: {
-        day1Data: true,
-        day2Data: true,
-        day3Data: true,
-        day4Data: true,
-        day5Data: true,
-        day6Data: true,
-        day7Data: true,
-      }
+      ...(isBasic ? {} : {
+        include: {
+          day1Data: true,
+          day2Data: true,
+          day3Data: true,
+          day4Data: true,
+          day5Data: true,
+          day6Data: true,
+          day7Data: true,
+        }
+      })
     })
 
     if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 })
