@@ -395,7 +395,12 @@ p {
     color: var(--muted);
     font-size: 0.85rem;
     margin-bottom: 6px;
+    margin-top: 12px;
     font-weight: 500;
+  }
+
+  .hide-on-mobile {
+    display: none !important;
   }
 
   .mobile-column-stack {
