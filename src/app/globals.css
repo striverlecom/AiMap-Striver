@@ -404,6 +404,43 @@ p {
   }
 }
 
+/* Report Table */
+.report-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -24px; /* On mobile, negate panel padding to scroll full width */
+  padding: 0 24px;
+}
+.report-table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: separate; /* Required for sticky */
+  border-spacing: 0;
+  text-align: right;
+}
+.report-table th, .report-table td {
+  padding: 1rem;
+  border-bottom: 1px dotted var(--card-border);
+  background: transparent;
+}
+.report-table thead th {
+  border-bottom: 2px solid var(--card-border);
+  position: sticky;
+  top: 0;
+  background: var(--card-bg);
+  z-index: 10;
+}
+/* Sticky First Column */
+.report-table th:first-child, 
+.report-table td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--card-bg); /* Opaque background to hide scrolling content underneath */
+  z-index: 20;
+  text-align: left;
+  border-right: 1px solid var(--card-border);
+}
+
 /* Apple-style Success Animation */
 .success-checkmark {
   width: 80px;
