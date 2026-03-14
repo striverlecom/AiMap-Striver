@@ -10,7 +10,7 @@ export default function DashboardPage() {
   const router = useRouter()
 
   useEffect(() => {
-    fetch('/api/users/me')
+    fetch('/api/users/me?basic=true')
       .then(res => res.json())
       .then(data => {
         if (!data.user) router.push('/login')
@@ -28,7 +28,21 @@ export default function DashboardPage() {
     }
   }, [router])
 
-  if (!user) return <div className="container" style={{paddingTop: '20vh', textAlign: 'center'}}>Đang tải...</div>
+  if (!user) {
+    return (
+      <div className="container" style={{ paddingTop: '10vh', paddingBottom: '10vh' }}>
+        <header style={{ marginBottom: '4rem', textAlign: 'center' }}>
+          <div className="skeleton" style={{ height: '40px', maxWidth: '300px', margin: '0 auto 1rem', borderRadius: '8px' }}></div>
+          <div className="skeleton" style={{ height: '20px', maxWidth: '250px', margin: '0 auto', borderRadius: '4px' }}></div>
+        </header>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+          {Array(8).fill(0).map((_, i) => (
+            <div key={i} className="glass-panel skeleton" style={{ height: '140px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}></div>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
   const days = [
     { title: 'Sự thật', desc: 'Tự chấm điểm doanh nghiệp' },
@@ -112,6 +126,18 @@ export default function DashboardPage() {
           transform: translateY(-5px);
           border-color: var(--muted);
           box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        @keyframes shimmer {
+          0% { background-position: -1000px 0; }
+          100% { background-position: 1000px 0; }
+        }
+        
+        .skeleton {
+          background: #111;
+          background-image: linear-gradient(90deg, rgba(255,255,255,0) 0px, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+          background-size: 1000px 100%;
+          animation: shimmer 2s infinite linear;
         }
       `}</style>
     </div>
