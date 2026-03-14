@@ -136,12 +136,10 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
         </section>
 
         {/* BẢNG GIẢI PHÁP KHUYẾN NGHỊ */}
-        <section className="glass-panel" style={{ padding: 0, overflow: 'hidden' }}>
-          <div style={{ padding: '2rem 2rem 0 2rem' }}>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', color: 'var(--success)' }}>💡 GIẢI PHÁP AI KHUYẾN NGHỊ</h2>
-          </div>
-          <div style={{ overflowX: 'auto', padding: '0 2rem 2rem 2rem', WebkitOverflowScrolling: 'touch' }}>
-            <table className="report-table" style={{ width: '100%', minWidth: '800px', borderCollapse: 'collapse' }}>
+        <section className="glass-panel">
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', color: 'var(--success)' }}>💡 GIẢI PHÁP AI KHUYẾN NGHỊ</h2>
+          <div className="report-wrapper">
+            <table className="report-table">
               <thead>
                 <tr>
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '2px solid var(--card-border)', color: 'var(--muted)' }}>Chỉ số</th>
