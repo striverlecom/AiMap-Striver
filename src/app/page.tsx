@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Bản Đồ 7 Ngày Thay Đổi Doanh Nghiệp Bằng AI | STRIVER.AI.VN',
@@ -52,16 +53,12 @@ export default function Home() {
           aspectRatio: '16/9',
           position: 'relative'
         }}>
-          <video 
-            src="/api/video" 
-            controls 
-            autoPlay 
-            muted 
-            loop 
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          >
-            Trình duyệt của bạn không hỗ trợ thẻ video.
-          </video>
+          <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
+          <Script src="https://fast.wistia.com/embed/5rzow3zfkd.js" strategy="afterInteractive" type="module" />
+          <style dangerouslySetInnerHTML={{__html: `wistia-player[media-id='5rzow3zfkd']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5rzow3zfkd/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }`}} />
+          
+          {/* @ts-ignore */}
+          <wistia-player media-id="5rzow3zfkd" aspect="1.7777777777777777" style={{ width: '100%', height: '100%', display: 'block' }}></wistia-player>
         </div>
 
         {/* 5. AGITATE THE PAIN (Dan Kennedy approach) */}
