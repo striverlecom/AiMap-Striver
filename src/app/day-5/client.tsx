@@ -5,15 +5,16 @@ import { useRouter } from 'next/navigation'
 
 export default function Day5Client({ serverUser }: { serverUser: any }) {
   let loadedSolutions: any[] = []
+  let savedPriorities: any[] = []
   
   if (serverUser?.day5Data?.priorities) {
     try {
       const parsed = JSON.parse(serverUser.day5Data.priorities)
-      if (Array.isArray(parsed) && parsed.length > 0) loadedSolutions = parsed
+      if (Array.isArray(parsed) && parsed.length > 0) savedPriorities = parsed
     } catch(e){}
   }
 
-  if (loadedSolutions.length === 0 && serverUser?.day4Data?.mapData) {
+  if (serverUser?.day4Data?.mapData) {
     try {
       const mapData = JSON.parse(serverUser.day4Data.mapData)
       let idCounter = 1;
@@ -21,16 +22,23 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
         if(mapData[key]) {
           mapData[key].forEach((row: any) => {
             if (row.issues && row.issues.trim() !== '') {
-              loadedSolutions.push({
-                id: idCounter++, problem: row.issues, solution: '',
-                hoursImpact: row.hours || 0, impact: 3, effort: 3,
-                isTop3: false, assignee: '', notes: ''
-              })
+              const existing = savedPriorities.find(s => s.problem === row.issues);
+              if (existing) {
+                loadedSolutions.push({ ...existing, id: idCounter++, hoursImpact: row.hours || existing.hoursImpact || 0 });
+              } else {
+                loadedSolutions.push({
+                  id: idCounter++, problem: row.issues, solution: '',
+                  hoursImpact: row.hours || 0, impact: 3, effort: 3,
+                  isTop3: false, assignee: '', notes: ''
+                })
+              }
             }
           })
         }
       })
     } catch(e){}
+  } else {
+    loadedSolutions = savedPriorities;
   }
 
   const [solutions, setSolutions] = useState<any[]>(loadedSolutions)
