@@ -9,7 +9,7 @@ export default function PaymentPage() {
   const router = useRouter()
 
   useEffect(() => {
-    fetch('/api/users/me')
+    fetch('/api/users/me?basic=true')
       .then(res => res.json())
       .then(data => {
         if (data.user) {
@@ -26,7 +26,7 @@ export default function PaymentPage() {
 
     // Simple polling to check if payment is successful via webhook
     const interval = setInterval(() => {
-      fetch('/api/users/me')
+      fetch('/api/users/me?basic=true')
         .then(res => res.json())
         .then(data => {
           if (data.user?.isPaid) {
