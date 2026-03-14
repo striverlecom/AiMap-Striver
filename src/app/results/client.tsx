@@ -97,8 +97,8 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
   return (
     <div className="container fade-in" style={{ padding: '2rem' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
-        <h1 style={{fontSize: '3rem', letterSpacing: '-0.02em', marginBottom: '0.5rem'}}>BÁO CÁO KIỂM TOÁN AI</h1>
-        <p style={{ color: 'var(--muted)', fontSize: '1.2rem' }}>Kết quả sau 7 ngày phân tích - Dựa trên dữ liệu thật</p>
+        <h1 style={{fontSize: 'clamp(2rem, 5vw, 3rem)', letterSpacing: '-0.02em', marginBottom: '0.5rem'}}>BÁO CÁO KIỂM TOÁN AI</h1>
+        <p style={{ color: 'var(--muted)', fontSize: '1rem' }}>Kết quả sau 7 ngày phân tích - Dựa trên dữ liệu thật</p>
       </header>
 
       <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
@@ -136,11 +136,12 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
         </section>
 
         {/* BẢNG GIẢI PHÁP KHUYẾN NGHỊ */}
-        <section className="glass-panel" style={{ overflowX: 'auto' }}>
+        <section className="glass-panel">
           <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', color: 'var(--success)' }}>💡 GIẢI PHÁP AI KHUYẾN NGHỊ</h2>
-          <table className="responsive-table" style={{ width: '100%', minWidth: '900px', borderCollapse: 'collapse', textAlign: 'right' }}>
-            <thead>
-              <tr style={{ background: 'var(--background)' }}>
+          <div className="report-wrapper">
+            <table className="report-table">
+              <thead>
+                <tr>
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '2px solid var(--card-border)', color: 'var(--muted)' }}>Chỉ số</th>
                 {processedRois.map((r,i) => <th key={i} style={{ padding: '1rem', borderBottom: '2px solid var(--card-border)' }}>{r.name}</th>)}
                 <th style={{ padding: '1rem', borderBottom: '2px solid var(--card-border)', color: 'var(--success)' }}>TỔNG TỰ TÍNH</th>
@@ -198,11 +199,12 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
                 <td style={{ padding: '1rem', fontWeight: 600 }}>{totalValueYear > 0 ? ((totalInvestment / totalValueYear) * 12).toFixed(1) : 0} tháng</td>
               </tr>
             </tbody>
-          </table>
+            </table>
+          </div>
         </section>
 
         {/* KẾT QUẢ CUỐI CÙNG & KHUYẾN NGHỊ */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 1fr) minmax(300px, 1fr)', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
           
           <section className="glass-panel" style={{ border: '1px solid var(--success)' }}>
             <h2 style={{ fontSize: '1.2rem', marginBottom: '1.5rem', color: 'var(--success)' }}>KẾT QUẢ CUỐI CÙNG</h2>
