@@ -35,7 +35,7 @@ export default function NavLinks({ hasSession }: { hasSession: boolean }) {
       <div className={`nav-links ${isOpen ? 'mobile-open' : ''}`}>
         {hasSession ? (
           <>
-            <Link href="/dashboard" prefetch={true} onClick={(e) => handleNav(e as any, '/dashboard')}>Hành trình</Link>
+            <Link href="/dashboard" className="nav-cta" prefetch={true} onClick={(e) => handleNav(e as any, '/dashboard')}>Hành trình</Link>
             {/* Desktop Avatar Menu (Hidden in mobile CSS via display toggles if needed, but for now we keep layout flow) */}
             <div className="desktop-avatar-container">
               <AvatarMenu />

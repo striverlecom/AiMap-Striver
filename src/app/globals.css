@@ -207,14 +207,30 @@ p {
 }
 
 .nav-links a, .nav-links button {
-  font-size: 0.8rem; /* Sleeker links */
+  font-size: 0.85rem; /* Perfect Apple Header Sizing */
+  font-weight: 500;
   color: var(--muted);
   margin-left: 24px;
-  transition: color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .nav-links a:hover, .nav-links button:hover {
   color: var(--foreground);
+}
+
+.nav-links .nav-cta {
+  color: var(--foreground);
+  background: rgba(255,255,255,0.1);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.nav-links .nav-cta:hover {
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+  transform: translateY(-1px);
 }
 
 .mobile-only-link {
@@ -378,6 +394,20 @@ p {
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 16px;
     width: 100%;
+    background: transparent; /* Reset for mobile */
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .nav-links .nav-cta {
+    color: var(--foreground);
+    background: rgba(255,255,255,0.05); /* Very subtle on mobile */
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 8px;
+    text-align: center;
   }
 
   /* Responsive Tables for Mobile */
