@@ -58,9 +58,10 @@ export default function PaymentPage() {
   if (loading) return <div className="container" style={{paddingTop: '20vh', textAlign: 'center'}}>Đang tải...</div>
 
   // Replace with actual bank details if using real Sepay
-  const BANK_ID = 'MB' // Example
-  const ACCOUNT_NO = '0123456789'
-  const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-print.png?amount=50000&addInfo=${user?.paymentRef}&accountName=STRIVER`
+  const BANK_ID = 'TPB'
+  const ACCOUNT_NO = '00005510675'
+  const ACCOUNT_NAME = 'LE QUANG CUONG'
+  const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-print.png?amount=50000&addInfo=${user?.paymentRef}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`
 
   return (
     <div className="container" style={{ display: 'flex', justifyContent: 'center', paddingTop: '10vh', paddingBottom: '10vh' }}>
