@@ -50,6 +50,7 @@ export default function SubNav({ hasSession }: { hasSession: boolean }) {
             <Link 
               key={d.num} 
               href={d.path}
+              prefetch={true}
               style={{
                 padding: '0.4rem 0.8rem',
                 borderRadius: '16px',

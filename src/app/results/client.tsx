@@ -248,7 +248,7 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
         
         <div style={{ textAlign: 'center', marginTop: '3rem', paddingBottom: '2rem' }}>
           <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontStyle: 'italic' }}>Striver Le · "Đừng trả tiền để thử nghiệm. Hãy trả tiền cho kết quả."</p>
-          <Link href="/dashboard" className="btn-secondary" style={{ padding: '0.8rem 2rem', textDecoration: 'none' }}>Quay Lại Bảng Điều Khiển</Link>
+          <Link href="/dashboard" prefetch={true} className="btn-secondary" style={{ padding: '0.8rem 2rem', textDecoration: 'none' }}>Quay Lại Bảng Điều Khiển</Link>
         </div>
 
       </div>
