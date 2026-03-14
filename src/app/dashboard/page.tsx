@@ -53,13 +53,13 @@ export default function DashboardPage() {
 
       <header style={{ marginBottom: '4rem', textAlign: 'center' }}>
         <h1>Hành trình AI của bạn</h1>
-        <p>Bản đồ sẽ được mở khóa dần qua từng trạm.</p>
+        <p>Chọn bất kỳ trạm nào trên bản đồ để cập nhật dữ liệu của doanh nghiệp bạn.</p>
       </header>
       
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
         {days.map((day, idx) => {
           const dayNum = idx + 1
-          const isUnlocked = user.currentDay >= dayNum
+          const isUnlocked = true
           const isCompleted = user.currentDay > dayNum
           
           return (
@@ -86,7 +86,6 @@ export default function DashboardPage() {
                 }}>
                   {isCompleted ? '✓' : dayNum}
                 </div>
-                {!isUnlocked && <span style={{fontSize: '0.8rem', color: 'var(--muted)'}}>🔒 Bị khóa</span>}
               </div>
               <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{day.title}</h3>
               <p style={{ fontSize: '0.9rem' }}>{day.desc}</p>
@@ -95,13 +94,13 @@ export default function DashboardPage() {
         })}
         {/* Result summary card */}
         <Link 
-            href={user.currentDay >= 7 ? "/results" : "#"} 
-            className={`glass-panel fade-in ${user.currentDay >= 7 ? '' : 'locked'}`} 
+            href="/results" 
+            className="glass-panel fade-in" 
             style={{ 
               animationDelay: `0.7s`,
-              opacity: user.currentDay >= 7 ? 1 : 0.5,
-              borderColor: user.currentDay >= 7 ? 'var(--foreground)' : 'rgba(255,255,255,0.05)',
-              cursor: user.currentDay >= 7 ? 'pointer' : 'not-allowed'
+              opacity: 1,
+              borderColor: 'var(--warning)',
+              cursor: 'pointer'
             }}>
             <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem', color: 'var(--foreground)' }}>Kết quả tổng hợp</h3>
             <p style={{ fontSize: '0.9rem' }}>Báo cáo hệ thống AI và đo lường ROI chi tiết.</p>
