@@ -213,7 +213,11 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', fontSize: '0.9rem' }}>
                   <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Số NV</div><div style={{ fontWeight: 500 }}>{r.employees}</div></div>
+                  <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>FTE tiết kiệm</div><div style={{ fontWeight: 500 }}>{r.fteSaved.toFixed(3)}</div></div>
+                  <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Giờ TK/tuần</div><div style={{ fontWeight: 500 }}>{r.hoursSavedWeek.toFixed(1)}h</div></div>
                   <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Giờ TK/tháng</div><div style={{ fontWeight: 500, color: 'var(--success)' }}>{r.hoursSavedMonth.toFixed(1)}h</div></div>
+                  <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Tiết kiệm CP/năm</div><div style={{ fontWeight: 500, color: 'var(--success)' }}>{formatVND(r.savingsYear)}</div></div>
+                  <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>DT thêm/năm</div><div style={{ fontWeight: 500, color: 'var(--success)' }}>{formatVND(r.revenueYear)}</div></div>
                   <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Giá trị/năm</div><div style={{ fontWeight: 600, color: 'var(--success)' }}>{formatVND(r.tvYear)}</div></div>
                   <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Chi phí đầu tư</div><div style={{ fontWeight: 500 }}>{formatVND(r.implementationCost)}</div></div>
                   <div><div style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>% ROI</div><div style={{ fontWeight: 600, color: 'var(--warning)' }}>{r.roi.toFixed(0)}%</div></div>
