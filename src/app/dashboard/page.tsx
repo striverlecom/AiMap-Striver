@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
+  const [showWelcome, setShowWelcome] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -16,6 +17,15 @@ export default function DashboardPage() {
         else if (!data.user.isPaid) router.push('/payment')
         else setUser(data.user)
       })
+
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search)
+      if (urlParams.get('welcome') === '1') {
+        setShowWelcome(true)
+        window.history.replaceState({}, '', '/dashboard')
+        setTimeout(() => setShowWelcome(false), 4000)
+      }
+    }
   }, [router])
 
   if (!user) return <div className="container" style={{paddingTop: '20vh', textAlign: 'center'}}>Đang tải...</div>
@@ -32,6 +42,15 @@ export default function DashboardPage() {
 
   return (
     <div className="container" style={{ paddingTop: '10vh', paddingBottom: '10vh' }}>
+      
+      {showWelcome && (
+        <div className="welcome-overlay">
+          <div className="welcome-text">
+            Bản Đồ Của Bạn Đã Sẵn Sàng.
+          </div>
+        </div>
+      )}
+
       <header style={{ marginBottom: '4rem', textAlign: 'center' }}>
         <h1>Hành trình AI của bạn</h1>
         <p>Bản đồ sẽ được mở khóa dần qua từng trạm.</p>

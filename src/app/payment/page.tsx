@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 export default function PaymentPage() {
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
+  const [isSuccess, setIsSuccess] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -31,8 +32,11 @@ export default function PaymentPage() {
         .then(data => {
           if (data.user?.isPaid) {
             clearInterval(interval)
-            router.push('/dashboard')
-            router.refresh()
+            setIsSuccess(true)
+            setTimeout(() => {
+              router.push('/dashboard?welcome=1')
+              router.refresh()
+            }, 3000)
           }
         })
     }, 5000)
@@ -56,6 +60,19 @@ export default function PaymentPage() {
   }
 
   if (loading) return <div className="container" style={{paddingTop: '20vh', textAlign: 'center'}}>Đang tải...</div>
+
+  if (isSuccess) {
+    return (
+      <div className="container fade-in" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', textAlign: 'center' }}>
+        <svg className="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+          <circle className="success-checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+          <path className="success-checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+        </svg>
+        <h2 style={{ fontSize: '1.5rem', marginBottom: '8px' }}>Thanh toán thành công!</h2>
+        <p style={{ color: 'var(--muted)' }}>Đang chuẩn bị Bản Đồ AI cho doanh nghiệp của bạn...</p>
+      </div>
+    )
+  }
 
   // Replace with actual bank details if using real Sepay
   const BANK_ID = 'TPB'
