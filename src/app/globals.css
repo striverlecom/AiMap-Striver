@@ -590,3 +590,26 @@ p {
   from { opacity: 0; transform: scale(0.95) translateY(10px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
+
+/* Avatar Dropdown Interactive Styles */
+.avatar-dropdown-item, .avatar-dropdown-logout {
+  transition: all 0.2s ease !important;
+}
+
+.avatar-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.avatar-dropdown-item:active {
+  background: rgba(255, 255, 255, 0.15) !important;
+  transform: scale(0.98);
+}
+
+.avatar-dropdown-logout:hover {
+  background: rgba(255, 69, 58, 0.15) !important;
+}
+
+.avatar-dropdown-logout:active {
+  background: rgba(255, 69, 58, 0.25) !important;
+  transform: scale(0.98);
+}
