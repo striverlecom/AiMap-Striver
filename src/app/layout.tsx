@@ -18,7 +18,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "7 Ngày Xây Dựng Bản Đồ AI",
+  title: "Xây Dựng Bản Đồ AI Cho Doanh Nghiệp - STRIVER AI",
   description: "Khám phá bản đồ ứng dụng AI cho doanh nghiệp bạn trong 7 ngày. Phong cách tinh giản từ Apple.",
 };
 
