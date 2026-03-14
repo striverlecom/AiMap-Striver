@@ -233,8 +233,9 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.8rem', fontSize: '0.9rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng NV áp dụng:</span><strong style={{ color: 'var(--foreground)' }}>{totalEmployeesSol}</strong></div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng Giờ TK/tháng:</span><strong style={{ color: 'var(--success)' }}>{totalHoursMonth.toFixed(1)}h</strong></div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng FTE tiết kiệm:</span><strong style={{ color: 'var(--success)' }}>{totalFtes.toFixed(3)}</strong></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng Giờ TK/tuần:</span><strong style={{ color: 'var(--success)' }}>{totalHoursWeek.toFixed(1)}h</strong></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng Giờ TK/tháng:</span><strong style={{ color: 'var(--success)' }}>{totalHoursMonth.toFixed(1)}h</strong></div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng Tiết kiệm CP/năm:</span><strong style={{ color: 'var(--success)' }}>{formatVND(totalSavingsYear)}</strong></div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: 'var(--muted)' }}>Tổng DT thêm/năm:</span><strong style={{ color: 'var(--success)' }}>{formatVND(totalRevenueYear)}</strong></div>
                 <div style={{ width: '100%', height: '1px', background: 'rgba(50, 215, 75, 0.3)', margin: '4px 0' }}></div>
