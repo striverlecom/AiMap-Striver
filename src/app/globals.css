@@ -618,22 +618,31 @@ p {
 /* Avatar Dropdown Interactive Styles */
 .avatar-dropdown-item, .avatar-dropdown-logout {
   transition: all 0.2s ease !important;
+  margin-left: 0 !important; /* Override .nav-links margin */
 }
 
+/* Force higher specificity over .nav-links a:hover */
+.nav-links .avatar-dropdown-item:hover,
 .avatar-dropdown-item:hover {
   background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--foreground) !important;
 }
 
+.nav-links .avatar-dropdown-item:active,
 .avatar-dropdown-item:active {
   background: rgba(255, 255, 255, 0.15) !important;
   transform: scale(0.98);
 }
 
+.nav-links .avatar-dropdown-logout:hover,
 .avatar-dropdown-logout:hover {
   background: rgba(255, 69, 58, 0.15) !important;
+  color: var(--error) !important;
 }
 
+.nav-links .avatar-dropdown-logout:active,
 .avatar-dropdown-logout:active {
   background: rgba(255, 69, 58, 0.25) !important;
   transform: scale(0.98);
 }
+
