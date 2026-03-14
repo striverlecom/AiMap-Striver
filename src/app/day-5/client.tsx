@@ -80,7 +80,7 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
   const top3Solutions = solutions.filter(s => s.isTop3).slice(0, 3)
 
   return (
-    <div className="container" style={{ padding: '2rem' }}>
+    <div className="container" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
         <h1 style={{fontSize: '1.125rem', color: 'var(--muted)', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '0.5rem'}}>Ngày 5: Ưu Tiên</h1>
         <p>Lọc ra 3 "Chiến thắng nhanh" (Quick Win) từ các vấn đề đã tìm thấy ở Ngày 4.</p>
@@ -90,8 +90,8 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
       </header>
 
       <div className="fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div className="glass-panel" style={{ overflowX: 'auto', marginBottom: '3rem', width: '100%' }}>
-          <table className="responsive-table" style={{ width: '100%', minWidth: '900px', borderCollapse: 'collapse', textAlign: 'left' }}>
+        <div className="glass-panel" style={{ marginBottom: '3rem', width: '100%' }}>
+          <table className="responsive-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid var(--card-border)' }}>
                 <th style={{ padding: '1rem', color: 'var(--muted)', width: '25%' }}>Vấn đề (Từ N4)</th>
@@ -135,8 +135,25 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
                       <div style={{ padding: '8px 0' }}>{cat.label}</div>
                     </td>
                     <td style={{ padding: '1rem 0.5rem', textAlign: 'center' }}>
-                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px', textAlign: 'left'}}>Chọn vào Top 3?</div>
-                      <input type="checkbox" style={{ transform: 'scale(1.5)', cursor: row.isTop3 || top3Count < 3 ? 'pointer' : 'not-allowed', margin: '8px 0' }} checked={row.isTop3} onChange={e => updateRow(row.id, 'isTop3', e.target.checked)} disabled={!row.isTop3 && top3Count >= 3} />
+                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '8px', textAlign: 'left'}}>Hành động:</div>
+                      <button 
+                        onClick={() => updateRow(row.id, 'isTop3', !row.isTop3)}
+                        disabled={!row.isTop3 && top3Count >= 3}
+                        style={{
+                          width: '100%',
+                          minHeight: '44px',
+                          borderRadius: '12px',
+                          border: row.isTop3 ? '1px solid var(--success)' : '1px solid var(--card-border)',
+                          background: row.isTop3 ? 'rgba(50, 215, 75, 0.1)' : 'transparent',
+                          color: row.isTop3 ? 'var(--success)' : 'var(--muted)',
+                          fontWeight: 600,
+                          fontSize: '0.9rem',
+                          cursor: !row.isTop3 && top3Count >= 3 ? 'not-allowed' : 'pointer',
+                          transition: 'all 0.2s'
+                        }}
+                      >
+                        {row.isTop3 ? '✅ Đã đưa vào Top 3' : (top3Count >= 3 ? 'Đã khoá (Đủ 3)' : '+ Chọn vào Top 3')}
+                      </button>
                     </td>
                   </tr>
                 )
@@ -147,9 +164,9 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
 
         {/* TOP 3 SUMMARY TABLE */}
         {top3Solutions.length > 0 && (
-          <div className="glass-panel" style={{ overflowX: 'auto', marginBottom: '3rem', border: '1px solid var(--success)', width: '100%' }}>
+          <div className="glass-panel" style={{ marginBottom: '3rem', border: '1px solid var(--success)', width: '100%' }}>
             <h2 style={{borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', margin: '0 0 1.5rem 0', color: 'var(--success)'}}>🏆 Top 3 Quick Win (Tóm tắt chuyển sang Ngày 6)</h2>
-            <table className="responsive-table" style={{ width: '100%', minWidth: '800px', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <table className="responsive-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ background: 'var(--background)' }}>
                   <th style={{ padding: '1rem', color: 'var(--muted)', width: '80px', textAlign: 'center' }}>Ưu tiên</th>
