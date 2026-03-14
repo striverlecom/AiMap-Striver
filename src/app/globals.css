@@ -391,7 +391,7 @@ p {
   }
 
   .nav-links a, .nav-links button {
-    font-size: 1.5rem; /* Large links for mobile */
+    font-size: 1.15rem; /* Large links for mobile */
     margin-left: 0 !important;
     text-align: left;
     color: var(--foreground) !important;
