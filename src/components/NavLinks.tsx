@@ -35,7 +35,14 @@ export default function NavLinks({ hasSession }: { hasSession: boolean }) {
       <div className={`nav-links ${isOpen ? 'mobile-open' : ''}`}>
         {hasSession ? (
           <>
-            <Link href="/dashboard" className="nav-cta" prefetch={true} onClick={(e) => handleNav(e as any, '/dashboard')}>Hành trình</Link>
+            <Link href="/dashboard" className="nav-cta" prefetch={true} onClick={(e) => handleNav(e as any, '/dashboard')} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.8 }}>
+                <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" />
+                <line x1="9" x2="9" y1="3" y2="18" />
+                <line x1="15" x2="15" y1="6" y2="21" />
+              </svg>
+              HÀNH TRÌNH AI
+            </Link>
             {/* Desktop Avatar Menu (Hidden in mobile CSS via display toggles if needed, but for now we keep layout flow) */}
             <div className="desktop-avatar-container">
               <AvatarMenu />
