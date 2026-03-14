@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  password   String
+  isPaid     Boolean  @default(false)
+  currentDay Int      @default(1)
+  paymentRef String?  @unique
+  createdAt  DateTime @default(now())
+  
+  day1Data   Day1Data?
+  day2Data   Day2Data?
+  day3Data   Day3Data?
+  day4Data   Day4Data?
+  day5Data   Day5Data?
+  day6Data   Day6Data?
+  day7Data   Day7Data?
+}
+
+model Day1Data {
+  id           String @id @default(cuid())
+  userId       String @unique
+  user         User   @relation(fields: [userId], references: [id])
+  q1           Int
+  q2           Int
+  q3           Int
+  q4           Int
+  q5           Int
+  q6           Int
+  q7           Int
+  totalScore   Int
+  evidenceData String @default("{}")
+  top3Problems String @default("[]")
+  notes        String @default("")
+}
+
+model Day2Data {
+  id            String @id @default(cuid())
+  userId        String @unique
+  user          User   @relation(fields: [userId], references: [id])
+  revenue       Float  @default(0)
+  targetRevenue Float  @default(0)
+  salaryCost    Float  @default(0)
+  customerCount Int    @default(0)
+  churnRate     Float  @default(0)
+  avgOrderTime  Float  @default(0)
+  salaryData    String @default("[]") 
+  challenges    String @default("{}")
+  parameters    String @default("{}")
+}
+
+model Day3Data {
+  id         String @id @default(cuid())
+  userId     String @unique
+  user       User   @relation(fields: [userId], references: [id])
+  interviewData String @default("{}") // Lưu JSON toàn bộ câu hỏi và phát hiện quan trọng
+}
+
+model Day4Data {
+  id         String @id @default(cuid())
+  userId     String @unique
+  user       User   @relation(fields: [userId], references: [id])
+  mapData    String @default("{}")
+}
+
+model Day5Data {
+  id         String @id @default(cuid())
+  userId     String @unique
+  user       User   @relation(fields: [userId], references: [id])
+  priorities String @default("[]")
+}
+
+model Day6Data {
+  id         String @id @default(cuid())
+  userId     String @unique
+  user       User   @relation(fields: [userId], references: [id])
+  roiData    String @default("{}")
+}
+
+model Day7Data {
+  id         String @id @default(cuid())
+  userId     String @unique
+  user       User   @relation(fields: [userId], references: [id])
+  roadmap    String @default("[]")
+}
