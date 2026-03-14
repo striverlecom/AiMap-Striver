@@ -118,7 +118,7 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
   const formatVND = (num: number) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(num || 0)
 
   return (
-    <div className="container" style={{ padding: '2rem' }}>
+    <div className="container" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
         <h1 style={{fontSize: '1.125rem', color: 'var(--muted)', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '0.5rem'}}>Ngày 7: Kế Hoạch & Lộ Trình</h1>
         <p>Lên khung hành động cụ thể để biến 6 ngày thu thập thành kết quả.</p>
@@ -143,8 +143,8 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
         {/* LỘ TRÌNH TRIỂN KHAI */}
         <div style={{ marginBottom: '4rem' }}>
           <h2 style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '0.8rem' }}>Lộ Trình Triển Khai</h2>
-          <div className="report-wrapper">
-            <table className="report-table" style={{ width: '100%', minWidth: '800px', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div className="glass-panel" style={{ width: '100%', padding: 0, overflow: 'hidden' }}>
+            <table className="responsive-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ background: 'var(--card-bg)' }}>
                   <th style={{ padding: '1rem', textAlign: 'left' }}>Giai đoạn</th>
@@ -158,18 +158,23 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
                 {roadmap.phases.map((p, i) => (
                   <tr key={p.id} style={{ borderBottom: '1px solid var(--card-border)' }}>
                     <td style={{ padding: '1rem 0.5rem', fontWeight: 600, color: i===0?'var(--success)': i===1?'var(--warning)': 'var(--foreground)', verticalAlign: 'top', paddingTop: '1.5rem' }}>
+                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Giai đoạn:</div>
                       {p.period}
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
+                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Làm gì:</div>
                       <input className="input-field" style={{ padding: '12px 16px' }} value={p.task} onChange={e => updatePhase(p.id, 'task', e.target.value)} />
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
+                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Tiết kiệm dự kiến:</div>
                       <input className="input-field" style={{ padding: '12px 16px' }} value={p.savings} onChange={e => updatePhase(p.id, 'savings', e.target.value)} />
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
+                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Ai chịu trách nhiệm:</div>
                       <input className="input-field" style={{ padding: '12px 16px' }} value={p.owner} onChange={e => updatePhase(p.id, 'owner', e.target.value)} />
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
+                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Trạng thái:</div>
                       <select className="input-field" style={{ padding: '12px 16px', WebkitAppearance: 'none' }} value={p.status} onChange={e => updatePhase(p.id, 'status', e.target.value)}>
                         <option value="Chưa">Chưa BĐ</option>
                         <option value="Đang làm">Đang làm</option>
@@ -184,12 +189,12 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
         </div>
 
         {/* 3 HÀNH ĐỘNG TUẦN ĐẦU */}
-        <div style={{ background: 'var(--card-bg)', padding: '2rem', borderRadius: 'var(--radius-lg)' }}>
-          <h2 style={{ marginBottom: '1rem', color: 'var(--warning)' }}>3 Hành Động Cụ Thể Tuần Đầu Tiên</h2>
-          <p style={{ color: 'var(--muted)', marginBottom: '2rem', fontSize: '0.9rem' }}>LƯU Ý: KHÔNG được ghi "nghiên cứu thêm". Phải CỤ THỂ: hành động + deadline rõ ràng.</p>
-          
-          <div className="report-wrapper">
-            <table className="report-table" style={{ width: '100%', minWidth: '800px', borderCollapse: 'collapse', textAlign: 'left' }}>
+        <div className="glass-panel" style={{ width: '100%', padding: '2rem 0 0 0', overflow: 'hidden' }}>
+          <div style={{ padding: '0 2rem' }}>
+            <h2 style={{ marginBottom: '1rem', color: 'var(--warning)' }}>3 Hành Động Cụ Thể Tuần Đầu Tiên</h2>
+            <p style={{ color: 'var(--muted)', marginBottom: '2rem', fontSize: '0.9rem' }}>LƯU Ý: KHÔNG được ghi "nghiên cứu thêm". Phải CỤ THỂ: hành động + deadline rõ ràng.</p>
+          </div>
+          <table className="responsive-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '1px dotted var(--card-border)' }}>
                   <th style={{ padding: '1rem', textAlign: 'left', color: 'var(--muted)' }}>Hành động cụ thể</th>
@@ -199,22 +204,24 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
               </thead>
               <tbody>
                 {roadmap.week1Actions.map(a => (
-                  <tr key={a.id}>
+                  <tr key={a.id} style={{ borderBottom: '1px solid var(--card-border)' }}>
                     <td style={{ padding: '1rem 0.5rem' }}>
-                    <input className="input-field" style={{ padding: '12px 16px' }} value={a.action} onChange={e => updateAction(a.id, 'action', e.target.value)} />
-                  </td>
+                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Hành động cụ thể:</div>
+                      <input className="input-field" style={{ padding: '12px 16px' }} value={a.action} onChange={e => updateAction(a.id, 'action', e.target.value)} />
+                    </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
-                    <input className="input-field" style={{ padding: '12px 16px' }} value={a.deadline} onChange={e => updateAction(a.id, 'deadline', e.target.value)} />
-                  </td>
+                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Deadline:</div>
+                      <input className="input-field" style={{ padding: '12px 16px' }} value={a.deadline} onChange={e => updateAction(a.id, 'deadline', e.target.value)} />
+                    </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
-                    <input className="input-field" style={{ padding: '12px 16px' }} value={a.expected} onChange={e => updateAction(a.id, 'expected', e.target.value)} />
-                  </td>
-                </tr>
-              ))}
+                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Kết quả mong đợi:</div>
+                      <input className="input-field" style={{ padding: '12px 16px' }} value={a.expected} onChange={e => updateAction(a.id, 'expected', e.target.value)} />
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
-        </div>
         
         <div style={{ textAlign: 'center', marginTop: '4rem' }}>
           <button className="btn-primary" onClick={handleSave} disabled={loading} style={{ width: '100%', maxWidth: '300px', padding: '1rem', fontSize: '1.1rem' }}>
