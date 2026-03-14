@@ -62,6 +62,16 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
     } catch(e){}
   }
 
+  let globalParams = { hoursPerMonth: 160, weeksPerYear: 52 }
+  if (u?.day2Data?.parameters) {
+    try {
+      const p = JSON.parse(u.day2Data.parameters)
+      if (p.hoursPerMonth || p.weeksPerYear) {
+        globalParams = { hoursPerMonth: p.hoursPerMonth || 160, weeksPerYear: p.weeksPerYear || 52 }
+      }
+    } catch(e){}
+  }
+
   let totalVal = 0
   if (u?.day6Data?.roiData) {
     try {
@@ -69,8 +79,8 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
       if (Array.isArray(parsed)) {
         parsed.forEach((sol:any) => {
           const hw = sol.employees * sol.hoursPerWeek * (sol.aiReplacementPct/100)
-          const wg = sol.avgSalaryMonth / 160
-          totalVal += (hw * wg * 52) + (sol.extraRevenuePerHour * hw * 52)
+          const wg = sol.avgSalaryMonth / globalParams.hoursPerMonth
+          totalVal += (hw * wg * globalParams.weeksPerYear) + (sol.extraRevenuePerHour * hw * globalParams.weeksPerYear)
         })
       }
     } catch(e){}
@@ -95,7 +105,10 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
       const res = await fetch('/api/days/7', {
         method: 'POST', body: JSON.stringify({ roadmap: JSON.stringify(roadmap) })
       })
-      if (res.ok) router.push('/results') // go strictly to Results Compilation 
+      if (res.ok) {
+        router.refresh();
+        router.push('/results'); // bypass client cache
+      }
     } finally {
       setLoading(false)
     }
