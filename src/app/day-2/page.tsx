@@ -131,33 +131,33 @@ export default function Day2Page() {
         {/* PART A */}
         <div className="glass-panel">
           <h2 style={{borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', marginBottom: '1.5rem', color: 'var(--success)'}}>A. CHỈ SỐ KINH DOANH CHÍNH</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Doanh thu 12 tháng qua (VND)</label>
-              <input type="number" className="input-field" value={data.revenue} onChange={e => setData({...data, revenue: parseFloat(e.target.value)||0})} />
+              <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.revenue} onChange={e => setData({...data, revenue: parseFloat(e.target.value)||0})} />
               <div style={{ fontSize: '0.8rem', color: 'var(--success)', marginTop: '4px' }}>{formatVND(data.revenue)}</div>
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Mục tiêu DT 12 tháng tới (VND)</label>
-              <input type="number" className="input-field" value={data.targetRevenue} onChange={e => setData({...data, targetRevenue: parseFloat(e.target.value)||0})} />
+              <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.targetRevenue} onChange={e => setData({...data, targetRevenue: parseFloat(e.target.value)||0})} />
               <div style={{ fontSize: '0.8rem', color: 'var(--success)', marginTop: '4px' }}>{formatVND(data.targetRevenue)}</div>
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Chi phí nhân sự / tháng (VND)</label>
-              <input type="number" className="input-field" value={data.salaryCost} onChange={e => setData({...data, salaryCost: parseFloat(e.target.value)||0})} />
+              <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.salaryCost} onChange={e => setData({...data, salaryCost: parseFloat(e.target.value)||0})} />
               <div style={{ fontSize: '0.8rem', color: 'var(--success)', marginTop: '4px' }}>{formatVND(data.salaryCost)}</div>
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Số khách hàng hiện tại</label>
-              <input type="number" className="input-field" value={data.customerCount} onChange={e => setData({...data, customerCount: parseInt(e.target.value)||0})} />
+              <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.customerCount} onChange={e => setData({...data, customerCount: parseInt(e.target.value)||0})} />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Tỷ lệ giữ chân KH (%)</label>
-              <input type="number" className="input-field" value={data.churnRate} onChange={e => setData({...data, churnRate: parseFloat(e.target.value)||0})} />
+              <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.churnRate} onChange={e => setData({...data, churnRate: parseFloat(e.target.value)||0})} />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Thời gian xử lý đơn hàng TB (Giờ)</label>
-              <input type="number" className="input-field" value={data.avgOrderTime} onChange={e => setData({...data, avgOrderTime: parseFloat(e.target.value)||0})} />
+              <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.avgOrderTime} onChange={e => setData({...data, avgOrderTime: parseFloat(e.target.value)||0})} />
             </div>
           </div>
         </div>
@@ -221,19 +221,19 @@ export default function Day2Page() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Thách thức lớn nhất đang gặp:</label>
-              <textarea className="input-field" rows={2} value={challenges.biggestChallenge} onChange={e => setChallenges({...challenges, biggestChallenge: e.target.value})} />
+              <textarea className="input-field" style={{ padding: '12px 16px' }} rows={2} value={challenges.biggestChallenge} onChange={e => setChallenges({...challenges, biggestChallenge: e.target.value})} />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Quy trình nào tốn thời gian nhất:</label>
-              <textarea className="input-field" rows={2} value={challenges.timeConsumingProcess} onChange={e => setChallenges({...challenges, timeConsumingProcess: e.target.value})} />
+              <textarea className="input-field" style={{ padding: '12px 16px' }} rows={2} value={challenges.timeConsumingProcess} onChange={e => setChallenges({...challenges, timeConsumingProcess: e.target.value})} />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Khách hàng phàn nàn gì nhiều nhất:</label>
-              <textarea className="input-field" rows={2} value={challenges.customerComplaints} onChange={e => setChallenges({...challenges, customerComplaints: e.target.value})} />
+              <textarea className="input-field" style={{ padding: '12px 16px' }} rows={2} value={challenges.customerComplaints} onChange={e => setChallenges({...challenges, customerComplaints: e.target.value})} />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Nếu có AI, sẽ sửa gì đầu tiên và việc nào sẽ ước AI làm thay:</label>
-              <textarea className="input-field" rows={2} value={challenges.aiWishlist} onChange={e => setChallenges({...challenges, aiWishlist: e.target.value})} />
+              <textarea className="input-field" style={{ padding: '12px 16px' }} rows={2} value={challenges.aiWishlist} onChange={e => setChallenges({...challenges, aiWishlist: e.target.value})} />
             </div>
           </div>
         </div>
@@ -244,32 +244,32 @@ export default function Day2Page() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Tên công ty</label>
-              <input type="text" className="input-field" value={parameters.companyName} onChange={e => setParameters({...parameters, companyName: e.target.value})} />
+              <input type="text" className="input-field" style={{ padding: '12px 16px' }} value={parameters.companyName} onChange={e => setParameters({...parameters, companyName: e.target.value})} />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Người thực hiện</label>
-              <input type="text" className="input-field" value={parameters.authorName} onChange={e => setParameters({...parameters, authorName: e.target.value})} />
+              <input type="text" className="input-field" style={{ padding: '12px 16px' }} value={parameters.authorName} onChange={e => setParameters({...parameters, authorName: e.target.value})} />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Ngày lập báo cáo</label>
-              <input type="date" className="input-field" value={parameters.startDate} onChange={e => setParameters({...parameters, startDate: e.target.value})} />
+              <input type="date" className="input-field" style={{ padding: '12px 16px', minHeight: '48px' }} value={parameters.startDate} onChange={e => setParameters({...parameters, startDate: e.target.value})} />
             </div>
           </div>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', paddingTop: '1.5rem', borderTop: '1px dotted var(--card-border)' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Số giờ làm việc / tháng</label>
-              <input type="number" className="input-field" value={parameters.hoursPerMonth} onChange={e => setParameters({...parameters, hoursPerMonth: parseFloat(e.target.value)||0})} />
+              <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={parameters.hoursPerMonth} onChange={e => setParameters({...parameters, hoursPerMonth: parseFloat(e.target.value)||0})} />
               <div style={{ fontSize: '0.8rem', color: 'var(--muted)', marginTop: '4px' }}>Chuẩn: 160 (20 ngày x 8h)</div>
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Số tuần làm việc / năm</label>
-              <input type="number" className="input-field" value={parameters.weeksPerYear} onChange={e => setParameters({...parameters, weeksPerYear: parseFloat(e.target.value)||0})} />
+              <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={parameters.weeksPerYear} onChange={e => setParameters({...parameters, weeksPerYear: parseFloat(e.target.value)||0})} />
               <div style={{ fontSize: '0.8rem', color: 'var(--muted)', marginTop: '4px' }}>Chuẩn: 52</div>
             </div>
             <div>
-              <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>% thời gian tiết kiệm tái phân bổ cho DT</label>
-              <input type="number" className="input-field" value={parameters.reinvestPct} onChange={e => setParameters({...parameters, reinvestPct: parseFloat(e.target.value)||0})} />
+              <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>% tái phân bổ cho DT</label>
+              <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={parameters.reinvestPct} onChange={e => setParameters({...parameters, reinvestPct: parseFloat(e.target.value)||0})} />
               <div style={{ fontSize: '0.8rem', color: 'var(--muted)', marginTop: '4px' }}>Thận trọng: 50%</div>
             </div>
           </div>
