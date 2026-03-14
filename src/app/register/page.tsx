@@ -46,7 +46,7 @@ export default function RegisterPage() {
   return (
     <div className="container" style={{ display: 'flex', justifyContent: 'center', paddingTop: '15vh' }}>
       <div className="glass-panel fade-in" style={{ width: '100%', maxWidth: '400px' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Tạo hành trình</h2>
+        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Kích Hoạt Hành Trình</h2>
         <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div>
             <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', color: 'var(--muted)' }}>Email công ty</label>
@@ -58,7 +58,7 @@ export default function RegisterPage() {
           </div>
           {error && <p style={{ color: 'var(--error)', fontSize: '0.9rem' }}>{error}</p>}
           <button type="submit" className="btn-primary" disabled={loading} style={{ marginTop: '1rem' }}>
-            {loading ? 'Đang xử lý...' : 'Đăng ký'}
+            {loading ? 'Đang xử lý...' : 'KÍCH HOẠT NGAY'}
           </button>
         </form>
         <p style={{ textAlign: 'center', marginTop: '2rem', fontSize: '0.9rem' }}>
