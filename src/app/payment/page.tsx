@@ -123,10 +123,7 @@ export default function PaymentPage() {
           Đang đợi thanh toán từ hệ thống...
         </div>
 
-        {/* Temporary DEV button */}
-        <button onClick={bypassPayment} style={{ marginTop: '2rem', color: 'var(--muted)', fontSize: '0.8rem', textDecoration: 'underline' }}>
-          (Dev Only: Simulate Payment)
-        </button>
+
 
         <style>{`
           @keyframes spin { 100% { transform: rotate(360deg); } }
