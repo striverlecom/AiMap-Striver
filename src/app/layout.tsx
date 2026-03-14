@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 
 import NavLinks from '@/components/NavLinks';
 import SubNav from '@/components/SubNav';
+import ScrollToTop from '@/components/ScrollToTop';
 
 export default async function RootLayout({
   children,
@@ -36,6 +37,7 @@ export default async function RootLayout({
   return (
     <html lang="vi" className="dark" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased`} suppressHydrationWarning>
+        <ScrollToTop />
         <header className="nav-header">
           <nav className="nav-container">
             <Link href="/" className="nav-logo">
