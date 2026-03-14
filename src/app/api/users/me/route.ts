@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 import { decrypt } from '@/lib/auth'
 
+export const dynamic = 'force-dynamic'
+
+
 export async function GET(req: Request) {
   try {
     const token = req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
@@ -32,7 +35,13 @@ export async function GET(req: Request) {
 
     // Hide password before returning
     const { password, ...safeUser } = user
-    return NextResponse.json({ user: safeUser })
+    return NextResponse.json({ user: safeUser }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      }
+    })
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }

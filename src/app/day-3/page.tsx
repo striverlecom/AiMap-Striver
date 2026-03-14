@@ -147,7 +147,7 @@ export default function Day3Page() {
           {/* ACTIVE BLD FORM */}
           {bldInterviews.map(bld => bld.id === activeBld && (
             <div key={bld.id} className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '2rem', background: 'var(--background)', padding: '2rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                 <div>
                   <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--muted)' }}>Họ tên Lãnh đạo</label>
                   <input className="input-field" placeholder="VD: Nguyễn Văn A" value={bld.name} onChange={e => updateBld(bld.id, 'name', e.target.value)} />
@@ -241,7 +241,7 @@ export default function Day3Page() {
           {/* ACTIVE NV FORM */}
           {nvInterviews.map(nv => nv.id === activeNv && (
             <div key={nv.id} className="fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '2rem', background: 'var(--background)', padding: '2rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--card-border)' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
                 <div>
                   <label style={{ display: 'block', marginBottom: '4px', fontSize: '0.85rem', color: 'var(--muted)' }}>Họ tên Nhân viên</label>
                   <input className="input-field" placeholder="VD: Trần Thị B" value={nv.name} onChange={e => updateNv(nv.id, 'name', e.target.value)} />

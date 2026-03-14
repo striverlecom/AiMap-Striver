@@ -180,15 +180,15 @@ export default function Day2Page() {
                 <tr key={row.id} style={{ borderBottom: '1px solid var(--card-border)' }}>
                   <td style={{ padding: '0.5rem' }}>
                     <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Bộ phận:</div>
-                    <input className="input-field" style={{ padding: '8px' }} value={row.department} onChange={e => updateSalary(row.id, 'department', e.target.value)} />
+                    <input className="input-field" style={{ padding: '12px 16px' }} value={row.department} onChange={e => updateSalary(row.id, 'department', e.target.value)} />
                   </td>
                   <td style={{ padding: '0.5rem' }}>
                     <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Lương TB/tháng (VND):</div>
-                    <input type="number" className="input-field" style={{ padding: '8px' }} value={row.salary} onChange={e => updateSalary(row.id, 'salary', parseFloat(e.target.value)||0)} />
+                    <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={row.salary} onChange={e => updateSalary(row.id, 'salary', parseFloat(e.target.value)||0)} />
                   </td>
                   <td style={{ padding: '0.5rem' }}>
                     <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Số lượng Nhân viên:</div>
-                    <input type="number" className="input-field" style={{ padding: '8px' }} value={row.count} onChange={e => updateSalary(row.id, 'count', parseInt(e.target.value)||0)} />
+                    <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={row.count} onChange={e => updateSalary(row.id, 'count', parseInt(e.target.value)||0)} />
                   </td>
                   <td style={{ padding: '0.5rem', textAlign: 'right', fontWeight: 600, color: 'var(--warning)' }}>
                     <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px', textAlign: 'left'}}>Tổng CP/tháng:</div>

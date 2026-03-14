@@ -161,11 +161,11 @@ export default function Day7Page() {
             <table className="responsive-table" style={{ width: '100%', minWidth: '800px', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ background: 'var(--card-bg)' }}>
-                  <th style={{ padding: '1rem', width: '220px' }}>Giai đoạn</th>
+                  <th style={{ padding: '1rem' }}>Giai đoạn</th>
                   <th style={{ padding: '1rem' }}>Làm gì</th>
-                  <th style={{ padding: '1rem', width: '150px' }}>Tiết kiệm dự kiến</th>
-                  <th style={{ padding: '1rem', width: '150px' }}>Ai chịu trách nhiệm</th>
-                  <th style={{ padding: '1rem', width: '120px' }}>Trạng thái</th>
+                  <th style={{ padding: '1rem' }}>Tiết kiệm dự kiến</th>
+                  <th style={{ padding: '1rem' }}>Ai chịu trách nhiệm</th>
+                  <th style={{ padding: '1rem' }}>Trạng thái</th>
                 </tr>
               </thead>
               <tbody>
@@ -177,19 +177,19 @@ export default function Day7Page() {
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Làm gì:</div>
-                      <input className="input-field" style={{ padding: '8px' }} value={p.task} onChange={e => updatePhase(p.id, 'task', e.target.value)} />
+                      <input className="input-field" style={{ padding: '12px 16px' }} value={p.task} onChange={e => updatePhase(p.id, 'task', e.target.value)} />
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Tiết kiệm dự kiến:</div>
-                      <input className="input-field" style={{ padding: '8px' }} value={p.savings} onChange={e => updatePhase(p.id, 'savings', e.target.value)} />
+                      <input className="input-field" style={{ padding: '12px 16px' }} value={p.savings} onChange={e => updatePhase(p.id, 'savings', e.target.value)} />
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Ai chịu trách nhiệm:</div>
-                      <input className="input-field" style={{ padding: '8px' }} value={p.owner} onChange={e => updatePhase(p.id, 'owner', e.target.value)} />
+                      <input className="input-field" style={{ padding: '12px 16px' }} value={p.owner} onChange={e => updatePhase(p.id, 'owner', e.target.value)} />
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Trạng thái:</div>
-                      <select className="input-field" style={{ padding: '8px', WebkitAppearance: 'none' }} value={p.status} onChange={e => updatePhase(p.id, 'status', e.target.value)}>
+                      <select className="input-field" style={{ padding: '12px 16px', WebkitAppearance: 'none' }} value={p.status} onChange={e => updatePhase(p.id, 'status', e.target.value)}>
                         <option value="Chưa">Chưa BĐ</option>
                         <option value="Đang làm">Đang làm</option>
                         <option value="Xong">Hoàn thành</option>
@@ -220,15 +220,15 @@ export default function Day7Page() {
                 <tr key={a.id}>
                   <td style={{ padding: '0.5rem' }}>
                     <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Hành động cụ thể:</div>
-                    <input className="input-field" value={a.action} onChange={e => updateAction(a.id, 'action', e.target.value)} />
+                    <input className="input-field" style={{ padding: '12px 16px' }} value={a.action} onChange={e => updateAction(a.id, 'action', e.target.value)} />
                   </td>
                   <td style={{ padding: '0.5rem' }}>
                     <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Deadline:</div>
-                    <input className="input-field" value={a.deadline} onChange={e => updateAction(a.id, 'deadline', e.target.value)} />
+                    <input className="input-field" style={{ padding: '12px 16px' }} value={a.deadline} onChange={e => updateAction(a.id, 'deadline', e.target.value)} />
                   </td>
                   <td style={{ padding: '0.5rem' }}>
                     <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Kết quả mong đợi:</div>
-                    <input className="input-field" value={a.expected} onChange={e => updateAction(a.id, 'expected', e.target.value)} />
+                    <input className="input-field" style={{ padding: '12px 16px' }} value={a.expected} onChange={e => updateAction(a.id, 'expected', e.target.value)} />
                   </td>
                 </tr>
               ))}
