@@ -75,33 +75,29 @@ export default function AvatarMenu() {
           <Link 
             href="/profile" 
             onClick={() => setIsOpen(false)}
+            className="avatar-dropdown-item"
             style={{
               padding: '10px 16px',
               borderRadius: '8px',
               fontSize: '0.9rem',
               color: 'var(--foreground)',
-              transition: 'background 0.2s',
               display: 'block'
             }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
           >
             Hồ sơ cá nhân
           </Link>
           <div style={{ height: '1px', background: 'var(--card-border)', margin: '4px 0' }} />
           <button 
             onClick={handleLogout}
+            className="avatar-dropdown-logout"
             style={{
               padding: '10px 16px',
               borderRadius: '8px',
               fontSize: '0.9rem',
               color: 'var(--error)',
               textAlign: 'left',
-              transition: 'background 0.2s',
               width: '100%'
             }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,69,58,0.1)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
           >
             Đăng xuất
           </button>
