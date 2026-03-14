@@ -74,7 +74,7 @@ export default function Day2Client({ serverUser }: { serverUser: any }) {
       const res = await fetch('/api/days/2', {
         method: 'POST', body: JSON.stringify(payload)
       })
-      if (res.ok) router.push('/day-3')
+      if (res.ok) { router.refresh(); router.push('/day-3'); }
     } finally {
       setLoading(false)
     }

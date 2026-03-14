@@ -40,7 +40,7 @@ export default function Day3Client({ serverUser }: { serverUser: any }) {
       const res = await fetch('/api/days/3', {
         method: 'POST', body: JSON.stringify({ interviewData: JSON.stringify(payload) })
       })
-      if (res.ok) router.push('/day-4')
+      if (res.ok) { router.refresh(); router.push('/day-4'); }
     } finally {
       setLoading(false)
     }
