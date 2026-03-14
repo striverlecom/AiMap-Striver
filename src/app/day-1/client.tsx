@@ -77,7 +77,7 @@ export default function Day1Client({ serverUser }: { serverUser: any }) {
   return (
     <div className="container" style={{ padding: '2rem' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
-        <h1 style={{fontSize: '2.5rem'}}>Ngày 1: Sự Thật</h1>
+        <h1 style={{fontSize: '1.125rem', color: 'var(--muted)', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '0.5rem'}}>Ngày 1: Sự Thật</h1>
         <p>Mục tiêu: Biết chính xác doanh nghiệp đang ở đâu. Không đoán - chỉ sự thật.</p>
       </header>
 

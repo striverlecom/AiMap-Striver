@@ -91,7 +91,7 @@ export default function Day3Client({ serverUser }: { serverUser: any }) {
   return (
     <div className="container" style={{ padding: '2rem' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
-        <h1 style={{fontSize: '2.5rem'}}>Ngày 3: Phỏng Vấn (Sếp vs Nhân Viên)</h1>
+        <h1 style={{fontSize: '1.125rem', color: 'var(--muted)', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '0.5rem'}}>Ngày 3: Phỏng Vấn (Sếp vs Nhân Viên)</h1>
         <p>Thu thập thông tin từ bên trong. Lắng nghe 80%, nói 20%. Không đưa giải pháp vội.</p>
       </header>
 

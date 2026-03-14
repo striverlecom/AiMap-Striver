@@ -84,7 +84,7 @@ export default function Day4Client({ serverUser }: { serverUser: any }) {
   return (
     <div className="container" style={{ padding: '2rem' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
-        <h1 style={{fontSize: '2.5rem'}}>Ngày 4: Sơ Đồ</h1>
+        <h1 style={{fontSize: '1.125rem', color: 'var(--muted)', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '0.5rem'}}>Ngày 4: Sơ Đồ</h1>
         <p>Vẽ bản đồ vận hành (3 Động cơ). Mỗi bước đánh dấu một vấn đề rủi ro/lãng phí.</p>
       </header>
 

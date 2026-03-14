@@ -82,7 +82,7 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
   return (
     <div className="container" style={{ padding: '2rem' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
-        <h1 style={{fontSize: '2.5rem'}}>Ngày 5: Ưu Tiên</h1>
+        <h1 style={{fontSize: '1.125rem', color: 'var(--muted)', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '0.5rem'}}>Ngày 5: Ưu Tiên</h1>
         <p>Lọc ra 3 "Chiến thắng nhanh" (Quick Win) từ các vấn đề đã tìm thấy ở Ngày 4.</p>
         <div style={{ marginTop: '1rem', color: top3Count === 3 ? 'var(--success)' : 'var(--warning)' }}>
           Đã chọn TOP 3: {top3Count}/3

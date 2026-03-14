@@ -100,7 +100,7 @@ export default function Day2Client({ serverUser }: { serverUser: any }) {
   return (
     <div className="container" style={{ padding: '2rem' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
-        <h1 style={{fontSize: '2.5rem'}}>Ngày 2: Dữ Liệu</h1>
+        <h1 style={{fontSize: '1.125rem', color: 'var(--muted)', fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '0.5rem'}}>Ngày 2: Dữ Liệu</h1>
         <p>Thu thập số liệu thật. Biến cảm giác thành con số.</p>
       </header>
 
