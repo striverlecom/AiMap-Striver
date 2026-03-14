@@ -48,7 +48,7 @@ export default function PaymentPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           transferType: 'in',
-          transferAmount: 500000,
+          transferAmount: 50000,
           content: user.paymentRef
         })
       })
@@ -60,13 +60,13 @@ export default function PaymentPage() {
   // Replace with actual bank details if using real Sepay
   const BANK_ID = 'MB' // Example
   const ACCOUNT_NO = '0123456789'
-  const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-print.png?amount=500000&addInfo=${user?.paymentRef}&accountName=STRIVER`
+  const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-print.png?amount=50000&addInfo=${user?.paymentRef}&accountName=STRIVER`
 
   return (
     <div className="container" style={{ display: 'flex', justifyContent: 'center', paddingTop: '10vh', paddingBottom: '10vh' }}>
       <div className="glass-panel fade-in" style={{ width: '100%', maxWidth: '500px', textAlign: 'center' }}>
         <h2 style={{ marginBottom: '1rem' }}>Sẵn sàng đột phá?</h2>
-        <p style={{ marginBottom: '2rem' }}>Thanh toán <strong>500,000đ</strong> để mở khóa hành trình Xây Dựng Bản Đồ AI.</p>
+        <p style={{ marginBottom: '2rem' }}>Thanh toán <strong>50,000đ</strong> để mở khóa hành trình Xây Dựng Bản Đồ AI.</p>
         
         <div style={{ background: '#fff', padding: '1rem', borderRadius: 'var(--radius-lg)', display: 'inline-block', marginBottom: '2rem' }}>
           {user?.paymentRef ? (
