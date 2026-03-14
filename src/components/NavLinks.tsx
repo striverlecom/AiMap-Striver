@@ -46,7 +46,6 @@ export default function NavLinks({ hasSession }: { hasSession: boolean }) {
               className="mobile-only-link"
               onClick={handleLogout}
               style={{
-                fontSize: '1.5rem', 
                 color: 'var(--error)',
                 textAlign: 'left'
               }}>
