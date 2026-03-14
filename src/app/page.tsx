@@ -197,7 +197,7 @@ export default function Home() {
           }}>
             <h3 style={{ fontSize: '1.6rem', marginBottom: '16px', color: '#fff' }}>🛡️ Cam Kết "Tấm Khiên Thép": Hoàn Tiền 100% Không Cần Lý Do</h3>
             <p style={{ color: 'var(--muted)', marginBottom: '0' }}>
-              Trò chơi này KHÔNG CÓ RỦI RO về phía bạn. Nếu bạn hoàn thành 7 ngày tự kiểm toán nhưng cảm thấy bản đồ này vô dụng và không đem lại giá trị nào để cấu trúc lại AI... <strong>Hãy gửi email cho tôi trong vòng 7 ngày kể từ khi thanh toán</strong>. Tôi sẽ chuyển khoản hoàn trả 100% số tiền 50,000 VNĐ cho bạn. Không hỏi thêm một lời nào. Tiền của bạn — hoặc nó sinh ra tiền cho doanh nghiệp của bạn, hoặc nó quay về ví của bạn.
+              Trò chơi này KHÔNG CÓ RỦI RO về phía bạn. Nếu bạn hoàn thành 7 ngày tự kiểm toán nhưng cảm thấy bản đồ này vô dụng và không đem lại giá trị nào để cấu trúc lại AI... <strong>Hãy gửi email cho tôi trong vòng 7 ngày kể từ khi thanh toán</strong>. Tôi sẽ chuyển khoản hoàn trả 100% số tiền 50,000 VNĐ cho bạn. Không hỏi thêm một lời nào. Tiền của bạn — hoặc nó sinh ra tiền cho doanh nghiệp của bạn, hoặc nó quay về ví của bạn. 
             </p>
           </div>
 
