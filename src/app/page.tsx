@@ -12,7 +12,7 @@ export default function Home() {
     <div style={{ background: 'var(--background)', color: 'var(--foreground)', minHeight: '100vh', paddingBottom: '100px' }}>
       
       {/* 1. PRE-HEAD / CALL-OUT */}
-      <div style={{ backgroundColor: '#111', color: '#fff', textAlign: 'center', padding: '12px 20px', fontSize: '0.9rem', fontWeight: 500 }}>
+      <div style={{ backgroundColor: '#111', color: '#fff', textAlign: 'center', padding: '16px 24px', fontSize: '0.9rem', fontWeight: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '54px' }}>
         ⚠️ DÀNH RIÊNG CHO CHỦ DOANH NGHIỆP: Nếu bạn đang bối rối không biết bắt đầu AI từ đâu...
       </div>
 

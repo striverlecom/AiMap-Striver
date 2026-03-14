@@ -47,7 +47,7 @@ export default async function RootLayout({
           </nav>
         </header>
         <SubNav hasSession={hasSession} />
-        <main style={{ paddingTop: '5vh', paddingBottom: '10vh', minHeight: 'calc(100vh - 80px)' }}>
+        <main style={{ paddingTop: 'calc(48px + 16px)', paddingBottom: '10vh', minHeight: 'calc(100vh - 80px)' }}>
           {children}
         </main>
       </body>
