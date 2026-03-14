@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import AvatarMenu from './AvatarMenu'
 
 export default function NavLinks({ hasSession }: { hasSession: boolean }) {
   const router = useRouter()
@@ -35,12 +36,18 @@ export default function NavLinks({ hasSession }: { hasSession: boolean }) {
         {hasSession ? (
           <>
             <Link href="/dashboard" prefetch={true} onClick={(e) => handleNav(e as any, '/dashboard')}>Hành trình</Link>
+            {/* Desktop Avatar Menu (Hidden in mobile CSS via display toggles if needed, but for now we keep layout flow) */}
+            <div className="desktop-avatar-container">
+              <AvatarMenu />
+            </div>
+            {/* Mobile raw links (Only visible inside hamburger) */}
+            <Link href="/profile" className="mobile-only-link" onClick={() => setIsOpen(false)}>Hồ sơ cá nhân</Link>
             <button 
+              className="mobile-only-link"
               onClick={handleLogout}
               style={{
-                marginLeft: '24px', 
-                fontSize: '0.875rem', 
-                color: 'var(--muted)',
+                fontSize: '1.5rem', 
+                color: 'var(--error)',
                 textAlign: 'left'
               }}>
               Đăng xuất

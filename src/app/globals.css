@@ -206,15 +206,19 @@ p {
   letter-spacing: -0.01em;
 }
 
-.nav-links a {
+.nav-links a, .nav-links button {
   font-size: 0.8rem; /* Sleeker links */
   color: var(--muted);
   margin-left: 24px;
   transition: color 0.2s;
 }
 
-.nav-links a:hover {
+.nav-links a:hover, .nav-links button:hover {
   color: var(--foreground);
+}
+
+.mobile-only-link {
+  display: none; /* Hidden by default on desktop */
 }
 
 /* Mobile Responsive Navigation (Apple Style) */
@@ -284,6 +288,14 @@ p {
   /* Hamburger Menu Toggle */
   .mobile-menu-btn {
     display: block;
+  }
+
+  .desktop-avatar-container {
+    display: none !important;
+  }
+  
+  .mobile-only-link {
+    display: block !important;
   }
 
   /* Break Responsive Tables into Cards on Mobile */
