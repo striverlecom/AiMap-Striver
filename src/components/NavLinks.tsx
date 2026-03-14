@@ -2,12 +2,12 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-
 import { useState } from 'react'
 
 export default function NavLinks({ hasSession }: { hasSession: boolean }) {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
   
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' })
@@ -16,7 +16,12 @@ export default function NavLinks({ hasSession }: { hasSession: boolean }) {
     router.refresh()
   }
 
-  const closeMenu = () => setIsOpen(false)
+  const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault()
+    setIsOpen(false)
+    setLoading(true) // Start loading animation visually if needed
+    router.push(path)
+  }
 
   return (
     <>
@@ -31,7 +36,7 @@ export default function NavLinks({ hasSession }: { hasSession: boolean }) {
       <div className={`nav-links ${isOpen ? 'mobile-open' : ''}`}>
         {hasSession ? (
           <>
-            <Link href="/dashboard" onClick={closeMenu}>Hành trình</Link>
+            <a href="/dashboard" onClick={(e) => handleNav(e, '/dashboard')}>Hành trình</a>
             <button 
               onClick={handleLogout}
               style={{
@@ -45,8 +50,8 @@ export default function NavLinks({ hasSession }: { hasSession: boolean }) {
           </>
         ) : (
           <>
-            <Link href="/login" onClick={closeMenu}>Đăng nhập</Link>
-            <Link href="/register" onClick={closeMenu} style={{color: 'var(--foreground)'}}>Bắt đầu</Link>
+            <a href="/login" onClick={(e) => handleNav(e, '/login')}>Đăng nhập</a>
+            <a href="/register" onClick={(e) => handleNav(e, '/register')} style={{color: 'var(--foreground)'}}>Bắt đầu</a>
           </>
         )}
       </div>
