@@ -58,7 +58,7 @@ export default function AvatarMenu() {
           style={{
             position: 'absolute',
             top: '44px',
-            right: 0,
+            right: '-10px',
             width: '200px',
             background: 'var(--card-bg)',
             border: '1px solid var(--card-border)',
