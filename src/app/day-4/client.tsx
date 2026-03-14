@@ -35,7 +35,7 @@ export default function Day4Client({ serverUser }: { serverUser: any }) {
       const res = await fetch('/api/days/4', {
         method: 'POST', body: JSON.stringify({ mapData: JSON.stringify(engines) })
       })
-      if (res.ok) router.push('/day-5')
+      if (res.ok) { router.refresh(); router.push('/day-5'); }
     } finally {
       setLoading(false)
     }

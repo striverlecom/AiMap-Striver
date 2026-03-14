@@ -46,7 +46,7 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
       const res = await fetch('/api/days/5', {
         method: 'POST', body: JSON.stringify({ priorities: JSON.stringify(solutions) })
       })
-      if (res.ok) router.push('/day-6')
+      if (res.ok) { router.refresh(); router.push('/day-6'); }
     } finally {
       setLoading(false)
     }

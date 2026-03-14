@@ -68,7 +68,7 @@ export default function Day6Client({ serverUser }: { serverUser: any }) {
       const res = await fetch('/api/days/6', {
         method: 'POST', body: JSON.stringify({ roiData: JSON.stringify(solutions) })
       })
-      if (res.ok) router.push('/day-7')
+      if (res.ok) { router.refresh(); router.push('/day-7'); }
     } finally {
       setLoading(false)
     }
