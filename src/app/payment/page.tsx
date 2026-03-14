@@ -74,33 +74,48 @@ export default function PaymentPage() {
     )
   }
 
-  // Replace with actual bank details if using real Sepay
+  // Use compact2 template for a modern vertical card layout from VietQR
   const BANK_ID = 'TPB'
   const ACCOUNT_NO = '00005510675'
   const ACCOUNT_NAME = 'LE QUANG CUONG'
-  const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-print.png?amount=50000&addInfo=${user?.paymentRef}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`
+  const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact2.png?amount=50000&addInfo=${user?.paymentRef}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`
 
   return (
     <div className="container" style={{ display: 'flex', justifyContent: 'center', paddingTop: '10vh', paddingBottom: '10vh' }}>
       <div className="glass-panel fade-in" style={{ width: '100%', maxWidth: '500px', textAlign: 'center' }}>
         <h2 style={{ marginBottom: '1rem' }}>Sẵn sàng đột phá?</h2>
-        <p style={{ marginBottom: '2rem' }}>Thanh toán <strong>50,000đ</strong> để mở khóa hành trình Xây Dựng Bản Đồ AI.</p>
+        <p style={{ marginBottom: '2rem', color: 'var(--muted)' }}>Quét mã thanh toán <strong>50,000đ</strong> để mở khóa bản đồ 7 Ngày.</p>
         
-        <div style={{ background: '#fff', padding: '1rem', borderRadius: 'var(--radius-lg)', display: 'inline-block', marginBottom: '2rem' }}>
+        {/* Modern Apple-style Floating QR Card */}
+        <div style={{ 
+          background: '#ffffff', 
+          padding: '8px', 
+          borderRadius: '24px', 
+          display: 'inline-block', 
+          marginBottom: '2rem', 
+          boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+          overflow: 'hidden'
+        }}>
           {user?.paymentRef ? (
-            <img src={qrUrl} alt="Thanh toan QR Code" style={{ width: '250px', height: '250px' }} />
+            <img src={qrUrl} alt="Thanh toán QR Code" style={{ width: '100%', maxWidth: '280px', height: 'auto', display: 'block', borderRadius: '16px' }} />
           ) : (
-            <div style={{ width: '250px', height: '250px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000' }}>
+            <div style={{ width: '280px', height: '350px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', background: '#f5f5f7', borderRadius: '16px' }}>
               Không thể tạo mã QR
             </div>
           )}
         </div>
         
-        <div style={{ background: 'var(--card-bg)', padding: '1rem', borderRadius: 'var(--radius-md)', marginBottom: '2rem', textAlign: 'left', fontSize: '0.9rem' }}>
-          <p style={{marginBottom: '8px'}}>Hoặc chuyển khoản thủ công:</p>
-          <p>Ngân hàng: <strong>{BANK_ID}</strong></p>
-          <p>Số tài khoản: <strong>{ACCOUNT_NO}</strong></p>
-          <p>Nội dung: <strong>{user?.paymentRef}</strong></p>
+        {/* Subtle Frosted Manual Transfer Info */}
+        <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', padding: '1.25rem', borderRadius: '16px', marginBottom: '2rem', textAlign: 'left', fontSize: '0.9rem' }}>
+          <p style={{marginBottom: '12px', fontSize: '0.85rem', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em'}}>Hoặc chuyển khoản thủ công:</p>
+          <div style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: '8px', alignItems: 'center' }}>
+            <span style={{ color: 'var(--muted)' }}>Ngân hàng:</span>
+            <strong style={{ fontSize: '1rem' }}>{BANK_ID}</strong>
+            <span style={{ color: 'var(--muted)' }}>Số tài khoản:</span>
+            <strong style={{ fontSize: '1rem', letterSpacing: '1px' }}>{ACCOUNT_NO}</strong>
+            <span style={{ color: 'var(--muted)' }}>Nội dung:</span>
+            <strong style={{ fontSize: '1.1rem', color: 'var(--success)' }}>{user?.paymentRef}</strong>
+          </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', color: 'var(--muted)', fontSize: '0.9rem' }}>
