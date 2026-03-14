@@ -206,6 +206,11 @@ p {
   letter-spacing: -0.01em;
 }
 
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
 .nav-links a, .nav-links button {
   font-size: 0.85rem; /* Perfect Apple Header Sizing */
   font-weight: 500;
@@ -397,17 +402,24 @@ p {
     background: transparent; /* Reset for mobile */
     border-radius: 0;
     box-shadow: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-bottom: 0;
   }
 
+  /* Reset CTA entirely on mobile so it matches harmonious text-list */
   .nav-links .nav-cta {
-    color: var(--foreground);
-    background: rgba(255,255,255,0.05); /* Very subtle on mobile */
-    padding: 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 8px;
-    text-align: center;
+    background: transparent !important;
+    padding: 0 !important;
+    padding-bottom: 16px !important;
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    margin-bottom: 0 !important;
+    text-align: left !important;
+    box-shadow: none !important;
+    transform: none !important;
   }
 
   /* Responsive Tables for Mobile */
