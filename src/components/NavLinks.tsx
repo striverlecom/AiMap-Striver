@@ -17,10 +17,8 @@ export default function NavLinks({ hasSession }: { hasSession: boolean }) {
   }
 
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    e.preventDefault()
     setIsOpen(false)
-    setLoading(true) // Start loading animation visually if needed
-    router.push(path)
+    setLoading(true)
   }
 
   return (
@@ -36,7 +34,7 @@ export default function NavLinks({ hasSession }: { hasSession: boolean }) {
       <div className={`nav-links ${isOpen ? 'mobile-open' : ''}`}>
         {hasSession ? (
           <>
-            <a href="/dashboard" onClick={(e) => handleNav(e, '/dashboard')}>Hành trình</a>
+            <Link href="/dashboard" prefetch={true} onClick={(e) => handleNav(e as any, '/dashboard')}>Hành trình</Link>
             <button 
               onClick={handleLogout}
               style={{
@@ -50,8 +48,8 @@ export default function NavLinks({ hasSession }: { hasSession: boolean }) {
           </>
         ) : (
           <>
-            <a href="/login" onClick={(e) => handleNav(e, '/login')}>Đăng nhập</a>
-            <a href="/register" onClick={(e) => handleNav(e, '/register')} style={{color: 'var(--foreground)'}}>Bắt đầu</a>
+            <Link href="/login" prefetch={true} onClick={(e) => handleNav(e as any, '/login')}>Đăng nhập</Link>
+            <Link href="/register" prefetch={true} onClick={(e) => handleNav(e as any, '/register')} style={{color: 'var(--foreground)'}}>Bắt đầu</Link>
           </>
         )}
       </div>

@@ -56,6 +56,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
             <Link 
               key={idx}
               href={isUnlocked ? `/day-${dayNum}` : '#'} 
+              prefetch={isUnlocked ? true : false}
               className={`glass-panel fade-in ${isUnlocked ? '' : 'locked'}`} 
               onClick={() => { if (isUnlocked) setIsLoading(true) }}
               style={{ 
@@ -86,6 +87,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
         {/* Result summary card */}
         <Link 
             href="/results" 
+            prefetch={true}
             className="glass-panel fade-in"
             onClick={() => setIsLoading(true)}
             style={{ 
