@@ -481,39 +481,7 @@ export default function Home() {
 
           </div>
 
-          {/* 9. GUARANTEE SECTION */}
-          <div style={{
-            background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(10,10,12,0.8) 100%)',
-            border: '1px solid rgba(255,255,255,0.15)',
-            borderTop: '1px solid rgba(255,255,255,0.25)',
-            borderRadius: '24px',
-            padding: '48px',
-            position: 'relative',
-            overflow: 'hidden',
-            backdropFilter: 'blur(20px)',
-            boxShadow: '0 24px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2)',
-            marginBottom: '80px',
-            textAlign: 'center'
-          }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #fff, #86868b)' }} />
-            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top, rgba(255,255,255,0.05), transparent 70%)', pointerEvents: 'none' }} />
 
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🛡️</div>
-              <h3 style={{ fontSize: '2rem', marginBottom: '16px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
-                Bảo Chứng Hoàn Tiền 100% Trong 7 Ngày
-              </h3>
-              <p style={{ color: '#a1a1a6', fontSize: '1.15rem', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto 24px' }}>
-                Tôi không bán hy vọng. Tôi bán <strong>Kết Quả</strong>.
-                <br /><br />
-                Nếu sau khi điền đầy đủ dữ liệu trong 7 Ngày Thực Hành mà bạn thấy Bản Đồ này không chỉ ra đúng vấn đề, không chỉ ra cách tiết kiệm được ít nhất GẤP ĐÔI số tiền bạn bỏ ra mua nó...
-                Hãy gửi email cho tôi. Tôi sẽ hoàn trả 100% chi phí không hỏi thêm nửa lời.
-              </p>
-              <p style={{ color: '#fff', margin: 0, fontWeight: 600, fontSize: '1.2rem' }}>
-                Rủi ro của bạn bằng 0. Hoặc bạn tiết kiệm được tiền tỷ, hoặc bạn được trả lại tiền.
-              </p>
-            </div>
-          </div>
 
           {/* 10. FAQs */}
           <h3 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '40px', fontWeight: 800, color: '#fff' }}>
@@ -562,8 +530,43 @@ export default function Home() {
               Truy Cập Bản Đồ Ngay Lập Tức
             </Link>
             <p style={{ fontSize: '0.9rem', color: '#86868b', marginTop: '24px' }}>
-              🔒 Sau khi hoàn tất thanh toán sẽ được kích hoạt tự động. .
+              🔒 Sau khi hoàn tất thanh toán sẽ được kích hoạt tự động.
             </p>
+          </div>
+
+          {/* GUARANTEE SECTION (MOVED TO BOTTOM) */}
+          <div style={{
+            background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(10,10,12,0.8) 100%)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            borderTop: '1px solid rgba(255,255,255,0.25)',
+            borderRadius: '24px',
+            padding: '48px',
+            position: 'relative',
+            overflow: 'hidden',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 24px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2)',
+            marginTop: '80px',
+            marginBottom: '40px',
+            textAlign: 'center'
+          }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #fff, #86868b)' }} />
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top, rgba(255,255,255,0.05), transparent 70%)', pointerEvents: 'none' }} />
+
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🛡️</div>
+              <h3 style={{ fontSize: '2rem', marginBottom: '16px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
+                Bảo Chứng Hoàn Tiền 100% Trong 7 Ngày
+              </h3>
+              <p style={{ color: '#a1a1a6', fontSize: '1.15rem', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto 24px' }}>
+                Tôi không bán hy vọng. Tôi bán <strong>Kết Quả</strong>.
+                <br /><br />
+                Nếu sau khi điền đầy đủ dữ liệu trong 7 Ngày Thực Hành mà bạn thấy Bản Đồ này không chỉ ra đúng vấn đề, không chỉ ra cách tiết kiệm được ít nhất GẤP ĐÔI số tiền bạn bỏ ra mua nó...
+                Hãy gửi email cho tôi. Tôi sẽ hoàn trả 100% chi phí không hỏi thêm nửa lời.
+              </p>
+              <p style={{ color: '#fff', margin: 0, fontWeight: 600, fontSize: '1.2rem' }}>
+                Rủi ro của bạn bằng 0. Hoặc bạn tiết kiệm được tiền tỷ, hoặc bạn được trả lại tiền.
+              </p>
+            </div>
           </div>
 
         </div>
