@@ -10,32 +10,32 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div style={{ background: 'var(--background)', color: 'var(--foreground)', minHeight: '100vh', paddingBottom: '100px', marginTop: '-16px' }}>
-      
+
       {/* 1. PRE-HEAD / CALL-OUT */}
       <div style={{ backgroundColor: '#111', color: '#fff', textAlign: 'center', padding: '16px 24px', fontSize: '0.9rem', fontWeight: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '54px' }}>
-        ⚠️ DÀNH RIÊNG CHO CHỦ DOANH NGHIỆP: Nếu bạn đang bối rối không biết bắt đầu AI từ đâu...
+        ⚠️ DÀNH RIÊNG CHO CHỦ DOANH NGHIỆP ĐANG BỐI RỐI KHÔNG BIẾT BẮT ĐẦU AI TỪ ĐÂU......
       </div>
 
       <div className="container" style={{ maxWidth: '850px', margin: '0 auto', padding: '60px 20px' }}>
-        
+
         {/* 2. MAIN HEADLINE */}
-        <h1 className="home-h1" style={{ 
-          fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
-          lineHeight: 1.1, 
-          letterSpacing: '-0.04em', 
+        <h1 className="home-h1" style={{
+          fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+          lineHeight: 1.1,
+          letterSpacing: '-0.04em',
           textAlign: 'center',
           marginBottom: '24px',
           fontWeight: 800
         }}>
           95% Doanh Nghiệp Thất Bại Vì Nhảy Vào Mua Cố "Tool AI" Mà Không Biết Mình Cần Gì.
         </h1>
-        
+
         {/* 3. SUBHEADLINE */}
-        <h2 className="home-h2" style={{ 
-          fontSize: '1.4rem', 
-          lineHeight: 1.5, 
-          fontWeight: 400, 
-          color: 'var(--muted)', 
+        <h2 className="home-h2" style={{
+          fontSize: '1.4rem',
+          lineHeight: 1.5,
+          fontWeight: 400,
+          color: 'var(--muted)',
           textAlign: 'center',
           marginBottom: '50px'
         }}>
@@ -43,10 +43,10 @@ export default function Home() {
         </h2>
 
         {/* 4. VIDEO SALES LETTER (VSL) in Apple-style Glass Frame */}
-        <div style={{ 
-          margin: '0 auto 60px', 
-          borderRadius: '24px', 
-          overflow: 'hidden', 
+        <div style={{
+          margin: '0 auto 60px',
+          borderRadius: '24px',
+          overflow: 'hidden',
           boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
           border: '1px solid rgba(255,255,255,0.1)',
           background: '#000',
@@ -55,8 +55,8 @@ export default function Home() {
         }}>
           <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
           <Script src="https://fast.wistia.com/embed/5rzow3zfkd.js" strategy="afterInteractive" type="module" />
-          <style dangerouslySetInnerHTML={{__html: `wistia-player[media-id='5rzow3zfkd']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5rzow3zfkd/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }`}} />
-          
+          <style dangerouslySetInnerHTML={{ __html: `wistia-player[media-id='5rzow3zfkd']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5rzow3zfkd/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }` }} />
+
           {/* @ts-ignore */}
           <wistia-player media-id="5rzow3zfkd" aspect="1.7777777777777777" style={{ width: '100%', height: '100%', display: 'block' }}></wistia-player>
         </div>
@@ -64,16 +64,16 @@ export default function Home() {
         {/* 5. AGITATE THE PAIN (Dan Kennedy approach) */}
         <div style={{ fontSize: '1.15rem', lineHeight: 1.7, color: 'var(--foreground)' }}>
           <p style={{ marginBottom: '24px' }}><strong>Từ: Striver Le</strong></p>
-          
+
           <p style={{ marginBottom: '24px' }}>Gửi Chủ Doanh Nghiệp,</p>
-          
+
           <p style={{ marginBottom: '24px' }}>
             Bạn nghe mọi người ra rả về AI. Rằng nó làm thay đổi thế giới. Rằng ai không dùng AI sẽ bị đào thải. Và bạn bắt đầu lo sợ.
           </p>
 
           <p style={{ marginBottom: '24px' }}>
-            Bạn rút ví ra, mua gói ChatGPT Plus. Bạn đăng ký vài ba cái tài khoản tạo ảnh, viết bài cho nhân viên. Bạn mong chờ một cú hích kỳ diệu. 
-            <strong>Nhưng... vài tuần sau, chẳng có gì thay đổi cả.</strong> 
+            Bạn rút ví ra, mua gói ChatGPT Plus. Bạn đăng ký vài ba cái tài khoản tạo ảnh, viết bài cho nhân viên. Bạn mong chờ một cú hích kỳ diệu.
+            <strong>Nhưng... vài tuần sau, chẳng có gì thay đổi cả.</strong>
           </p>
 
           <p style={{ marginBottom: '40px', fontSize: '1.4rem', fontWeight: 600, color: '#fff' }}>
@@ -89,17 +89,17 @@ export default function Home() {
           </p>
 
           {/* 6. THE SOLUTION / OFFER DETAILS */}
-          <div style={{ 
-            background: 'var(--card-bg)', 
-            border: '1px solid var(--card-border)', 
-            padding: '40px', 
+          <div style={{
+            background: 'var(--card-bg)',
+            border: '1px solid var(--card-border)',
+            padding: '40px',
             borderRadius: '24px',
             marginBottom: '60px'
           }}>
             <h3 style={{ fontSize: '2.2rem', marginBottom: '24px', letterSpacing: '-0.03em', textAlign: 'center' }}>
               Bản Đồ 7 Ngày: Hành Động Và Kết Quả Cụ Thể
             </h3>
-            
+
             <p style={{ marginBottom: '32px', color: 'var(--muted)', textAlign: 'center' }}>
               Chỉ mất 30-45 phút mỗi ngày. Trung thực 100%. Đây là những gì bạn sẽ trải qua:
             </p>
@@ -153,12 +153,12 @@ export default function Home() {
           <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '30px', fontWeight: 700 }}>
             Sau Đúng 7 Ngày Kỷ Luật, Bạn Cầm Trên Tay Thứ Gì?
           </h3>
-          <ul style={{ 
-            listStyle: 'none', 
-            padding: 0, 
-            margin: '0 0 60px 0', 
-            display: 'flex', 
-            flexDirection: 'column', 
+          <ul style={{
+            listStyle: 'none',
+            padding: 0,
+            margin: '0 0 60px 0',
+            display: 'flex',
+            flexDirection: 'column',
             gap: '16px',
             fontSize: '1.1rem'
           }}>
@@ -184,17 +184,17 @@ export default function Home() {
           </div>
 
           {/* 9. THE RISK-FREE GUARANTEE */}
-          <div style={{ 
-            background: 'linear-gradient(135deg, rgba(50,215,75,0.1) 0%, rgba(0,0,0,0) 100%)', 
-            border: '1px solid #32d74b', 
-            padding: '40px', 
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(50,215,75,0.1) 0%, rgba(0,0,0,0) 100%)',
+            border: '1px solid #32d74b',
+            padding: '40px',
             borderRadius: '24px',
             marginBottom: '60px',
             textAlign: 'center'
           }}>
             <h3 style={{ fontSize: '1.6rem', marginBottom: '16px', color: '#fff' }}>🛡️ Cam Kết "Tấm Khiên Thép": Hoàn Tiền 100% Không Cần Lý Do</h3>
             <p style={{ color: 'var(--muted)', marginBottom: '0' }}>
-              Trò chơi này KHÔNG CÓ RỦI RO về phía bạn. Nếu bạn hoàn thành 7 ngày tự kiểm toán nhưng cảm thấy bản đồ này vô dụng và không đem lại giá trị nào để cấu trúc lại AI... <strong>Hãy gửi email cho tôi trong vòng 7 ngày kể từ khi thanh toán</strong>. Tôi sẽ chuyển khoản hoàn trả 100% số tiền 50,000 VNĐ cho bạn. Không hỏi thêm một lời nào. Tiền của bạn — hoặc nó sinh ra tiền cho doanh nghiệp của bạn, hoặc nó quay về ví của bạn. 
+              Trò chơi này KHÔNG CÓ RỦI RO về phía bạn. Nếu bạn hoàn thành 7 ngày tự kiểm toán nhưng cảm thấy bản đồ này vô dụng và không đem lại giá trị nào để cấu trúc lại AI... <strong>Hãy gửi email cho tôi trong vòng 7 ngày kể từ khi thanh toán</strong>. Tôi sẽ chuyển khoản hoàn trả 100% số tiền 50,000 VNĐ cho bạn. Không hỏi thêm một lời nào. Tiền của bạn — hoặc nó sinh ra tiền cho doanh nghiệp của bạn, hoặc nó quay về ví của bạn.
             </p>
           </div>
 
@@ -232,15 +232,15 @@ export default function Home() {
           </p>
 
           <div style={{ textAlign: 'center' }}>
-            <Link 
-              href="/register" 
+            <Link
+              href="/register"
               className="cta-btn"
             >
               VÀO MỞ KHÓA BẢN ĐỒ AI NGAY LẬP TỨC (50,000đ)
             </Link>
             <p style={{ fontSize: '0.9rem', color: 'var(--muted)', marginTop: '20px' }}>🔒 Thanh toán tự động qua QR Code Sepay. Kích hoạt tài khoản ngay trong 3 giây.</p>
           </div>
-          
+
         </div>
 
       </div>
