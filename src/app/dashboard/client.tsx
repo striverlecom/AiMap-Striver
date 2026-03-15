@@ -132,9 +132,12 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
               onClick={() => setIsLoading(true)}
               onMouseMove={handleMouseMove}
             >
+              <div className="glass-reflection"></div>
               <h2 className="final-title">Báo Cáo Tổng Thể</h2>
-              <p className="final-desc">Kiệt tác chiến lược dành riêng cho bạn sau hành trình 7 ngày.</p>
-              <span className="btn-luxury">Xem Kết Quả Trực Quan</span>
+              <p className="final-desc">Kiệt tác chiến lược độc bản kiến tạo tương lai khác biệt, dành riêng cho bạn sau hành trình 7 ngày.</p>
+              <div className="btn-wrapper">
+                <span className="btn-luxury pulse-gold">Xem Kết Quả Trực Quan</span>
+              </div>
           </Link>
         </div>
       </section>
