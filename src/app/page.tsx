@@ -53,7 +53,7 @@ export default function Home() {
           marginBottom: '50px'
         }}>
           <strong>7 ngày hành động thật • Dữ liệu thật • Kết quả thật</strong><br />
-          Không phải lý thuyết. Không phải xu hướng. Đừng trả tiền cho thử nghiệm AI nữa, hãy trả tiền cho kết quả. "Thời đại này không cần quá nhiều thông tin hay công cụ, chỉ cần MỘT CHỈ DẪN HÀNH ĐỘNG cụ thể rõ ràng"
+          Đừng trả tiền cho thử nghiệm AI, hãy trả tiền cho kết quả. Thời đại này không cần nhiều thông tin hay công cụ, CHỈ CẦN MỘT CHỈ DẪN HÀNH ĐỘNG RÕ RÀNG ĐƯỢC XÂY DỰNG TỪ GỐC RỄ CỦA DOANH NGHIỆP.
         </h2>
 
         {/* 4. VIDEO SALES LETTER (VSL) in Apple-style Glass Frame */}
@@ -116,7 +116,7 @@ export default function Home() {
 
           <p style={{ marginBottom: '24px' }}>
             Hàng vạn công cụ AI sẽ được tạo ra và sẽ có rất nhiều xác chết Tool AI sẽ trôi vào bờ. Đừng chạy theo công cụ AI nữa, bạn sẽ quá tải và bị kiệt sức<br />
-            HÃY HIỂU RÕ BẢN CHẤT VÀ QUAY VỀ LẠI GỐC RỄ. BẠN CẦN MỘT BÀI TOÁN ĐÚNG RÕ RÀNG THÔNG QUA MỘT BẢN ĐỒ HÀNH ĐỘNG
+            HÃY HIỂU RÕ BẢN CHẤT VÀ QUAY VỀ LẠI GỐC RỄ. <strong>CHỈ CẦN MỘT CHỈ DẪN HÀNH ĐỘNG RÕ RÀNG ĐƯỢC XÂY DỰNG TỪ GỐC RỄ CỦA DOANH NGHIỆP</strong>
           </p>
 
           <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', marginBottom: '40px' }}>
@@ -439,7 +439,7 @@ export default function Home() {
                 <div style={{ position: 'relative', zIndex: 1 }}>
                   <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 700 }}>NGÀY 7 : Bản Đồ Hành Động AI & Báo Cáo Phân Tích</h4>
                   <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Biết rõ 3 hành động cụ thể cho tuần tới, tháng tới. Chuyển đổi mọi thông tin thành Lộ trình triển khai.</p>
-                  <p style={{ color: '#fff', margin: 0, fontWeight: 600 }}><strong>Kết quả:</strong> Hoàn tất toàn bộ hành trình. Hệ thống tự động xuất Báo Cáo Tổng Thể — Hành động chiến lược dành riêng cho CEO.</p>
+                  <p style={{ color: '#fff', margin: 0, fontWeight: 600 }}><strong>Kết quả:</strong> Hoàn tất toàn bộ hành trình. Hệ thống tự động xuất Báo Cáo Tổng Thể. Hành động chiến lược dành riêng cho CEO.</p>
                 </div>
               </div>
             </div>
@@ -447,7 +447,7 @@ export default function Home() {
 
           <div style={{ background: 'linear-gradient(180deg, rgba(20,20,22,1) 0%, rgba(10,10,10,1) 100%)', padding: '40px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '80px' }}>
             <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '40px', fontWeight: 700, color: '#fff' }}>
-              NẾU BẠN NGHIÊM TÚC HÀNH ĐỘNG 7 NGÀY, BẠN SẼ CÓ:
+              NẾU BẠN NGHIÊM TÚC HÀNH ĐỘNG LIÊN TỤC 7 NGÀY, BẠN SẼ CÓ ĐƯỢC :
             </h3>
             <ul style={{
               listStyle: 'none',
@@ -458,14 +458,14 @@ export default function Home() {
               gap: '20px',
               fontSize: '1.15rem'
             }}>
-              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> <strong>Bức tranh toàn cảnh</strong> về hiệu quả vận hành của Doanh nghiệp</li>
-              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Danh sách cụ thể các <strong>cơ hội AI có tác động cao</strong></li>
-              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Con số <strong>ROI</strong> tính từ lương và giờ làm thật của công ty</li>
-              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Dư ra được <strong>QUỸ THỜI GIAN RẤT LỚN</strong> để tập trung vào việc tạo giá trị cho doanh nghiệp như tăng doanh thu, chăm sóc khách hàng...</li>
-              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Tiết kiệm <strong>QUỸ LƯƠNG KHÔNG NHỎ</strong> để tối ưu hóa chi phí và tối đa lợi nhuận</li>
-              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Lộ trình hành động với <strong>deadline cụ thể</strong></li>
-              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> <strong>Sự tự tin</strong> để nói chuyện với bất kỳ nhà cung cấp dịch vụ AI nào</li>
-              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> <strong>VỮNG TIN</strong> phát triển doanh nghiệp từ gốc mà không lo sợ chạy theo công nghệ AI mà công nghệ sẽ chạy theo phục vụ chiến lược và tầm nhìn của bạn</li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> <strong>Bức tranh toàn cảnh</strong> về hiệu quả vận hành của Doanh nghiệp.</li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Danh sách cụ thể các <strong>cơ hội AI có tác động cao.</strong></li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Con số <strong>ROI - Tỉ suất hoàn vốn</strong> tính từ lương và giờ làm thật của công ty.</li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Dư ra được <strong>QUỸ THỜI GIAN RẤT LỚN</strong> để tập trung vào việc tạo giá trị cho doanh nghiệp như tăng doanh thu, chăm sóc khách hàng.</li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Tiết kiệm <strong>QUỸ LƯƠNG KHÔNG NHỎ</strong> để tối ưu hóa chi phí và tối đa lợi nhuận.</li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Lộ trình hành động AI với <strong>deadline cụ thể, ai sẽ phụ trách, ai sẽ kiểm tra.</strong></li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> <strong>Sự tự tin</strong> để nói chuyện với bất kỳ nhà cung cấp dịch vụ AI nào.</li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> <strong>VỮNG TIN</strong> phát triển doanh nghiệp từ gốc mà không lo sợ chạy theo công nghệ AI, mà chính công nghệ sẽ chạy theo phục vụ chiến lược và tầm nhìn của bạn.</li>
             </ul>
 
             <p style={{ textAlign: 'center', fontStyle: 'italic', color: '#a1a1a6', margin: 0, fontSize: '1.05rem', lineHeight: 1.6 }}>
@@ -536,6 +536,17 @@ export default function Home() {
               <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}> Ngay sau khi bạn thanh toán, hệ thống sẽ kích hoạt hành trình và có hướng dẫn cho bạn bắt đầu. Bạn sẽ được tham gia vào một nhóm hỗ trợ trên Zalo để giúp bạn giải đáp các thắc mắc và đồng hành cùng bạn thực hiện hành trình này.</p>
             </div>
 
+            <div style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>5. Hành trình này có triển khai AI cho tôi không hoặc có hướng dẫn tôi làm AI không ?</h4>
+              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Hành trình này không triển khai AI cho bạn và đó chính xác là lý do bạn cần nó trước tiên.
+
+                Hầu hết doanh nghiệp thất bại không phải vì thiếu người làm AI, mà vì chưa biết mình cần áp dụng AI ở đâu. Thuê người triển khai mà không có bản đồ rõ ràng = đang trả tiền cho người khác đoán thay bạn.
+
+                Hành trình này giúp bạn xác định đúng AI nên bắt đầu từ đâu, tốn bao nhiêu, thu lại bao nhiêu, trước khi bạn tự làm hoặc thuê bất kỳ ai.
+
+                Khi có bản đồ đó rồi, dù bạn tự làm hay thuê ngoài, bạn sẽ không bị dắt mũi và không lãng phí tiền</p>
+            </div>
+
           </div>
 
           {/* 10. PRICE & FINAL CTA */}
@@ -556,8 +567,8 @@ export default function Home() {
             <CountdownTimer />
 
             <p style={{ color: '#a1a1a6', marginBottom: '40px', fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
-              Trả một lần. Truy cập vĩnh viễn hệ thống phần mềm.
-              <br />Đừng trả thêm tiền ngu cho vòng luẩn quẩn định hướng sai lầm.
+              Đừng trả tiền để thử nghiệm AI. Hãy trả tiền cho kết quả.
+              <br />Thời đại AI đã chín mùi công nghệ, pháp lý AI đã rõ ràng. Đa số chỉ tò mò và phản ứng. Chỉ rất ít người có kế hoạch để dẫn đầu. Chúng tôi xây dựng Bản Đồ Hành Động AI cho số ít đó.
             </p>
 
             <Link href="/register" className="cta-btn" style={{ fontSize: '1.2rem', padding: '20px 48px', margin: '0 auto' }}>
@@ -600,6 +611,25 @@ export default function Home() {
             </div>
           </div>
 
+        </div>
+
+        {/* 11. DISCLAIMER */}
+        <div style={{
+          textAlign: 'center',
+          maxWidth: '800px',
+          margin: '0 auto 60px',
+          padding: '24px',
+          color: '#86868b',
+          fontSize: '0.9rem',
+          lineHeight: 1.6,
+          border: '1px solid rgba(255,255,255,0.05)',
+          borderRadius: '16px',
+          background: 'rgba(255,255,255,0.01)'
+        }}>
+          <strong style={{ display: 'block', marginBottom: '8px', color: '#a1a1a6', letterSpacing: '0.05em' }}>KHUYẾN CÁO</strong>
+          Hành trình này cung cấp khung phương pháp và công thức đã được kiểm chứng thực tế. Tuy nhiên kết quả áp dụng sẽ khác nhau tùy từng doanh nghiệp, phụ thuộc vào ngành nghề, chất lượng dữ liệu, mức độ sẵn sàng của đội ngũ, và quan trọng nhất là sự nghiêm túc khi thực hiện từng bài tập.
+          <br /><br />
+          Các con số trong tài liệu là kết quả thực tế, không phải con số bảo đảm cho mọi trường hợp.
         </div>
 
         {/* 12. APPLE STYLE FOOTER */}
