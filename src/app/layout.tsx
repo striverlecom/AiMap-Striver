@@ -4,7 +4,7 @@ import "./globals.css";
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin", "vietnamese"],
   variable: '--font-inter',
   display: 'swap',
@@ -18,8 +18,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Xây Dựng Bản Đồ AI Cho Doanh Nghiệp - STRIVER AI",
-  description: "Khám phá bản đồ ứng dụng AI cho doanh nghiệp bạn trong 7 ngày. Phong cách tinh giản từ Apple.",
+  title: "Bản Đồ Hành Động AI Cho Doanh Nghiệp - STRIVER AI",
+  description: "7 ngày hành động thật • Dữ liệu thật • Kết quả thật Không phải lý thuyết. Không phải xu hướng. Đừng trả tiền cho thử nghiệm AI nữa, hãy trả tiền cho kết quả. 'Thời đại này không cần quá nhiều thông tin hay công cụ, chỉ cần MỘT CHỈ DẪN HÀNH ĐỘNG cụ thể rõ ràng'",
 };
 
 import NavLinks from '@/components/NavLinks';
