@@ -53,7 +53,7 @@ export default function Home() {
           marginBottom: '50px'
         }}>
           <strong>7 ngày hành động thật • Dữ liệu thật • Kết quả thật</strong><br />
-          Đừng trả tiền cho thử nghiệm AI, hãy trả tiền cho kết quả. Thời đại này không cần nhiều thông tin hay công cụ, CHỈ CẦN MỘT CHỈ DẪN HÀNH ĐỘNG RÕ RÀNG ĐƯỢC XÂY DỰNG TỪ GỐC RỄ CỦA DOANH NGHIỆP.
+          Đừng trả tiền cho thử nghiệm AI, hãy trả tiền cho kết quả thật. Thời đại này không cần nhiều thông tin hay công cụ, CHỈ CẦN MỘT CHỈ DẪN HÀNH ĐỘNG RÕ RÀNG ĐƯỢC XÂY DỰNG TỪ GỐC RỄ CỦA DOANH NGHIỆP.
         </h2>
 
         {/* 4. VIDEO SALES LETTER (VSL) in Apple-style Glass Frame */}
@@ -86,7 +86,7 @@ export default function Home() {
         <div style={{ fontSize: '1.15rem', lineHeight: 1.7, color: 'var(--foreground)' }}>
 
           <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '30px', fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>
-            TẠI SAO BẠN CẦN BẮT ĐẦU HÀNH TRÌNH NÀY ?
+            TẠI SAO CẦN BẮT ĐẦU HÀNH TRÌNH NÀY ?
           </h3>
 
           <p style={{ marginBottom: '24px' }}>
