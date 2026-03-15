@@ -121,8 +121,10 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
             )
           })}
         </div>
+      </section>
 
-        {/* Final Result Card */}
+      {/* Final Result Section - Apple Pro Design */}
+      <section className="final-section">
         <div className="final-result-wrapper">
           <Link
             href="/results"
@@ -132,8 +134,9 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
             onMouseMove={handleMouseMove}
           >
             <div className="glass-reflection"></div>
+            <div className="badge-pro">KẾT QUẢ ĐỘC BẢN</div>
             <h2 className="final-title">Báo Cáo Tổng Thể</h2>
-            <p className="final-desc">Kiệt tác chiến lược độc bản kiến tạo tương lai khác biệt, dành riêng cho bạn sau hành trình 7 ngày.</p>
+            <p className="final-desc">Kiệt tác chiến lược kiến tạo tương lai khác biệt. Dành riêng cho Doanh Nghiệp của bạn sau hành trình 7 ngày.</p>
             <div className="btn-wrapper">
               <span className="btn-luxury pulse-gold">Xem Kết Quả Trực Quan</span>
             </div>
@@ -441,6 +444,34 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
         }
         .glass-panel-luxury:hover .action-text {
           gap: 10px;
+        }
+
+        /* NEW: Pro Badge */
+        .badge-pro {
+          display: inline-block;
+          font-size: 0.75rem;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          padding: 6px 12px;
+          border-radius: 20px;
+          margin-bottom: 24px;
+          color: #fff;
+          background: linear-gradient(90deg, #d4af37, #f3e5ab);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          border: 1px solid rgba(212, 175, 55, 0.3);
+          box-shadow: 0 0 20px rgba(212, 175, 55, 0.1) inset;
+        }
+
+        /* Final Section Wrap */
+        .final-section {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 2rem 10vh;
+          display: flex;
+          justify-content: center;
+          position: relative;
+          z-index: 20;
         }
 
         /* Responsive Timeline */

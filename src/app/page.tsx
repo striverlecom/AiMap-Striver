@@ -27,7 +27,8 @@ export default function Home() {
           marginBottom: '24px',
           fontWeight: 800
         }}>
-          95% Doanh Nghiệp Thất Bại Vì Nhảy Vào Mua Cố "Tool AI" Mà Không Biết Mình Cần Gì.
+          Đây Là Bản Đồ Hành Động
+          <br/>Cho Doanh Nghiệp Của Bạn.
         </h1>
 
         {/* 3. SUBHEADLINE */}
@@ -39,7 +40,8 @@ export default function Home() {
           textAlign: 'center',
           marginBottom: '50px'
         }}>
-          Đây là <strong>Tấm Bản Đồ 7 Ngày</strong> duy nhất giúp bạn ép các lỗ hổng của doanh nghiệp lộ diện ra ánh sáng bằng Dữ Liệu Thật — và tìm ra 3 <i>Chiến Thắng Nhanh</i> mang lại <strong>ROI X5 Lần</strong> ngay trong tháng đầu tiên.
+          <strong>7 ngày • Dữ liệu thật • Kết quả thật</strong><br/>
+          Không phải lý thuyết. Không phải xu hướng.
         </h2>
 
         {/* 4. VIDEO SALES LETTER (VSL) in Apple-style Glass Frame */}
@@ -63,174 +65,132 @@ export default function Home() {
 
         {/* 5. AGITATE THE PAIN (Dan Kennedy approach) */}
         <div style={{ fontSize: '1.15rem', lineHeight: 1.7, color: 'var(--foreground)' }}>
-          <p style={{ marginBottom: '24px' }}><strong>Từ: Striver Le</strong></p>
 
-          <p style={{ marginBottom: '24px' }}>Gửi Chủ Doanh Nghiệp,</p>
-
-          <p style={{ marginBottom: '24px' }}>
-            Bạn nghe mọi người ra rả về AI. Rằng nó làm thay đổi thế giới. Rằng ai không dùng AI sẽ bị đào thải. Và bạn bắt đầu lo sợ.
-          </p>
+          <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '30px', fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>
+            TẠI SAO BẠN CẦN BẮT ĐẦU HÀNH TRÌNH NÀY?
+          </h3>
 
           <p style={{ marginBottom: '24px' }}>
-            Bạn rút ví ra, mua gói ChatGPT Plus. Bạn đăng ký vài ba cái tài khoản tạo ảnh, viết bài cho nhân viên. Bạn mong chờ một cú hích kỳ diệu.
-            <strong>Nhưng... vài tuần sau, chẳng có gì thay đổi cả.</strong>
-          </p>
-
-          <p style={{ marginBottom: '40px', fontSize: '1.4rem', fontWeight: 600, color: '#fff' }}>
-            ĐÓ KHÔNG PHẢI LỖI CỦA BẠN. ĐÓ LÀ LỖI CỦA CÁCH TIẾP CẬN "MỲ ĂN LIỀN".
+            Bạn nghe nhiều về AI. Bạn biết nó đang thay đổi mọi thứ. Nhưng bạn không biết bắt đầu từ đâu cho doanh nghiệp của mình. Hoặc bạn đã thử - mua một vài tool, cho nhân viên dùng ChatGPT - nhưng không thấy thay đổi gì rõ rệt. Hoặc bạn thấy đối thủ đang làm gì đó với AI và bạn lo lắng mình sẽ bị bỏ lại phía sau.
           </p>
 
           <p style={{ marginBottom: '24px' }}>
-            Trong quá trình làm việc với hàng chục công ty từ 5 đến 200+ nhân viên, tôi nhận ra một khuôn mẫu chết người: <strong style={{ color: '#fff' }}>Họ cố nhét AI vào quy trình mà không hề dừng lại một nhịp để bắt mạch xem doanh nghiệp ĐANG ĐAU Ở ĐÂU.</strong>
+            Dù lý do là gì, tôi muốn nói thẳng với bạn:
           </p>
 
-          <p style={{ marginBottom: '40px' }}>
-            Quy tắc vàng của tôi là: <i>"Kế hoạch AI từ dữ liệu giả sẽ cho ra hướng đi giả. Mà hướng đi giả thì đốt tiền thật."</i> Dưới đây là cách chúng ta sẽ làm đúng.
+          <p style={{ marginBottom: '16px', fontSize: '1.3rem', fontWeight: 600, color: '#fff', textAlign: 'center' }}>
+            AI không phải là phép màu. AI không phải là con đường tắt.<br/>
+            AI là một CÔNG CỤ - giống như Excel, như CRM, như ERP.
+          </p>
+          
+          <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', marginBottom: '40px' }}>
+            <p style={{ fontSize: '1.2rem', color: '#32d74b', fontWeight: 600, marginBottom: '8px' }}>
+              Công cụ đúng + bài toán đúng = kết quả khổng lồ.
+            </p>
+            <p style={{ fontSize: '1.2rem', color: '#ff453a', fontWeight: 600, margin: 0 }}>
+              Công cụ đúng + bài toán SAI = phí tiền.
+            </p>
+          </div>
+
+          <p style={{ marginBottom: '40px', textAlign: 'center', fontSize: '1.3rem', fontWeight: 600, color: '#0071e3' }}>
+            Hành trình này giúp bạn tìm ra BÀI TOÁN ĐÚNG.
           </p>
 
-          {/* 6. THE SOLUTION / OFFER DETAILS */}
+          <p style={{ marginBottom: '24px' }}>
+            Tôi đã làm việc với hàng chục doanh nghiệp - từ startup 5 người đến công ty 200+ nhân viên. Và tôi thấy một khuôn mẫu lặp đi lặp lại:
+          </p>
+
+          <h3 style={{ fontSize: '1.6rem', fontWeight: 700, color: '#fff', marginBottom: '20px', textAlign: 'center' }}>
+            SAI LẦM PHỔ BIẾN NHẤT:
+          </h3>
+
+          <div style={{ padding: '24px', border: '1px solid #ff453a', borderRadius: '16px', background: 'rgba(255, 69, 58, 0.05)', marginBottom: '30px', textAlign: 'center' }}>
+            <p style={{ fontSize: '1.1rem', fontWeight: 500, margin: 0, color: '#ff9f0a' }}>
+              Chủ Doanh nghiệp nghe về AI <br/>↓<br/> Mua tool/thuê vendor <br/>↓<br/> Triển khai <br/>↓<br/> <span style={{ color: '#ff453a', fontWeight: 700 }}>Thất bại.</span>
+            </p>
+          </div>
+
+          <p style={{ marginBottom: '16px' }}>Tại sao? <strong>Vì họ BỎ QUA BƯỚC QUAN TRỌNG NHẤT:</strong></p>
+          <p style={{ marginBottom: '32px', fontSize: '1.4rem', fontWeight: 600, color: '#fff' }}>Đó là hiểu rõ vấn đề thực sự của doanh nghiệp.</p>
+
+          <ul style={{ listStyle: 'none', padding: 0, marginBottom: '40px' }}>
+            <li style={{ paddingLeft: '24px', position: 'relative', marginBottom: '12px' }}><span style={{ position: 'absolute', left: 0, color: '#ff453a' }}>✕</span> Họ chữa bệnh mà chưa chẩn đoán.</li>
+            <li style={{ paddingLeft: '24px', position: 'relative' }}><span style={{ position: 'absolute', left: 0, color: '#ff453a' }}>✕</span> Họ mua thuốc mà chưa biết bị bệnh gì.</li>
+          </ul>
+
           <div style={{
             background: 'var(--card-bg)',
             border: '1px solid var(--card-border)',
-            padding: '40px',
-            borderRadius: '24px',
-            marginBottom: '60px'
-          }}>
-            <h3 style={{ fontSize: '2.2rem', marginBottom: '24px', letterSpacing: '-0.03em', textAlign: 'center' }}>
-              Bản Đồ 7 Ngày: Hành Động Và Kết Quả Cụ Thể
-            </h3>
-
-            <p style={{ marginBottom: '32px', color: 'var(--muted)', textAlign: 'center' }}>
-              Chỉ mất 30-45 phút mỗi ngày. Trung thực 100%. Đây là những gì bạn sẽ trải qua:
-            </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
-              <div>
-                <h4 style={{ fontSize: '1.3rem', color: '#fff', marginBottom: '8px' }}>🚀 Ngày 1: Nhìn Thẳng Sự Thật</h4>
-                <p style={{ color: 'var(--muted)', marginBottom: '8px' }}><strong>Hành động:</strong> Tự chấm điểm chỉ số sẵn sàng AI của doanh nghiệp (từ quy trình, nhân sự đến dữ liệu) bằng thang điểm y tế. Khai báo 3 điểm đau lớn nhất đang đốt thì giờ mỗi ngày.</p>
-                <p style={{ color: '#32d74b' }}><strong>Kết quả:</strong> Bắt đúng bệnh. Hệ thống trả về bức tranh trần trụi nhất về thực trạng doanh nghiệp, dẹp bỏ mọi sự mơ hồ tốn kém.</p>
-              </div>
-
-              <div>
-                <h4 style={{ fontSize: '1.3rem', color: '#fff', marginBottom: '8px' }}>📊 Ngày 2: Mở Tung Sổ Sách</h4>
-                <p style={{ color: 'var(--muted)', marginBottom: '8px' }}><strong>Hành động:</strong> Lôi toàn bộ báo cáo doanh thu, quỹ lương nhân sự, và chi phí vận hành ra. Biến cảm giác "hình như đang khó khăn" thành những con số lạnh lùng đanh thép.</p>
-                <p style={{ color: '#32d74b' }}><strong>Kết quả:</strong> Có sẵn mọi dữ liệu đầu vào cốt lõi làm mồi nổ để máy tính tự động tính toán ra lợi nhuận quy đổi (ROI) ở Ngày 6.</p>
-              </div>
-
-              <div>
-                <h4 style={{ fontSize: '1.3rem', color: '#fff', marginBottom: '8px' }}>🎤 Ngày 3: Bắt Mạch Hiện Trường</h4>
-                <p style={{ color: 'var(--muted)', marginBottom: '8px' }}><strong>Hành động:</strong> Điền lời khai thực tế từ nhân sự (những người trực tiếp dọn rác vận hành mỗi ngày). 6 Câu hỏi phỏng vấn chuẩn y khoa giúp moi móc những vấn đề mà sếp không hề hay biết.</p>
-                <p style={{ color: '#32d74b' }}><strong>Kết quả:</strong> Tách biệt rạch ròi giữa "Những gì Sếp nghĩ" và "Những gì Nhân viên thực làm". Nơi có sự lệch pha, nơi đó là Mỏ Vàng AI.</p>
-              </div>
-
-              <div>
-                <h4 style={{ fontSize: '1.3rem', color: '#fff', marginBottom: '8px' }}>⚙️ Ngày 4: Giải Phẫu Vận Hành</h4>
-                <p style={{ color: 'var(--muted)', marginBottom: '8px' }}><strong>Hành động:</strong> Vẽ lại toàn bộ công ty thông qua 3 Động cơ lõi: Tìm Khách (Acquisition), Phục Vụ (Delivery), Chăm Sóc (Support). Đánh dấu mọi điểm nghẽn bằng "Lãng phí Thời gian" hoặc "Rủi ro Lỗi".</p>
-                <p style={{ color: '#32d74b' }}><strong>Kết quả:</strong> Tấm bản đồ X-Quang chi tiết lộ rõ những "Cổ chai" ngốn máu doanh nghiệp. Bạn biết chính xác chỗ nào cần đập đi xây lại.</p>
-              </div>
-
-              <div>
-                <h4 style={{ fontSize: '1.3rem', color: '#fff', marginBottom: '8px' }}>🎯 Ngày 5: Ma Trận Thanh Trừng</h4>
-                <p style={{ color: 'var(--muted)', marginBottom: '8px' }}><strong>Hành động:</strong> Loại bỏ các ý tưởng rác rưởi bằng Ma Trận Ưu Tiên 4 Ô. Tách biệt dự án "Tốn Sức - Ít Tiền" (Bỏ qua) và dự án "Dễ Thay Đổi - Nhanh Thấy Tiền" (Chiến thắng nhanh).</p>
-                <p style={{ color: '#32d74b' }}><strong>Kết quả:</strong> Chốt hạ được 3 Dự Án AI cốt tử nhất để triển khai tức thì. Không lan man. Không ảo tưởng.</p>
-              </div>
-
-              <div>
-                <h4 style={{ fontSize: '1.3rem', color: '#fff', marginBottom: '8px' }}>💰 Ngày 6: Quy Ra Đô La (Nổi Sưng Da Gà)</h4>
-                <p style={{ color: 'var(--muted)', marginBottom: '8px' }}><strong>Hành động:</strong> Nhập dự kiến thời gian cắt giảm nhờ AI. Thuật toán của chúng tôi sẽ kết hợp với Dữ Liệu Ngày 2 để chạy công thức tài chính.</p>
-                <p style={{ color: '#32d74b' }}><strong>Kết quả:</strong> Bạn nhìn thấy chính xác số Tiền Lương tiết kiệm được mỗi năm, Số giờ dôi dư, và % Tỷ suất hoàn vốn (ROI) hiển thị bằng Việt Nam Đồng thật.</p>
-              </div>
-
-              <div>
-                <h4 style={{ fontSize: '1.3rem', color: '#fff', marginBottom: '8px' }}>🗺️ Ngày 7: Bản Đồ Tác Chiến & Báo Cáo Phân Tích</h4>
-                <p style={{ color: 'var(--muted)', marginBottom: '8px' }}><strong>Hành động:</strong> Viết xuống 3 hành động cụ thể cho tuần tới, tháng tới. Chuyển đổi mọi thông tin thành Lộ trình triển khai.</p>
-                <p style={{ color: '#32d74b' }}><strong>Kết quả:</strong> Hoàn tất toàn bộ hành trình. Hệ thống tự động xuất Báo Cáo Kiểm Toán AI Toàn Diện — tài liệu chiến lược tối cao của CEO.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* 7. AFTER 7 DAYS RESULTS */}
-          <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '30px', fontWeight: 700 }}>
-            Sau Đúng 7 Ngày Kỷ Luật, Bạn Cầm Trên Tay Thứ Gì?
-          </h3>
-          <ul style={{
-            listStyle: 'none',
-            padding: 0,
-            margin: '0 0 60px 0',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-            fontSize: '1.1rem'
-          }}>
-            <li style={{ paddingLeft: '24px', position: 'relative' }}><span style={{ position: 'absolute', left: 0 }}>🔥</span> Danh sách tuyệt mật các <strong>Cơ hội AI tạo Tác động Tài chính lớn nhất</strong> đang bị ẩn giấu trong cỗ máy của bạn.</li>
-            <li style={{ paddingLeft: '24px', position: 'relative' }}><span style={{ position: 'absolute', left: 0 }}>🔥</span> Cuốn <strong>Lộ trình Hành động từng bước</strong> với deadline không thể trốn tránh cho các dự án "Chiến Thắng Nhanh".</li>
-            <li style={{ paddingLeft: '24px', position: 'relative' }}><span style={{ position: 'absolute', left: 0 }}>🔥</span> Một <strong>Bảng tính Thu Hồi Vốn (ROI)</strong> bằng VND rõ ràng cho từng giải pháp AI — loại bỏ hoàn toàn sự rủi ro phỏng đoán.</li>
-            <li style={{ paddingLeft: '24px', position: 'relative' }}><span style={{ position: 'absolute', left: 0 }}>🔥</span> Sự Tự Tin tuyệt đối — <strong>Bạn không còn e sợ khi đàm phán với bất kỳ Vendor công nghệ nào</strong> vì bạn nắm rõ bản đồ của hệ thống.</li>
-          </ul>
-
-          {/* 8. SUCCESS STORIES */}
-          <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '30px', fontWeight: 700 }}>
-            Bằng Chứng Thật. Con Số Thật.
-          </h3>
-          <div className="home-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '60px' }}>
-            <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
-              <p style={{ fontStyle: 'italic', marginBottom: '16px', color: 'var(--muted)' }}>"Trước kia chúng tôi mua 5 cái thẻ ChatGPT và vứt đó. Nhờ áp dụng tấm bản đồ này, tôi khui ra được nút thắt ở khâu làm Báo Giá. Chỉ bằng 1 thủ thuật tự động hóa, quy trình giảm từ 3 ngày xuống 15 phút, tiết kiệm 120 triệu tiền lương thừa mỗi năm."</p>
-              <p style={{ fontWeight: 600 }}>- Anh Dũng (CEO Công Ty Xây Dựng, 40 Nhân Sự)</p>
-            </div>
-            <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
-              <p style={{ fontStyle: 'italic', marginBottom: '16px', color: 'var(--muted)' }}>"Tôi từng định đổ 300 triệu thuê đơn vị viết phần mềm CRM tích hợp AI. Nhưng khi chạy Ma Trận Ngày 5, tôi nhận ra đó là một dự án 'Tốn Sức - Ít Tiền'. Bản đồ đã giúp tôi quay xe tiết kiệm 300 triệu và chọn 1 công cụ có sẵn chi phí chỉ 1 triệu/tháng!"</p>
-              <p style={{ fontWeight: 600 }}>- Chị Mai (Founder Chuỗi Bán Lẻ, 8 Cửa Hàng)</p>
-            </div>
-          </div>
-
-          {/* 9. THE RISK-FREE GUARANTEE */}
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(50,215,75,0.1) 0%, rgba(0,0,0,0) 100%)',
-            border: '1px solid #32d74b',
-            padding: '40px',
+            padding: '32px',
             borderRadius: '24px',
             marginBottom: '60px',
             textAlign: 'center'
           }}>
-            <h3 style={{ fontSize: '1.6rem', marginBottom: '16px', color: '#fff' }}>🛡️ Cam Kết "Tấm Khiên Thép": Hoàn Tiền 100% Không Cần Lý Do</h3>
-            <p style={{ color: 'var(--muted)', marginBottom: '0' }}>
-              Trò chơi này KHÔNG CÓ RỦI RO về phía bạn. Nếu bạn hoàn thành 7 ngày tự kiểm toán nhưng cảm thấy bản đồ này vô dụng và không đem lại giá trị nào để cấu trúc lại AI... <strong>Hãy gửi email cho tôi trong vòng 7 ngày kể từ khi thanh toán</strong>. Tôi sẽ chuyển khoản hoàn trả 100% số tiền 50,000 VNĐ cho bạn. Không hỏi thêm một lời nào. Tiền của bạn — hoặc nó sinh ra tiền cho doanh nghiệp của bạn, hoặc nó quay về ví của bạn.
+            <p style={{ fontSize: '1.2rem', lineHeight: 1.6, color: '#fff', margin: 0 }}>
+              <strong>Tài liệu này chính là bước “chẩn đoán.”</strong> Nó giúp bạn nhìn thật sâu vào doanh nghiệp của mình, tìm ra chính xác đâu là những nơi AI có thể tạo ra thay đổi THẬT SỰ, và xây dựng một kế hoạch hành động dựa trên dữ liệu của chính bạn.
             </p>
           </div>
 
-          {/* 10. FAQS */}
-          <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '30px', fontWeight: 700 }}>
-            Câu Hỏi Thường Gặp
+          <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '24px', fontWeight: 700, color: '#fff' }}>
+            CÁCH HÀNH TRÌNH GIÚP BẠN ĐẠT HIỆU QUẢ
           </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginBottom: '60px' }}>
-            <div>
-              <p style={{ fontWeight: 600, color: '#fff', marginBottom: '8px' }}>Q: Tôi không rành công nghệ, có làm được không?</p>
-              <p style={{ color: 'var(--muted)' }}>A: Hoàn toàn được. Cốt lõi của 7 Ngày là chiến lược Kinh Doanh và Dữ liệu sự thật, không phải lập trình. Hệ thống sẽ tự động ghép dính các mảnh toán học phức tạp cho bạn.</p>
+          <p style={{ textAlign: 'center', marginBottom: '40px', color: '#a1a1a6' }}>
+            Mỗi ngày mất 30-45 phút. Không cần chuyên môn kỹ thuật. Chỉ cần:
+          </p>
+
+          <div className="home-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', marginBottom: '60px' }}>
+            <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '16px' }}>🤫</div>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>1. Sự thành thật</h4>
+              <p style={{ color: '#a1a1a6', fontSize: '0.95rem' }}>Không tô hồng, không giấu vấn đề.</p>
             </div>
-            <div>
-              <p style={{ fontWeight: 600, color: '#fff', marginBottom: '8px' }}>Q: Dữ liệu tài chính tôi tiết lộ có bị đánh cắp không?</p>
-              <p style={{ color: 'var(--muted)' }}>A: Toàn bộ dữ liệu bạn nhập được mã hóa và lưu trữ cục bộ. Chúng tôi xây dựng mô hình này dạng "Tự mình kiểm toán", không ai ngoài bạn được xem bảng phân tích của bạn.</p>
+            <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '16px' }}>📊</div>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>2. Dữ liệu thật</h4>
+              <p style={{ color: '#a1a1a6', fontSize: '0.95rem' }}>Số từ báo cáo, không phải “khoảng.”</p>
             </div>
-            <div>
-              <p style={{ fontWeight: 600, color: '#fff', marginBottom: '8px' }}>Q: Tôi có phải làm xong trong đúng 7 ngày không?</p>
-              <p style={{ color: 'var(--muted)' }}>A: Bạn thanh toán 1 lần và truy cập Vĩnh Viễn. Bạn có thể làm xong trong 3 ngày, hoặc trải dài ra vài tuần. Tuy nhiên, tính "kỷ luật 7 ngày" tạo ra áp lực tâm lý để đập vỡ sự trì hoãn của doanh nghiệp.</p>
+            <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ fontSize: '2rem', marginBottom: '16px' }}>⏳</div>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>3. 7 ngày liên tục</h4>
+              <p style={{ color: '#a1a1a6', fontSize: '0.95rem' }}>Mỗi ngày nối tiếp ngày trước. Bỏ 1 ngày = mất nền.</p>
             </div>
           </div>
 
+          <p style={{ marginBottom: '24px', textAlign: 'center', fontSize: '1.2rem', fontWeight: 600, color: '#fff' }}>
+            Tôi cần bạn hiểu điều này rất rõ:
+          </p>
+          <p style={{ marginBottom: '50px', color: '#a1a1a6', textAlign: 'center', lineHeight: 1.6, maxWidth: '700px', margin: '0 auto 50px' }}>
+            Đây là HÀNH TRÌNH để LÀM THỰC TẾ TẠO KẾT QUẢ THẬT. Mỗi ngày có bài tập. Mỗi bài tập yêu cầu bạn lôi dữ liệu thực của công ty ra. Không có chuyện “làm cho biết.” Nếu bạn chỉ lướt qua mà không làm, bạn sẽ không có gì sau 7 ngày.
+          </p>
+
+
+          {/* 7. AFTER 7 DAYS RESULTS */}
+          <div style={{ background: 'linear-gradient(180deg, rgba(20,20,22,1) 0%, rgba(10,10,10,1) 100%)', padding: '40px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '60px' }}>
+            <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '40px', fontWeight: 700, color: '#fff' }}>
+              Nhưng nếu bạn làm nghiêm túc, sau 7 ngày bạn sẽ có:
+            </h3>
+            <ul style={{
+              listStyle: 'none',
+              padding: 0,
+              margin: '0 0 40px 0',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '20px',
+              fontSize: '1.15rem'
+            }}>
+              <li style={{ paddingLeft: '32px', position: 'relative' }}><span style={{ position: 'absolute', left: 0, color: '#32d74b' }}>✔</span> <strong>Bức tranh toàn cảnh</strong> về hiệu quả vận hành của Doanh nghiệp</li>
+              <li style={{ paddingLeft: '32px', position: 'relative' }}><span style={{ position: 'absolute', left: 0, color: '#32d74b' }}>✔</span> Danh sách cụ thể các <strong>cơ hội AI có tác động cao</strong></li>
+              <li style={{ paddingLeft: '32px', position: 'relative' }}><span style={{ position: 'absolute', left: 0, color: '#32d74b' }}>✔</span> Con số <strong>ROI</strong> tính từ lương và giờ làm thật của công ty</li>
+              <li style={{ paddingLeft: '32px', position: 'relative' }}><span style={{ position: 'absolute', left: 0, color: '#32d74b' }}>✔</span> Lộ trình hành động với <strong>deadline cụ thể</strong></li>
+              <li style={{ paddingLeft: '32px', position: 'relative' }}><span style={{ position: 'absolute', left: 0, color: '#32d74b' }}>✔</span> <strong>Sự tự tin</strong> để nói chuyện với vendor AI bất kỳ</li>
+            </ul>
+
+            <p style={{ textAlign: 'center', fontStyle: 'italic', color: '#a1a1a6', margin: 0, fontSize: '1.05rem', lineHeight: 1.6 }}>
+              "Đó là những thứ mà nhiều công ty phải trả 5,000–20,000 USD cho một đội tư vấn AI để có được. Bạn sẽ tự làm được với hành trình này."
+            </p>
+          </div>
+
           {/* 11. PRICE & FINAL CTA */}
-          <p style={{ marginBottom: '24px', textAlign: 'center' }}>
-            Một Agency thông thường sẽ lấy của bạn <strong>5.000 USD đến 20.000 USD</strong> chỉ để vẽ ra cho bạn chính xác tấm bản đồ này bằng những thuật ngữ hoa mỹ sáo rỗng.
-          </p>
-
-          <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '20px', marginTop: '40px' }}>
-            Chi phí để Sở Hữu Cỗ Máy Chẩn Đoán này?
-          </h3>
-          <h2 style={{ fontSize: '3.5rem', fontWeight: 800, color: '#fff', textAlign: 'center', marginBottom: '20px' }}>500.000 VNĐ</h2>
-
-          <p style={{ marginBottom: '60px', textAlign: 'center', color: 'var(--muted)' }}>
-            Chỉ nhỉnh hơn tiền một chầu cà phê, bạn có ngay La Bàn thay đổi vận mệnh công ty. Trả một lần - Truy cập vĩnh viễn. Đừng trả tiền cho vòng luẩn quẩn thử nghiệm thất bại.
-          </p>
-
           <div style={{ textAlign: 'center' }}>
             <Link
               href="/register"
