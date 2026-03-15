@@ -134,11 +134,11 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
             onMouseMove={handleMouseMove}
           >
             <div className="glass-reflection"></div>
-            <div className="badge-pro">KẾT QUẢ ĐỘC BẢN</div>
+            <div className="badge-pro">KẾT QUẢ HÀNH ĐỘNG</div>
             <h2 className="final-title">Báo Cáo Tổng Thể</h2>
             <p className="final-desc">Kiệt tác chiến lược kiến tạo tương lai khác biệt. Dành riêng cho Doanh Nghiệp của bạn sau hành trình 7 ngày.</p>
-            <div className="btn-wrapper">
-              <span className="btn-luxury pulse-gold">Xem Kết Quả Trực Quan</span>
+            <div className="btn-wrapper" style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+              <span className="apple-luxury-btn">Xem Báo Cáo Trực Quan</span>
             </div>
           </Link>
         </div>
@@ -461,6 +461,29 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
           -webkit-text-fill-color: transparent;
           border: 1px solid rgba(212, 175, 55, 0.3);
           box-shadow: 0 0 20px rgba(212, 175, 55, 0.1) inset;
+        }
+
+        /* NEW: Apple Luxury Button for Report */
+        .apple-luxury-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 16px 40px;
+          border-radius: 40px;
+          background: #f5f5f7;
+          color: #111;
+          font-weight: 600;
+          font-size: 1.1rem;
+          letter-spacing: -0.01em;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 4px 14px 0 rgba(255,255,255,0.1);
+          cursor: pointer;
+        }
+        
+        .final-result-card:hover .apple-luxury-btn {
+          transform: scale(1.05);
+          background: #fff;
+          box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 6px 20px rgba(255,255,255,0.2);
         }
 
         /* Final Section Wrap */
