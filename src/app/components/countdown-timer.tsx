@@ -24,7 +24,7 @@ export default function CountdownTimer() {
   return (
     <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.15)', padding: '16px 32px', borderRadius: '24px', marginBottom: '40px' }}>
       <div style={{ color: '#fff', fontWeight: 600, fontSize: '1.05rem', marginBottom: '8px', letterSpacing: '0.5px' }}>
-        Ưu Ưu Đãi Đóng Lại Sau: {mounted ? formatTime(timeLeft) : '24:00:00'}
+        Ưu Đãi Đóng Lại Sau: {mounted ? formatTime(timeLeft) : '24:00:00'}
       </div>
       <div style={{ color: '#a1a1a6', fontSize: '0.95rem', fontWeight: 500 }}>
         Chỉ Còn 25 Suất Cuối Cùng Ở Mức Giá Này.
