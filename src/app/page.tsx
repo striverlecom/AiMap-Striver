@@ -68,11 +68,11 @@ export default function Home() {
           position: 'relative'
         }}>
           <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
-          <Script src="https://fast.wistia.com/embed/5rzow3zfkd.js" strategy="afterInteractive" type="module" />
-          <style dangerouslySetInnerHTML={{ __html: `wistia-player[media-id='5rzow3zfkd']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/5rzow3zfkd/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }` }} />
+          <Script src="https://fast.wistia.com/embed/h7qohn3frj.js" strategy="afterInteractive" type="module" />
+          <style dangerouslySetInnerHTML={{ __html: `wistia-player[media-id='h7qohn3frj']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/h7qohn3frj/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }` }} />
 
           {/* @ts-ignore */}
-          <wistia-player media-id="5rzow3zfkd" aspect="1.7777777777777777" style={{ width: '100%', height: '100%', display: 'block' }}></wistia-player>
+          <wistia-player media-id="h7qohn3frj" aspect="1.7777777777777777" style={{ width: '100%', height: '100%', display: 'block' }}></wistia-player>
         </div>
 
         {/* CTA BUTTON UNDER VIDEO */}
