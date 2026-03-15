@@ -8,7 +8,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
   const [user, setUser] = useState<any>(serverUser)
   const [showWelcome, setShowWelcome] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search)
@@ -24,7 +24,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
     e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
   };
@@ -62,8 +62,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
             <span className="text-gradient">Chuyển Đổi AI</span>
           </h1>
           <p className="hero-subtitle">
-            Khám phá 7 cột mốc lịch sử tái thiết kế doanh nghiệp. 
-            Tuyệt tác công nghệ dành riêng cho những nhà lãnh đạo tiên phong.
+            Khám phá 7 ngày xây dựng bản đồ hành động AI cho doanh nghiệp của bạn.
           </p>
         </div>
       </section>
@@ -72,7 +71,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
       <section className="timeline-section">
         <div className="timeline-container">
           <div className="timeline-line"></div>
-          
+
           {days.map((day, idx) => {
             const dayNum = idx + 1
             const isUnlocked = true // Logic for demo, real: user.currentDay >= dayNum
@@ -80,8 +79,8 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
             const isCurrent = user.currentDay === dayNum
 
             return (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className={`milestone-wrapper ${idx % 2 === 0 ? 'left' : 'right'}`}
                 style={{ animationDelay: `${idx * 0.15}s` }}
               >
@@ -93,14 +92,14 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
                   )}
                 </div>
 
-                <Link 
-                  href={isUnlocked ? `/day-${dayNum}` : '#'} 
+                <Link
+                  href={isUnlocked ? `/day-${dayNum}` : '#'}
                   prefetch={isUnlocked ? true : false}
                   className={`milestone-card glass-panel-luxury ${isUnlocked ? '' : 'disabled'}`}
                   onMouseMove={handleMouseMove}
-                  onClick={(e) => { 
+                  onClick={(e) => {
                     if (!isUnlocked) e.preventDefault()
-                    else setIsLoading(true) 
+                    else setIsLoading(true)
                   }}
                 >
                   <div className="card-top">
@@ -110,7 +109,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
                   </div>
                   <h3 className="card-title">{day.title}</h3>
                   <p className="card-desc">{day.desc}</p>
-                  
+
                   <div className="card-footer">
                     <span className="action-text">
                       {isCompleted ? 'Xem lại báo cáo' : isCurrent ? 'Bắt đầu ngay' : 'Đang khóa'}
@@ -125,19 +124,19 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
 
         {/* Final Result Card */}
         <div className="final-result-wrapper">
-           <Link 
-              href="/results" 
-              prefetch={true}
-              className="final-result-card glass-panel-luxury luxury-gold"
-              onClick={() => setIsLoading(true)}
-              onMouseMove={handleMouseMove}
-            >
-              <div className="glass-reflection"></div>
-              <h2 className="final-title">Báo Cáo Tổng Thể</h2>
-              <p className="final-desc">Kiệt tác chiến lược độc bản kiến tạo tương lai khác biệt, dành riêng cho bạn sau hành trình 7 ngày.</p>
-              <div className="btn-wrapper">
-                <span className="btn-luxury pulse-gold">Xem Kết Quả Trực Quan</span>
-              </div>
+          <Link
+            href="/results"
+            prefetch={true}
+            className="final-result-card glass-panel-luxury luxury-gold"
+            onClick={() => setIsLoading(true)}
+            onMouseMove={handleMouseMove}
+          >
+            <div className="glass-reflection"></div>
+            <h2 className="final-title">Báo Cáo Tổng Thể</h2>
+            <p className="final-desc">Kiệt tác chiến lược độc bản kiến tạo tương lai khác biệt, dành riêng cho bạn sau hành trình 7 ngày.</p>
+            <div className="btn-wrapper">
+              <span className="btn-luxury pulse-gold">Xem Kết Quả Trực Quan</span>
+            </div>
           </Link>
         </div>
       </section>
