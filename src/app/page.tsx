@@ -21,6 +21,16 @@ export default function Home() {
           box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2) !important;
           border-color: rgba(255,255,255,0.2) !important;
         }
+        .home-container {
+          max-width: 850px;
+          margin: 0 auto;
+          padding: 60px 20px;
+        }
+        @media (max-width: 768px) {
+          .home-container {
+            padding-top: 24px; /* Reduce space below top banner on mobile */
+          }
+        }
       `}} />
 
       {/* 1. PRE-HEAD / CALL-OUT */}
@@ -28,7 +38,7 @@ export default function Home() {
         🔥 DÀNH CHO CHỦ DOANH NGHIỆP  NGHIÊM TÚC VỚI "AI" MÀ CHƯA BIẾT BẮT ĐẦU TỪ ĐÂU...🔥
       </div>
 
-      <div className="container" style={{ maxWidth: '850px', margin: '0 auto', padding: '60px 20px' }}>
+      <div className="container home-container">
 
         {/* 2. MAIN HEADLINE */}
         <h1 className="home-h1" style={{
@@ -39,8 +49,9 @@ export default function Home() {
           marginBottom: '24px',
           fontWeight: 800
         }}>
-          Đây Là Bản Đồ Hành Động
-          <br />AI Cho Doanh Nghiệp Của Bạn Trong Năm 2026.
+          Đây Là Bản Đồ Hành Động{` `}
+          <br className="hide-on-mobile" />
+          AI Cho Doanh Nghiệp Của Bạn Trong Năm 2026.
         </h1>
 
         {/* 3. SUBHEADLINE */}
@@ -48,12 +59,12 @@ export default function Home() {
           fontSize: '1.4rem',
           lineHeight: 1.5,
           fontWeight: 400,
-          color: 'var(--muted)',
+          color: '#e5e5ea',
           textAlign: 'center',
           marginBottom: '50px'
         }}>
-          <strong>7 ngày hành động thật • Dữ liệu thật • Kết quả thật</strong><br />
-          Đừng trả tiền cho thử nghiệm AI, hãy trả tiền cho kết quả thật. Thời đại này không cần nhiều thông tin hay công cụ, CHỈ CẦN MỘT CHỈ DẪN HÀNH ĐỘNG RÕ RÀNG ĐƯỢC XÂY DỰNG TỪ GỐC RỄ CỦA DOANH NGHIỆP.
+          <strong>Hành động thật • Dữ liệu thật • Kết quả thật</strong><br className="hide-on-mobile" />
+          <span className="show-on-mobile"> </span>Đừng trả tiền cho thử nghiệm AI, hãy trả tiền cho kết quả thật. Thời đại này không cần nhiều thông tin hay công cụ, CHỈ CẦN MỘT CHỈ DẪN HÀNH ĐỘNG RÕ RÀNG ĐƯỢC XÂY DỰNG TỪ GỐC RỄ CỦA DOANH NGHIỆP.
         </h2>
 
         {/* 4. VIDEO SALES LETTER (VSL) in Apple-style Glass Frame */}
@@ -67,12 +78,15 @@ export default function Home() {
           aspectRatio: '16/9',
           position: 'relative'
         }}>
-          <Script src="https://fast.wistia.com/player.js" strategy="afterInteractive" />
-          <Script src="https://fast.wistia.com/embed/h7qohn3frj.js" strategy="afterInteractive" type="module" />
-          <style dangerouslySetInnerHTML={{ __html: `wistia-player[media-id='h7qohn3frj']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/h7qohn3frj/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }` }} />
-
-          {/* @ts-ignore */}
-          <wistia-player media-id="h7qohn3frj" aspect="1.7777777777777777" style={{ width: '100%', height: '100%', display: 'block' }}></wistia-player>
+          <iframe
+            src="https://fast.wistia.net/embed/iframe/h7qohn3frj?seo=false&videoFoam=false"
+            title="Video"
+            allow="autoplay; fullscreen"
+            frameBorder="0"
+            scrolling="no"
+            style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+          />
+          <Script src="https://fast.wistia.net/assets/external/E-v1.js" strategy="lazyOnload" />
         </div>
 
         {/* CTA BUTTON UNDER VIDEO */}
@@ -123,7 +137,7 @@ export default function Home() {
             <p style={{ fontSize: '1.2rem', color: '#fff', fontWeight: 600, marginBottom: '8px' }}>
               Công cụ đúng + bài toán đúng = Kết quả khổng lồ.
             </p>
-            <p style={{ fontSize: '1.2rem', color: '#86868b', fontWeight: 600, margin: 0 }}>
+            <p style={{ fontSize: '1.2rem', color: '#c8c8d0', fontWeight: 600, margin: 0 }}>
               Công cụ đúng + bài toán SAI = Phí tiền.
             </p>
           </div>
@@ -150,8 +164,8 @@ export default function Home() {
           <p style={{ marginBottom: '32px', fontSize: '1.4rem', fontWeight: 600, color: '#fff' }}>Đó là hiểu rõ vấn đề thực sự của doanh nghiệp.</p>
 
           <ul style={{ listStyle: 'none', padding: 0, marginBottom: '40px' }}>
-            <li style={{ paddingLeft: '24px', position: 'relative', marginBottom: '12px', color: '#a1a1a6' }}><span style={{ position: 'absolute', left: 0, color: '#86868b' }}>✕</span> Họ chữa bệnh mà chưa chẩn đoán.</li>
-            <li style={{ paddingLeft: '24px', position: 'relative', color: '#a1a1a6' }}><span style={{ position: 'absolute', left: 0, color: '#86868b' }}>✕</span> Họ mua thuốc mà chưa biết bị bệnh gì.</li>
+            <li style={{ paddingLeft: '24px', position: 'relative', marginBottom: '12px', color: '#e5e5ea' }}><span style={{ position: 'absolute', left: 0, color: '#c8c8d0' }}>✕</span> Họ chữa bệnh mà chưa chẩn đoán.</li>
+            <li style={{ paddingLeft: '24px', position: 'relative', color: '#e5e5ea' }}><span style={{ position: 'absolute', left: 0, color: '#c8c8d0' }}>✕</span> Họ mua thuốc mà chưa biết bị bệnh gì.</li>
           </ul>
 
           <div style={{
@@ -170,7 +184,7 @@ export default function Home() {
           <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '24px', fontWeight: 700, color: '#fff' }}>
             CÁCH HÀNH TRÌNH GIÚP BẠN ĐẠT HIỆU QUẢ
           </h3>
-          <p style={{ textAlign: 'center', marginBottom: '40px', color: '#a1a1a6' }}>
+          <p style={{ textAlign: 'center', marginBottom: '40px', color: '#e5e5ea' }}>
             Mỗi ngày mất 30-45 phút. Không cần chuyên môn kỹ thuật. Chỉ cần:
           </p>
 
@@ -178,24 +192,24 @@ export default function Home() {
             <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
               <div style={{ fontSize: '2rem', marginBottom: '16px' }}>🤫</div>
               <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>1. Sự thành thật</h4>
-              <p style={{ color: '#a1a1a6', fontSize: '0.95rem' }}>Không tô hồng, không giấu vấn đề.</p>
+              <p style={{ color: '#e5e5ea', fontSize: '0.95rem' }}>Không tô hồng, không giấu vấn đề.</p>
             </div>
             <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
               <div style={{ fontSize: '2rem', marginBottom: '16px' }}>📊</div>
               <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>2. Dữ liệu thật</h4>
-              <p style={{ color: '#a1a1a6', fontSize: '0.95rem' }}>Số từ báo cáo, không phải “khoảng.”</p>
+              <p style={{ color: '#e5e5ea', fontSize: '0.95rem' }}>Số từ báo cáo, không phải “khoảng.”</p>
             </div>
             <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
               <div style={{ fontSize: '2rem', marginBottom: '16px' }}>⏳</div>
               <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>3. Hành động thật</h4>
-              <p style={{ color: '#a1a1a6', fontSize: '0.95rem' }}>Mỗi ngày nối tiếp ngày trước. Bỏ 1 ngày = mất nền.</p>
+              <p style={{ color: '#e5e5ea', fontSize: '0.95rem' }}>Mỗi ngày nối tiếp ngày trước. Bỏ 1 ngày = mất nền.</p>
             </div>
           </div>
 
           <p style={{ marginBottom: '40px', textAlign: 'center', fontSize: '1.2rem', fontWeight: 600, color: '#fff' }}>
             Tôi cần bạn hiểu điều này rất rõ:
           </p>
-          <p style={{ marginBottom: '60px', color: '#a1a1a6', textAlign: 'center', lineHeight: 1.6, maxWidth: '700px', margin: '0 auto 50px' }}>
+          <p style={{ marginBottom: '60px', color: '#e5e5ea', textAlign: 'center', lineHeight: 1.6, maxWidth: '700px', margin: '0 auto 50px' }}>
             Đây là HÀNH TRÌNH để LÀM THỰC TẾ TẠO KẾT QUẢ THẬT. Mỗi ngày có bài tập. Mỗi bài tập yêu cầu bạn lôi dữ liệu thực của công ty ra. Không có chuyện “làm cho biết.” Nếu bạn chỉ lướt qua mà không làm, bạn sẽ không có gì sau 7 ngày.
           </p>
 
@@ -218,7 +232,7 @@ export default function Home() {
               <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                 <div className="process-node" style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>1</div>
                 <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Thu Thập<br />Dữ Liệu</p>
-                <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Nội bộ doanh nghiệp</p>
+                <p style={{ color: '#e5e5ea', fontSize: '0.85rem', marginTop: '8px' }}>Nội bộ doanh nghiệp</p>
               </div>
 
               <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
@@ -226,7 +240,7 @@ export default function Home() {
               <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                 <div className="process-node" style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>2</div>
                 <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Nhận Diện<br />Cơ Hội</p>
-                <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Chuyển hóa dữ liệu</p>
+                <p style={{ color: '#e5e5ea', fontSize: '0.85rem', marginTop: '8px' }}>Chuyển hóa dữ liệu</p>
               </div>
 
               <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
@@ -234,7 +248,7 @@ export default function Home() {
               <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                 <div className="process-node" style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>3</div>
                 <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Ma Trận<br />Ưu Tiên</p>
-                <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Lọc dự án Tốn Sức</p>
+                <p style={{ color: '#e5e5ea', fontSize: '0.85rem', marginTop: '8px' }}>Lọc dự án Tốn Sức</p>
               </div>
 
               <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
@@ -242,7 +256,7 @@ export default function Home() {
               <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                 <div className="process-node" style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>4</div>
                 <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Xây Dựng<br />Lộ Trình</p>
-                <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Kế hoạch thực thi</p>
+                <p style={{ color: '#e5e5ea', fontSize: '0.85rem', marginTop: '8px' }}>Kế hoạch thực thi</p>
               </div>
 
               <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
@@ -272,7 +286,7 @@ export default function Home() {
             <h3 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '16px', fontWeight: 800, color: '#fff' }}>
               Bản Đồ 7 Ngày: Hành Động Và Kết Quả
             </h3>
-            <p style={{ textAlign: 'center', color: '#a1a1a6', marginBottom: '40px', fontSize: '1.1rem' }}>
+            <p style={{ textAlign: 'center', color: '#e5e5ea', marginBottom: '40px', fontSize: '1.1rem' }}>
               Chỉ mất 30-45 phút mỗi ngày. Trung thực 100%. Kế hoạch AI từ dữ liệu giả sẽ cho ra hướng đi giả. Mà hướng đi giả thì đốt tiền thật. Đây là những gì bạn sẽ trải qua:
             </p>
 
@@ -491,7 +505,7 @@ export default function Home() {
                 <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#fff', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>D</div>
                 <div>
                   <p style={{ margin: 0, color: '#fff', fontWeight: 600 }}>Anh Dũng</p>
-                  <p style={{ margin: 0, color: '#86868b', fontSize: '0.85rem' }}>CEO Công Ty Xây Dựng (40 Nhân Sự)</p>
+                  <p style={{ margin: 0, color: '#a1a1a6', fontSize: '0.85rem' }}>CEO Công Ty Xây Dựng (40 Nhân Sự)</p>
                 </div>
               </div>
             </div>
@@ -505,7 +519,7 @@ export default function Home() {
                 <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#fff', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>M</div>
                 <div>
                   <p style={{ margin: 0, color: '#fff', fontWeight: 600 }}>Chị Mai</p>
-                  <p style={{ margin: 0, color: '#86868b', fontSize: '0.85rem' }}>Founder Chuỗi Bán Lẻ (8 Cửa Hàng)</p>
+                  <p style={{ margin: 0, color: '#a1a1a6', fontSize: '0.85rem' }}>Founder Chuỗi Bán Lẻ (8 Cửa Hàng)</p>
                 </div>
               </div>
             </div>
@@ -554,13 +568,13 @@ export default function Home() {
 
           {/* 10. PRICE & FINAL CTA */}
           <div style={{ textAlign: 'center', padding: '60px 40px', borderRadius: '32px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255, 255, 255, 0.15)' }}>
-            <p style={{ fontSize: '1.1rem', color: '#a1a1a6', marginBottom: '16px' }}>
+            <p style={{ fontSize: '1.1rem', color: '#e5e5ea', marginBottom: '16px' }}>
               Một Agency thông thường sẽ lấy của bạn <span style={{ textDecoration: 'line-through' }}>5.000 - 20.000 USD</span> để vẽ ra bản đồ này.
             </p>
             <h3 style={{ fontSize: '1.8rem', marginBottom: '24px', color: '#fff', fontWeight: 700 }}>Chi phí để Bắt Đầu Hành Trình Của Bạn:</h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '30px' }}>
-              <div style={{ color: '#86868b', fontSize: '1.5rem', textDecoration: 'line-through', fontWeight: 500 }}>3.000.000 VNĐ</div>
+              <div style={{ color: '#c8c8d0', fontSize: '1.5rem', textDecoration: 'line-through', fontWeight: 500 }}>3.000.000 VNĐ</div>
               <h2 style={{ fontSize: '4.5rem', fontWeight: 800, color: '#fff', margin: 0, lineHeight: 1, letterSpacing: '-0.03em' }}>
                 500.000<span style={{ fontSize: '2rem', verticalAlign: 'top' }}>đ</span>
               </h2>
@@ -569,7 +583,7 @@ export default function Home() {
             {/* Urgent Tag & Countdown via Client Component */}
             <CountdownTimer />
 
-            <p style={{ color: '#a1a1a6', marginBottom: '40px', fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
+            <p style={{ color: '#e5e5ea', marginBottom: '40px', fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
               Đừng trả tiền để thử nghiệm AI. Hãy trả tiền cho kết quả.
               <br />Thời đại AI đã chín mùi công nghệ, pháp lý AI đã rõ ràng. Đa số chỉ tò mò và phản ứng. Chỉ rất ít người có kế hoạch để dẫn đầu. Chúng tôi xây dựng Bản Đồ Hành Động AI cho số ít đó.
             </p>
@@ -577,7 +591,7 @@ export default function Home() {
             <Link href="/register" className="cta-btn" style={{ fontSize: '1.2rem', padding: '20px 48px', margin: '0 auto' }}>
               Truy Cập Bản Đồ Ngay Lập Tức
             </Link>
-            <p style={{ fontSize: '0.9rem', color: '#86868b', marginTop: '24px' }}>
+            <p style={{ fontSize: '0.9rem', color: '#c8c8d0', marginTop: '24px' }}>
               🔒 Sau khi hoàn tất thanh toán sẽ được kích hoạt tự động.
             </p>
           </div>
@@ -641,7 +655,7 @@ export default function Home() {
           paddingTop: '24px',
           marginTop: '60px',
           textAlign: 'center',
-          color: '#86868b',
+          color: '#9e9ea5',
           fontSize: '0.85rem',
           fontWeight: 400
         }}>
