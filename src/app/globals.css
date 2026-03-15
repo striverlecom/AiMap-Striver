@@ -336,14 +336,14 @@ p {
 
   /* Homepage Typography Rescaling */
   .home-h1 {
-    font-size: 2.2rem !important;
+    font-size: 2.1rem !important;
     line-height: 1.2 !important;
-    margin-bottom: 16px !important;
+    margin-bottom: 20px !important;
   }
   
   .home-h2 {
     font-size: 1.15rem !important;
-    line-height: 1.5 !important;
+    line-height: 1.6 !important;
     margin-bottom: 32px !important;
   }
 
@@ -352,7 +352,27 @@ p {
     gap: 16px !important;
   }
 
+  /* Specific Adjustments for page.tsx Components */
+  .apple-3d-card {
+    padding: 24px 20px !important; /* Tighter padding for mobile */
+    border-radius: 20px !important;
+  }
+  
+  .apple-3d-card h4 {
+    font-size: 1.25rem !important;
+  }
 
+  /* Reduce gap on process map for mobile */
+  .process-flow {
+    gap: 16px !important;
+  }
+
+  .cta-btn {
+    padding: 16px 24px !important; /* Smaller button padding */
+    font-size: 1.1rem !important;
+    width: 100% !important; /* Full width button on mobile */
+    max-width: 350px !important;
+  }
   /* Hamburger Menu Toggle */
   .mobile-menu-btn {
     display: block;

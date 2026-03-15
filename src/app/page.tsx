@@ -25,7 +25,7 @@ export default function Home() {
 
       {/* 1. PRE-HEAD / CALL-OUT */}
       <div style={{ backgroundColor: '#111', color: '#fff', textAlign: 'center', padding: '16px 24px', fontSize: '0.9rem', fontWeight: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '54px' }}>
-        🔥 DÀNH RIÊNG CHO CHỦ DOANH NGHIỆP KHÔNG BIẾT BẮT ĐẦU AI TỪ ĐÂU...🔥
+        🔥 DÀNH CHO CHỦ DOANH NGHIỆP  NGHIÊM TÚC VỚI "AI" MÀ CHƯA BIẾT BẮT ĐẦU TỪ ĐÂU...🔥
       </div>
 
       <div className="container" style={{ maxWidth: '850px', margin: '0 auto', padding: '60px 20px' }}>
@@ -200,7 +200,7 @@ export default function Home() {
           </p>
 
           {/* 6.5. 5-STAGE TRANSFORMATION PROCESS */}
-          <div style={{ marginBottom: '80px', padding: '40px', background: 'rgba(255,255,255,0.02)', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
+          <div className="process-wrapper" style={{ marginBottom: '80px', padding: '40px', background: 'rgba(255,255,255,0.02)', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
             <h3 style={{ fontSize: '1.6rem', textAlign: 'center', marginBottom: '40px', fontWeight: 700, color: '#f5f5f7' }}>
               Quy Trình Chuyển Hóa Cốt Lõi Của Hành Trình
             </h3>
@@ -216,7 +216,7 @@ export default function Home() {
             }}>
 
               <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>1</div>
+                <div className="process-node" style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>1</div>
                 <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Thu Thập<br />Dữ Liệu</p>
                 <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Nội bộ doanh nghiệp</p>
               </div>
@@ -224,7 +224,7 @@ export default function Home() {
               <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
 
               <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>2</div>
+                <div className="process-node" style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>2</div>
                 <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Nhận Diện<br />Cơ Hội</p>
                 <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Chuyển hóa dữ liệu</p>
               </div>
@@ -232,7 +232,7 @@ export default function Home() {
               <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
 
               <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>3</div>
+                <div className="process-node" style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>3</div>
                 <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Ma Trận<br />Ưu Tiên</p>
                 <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Lọc dự án Tốn Sức</p>
               </div>
@@ -240,7 +240,7 @@ export default function Home() {
               <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
 
               <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>4</div>
+                <div className="process-node" style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>4</div>
                 <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Xây Dựng<br />Lộ Trình</p>
                 <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Kế hoạch thực thi</p>
               </div>
@@ -248,7 +248,7 @@ export default function Home() {
               <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
 
               <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #444, #111)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: '0 0 15px rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.4)' }}>5</div>
+                <div className="process-node process-node-final" style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #444, #111)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: '0 0 15px rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.4)' }}>5</div>
                 <p style={{ color: '#fff', fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>Hoàn Vốn<br />Tài Chính (ROI)</p>
                 <p style={{ color: '#d2d2d7', fontSize: '0.85rem', marginTop: '8px' }}>Mục tiêu tối thượng</p>
               </div>
@@ -258,8 +258,11 @@ export default function Home() {
             <style dangerouslySetInnerHTML={{
               __html: `
               @media (max-width: 768px) {
-                .process-flow { flex-direction: column !important; gap: 24px !important; }
-                .flow-arrow { transform: rotate(90deg); margin: 8px 0; }
+                .process-wrapper { padding: 24px !important; margin-bottom: 40px !important; }
+                .process-wrapper h3 { font-size: 1.4rem !important; margin-bottom: 32px !important; }
+                .process-flow { flex-direction: column !important; gap: 16px !important; }
+                .flow-arrow { transform: rotate(90deg); margin: 4px 0; font-size: 1.25rem !important; }
+                .process-node { width: 48px !important; height: 48px !important; font-size: 1.2rem !important; margin-bottom: 12px !important; }
               }
             `}} />
           </div>
