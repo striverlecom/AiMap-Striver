@@ -253,7 +253,7 @@ export default function Home() {
               Bản Đồ 7 Ngày: Hành Động Và Kết Quả
             </h3>
             <p style={{ textAlign: 'center', color: '#a1a1a6', marginBottom: '40px', fontSize: '1.1rem' }}>
-              Chỉ mất 30-45 phút mỗi ngày. Trung thực 100%. Đây là những gì bạn sẽ trải qua:
+              Chỉ mất 30-45 phút mỗi ngày. Trung thực 100%. Kế hoạch AI từ dữ liệu giả sẽ cho ra hướng đi giả. Mà hướng đi giả thì đốt tiền thật. Đây là những gì bạn sẽ trải qua:
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
