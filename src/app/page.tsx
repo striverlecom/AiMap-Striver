@@ -11,7 +11,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div style={{ background: 'var(--background)', color: 'var(--foreground)', minHeight: '100vh', paddingBottom: '100px', marginTop: '-16px' }}>
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .apple-3d-card {
           position: relative;
         }
@@ -24,7 +25,7 @@ export default function Home() {
 
       {/* 1. PRE-HEAD / CALL-OUT */}
       <div style={{ backgroundColor: '#111', color: '#fff', textAlign: 'center', padding: '16px 24px', fontSize: '0.9rem', fontWeight: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '54px' }}>
-        ⚠️ DÀNH RIÊNG CHO CHỦ DOANH NGHIỆP ĐANG BỐI RỐI KHÔNG BIẾT BẮT ĐẦU AI TỪ ĐÂU......
+        🔥 DÀNH RIÊNG CHO CHỦ DOANH NGHIỆP KHÔNG BIẾT BẮT ĐẦU AI TỪ ĐÂU...🔥
       </div>
 
       <div className="container" style={{ maxWidth: '850px', margin: '0 auto', padding: '60px 20px' }}>
@@ -39,7 +40,7 @@ export default function Home() {
           fontWeight: 800
         }}>
           Đây Là Bản Đồ Hành Động
-          <br/>Cho Doanh Nghiệp Của Bạn.
+          <br />Cho Doanh Nghiệp Của Bạn.
         </h1>
 
         {/* 3. SUBHEADLINE */}
@@ -51,8 +52,8 @@ export default function Home() {
           textAlign: 'center',
           marginBottom: '50px'
         }}>
-          <strong>7 ngày • Dữ liệu thật • Kết quả thật</strong><br/>
-          Không phải lý thuyết. Không phải xu hướng.
+          <strong>7 ngày hành động thật • Dữ liệu thật • Kết quả thật</strong><br />
+          Không phải lý thuyết. Không phải xu hướng. Đừng trả tiền cho thử nghiệm AI nữa, hãy trả tiền cho kết quả.
         </h2>
 
         {/* 4. VIDEO SALES LETTER (VSL) in Apple-style Glass Frame */}
@@ -90,10 +91,10 @@ export default function Home() {
           </p>
 
           <p style={{ marginBottom: '16px', fontSize: '1.3rem', fontWeight: 600, color: '#fff', textAlign: 'center' }}>
-            AI không phải là phép màu. AI không phải là con đường tắt.<br/>
+            AI không phải là phép màu. AI không phải là con đường tắt.<br />
             AI là một CÔNG CỤ - giống như Excel, như CRM, như ERP.
           </p>
-          
+
           <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', marginBottom: '40px' }}>
             <p style={{ fontSize: '1.2rem', color: '#fff', fontWeight: 600, marginBottom: '8px' }}>
               Công cụ đúng + bài toán đúng = Kết quả khổng lồ.
@@ -117,7 +118,7 @@ export default function Home() {
 
           <div style={{ padding: '24px', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '16px', background: 'rgba(255, 255, 255, 0.05)', marginBottom: '30px', textAlign: 'center' }}>
             <p style={{ fontSize: '1.1rem', fontWeight: 500, margin: 0, color: '#d2d2d7' }}>
-              Chủ Doanh nghiệp nghe về AI <br/>↓<br/> Mua tool / thuê vendor <br/>↓<br/> Triển khai <br/>↓<br/> <span style={{ color: '#fff', fontWeight: 700 }}>Thất bại.</span>
+              Chủ Doanh nghiệp nghe về AI <br />↓<br /> Mua tool / thuê vendor <br />↓<br /> Triển khai <br />↓<br /> <span style={{ color: '#fff', fontWeight: 700 }}>Thất bại.</span>
             </p>
           </div>
 
@@ -138,7 +139,7 @@ export default function Home() {
             textAlign: 'center'
           }}>
             <p style={{ fontSize: '1.2rem', lineHeight: 1.6, color: '#fff', margin: 0 }}>
-              <strong>Tài liệu này chính là bước “chẩn đoán.”</strong> Nó giúp bạn nhìn thật sâu vào doanh nghiệp của mình, tìm ra chính xác đâu là những nơi AI có thể tạo ra thay đổi THẬT SỰ, và xây dựng một kế hoạch hành động dựa trên dữ liệu của chính bạn.
+              <strong>Hành trình này chính là bước “chẩn đoán.”</strong> Nó giúp bạn nhìn thật sâu vào doanh nghiệp của mình, tìm ra chính xác đâu là những nơi AI có thể tạo ra thay đổi THẬT SỰ, và xây dựng một kế hoạch hành động dựa trên dữ liệu của chính bạn.
             </p>
           </div>
 
@@ -162,7 +163,7 @@ export default function Home() {
             </div>
             <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
               <div style={{ fontSize: '2rem', marginBottom: '16px' }}>⏳</div>
-              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>3. 7 ngày liên tục</h4>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>3. Hành động thật</h4>
               <p style={{ color: '#a1a1a6', fontSize: '0.95rem' }}>Mỗi ngày nối tiếp ngày trước. Bỏ 1 ngày = mất nền.</p>
             </div>
           </div>
@@ -186,15 +187,15 @@ export default function Home() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
               {/* Day 1 */}
-              <div 
+              <div
                 className="apple-3d-card"
-                style={{ 
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)', 
-                  border: '1px solid rgba(255,255,255,0.08)', 
+                style={{
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
                   borderTop: '1px solid rgba(255,255,255,0.15)',
-                  borderRadius: '24px', 
-                  padding: '32px', 
-                  position: 'relative', 
+                  borderRadius: '24px',
+                  padding: '32px',
+                  position: 'relative',
                   overflow: 'hidden',
                   backdropFilter: 'blur(20px)',
                   boxShadow: '0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
@@ -203,22 +204,22 @@ export default function Home() {
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>1. Nhìn Thẳng Sự Thật</h4>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 1 : Nhìn Thẳng Sự Thật</h4>
                   <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Tự chấm điểm chỉ số sẵn sàng AI của doanh nghiệp (từ quy trình, nhân sự đến dữ liệu) bằng thang điểm. Khai báo 3 điểm đau lớn nhất đang đốt thì giờ mỗi ngày.</p>
                   <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Bắt đúng bệnh. Hệ thống trả về bức tranh trần trụi nhất về thực trạng doanh nghiệp, dẹp bỏ mọi sự mơ hồ tốn kém.</p>
                 </div>
               </div>
 
               {/* Day 2 */}
-              <div 
+              <div
                 className="apple-3d-card"
-                style={{ 
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)', 
-                  border: '1px solid rgba(255,255,255,0.08)', 
+                style={{
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
                   borderTop: '1px solid rgba(255,255,255,0.15)',
-                  borderRadius: '24px', 
-                  padding: '32px', 
-                  position: 'relative', 
+                  borderRadius: '24px',
+                  padding: '32px',
+                  position: 'relative',
                   overflow: 'hidden',
                   backdropFilter: 'blur(20px)',
                   boxShadow: '0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
@@ -227,22 +228,22 @@ export default function Home() {
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>2. Mở Tung Sổ Sách</h4>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 2 : Mở Tung Sổ Sách</h4>
                   <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Lôi toàn bộ báo cáo doanh thu, quỹ lương nhân sự, và chi phí vận hành ra. Biến cảm giác "hình như đang khó khăn" thành những con số lạnh lùng đanh thép.</p>
                   <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Có sẵn mọi dữ liệu đầu vào cốt lõi làm mồi nổ để máy tính tự động tính toán ra lợi nhuận quy đổi (ROI) ở Ngày 6.</p>
                 </div>
               </div>
 
               {/* Day 3 */}
-              <div 
+              <div
                 className="apple-3d-card"
-                style={{ 
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)', 
-                  border: '1px solid rgba(255,255,255,0.08)', 
+                style={{
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
                   borderTop: '1px solid rgba(255,255,255,0.15)',
-                  borderRadius: '24px', 
-                  padding: '32px', 
-                  position: 'relative', 
+                  borderRadius: '24px',
+                  padding: '32px',
+                  position: 'relative',
                   overflow: 'hidden',
                   backdropFilter: 'blur(20px)',
                   boxShadow: '0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
@@ -251,22 +252,22 @@ export default function Home() {
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>3. Bắt Mạch Hiện Trường</h4>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 3 : Bắt Mạch Hiện Trường</h4>
                   <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Điền lời khai thực tế từ nhân sự (những người trực tiếp dọn rác vận hành mỗi ngày). Trả lời các câu hỏi phỏng vấn chuẩn y khoa giúp moi móc những vấn đề mà sếp không hề hay biết.</p>
                   <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Tách biệt rạch ròi giữa "Những gì Sếp nghĩ" và "Những gì Nhân viên thực làm". Nơi có sự lệch pha, nơi đó là Mỏ Vàng AI.</p>
                 </div>
               </div>
 
               {/* Day 4 */}
-              <div 
+              <div
                 className="apple-3d-card"
-                style={{ 
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)', 
-                  border: '1px solid rgba(255,255,255,0.08)', 
+                style={{
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
                   borderTop: '1px solid rgba(255,255,255,0.15)',
-                  borderRadius: '24px', 
-                  padding: '32px', 
-                  position: 'relative', 
+                  borderRadius: '24px',
+                  padding: '32px',
+                  position: 'relative',
                   overflow: 'hidden',
                   backdropFilter: 'blur(20px)',
                   boxShadow: '0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
@@ -275,22 +276,22 @@ export default function Home() {
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>4. Giải Phẫu Vận Hành</h4>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 4 : Giải Phẫu Vận Hành</h4>
                   <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Vẽ lại toàn bộ công ty thông qua 3 Động cơ lõi: Tìm Khách (Acquisition), Phục Vụ (Delivery), Chăm Sóc (Support). Đánh dấu mọi điểm nghẽn bằng "Lãng phí Thời gian" hoặc "Rủi ro Lỗi".</p>
                   <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Tấm bản đồ X-Quang chi tiết lộ rõ những "Cổ chai" ngốn máu doanh nghiệp. Bạn biết chính xác chỗ nào cần đập đi xây lại.</p>
                 </div>
               </div>
 
               {/* Day 5 */}
-              <div 
+              <div
                 className="apple-3d-card"
-                style={{ 
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)', 
-                  border: '1px solid rgba(255,255,255,0.08)', 
+                style={{
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
                   borderTop: '1px solid rgba(255,255,255,0.15)',
-                  borderRadius: '24px', 
-                  padding: '32px', 
-                  position: 'relative', 
+                  borderRadius: '24px',
+                  padding: '32px',
+                  position: 'relative',
                   overflow: 'hidden',
                   backdropFilter: 'blur(20px)',
                   boxShadow: '0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
@@ -299,22 +300,22 @@ export default function Home() {
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>5. Ma Trận Ưu Tiên</h4>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 5 : Ma Trận Ưu Tiên</h4>
                   <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Loại bỏ các ý tưởng rác rưởi bằng Ma Trận Ưu Tiên 4 Ô. Tách biệt dự án "Tốn Sức - Ít Tiền" (Bỏ qua) và dự án "Dễ Thay Đổi - Nhanh Thấy Tiền" (Chiến thắng nhanh).</p>
                   <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Chốt hạ được Dự Án AI cốt tử nhất để triển khai tức thì. Không lan man. Không ảo tưởng.</p>
                 </div>
               </div>
 
               {/* Day 6 */}
-              <div 
+              <div
                 className="apple-3d-card"
-                style={{ 
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)', 
-                  border: '1px solid rgba(255,255,255,0.08)', 
+                style={{
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(20,20,20,0.8) 100%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
                   borderTop: '1px solid rgba(255,255,255,0.15)',
-                  borderRadius: '24px', 
-                  padding: '32px', 
-                  position: 'relative', 
+                  borderRadius: '24px',
+                  padding: '32px',
+                  position: 'relative',
                   overflow: 'hidden',
                   backdropFilter: 'blur(20px)',
                   boxShadow: '0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
@@ -323,22 +324,22 @@ export default function Home() {
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>6. Quy Ra Đô La</h4>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 6 : Quy Ra Đô La</h4>
                   <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Nhập dự kiến thời gian cắt giảm nhờ AI. Thuật toán của chúng tôi sẽ kết hợp với Dữ Liệu Ngày 2 để chạy công thức tài chính.</p>
                   <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Bạn nhìn thấy chính xác số Tiền Lương tiết kiệm được mỗi năm, Số giờ dôi dư, và % Tỷ suất hoàn vốn (ROI) hiển thị bằng hiện kim.</p>
                 </div>
               </div>
 
               {/* Day 7 */}
-              <div 
+              <div
                 className="apple-3d-card"
-                style={{ 
-                  background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(10,10,12,0.9) 100%)', 
-                  border: '1px solid rgba(255,255,255,0.15)', 
+                style={{
+                  background: 'linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(10,10,12,0.9) 100%)',
+                  border: '1px solid rgba(255,255,255,0.15)',
                   borderTop: '1px solid rgba(255,255,255,0.25)',
-                  borderRadius: '24px', 
-                  padding: '32px', 
-                  position: 'relative', 
+                  borderRadius: '24px',
+                  padding: '32px',
+                  position: 'relative',
                   overflow: 'hidden',
                   backdropFilter: 'blur(20px)',
                   boxShadow: '0 24px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2)',
@@ -348,9 +349,9 @@ export default function Home() {
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #fff, #86868b)' }} />
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top right, rgba(255,255,255,0.06), transparent 60%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 700 }}>7. Bản Đồ Tác Chiến & Báo Cáo Phân Tích</h4>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 700 }}>NGÀY 7 : Bản Đồ Tác Chiến & Báo Cáo Phân Tích</h4>
                   <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Viết xuống 3 hành động cụ thể cho tuần tới, tháng tới. Chuyển đổi mọi thông tin thành Lộ trình triển khai.</p>
-                  <p style={{ color: '#fff', margin: 0, fontWeight: 600 }}><strong>Kết quả:</strong> Hoàn tất toàn bộ hành trình. Hệ thống tự động xuất Báo Cáo Tổng Thể — tài liệu chiến lược tối cao dành riêng cho CEO.</p>
+                  <p style={{ color: '#fff', margin: 0, fontWeight: 600 }}><strong>Kết quả:</strong> Hoàn tất toàn bộ hành trình. Hệ thống tự động xuất Báo Cáo Tổng Thể — Hành động chiến lược dành riêng cho CEO.</p>
                 </div>
               </div>
             </div>
@@ -386,11 +387,11 @@ export default function Home() {
             Bằng Chứng Thật. Kết Quả Thật.
           </h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '80px' }}>
-            
+
             <div style={{ background: 'rgba(255,255,255,0.03)', padding: '32px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.08)' }}>
               <div style={{ display: 'flex', color: '#fff', marginBottom: '16px', letterSpacing: '4px' }}>★★★★★</div>
               <p style={{ fontStyle: 'italic', marginBottom: '24px', color: '#a1a1a6', lineHeight: 1.6 }}>
-                "Trước kia chúng tôi mua 5 cái thẻ ChatGPT và vứt đó. Nhờ áp dụng tấm bản đồ này, tôi khui ra được nút thắt ở khâu làm Báo Giá. Chỉ bằng 1 thủ thuật tự động hóa, quy trình giảm từ 3 ngày xuống 15 phút, tiết kiệm 120 triệu tiền lương thừa mỗi năm."
+                "Trước kia chúng tôi mua 3 tài khoản ChatGPT và vứt đó. Nhờ áp dụng tấm bản đồ này, tôi khui ra được nút thắt ở khâu làm Báo Giá. Chỉ bằng 1 thủ thuật tự động hóa, quy trình giảm từ 3 ngày xuống 15 phút, tiết kiệm 120 triệu tiền lương thừa mỗi năm."
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#fff', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>D</div>
@@ -417,7 +418,41 @@ export default function Home() {
 
           </div>
 
-          {/* 9. FAQs */}
+          {/* 9. GUARANTEE SECTION */}
+          <div style={{
+            background: 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(10,10,12,0.8) 100%)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            borderTop: '1px solid rgba(255,255,255,0.25)',
+            borderRadius: '24px',
+            padding: '48px',
+            position: 'relative',
+            overflow: 'hidden',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 24px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.2)',
+            marginBottom: '80px',
+            textAlign: 'center'
+          }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #fff, #86868b)' }} />
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top, rgba(255,255,255,0.05), transparent 70%)', pointerEvents: 'none' }} />
+            
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🛡️</div>
+              <h3 style={{ fontSize: '2rem', marginBottom: '16px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
+                Bảo Chứng Hoàn Tiền 100% Trong 7 Ngày
+              </h3>
+              <p style={{ color: '#a1a1a6', fontSize: '1.15rem', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto 24px' }}>
+                Tôi không bán hy vọng. Tôi bán <strong>Kết Quả</strong>.
+                <br /><br />
+                Nếu sau khi điền đầy đủ dữ liệu trong 7 Ngày Thực Hành mà bạn thấy Bản Đồ này không chỉ ra đúng vấn đề, không chỉ ra cách tiết kiệm được ít nhất GẤP ĐÔI số tiền bạn bỏ ra mua nó...
+                Hãy gửi email cho tôi. Tôi sẽ hoàn trả 100% chi phí không hỏi thêm nửa lời.
+              </p>
+              <p style={{ color: '#fff', margin: 0, fontWeight: 600, fontSize: '1.2rem' }}>
+                Rủi ro của bạn bằng 0. Hoặc bạn tiết kiệm được tiền tỷ, hoặc bạn được trả lại tiền.
+              </p>
+            </div>
+          </div>
+
+          {/* 10. FAQs */}
           <h3 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '40px', fontWeight: 800, color: '#fff' }}>
             Câu Hỏi Thường Gặp
           </h3>
@@ -426,7 +461,7 @@ export default function Home() {
               <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>1. Tôi Không Dành Về Kỹ Thuật Lập Trình Thì Có Dùng Được AI Map Này Không?</h4>
               <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Bản Đồ 7 Ngày tập trung vào tư duy kinh doanh và dữ liệu, không phải code lập trình. Bạn chỉ cần nhập số liệu và trả lời câu hỏi, hệ thống sẽ giúp bạn kết nối các mảng logic lại thành một chiến lược tài chính tự động.</p>
             </div>
-            
+
             <div style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
               <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>2. Thông Tin Doanh Nghiệp Có Bị Lộ Ra Ngoài Không?</h4>
               <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Ứng dụng không yêu cầu chia sẻ tên cụ thể đối tác hay bí mật thương mại. Các con số bạn điền vào tài khoản sẽ được mã hóa với chuẩn bảo mật độc lập từ hệ thống Supabase Database, chỉ duy nhất bạn xem được Báo cáo của riêng mình.</p>
@@ -444,27 +479,27 @@ export default function Home() {
               Một Agency thông thường sẽ lấy của bạn <span style={{ textDecoration: 'line-through' }}>5.000 - 20.000 USD</span> để vẽ ra bản đồ này.
             </p>
             <h3 style={{ fontSize: '1.8rem', marginBottom: '24px', color: '#fff', fontWeight: 700 }}>Chi phí để Bắt Đầu Hành Trình Của Bạn:</h3>
-            
+
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '30px' }}>
               <div style={{ color: '#86868b', fontSize: '1.5rem', textDecoration: 'line-through', fontWeight: 500 }}>3.000.000 VNĐ</div>
               <h2 style={{ fontSize: '4.5rem', fontWeight: 800, color: '#fff', margin: 0, lineHeight: 1, letterSpacing: '-0.03em' }}>
                 500.000<span style={{ fontSize: '2rem', verticalAlign: 'top' }}>đ</span>
               </h2>
             </div>
-            
+
             {/* Urgent Tag & Countdown via Client Component */}
             <CountdownTimer />
 
             <p style={{ color: '#a1a1a6', marginBottom: '40px', fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
-              Trả một lần. Truy cập vĩnh viễn hệ thống phần mềm. 
-              <br/>Đừng trả thêm tiền ngu cho vòng luẩn quẩn định hướng sai lầm.
+              Trả một lần. Truy cập vĩnh viễn hệ thống phần mềm.
+              <br />Đừng trả thêm tiền ngu cho vòng luẩn quẩn định hướng sai lầm.
             </p>
 
             <Link href="/register" className="cta-btn" style={{ fontSize: '1.2rem', padding: '20px 48px', margin: '0 auto' }}>
               Truy Cập Bản Đồ Ngay Lập Tức
             </Link>
             <p style={{ fontSize: '0.9rem', color: '#86868b', marginTop: '24px' }}>
-              🔒 Thanh toán tự động 24/7. Mã truy cập gửi ngay lập tức.
+              🔒 Sau khi hoàn tất thanh toán sẽ được kích hoạt tự động. .
             </p>
           </div>
 
