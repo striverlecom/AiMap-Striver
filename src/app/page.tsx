@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 import Script from 'next/script';
+import { useEffect, useState } from 'react';
 
 export const metadata: Metadata = {
   title: 'Bản Đồ 7 Ngày Thay Đổi Doanh Nghiệp Bằng AI | STRIVER.AI.VN',
@@ -8,6 +9,24 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
+  const [timeLeft, setTimeLeft] = useState(24 * 60 * 60); // 24 hours in seconds
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (seconds: number) => {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
   return (
     <div style={{ background: 'var(--background)', color: 'var(--foreground)', minHeight: '100vh', paddingBottom: '100px', marginTop: '-16px' }}>
 
@@ -164,8 +183,75 @@ export default function Home() {
           </p>
 
 
-          {/* 7. AFTER 7 DAYS RESULTS */}
-          <div style={{ background: 'linear-gradient(180deg, rgba(20,20,22,1) 0%, rgba(10,10,10,1) 100%)', padding: '40px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '60px' }}>
+          {/* 7. DAY BY DAY BREAKDOWN */}
+          <div style={{ marginBottom: '80px' }}>
+            <h3 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '16px', fontWeight: 800, color: '#fff' }}>
+              Bản Đồ 7 Ngày: Hành Động Và Kết Quả
+            </h3>
+            <p style={{ textAlign: 'center', color: '#a1a1a6', marginBottom: '40px', fontSize: '1.1rem' }}>
+              Chỉ mất 30-45 phút mỗi ngày. Trung thực 100%. Đây là những gì bạn sẽ trải qua:
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              {/* Day 1 */}
+              <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #0071e3, #42a1ff)' }} />
+                <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>🚀 Ngày 1 (Sự thật): Nhìn Thẳng Sự Thật</h4>
+                <p style={{ color: '#d2d2d7', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Tự chấm điểm chỉ số sẵn sàng AI của doanh nghiệp (từ quy trình, nhân sự đến dữ liệu) bằng thang điểm. Khai báo 3 điểm đau lớn nhất đang đốt thì giờ mỗi ngày.</p>
+                <p style={{ color: '#32d74b', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Bắt đúng bệnh. Hệ thống trả về bức tranh trần trụi nhất về thực trạng doanh nghiệp, dẹp bỏ mọi sự mơ hồ tốn kém.</p>
+              </div>
+
+              {/* Day 2 */}
+              <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #ff9f0a, #ffd60a)' }} />
+                <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>📊 Ngày 2 (Dữ liệu): Mở Tung Sổ Sách</h4>
+                <p style={{ color: '#d2d2d7', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Lôi toàn bộ báo cáo doanh thu, quỹ lương nhân sự, và chi phí vận hành ra. Biến cảm giác "hình như đang khó khăn" thành những con số lạnh lùng đanh thép.</p>
+                <p style={{ color: '#32d74b', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Có sẵn mọi dữ liệu đầu vào cốt lõi làm mồi nổ để máy tính tự động tính toán ra lợi nhuận quy đổi (ROI) ở Ngày 6.</p>
+              </div>
+
+              {/* Day 3 */}
+              <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #bf48ff, #ff64ff)' }} />
+                <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>🎤 Ngày 3 (Phỏng vấn): Bắt Mạch Hiện Trường</h4>
+                <p style={{ color: '#d2d2d7', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Điền lời khai thực tế từ nhân sự (những người trực tiếp dọn rác vận hành mỗi ngày). Trả lời các câu hỏi phỏng vấn chuẩn y khoa giúp moi móc những vấn đề mà sếp không hề hay biết.</p>
+                <p style={{ color: '#32d74b', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Tách biệt rạch ròi giữa "Những gì Sếp nghĩ" và "Những gì Nhân viên thực làm". Nơi có sự lệch pha, nơi đó là Mỏ Vàng AI.</p>
+              </div>
+
+              {/* Day 4 */}
+              <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #32d74b, #30d158)' }} />
+                <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>⚙️ Ngày 4 (Sơ đồ): Giải Phẫu Vận Hành</h4>
+                <p style={{ color: '#d2d2d7', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Vẽ lại toàn bộ công ty thông qua 3 Động cơ lõi: Tìm Khách (Acquisition), Phục Vụ (Delivery), Chăm Sóc (Support). Đánh dấu mọi điểm nghẽn bằng "Lãng phí Thời gian" hoặc "Rủi ro Lỗi".</p>
+                <p style={{ color: '#32d74b', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Tấm bản đồ X-Quang chi tiết lộ rõ những "Cổ chai" ngốn máu doanh nghiệp. Bạn biết chính xác chỗ nào cần đập đi xây lại.</p>
+              </div>
+
+              {/* Day 5 */}
+              <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #ff375f, #ff6482)' }} />
+                <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>🎯 Ngày 5 (Ưu tiên): Ma Trận Thanh Trừng</h4>
+                <p style={{ color: '#d2d2d7', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Loại bỏ các ý tưởng rác rưởi bằng Ma Trận Ưu Tiên 4 Ô. Tách biệt dự án "Tốn Sức - Ít Tiền" (Bỏ qua) và dự án "Dễ Thay Đổi - Nhanh Thấy Tiền" (Chiến thắng nhanh).</p>
+                <p style={{ color: '#32d74b', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Chốt hạ được Dự Án AI cốt tử nhất để triển khai tức thì. Không lan man. Không ảo tưởng.</p>
+              </div>
+
+              {/* Day 6 */}
+              <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #30b0c7, #86d5e3)' }} />
+                <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>💰 Ngày 6 (Tính ROI): Quy Ra Đô La</h4>
+                <p style={{ color: '#d2d2d7', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Nhập dự kiến thời gian cắt giảm nhờ AI. Thuật toán của chúng tôi sẽ kết hợp với Dữ Liệu Ngày 2 để chạy công thức tài chính.</p>
+                <p style={{ color: '#32d74b', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Bạn nhìn thấy chính xác số Tiền Lương tiết kiệm được mỗi năm, Số giờ dôi dư, và % Tỷ suất hoàn vốn (ROI) hiển thị bằng hiện kim.</p>
+              </div>
+
+              {/* Day 7 */}
+              <div style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.1), rgba(0,0,0,0.5))', border: '1px solid rgba(212,175,55,0.3)', borderRadius: '24px', padding: '32px', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #d4af37, #fff)' }} />
+                <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 700 }}>🗺️ Ngày 7 (Kế hoạch): Bản Đồ Tác Chiến & Báo Cáo Phân Tích</h4>
+                <p style={{ color: '#d2d2d7', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Viết xuống 3 hành động cụ thể cho tuần tới, tháng tới. Chuyển đổi mọi thông tin thành Lộ trình triển khai.</p>
+                <p style={{ color: '#f3e5ab', margin: 0, fontWeight: 600 }}><strong>Kết quả:</strong> Hoàn tất toàn bộ hành trình. Hệ thống tự động xuất Báo Cáo Tổng Thể — tài liệu chiến lược tối cao dành riêng cho CEO.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ background: 'linear-gradient(180deg, rgba(20,20,22,1) 0%, rgba(10,10,10,1) 100%)', padding: '40px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '80px' }}>
             <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '40px', fontWeight: 700, color: '#fff' }}>
               Nhưng nếu bạn làm nghiêm túc, sau 7 ngày bạn sẽ có:
             </h3>
@@ -190,15 +276,98 @@ export default function Home() {
             </p>
           </div>
 
-          {/* 11. PRICE & FINAL CTA */}
-          <div style={{ textAlign: 'center' }}>
-            <Link
-              href="/register"
-              className="cta-btn"
-            >
-              VÀO MỞ KHÓA BẢN ĐỒ AI NGAY LẬP TỨC (50,000đ)
+          {/* 8. SUCCESS STORIES */}
+          <h3 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '40px', fontWeight: 800, color: '#fff' }}>
+            Bằng Chứng Thật. Kết Quả Thật.
+          </h3>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '80px' }}>
+            
+            <div style={{ background: 'rgba(255,255,255,0.03)', padding: '32px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', color: '#ffd60a', marginBottom: '16px' }}>★★★★★</div>
+              <p style={{ fontStyle: 'italic', marginBottom: '24px', color: '#d2d2d7', lineHeight: 1.6 }}>
+                "Trước kia chúng tôi mua 5 cái thẻ ChatGPT và vứt đó. Nhờ áp dụng tấm bản đồ này, tôi khui ra được nút thắt ở khâu làm Báo Giá. Chỉ bằng 1 thủ thuật tự động hóa, quy trình giảm từ 3 ngày xuống 15 phút, tiết kiệm 120 triệu tiền lương thừa mỗi năm."
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#333', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>D</div>
+                <div>
+                  <p style={{ margin: 0, color: '#fff', fontWeight: 600 }}>Anh Dũng</p>
+                  <p style={{ margin: 0, color: '#a1a1a6', fontSize: '0.85rem' }}>CEO Công Ty Xây Dựng (40 Nhân Sự)</p>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ background: 'rgba(255,255,255,0.03)', padding: '32px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ display: 'flex', color: '#ffd60a', marginBottom: '16px' }}>★★★★★</div>
+              <p style={{ fontStyle: 'italic', marginBottom: '24px', color: '#d2d2d7', lineHeight: 1.6 }}>
+                "Tôi từng định đổ 300 triệu thuê đơn vị viết phần mềm CRM tích hợp AI. Nhưng khi chạy Ma Trận Ngày 5, tôi nhận ra đó là một dự án 'Tốn Sức - Ít Tiền'. Bản đồ đã giúp tôi quay xe tiết kiệm 300 triệu và chọn 1 công cụ có sẵn chi phí chỉ 1 triệu/tháng!"
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#333', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>M</div>
+                <div>
+                  <p style={{ margin: 0, color: '#fff', fontWeight: 600 }}>Chị Mai</p>
+                  <p style={{ margin: 0, color: '#a1a1a6', fontSize: '0.85rem' }}>Founder Chuỗi Bán Lẻ (8 Cửa Hàng)</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* 9. FAQs */}
+          <h3 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '40px', fontWeight: 800, color: '#fff' }}>
+            Câu Hỏi Thường Gặp
+          </h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '80px' }}>
+            <div style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>1. Tôi Không Dành Về Kỹ Thuật Lập Trình Thì Có Dùng Được AI Map Này Không?</h4>
+              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Bản Đồ 7 Ngày tập trung vào tư duy kinh doanh và dữ liệu, không phải code lập trình. Bạn chỉ cần nhập số liệu và trả lời câu hỏi, hệ thống sẽ giúp bạn kết nối các mảng logic lại thành một chiến lược tài chính tự động.</p>
+            </div>
+            
+            <div style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>2. Thông Tin Doanh Nghiệp Có Bị Lộ Ra Ngoài Không?</h4>
+              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Ứng dụng không yêu cầu chia sẻ tên cụ thể đối tác hay bí mật thương mại. Các con số bạn điền vào tài khoản sẽ được mã hóa với chuẩn bảo mật độc lập từ hệ thống Supabase Database, chỉ duy nhất bạn xem được Báo cáo của riêng mình.</p>
+            </div>
+
+            <div style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>3. Nếu Bỏ Lỡ Ngày Chơi Thì Có Bị Khoá Tài Khoản Không?</h4>
+              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Bạn được quyền truy cập tài khoản Vĩnh Viễn ngay sau khi thanh toán. Số 7 Ngày mang ý nghĩa tạo giới hạn kỷ luật giúp bạn tập trung và sớm đạt kết quả. Bạn có thể dành 2 ngày cho một bước nếu thấy bộn việc, không sao cả.</p>
+            </div>
+          </div>
+
+          {/* 10. PRICE & FINAL CTA */}
+          <div style={{ textAlign: 'center', padding: '60px 40px', borderRadius: '32px', background: 'radial-gradient(ellipse at top, rgba(0, 113, 227, 0.15) 0%, rgba(0,0,0,1) 70%)', border: '1px solid rgba(0, 113, 227, 0.3)' }}>
+            <p style={{ fontSize: '1.1rem', color: '#a1a1a6', marginBottom: '16px' }}>
+              Một Agency thông thường sẽ lấy của bạn <span style={{ textDecoration: 'line-through' }}>5.000 - 20.000 USD</span> để vẽ ra bản đồ này.
+            </p>
+            <h3 style={{ fontSize: '1.8rem', marginBottom: '24px', color: '#fff', fontWeight: 700 }}>Chi phí để Bắt Đầu Hành Trình Của Bạn:</h3>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '30px' }}>
+              <div style={{ color: '#86868b', fontSize: '1.5rem', textDecoration: 'line-through', fontWeight: 500 }}>3.000.000 VNĐ</div>
+              <h2 style={{ fontSize: '4.5rem', fontWeight: 800, color: '#fff', margin: 0, lineHeight: 1, letterSpacing: '-0.03em' }}>
+                500.000<span style={{ fontSize: '2rem', verticalAlign: 'top' }}>đ</span>
+              </h2>
+            </div>
+            
+            {/* Urgent Tag & Countdown */}
+            <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', background: 'rgba(255, 69, 58, 0.1)', border: '1px solid rgba(255, 69, 58, 0.3)', padding: '16px 32px', borderRadius: '24px', marginBottom: '40px' }}>
+              <div style={{ color: '#ff453a', fontWeight: 700, fontSize: '1.1rem', marginBottom: '8px' }}>
+                ⚠️ Ưu Đãi Đóng Lại Sau: {mounted ? formatTime(timeLeft) : '24:00:00'}
+              </div>
+              <div style={{ color: '#ff9f0a', fontSize: '0.95rem', fontWeight: 500 }}>
+                Chỉ Còn 25 Suất Cuối Cùng Ở Mức Giá Này.
+              </div>
+            </div>
+
+            <p style={{ color: '#a1a1a6', marginBottom: '40px', fontSize: '1.05rem', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
+              Trả một lần. Truy cập vĩnh viễn hệ thống phần mềm. 
+              <br/>Đừng trả thêm tiền ngu cho vòng luẩn quẩn định hướng sai lầm.
+            </p>
+
+            <Link href="/register" className="cta-btn" style={{ fontSize: '1.2rem', padding: '20px 48px', margin: '0 auto' }}>
+              Truy Cập Bản Đồ Ngay Lập Tức
             </Link>
-            <p style={{ fontSize: '0.9rem', color: 'var(--muted)', marginTop: '20px' }}>🔒 Thanh toán tự động qua QR Code Sepay. Kích hoạt tài khoản ngay trong 3 giây.</p>
+            <p style={{ fontSize: '0.9rem', color: '#86868b', marginTop: '24px' }}>
+              🔒 Thanh toán tự động 24/7. Mã truy cập gửi ngay lập tức.
+            </p>
           </div>
 
         </div>
