@@ -86,8 +86,18 @@ export default function Home() {
         <div style={{ fontSize: '1.15rem', lineHeight: 1.7, color: 'var(--foreground)' }}>
 
           <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '30px', fontWeight: 700, letterSpacing: '-0.02em', color: '#fff' }}>
-            TẠI SAO BẠN CẦN BẮT ĐẦU HÀNH TRÌNH NÀY?
+            TẠI SAO BẠN CẦN BẮT ĐẦU HÀNH TRÌNH NÀY ?
           </h3>
+
+          <p style={{ marginBottom: '24px' }}>
+            Hầu hết các tổ chức đều biết họ cần một chiến lược AI thông minh.<br />
+            Nhưng rất ít tổ chức biết cách xây dựng một chiến lược KHÔN NGOAN dựa trên hoạt động thực tế, được xác thực bởi những người làm việc trực tiếp, và thực tế về những gì có thể đạt được.
+          </p>
+
+          <p style={{ marginBottom: '24px' }}>
+            Đó chính là điều tạo nên sự khác biệt giữa chuyển đổi AI thực sự và suy nghĩ hão huyền.<br />
+
+          </p>
 
           <p style={{ marginBottom: '24px' }}>
             Bạn nghe nhiều về AI. Bạn biết nó đang thay đổi mọi thứ. Nhưng bạn không biết bắt đầu từ đâu cho doanh nghiệp của mình. Hoặc bạn đã thử - mua một vài tool, cho nhân viên dùng ChatGPT - nhưng không thấy thay đổi gì rõ rệt. Hoặc bạn thấy đối thủ đang làm gì đó với AI và bạn lo lắng mình sẽ bị bỏ lại phía sau.
@@ -308,7 +318,7 @@ export default function Home() {
                 <div style={{ position: 'relative', zIndex: 1 }}>
                   <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 2 : Mở Tung Sổ Sách</h4>
                   <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Lôi toàn bộ báo cáo doanh thu, quỹ lương nhân sự, và chi phí vận hành ra. Biến cảm giác "hình như đang khó khăn" thành những con số lạnh lùng đanh thép.</p>
-                  <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Có sẵn mọi dữ liệu đầu vào cốt lõi làm mồi nổ để máy tính tự động tính toán ra lợi nhuận quy đổi (ROI) ở Ngày 6.</p>
+                  <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Có sẵn mọi dữ liệu đầu vào cốt lõi làm cơ sở để hệ thống tự động tính toán ra lợi nhuận quy đổi (ROI) ở Ngày 6.</p>
                 </div>
               </div>
 
@@ -330,9 +340,9 @@ export default function Home() {
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 3 : Bắt Mạch Hiện Trường</h4>
-                  <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Điền lời khai thực tế từ nhân sự (những người trực tiếp dọn rác vận hành mỗi ngày). Trả lời các câu hỏi phỏng vấn chuẩn y khoa giúp moi móc những vấn đề mà sếp không hề hay biết.</p>
-                  <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Tách biệt rạch ròi giữa "Những gì Sếp nghĩ" và "Những gì Nhân viên thực làm". Nơi có sự lệch pha, nơi đó là Mỏ Vàng AI.</p>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 3 : Xuống Thẳng Hiện Trường</h4>
+                  <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Điền lời khai thực tế từ nhân sự (những người trực tiếp vận hành mỗi ngày). Trả lời các câu hỏi phỏng vấn giúp bóc tách những vấn đề mà sếp không hề hay biết.</p>
+                  <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Tách biệt rạch ròi giữa "Những gì Sếp nghĩ" và "Những gì Nhân viên thực sự làm". Nơi có sự lệch pha, nơi đó là Mỏ Vàng AI.</p>
                 </div>
               </div>
 
@@ -354,9 +364,9 @@ export default function Home() {
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 4 : Giải Phẫu Vận Hành</h4>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 4 : Sơ Đồ Vận Hành</h4>
                   <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Vẽ lại toàn bộ công ty thông qua 3 Động cơ lõi: Tìm Khách (Acquisition), Phục Vụ (Delivery), Chăm Sóc (Support). Đánh dấu mọi điểm nghẽn bằng "Lãng phí Thời gian" hoặc "Rủi ro Lỗi".</p>
-                  <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Tấm bản đồ X-Quang chi tiết lộ rõ những "Cổ chai" ngốn máu doanh nghiệp. Bạn biết chính xác chỗ nào cần đập đi xây lại.</p>
+                  <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Tấm bản đồ chi tiết lộ rõ những "lỗ hỏng" làm chảy máu doanh nghiệp. Bạn biết chính xác chỗ nào cần vá, cần đập đi xây lại.</p>
                 </div>
               </div>
 
@@ -379,8 +389,8 @@ export default function Home() {
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
                   <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 5 : Ma Trận Ưu Tiên</h4>
-                  <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Loại bỏ các ý tưởng rác rưởi bằng Ma Trận Ưu Tiên 4 Ô. Tách biệt dự án "Tốn Sức - Ít Tiền" (Bỏ qua) và dự án "Dễ Thay Đổi - Nhanh Thấy Tiền" (Chiến thắng nhanh).</p>
-                  <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Chốt hạ được Dự Án AI cốt tử nhất để triển khai tức thì. Không lan man. Không ảo tưởng.</p>
+                  <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Loại bỏ các ý tưởng rác rưởi bằng Ma Trận Ưu Tiên tìm ra những chiến thắng nhanh trong AI. Tách biệt dự án "Tốn Sức - Ít Tiền" (Bỏ qua) và dự án "Dễ Thay Đổi - Nhanh Thấy Tiền" (Chiến thắng nhanh).</p>
+                  <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Biết chính xác Ý TƯỞNG AI cốt tử nhất để triển khai tức thì. Không lan man. Không ảo tưởng.</p>
                 </div>
               </div>
 
@@ -402,9 +412,9 @@ export default function Home() {
               >
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 6 : Quy Ra Đô La</h4>
-                  <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Nhập dự kiến thời gian cắt giảm nhờ AI. Thuật toán của chúng tôi sẽ kết hợp với Dữ Liệu Ngày 2 để chạy công thức tài chính.</p>
-                  <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Bạn nhìn thấy chính xác số Tiền Lương tiết kiệm được mỗi năm, Số giờ dôi dư, và % Tỷ suất hoàn vốn (ROI) hiển thị bằng hiện kim.</p>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>NGÀY 6 : Tính ROI Quy Đổi Ra Tiền</h4>
+                  <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Xác định thời gian tiết kiệm tối ưu nhờ AI. Hệ thống sẽ kết hợp với Dữ Liệu Ngày 2 để chạy công thức tài chính.</p>
+                  <p style={{ color: '#f5f5f7', margin: 0, fontWeight: 500 }}><strong>Kết quả:</strong> Bạn nhìn thấy chính xác số Tiền Lương tiết kiệm được mỗi năm, Số giờ tiết kiệm dư ra mỗi năm, dùng chính thời gian dư ra tập trung cho việc tạo ra doanh thu mới, dùng cho việc chăm sóc khách hàng tốt hơn và biết được % Tỷ suất hoàn vốn (ROI) hiển thị bằng tiền.</p>
                 </div>
               </div>
 
@@ -427,8 +437,8 @@ export default function Home() {
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #fff, #86868b)' }} />
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top right, rgba(255,255,255,0.06), transparent 60%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 700 }}>NGÀY 7 : Bản Đồ Tác Chiến & Báo Cáo Phân Tích</h4>
-                  <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Viết xuống 3 hành động cụ thể cho tuần tới, tháng tới. Chuyển đổi mọi thông tin thành Lộ trình triển khai.</p>
+                  <h4 style={{ fontSize: '1.4rem', color: '#fff', marginBottom: '12px', fontWeight: 700 }}>NGÀY 7 : Bản Đồ Hành Động AI & Báo Cáo Phân Tích</h4>
+                  <p style={{ color: '#a1a1a6', marginBottom: '12px', lineHeight: 1.6 }}><strong>Hành động:</strong> Biết rõ 3 hành động cụ thể cho tuần tới, tháng tới. Chuyển đổi mọi thông tin thành Lộ trình triển khai.</p>
                   <p style={{ color: '#fff', margin: 0, fontWeight: 600 }}><strong>Kết quả:</strong> Hoàn tất toàn bộ hành trình. Hệ thống tự động xuất Báo Cáo Tổng Thể — Hành động chiến lược dành riêng cho CEO.</p>
                 </div>
               </div>
@@ -437,7 +447,7 @@ export default function Home() {
 
           <div style={{ background: 'linear-gradient(180deg, rgba(20,20,22,1) 0%, rgba(10,10,10,1) 100%)', padding: '40px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '80px' }}>
             <h3 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '40px', fontWeight: 700, color: '#fff' }}>
-              Nhưng nếu bạn làm nghiêm túc, sau 7 ngày bạn sẽ có:
+              NẾU BẠN NGHIÊM TÚC HÀNH ĐỘNG 7 NGÀY, BẠN SẼ CÓ:
             </h3>
             <ul style={{
               listStyle: 'none',
@@ -451,8 +461,11 @@ export default function Home() {
               <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> <strong>Bức tranh toàn cảnh</strong> về hiệu quả vận hành của Doanh nghiệp</li>
               <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Danh sách cụ thể các <strong>cơ hội AI có tác động cao</strong></li>
               <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Con số <strong>ROI</strong> tính từ lương và giờ làm thật của công ty</li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Dư ra được <strong>QUỸ THỜI GIAN RẤT LỚN</strong> để tập trung vào việc tạo giá trị cho doanh nghiệp như tăng doanh thu, chăm sóc khách hàng...</li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Tiết kiệm <strong>QUỸ LƯƠNG KHÔNG NHỎ</strong> để tối ưu hóa chi phí và tối đa lợi nhuận</li>
               <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> Lộ trình hành động với <strong>deadline cụ thể</strong></li>
-              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> <strong>Sự tự tin</strong> để nói chuyện với vendor AI bất kỳ</li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> <strong>Sự tự tin</strong> để nói chuyện với bất kỳ nhà cung cấp dịch vụ AI nào</li>
+              <li style={{ paddingLeft: '32px', position: 'relative', color: '#d2d2d7' }}><span style={{ position: 'absolute', left: 0, color: '#fff' }}>✔</span> <strong>VỮNG TIN</strong> phát triển doanh nghiệp từ gốc mà không lo sợ chạy theo công nghệ AI mà công nghệ sẽ chạy theo phục vụ chiến lược và tầm nhìn của bạn</li>
             </ul>
 
             <p style={{ textAlign: 'center', fontStyle: 'italic', color: '#a1a1a6', margin: 0, fontSize: '1.05rem', lineHeight: 1.6 }}>
@@ -504,19 +517,25 @@ export default function Home() {
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '80px' }}>
             <div style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>1. Tôi Không Dành Về Kỹ Thuật Lập Trình Thì Có Dùng Được AI Map Này Không?</h4>
-              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Bản Đồ 7 Ngày tập trung vào tư duy kinh doanh và dữ liệu, không phải code lập trình. Bạn chỉ cần nhập số liệu và trả lời câu hỏi, hệ thống sẽ giúp bạn kết nối các mảng logic lại thành một chiến lược tài chính tự động.</p>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>1. Tôi Không rành Về AI Hay Công Nghệ Thì Có Bắt Đầu Được Không?</h4>
+              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Hoàn toàn được. Hành trình này được viết không dành cho kỹ sư. Bạn chỉ cần 3 thứ: sự thành thật, dữ liệu thật từ báo cáo sẵn có, và 7 ngày liên tục. Không có câu hỏi nào yêu cầu bạn hiểu AI hoạt động như thế nào, chỉ cần bạn hiểu doanh nghiệp của mình đang hoạt động ra sao. Bản Đồ 7 Ngày tập trung vào tư duy kinh doanh và dữ liệu, không phải code lập trình. Bạn chỉ cần nhập số liệu và trả lời câu hỏi, hệ thống sẽ giúp bạn kết nối các mảng logic lại thành một chiến lược tài chính tự động.</p>
             </div>
 
             <div style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>2. Thông Tin Doanh Nghiệp Có Bị Lộ Ra Ngoài Không?</h4>
-              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Ứng dụng không yêu cầu chia sẻ tên cụ thể đối tác hay bí mật thương mại. Các con số bạn điền vào tài khoản sẽ được mã hóa với chuẩn bảo mật độc lập từ hệ thống Supabase Database, chỉ duy nhất bạn xem được Báo cáo của riêng mình.</p>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>2. Nếu không hài lòng, Tôi có thể yêu cầu hoàn lại tiền được không ?</h4>
+              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Có. Chúng tôi cam kết hoàn lại 100% số tiền nếu bạn không hài lòng trong vòng 7 ngày. Chỉ cần chat trực tiếp trên website với nội dung hỗ trợ hoàn tiền. Chúng tôi sẽ giúp bạn hoàn tiền 100% chi phí mà không hỏi thêm. </p>
             </div>
 
             <div style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>3. Nếu Bỏ Lỡ Ngày Chơi Thì Có Bị Khoá Tài Khoản Không?</h4>
-              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Bạn được quyền truy cập tài khoản Vĩnh Viễn ngay sau khi thanh toán. Số 7 Ngày mang ý nghĩa tạo giới hạn kỷ luật giúp bạn tập trung và sớm đạt kết quả. Bạn có thể dành 2 ngày cho một bước nếu thấy bộn việc, không sao cả.</p>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>3. Nếu Bỏ Lỡ Mất Một Ngày Thì Có Bị Khoá Tài Khoản Không?</h4>
+              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}>Bạn được quyền truy cập tài khoản trọn đời ngay sau khi thanh toán. Con số 7 Ngày mang ý nghĩa tạo giới hạn kỷ luật giúp bạn tập trung và sớm đạt kết quả. Bạn có thể dành 2 ngày cho một bước nếu thấy bộn việc, không sao cả.</p>
             </div>
+
+            <div style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <h4 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '12px', fontWeight: 600 }}>4. Nếu Tôi cần hỗ trợ thì phải làm sao ?</h4>
+              <p style={{ color: '#a1a1a6', margin: 0, lineHeight: 1.6 }}> Ngay sau khi bạn thanh toán, hệ thống sẽ kích hoạt hành trình và có hướng dẫn cho bạn bắt đầu. Bạn sẽ được tham gia vào một nhóm hỗ trợ trên Zalo để giúp bạn giải đáp các thắc mắc và đồng hành cùng bạn thực hiện hành trình này.</p>
+            </div>
+
           </div>
 
           {/* 10. PRICE & FINAL CTA */}
@@ -570,10 +589,10 @@ export default function Home() {
             <div style={{ position: 'relative', zIndex: 1 }}>
               <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🛡️</div>
               <h3 style={{ fontSize: '2rem', marginBottom: '16px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
-                Bảo Chứng Hoàn Tiền 100% Trong 7 Ngày
+                Cam Kết Hoàn Tiền 100% Trong 7 Ngày
               </h3>
               <p style={{ color: '#a1a1a6', fontSize: '1.15rem', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto 8px' }}>
-                Không lý thuyết. Chỉ có <strong>Kết Quả</strong>. Nếu sau 7 ngày thực hành mà bạn không thấy lộ trình tiết kiệm hoặc kiếm lại ít nhất GẤP ĐÔI số tiền đã bỏ ra, chúng tôi hoàn lại 100% chi phí không hỏi thêm.
+                Không lý thuyết. Chỉ có <strong>Kết Quả</strong>. Chúng tôi cam kết hoàn lại 100% số tiền nếu bạn không hài lòng trong vòng 7 ngày. Chỉ cần chat trực tiếp trên website với nội dung hỗ trợ hoàn tiền. Chúng tôi sẽ giúp bạn hoàn tiền 100% chi phí mà không hỏi thêm.
               </p>
               <p style={{ color: '#fff', margin: 0, fontWeight: 600, fontSize: '1.2rem' }}>
                 Rủi ro = 0. Tiết kiệm tiền tỷ, hoặc nhận lại tiền.
@@ -582,6 +601,19 @@ export default function Home() {
           </div>
 
         </div>
+
+        {/* 12. APPLE STYLE FOOTER */}
+        <footer style={{
+          borderTop: '1px solid rgba(255,255,255,0.1)',
+          paddingTop: '24px',
+          marginTop: '60px',
+          textAlign: 'center',
+          color: '#86868b',
+          fontSize: '0.85rem',
+          fontWeight: 400
+        }}>
+          © 2026 STRIVER.AI.VN. Một sản phẩm của <a href="https://striverle.com" target="_blank" rel="noopener noreferrer" style={{ color: '#f5f5f7', textDecoration: 'none', fontWeight: 500 }}>STRIVER LE</a>
+        </footer>
 
       </div>
     </div>
