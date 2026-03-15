@@ -4,8 +4,8 @@ import Script from 'next/script';
 import CountdownTimer from './components/countdown-timer';
 
 export const metadata: Metadata = {
-  title: 'Bản Đồ 7 Ngày Thay Đổi Doanh Nghiệp Bằng AI | STRIVER.AI.VN',
-  description: 'Tự kiểm toán - Dữ liệu thật - Kết quả thật. Bản đồ hành động 7 ngày xây dựng AI cho doanh nghiệp.',
+  title: 'BẢN ĐỒ HÀNH ĐỘNG AI CHO DOANH NGHIỆP | STRIVER.AI.VN',
+  description: '7 ngày hành động thật • Dữ liệu thật • Kết quả thật Không phải lý thuyết. Không phải xu hướng. Đừng trả tiền cho thử nghiệm AI nữa, hãy trả tiền cho kết quả.',
 }
 
 export default function Home() {
@@ -53,7 +53,7 @@ export default function Home() {
           marginBottom: '50px'
         }}>
           <strong>7 ngày hành động thật • Dữ liệu thật • Kết quả thật</strong><br />
-          Không phải lý thuyết. Không phải xu hướng. Đừng trả tiền cho thử nghiệm AI nữa, hãy trả tiền cho kết quả.
+          Không phải lý thuyết. Không phải xu hướng. Đừng trả tiền cho thử nghiệm AI nữa, hãy trả tiền cho kết quả. "Thời đại này không cần quá nhiều thông tin hay công cụ, chỉ cần MỘT CHỈ DẪN HÀNH ĐỘNG cụ thể rõ ràng"
         </h2>
 
         {/* 4. VIDEO SALES LETTER (VSL) in Apple-style Glass Frame */}
@@ -99,7 +99,14 @@ export default function Home() {
 
           <p style={{ marginBottom: '16px', fontSize: '1.3rem', fontWeight: 600, color: '#fff', textAlign: 'center' }}>
             AI không phải là phép màu. AI không phải là con đường tắt.<br />
-            AI là một CÔNG CỤ - giống như Excel, như CRM, như ERP.
+            AI chính là HẠ TẦNG MỚI - NGUỒN ĐIỆN MỚI của Internet <br />
+            AI chính là HỆ TƯ DUY MỚI - CHIẾN LƯỢC MỚI cho doanh nhân thời đại số <br />
+
+          </p>
+
+          <p style={{ marginBottom: '24px' }}>
+            Hàng vạn công cụ AI sẽ được tạo ra và sẽ có rất nhiều xác chết Tool AI sẽ trôi vào bờ. Đừng chạy theo công cụ AI nữa, bạn sẽ quá tải và bị kiệt sức<br />
+            HÃY HIỂU RÕ BẢN CHẤT VÀ QUAY VỀ LẠI GỐC RỄ. BẠN CẦN MỘT BÀI TOÁN ĐÚNG RÕ RÀNG THÔNG QUA MỘT BẢN ĐỒ HÀNH ĐỘNG
           </p>
 
           <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', marginBottom: '40px' }}>
@@ -112,7 +119,7 @@ export default function Home() {
           </div>
 
           <p style={{ marginBottom: '40px', textAlign: 'center', fontSize: '1.3rem', fontWeight: 600, color: '#f5f5f7' }}>
-            Hành trình này giúp bạn tìm ra BÀI TOÁN ĐÚNG.
+            Hành trình này giúp bạn tìm ra BÀI TOÁN ĐÚNG VÀ TẬP TRUNG VÀO BẢN CHẤT CỐT LÕI.
           </p>
 
           <p style={{ marginBottom: '24px' }}>
