@@ -20,6 +20,25 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Bản Đồ Hành Động AI Cho Doanh Nghiệp - STRIVER AI",
   description: "7 ngày hành động thật • Dữ liệu thật • Kết quả thật Không phải lý thuyết. Không phải xu hướng. Đừng trả tiền cho thử nghiệm AI nữa, hãy trả tiền cho kết quả. 'Thời đại này không cần quá nhiều thông tin hay công cụ, chỉ cần MỘT CHỈ DẪN HÀNH ĐỘNG cụ thể rõ ràng'",
+  openGraph: {
+    type: "website",
+    title: "Bản Đồ Hành Động AI Cho Doanh Nghiệp - STRIVER AI",
+    description: "7 ngày hành động thật • Dữ liệu thật • Kết quả thật Không phải lý thuyết. Không phải xu hướng. Đừng trả tiền cho thử nghiệm AI nữa, hãy trả tiền cho kết quả. 'Thời đại này không cần quá nhiều thông tin hay công cụ, chỉ cần MỘT CHỈ DẪN HÀNH ĐỘNG cụ thể rõ ràng'",
+    images: [
+      {
+        url: "https://lh3.googleusercontent.com/pw/AP1GczNxpXiE29j2HySTgxtMQMURYCS4xmMYynU2EVlGQweuIqQQVwNnfeKiRBRM1YLxLfzGAMFgEoWZbo9lV6fPMABzontemUzPz0z4G8ubeZMd_6mu70fqhFFaiJn57FSivLAY1NoEt4Zvxmc1JKti0KILIg=w1920-h1080-s-no-gm",
+        width: 1920,
+        height: 1080,
+        alt: "Bản Đồ Hành Động AI Cho Doanh Nghiệp - STRIVER AI"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bản Đồ Hành Động AI Cho Doanh Nghiệp - STRIVER AI",
+    description: "7 ngày hành động thật • Dữ liệu thật • Kết quả thật",
+    images: ["https://lh3.googleusercontent.com/pw/AP1GczNxpXiE29j2HySTgxtMQMURYCS4xmMYynU2EVlGQweuIqQQVwNnfeKiRBRM1YLxLfzGAMFgEoWZbo9lV6fPMABzontemUzPz0z4G8ubeZMd_6mu70fqhFFaiJn57FSivLAY1NoEt4Zvxmc1JKti0KILIg=w1920-h1080-s-no-gm"],
+  }
 };
 
 import NavLinks from '@/components/NavLinks';
