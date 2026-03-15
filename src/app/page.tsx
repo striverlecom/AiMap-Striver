@@ -565,14 +565,11 @@ export default function Home() {
               <h3 style={{ fontSize: '2rem', marginBottom: '16px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
                 Bảo Chứng Hoàn Tiền 100% Trong 7 Ngày
               </h3>
-              <p style={{ color: '#a1a1a6', fontSize: '1.15rem', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto 24px' }}>
-                Tôi không bán hy vọng. Tôi bán <strong>Kết Quả</strong>.
-                <br /><br />
-                Nếu sau khi điền đầy đủ dữ liệu trong 7 Ngày Thực Hành mà bạn thấy Bản Đồ này không chỉ ra đúng vấn đề, không chỉ ra cách tiết kiệm được ít nhất GẤP ĐÔI số tiền bạn bỏ ra mua nó...
-                Hãy gửi email cho tôi. Tôi sẽ hoàn trả 100% chi phí không hỏi thêm nửa lời.
+              <p style={{ color: '#a1a1a6', fontSize: '1.15rem', lineHeight: 1.6, maxWidth: '650px', margin: '0 auto 8px' }}>
+                Không lý thuyết. Chỉ có <strong>Kết Quả</strong>. Nếu sau 7 ngày thực hành mà bạn không thấy lộ trình tiết kiệm hoặc kiếm lại ít nhất GẤP ĐÔI số tiền đã bỏ ra, chúng tôi hoàn lại 100% chi phí không hỏi thêm.
               </p>
               <p style={{ color: '#fff', margin: 0, fontWeight: 600, fontSize: '1.2rem' }}>
-                Rủi ro của bạn bằng 0. Hoặc bạn tiết kiệm được tiền tỷ, hoặc bạn được trả lại tiền.
+                Rủi ro = 0. Tiết kiệm tiền tỷ, hoặc nhận lại tiền.
               </p>
             </div>
           </div>
