@@ -40,7 +40,7 @@ export default function Home() {
           fontWeight: 800
         }}>
           Đây Là Bản Đồ Hành Động
-          <br />Cho Doanh Nghiệp Của Bạn.
+          <br />AI Cho Doanh Nghiệp Của Bạn Trong Năm 2026.
         </h1>
 
         {/* 3. SUBHEADLINE */}
@@ -168,13 +168,76 @@ export default function Home() {
             </div>
           </div>
 
-          <p style={{ marginBottom: '24px', textAlign: 'center', fontSize: '1.2rem', fontWeight: 600, color: '#fff' }}>
+          <p style={{ marginBottom: '40px', textAlign: 'center', fontSize: '1.2rem', fontWeight: 600, color: '#fff' }}>
             Tôi cần bạn hiểu điều này rất rõ:
           </p>
-          <p style={{ marginBottom: '50px', color: '#a1a1a6', textAlign: 'center', lineHeight: 1.6, maxWidth: '700px', margin: '0 auto 50px' }}>
+          <p style={{ marginBottom: '60px', color: '#a1a1a6', textAlign: 'center', lineHeight: 1.6, maxWidth: '700px', margin: '0 auto 50px' }}>
             Đây là HÀNH TRÌNH để LÀM THỰC TẾ TẠO KẾT QUẢ THẬT. Mỗi ngày có bài tập. Mỗi bài tập yêu cầu bạn lôi dữ liệu thực của công ty ra. Không có chuyện “làm cho biết.” Nếu bạn chỉ lướt qua mà không làm, bạn sẽ không có gì sau 7 ngày.
           </p>
 
+          {/* 6.5. 5-STAGE TRANSFORMATION PROCESS */}
+          <div style={{ marginBottom: '80px', padding: '40px', background: 'rgba(255,255,255,0.02)', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <h3 style={{ fontSize: '1.6rem', textAlign: 'center', marginBottom: '40px', fontWeight: 700, color: '#f5f5f7' }}>
+              Quy Trình Chuyển Hóa Cốt Lõi
+            </h3>
+            
+            {/* Desktop Horizontal Flex, Mobile Vertical */}
+            <div className="process-flow" style={{ 
+              display: 'flex', 
+              flexDirection: 'row', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              gap: '16px',
+              flexWrap: 'wrap'
+            }}>
+              
+              <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>1</div>
+                <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Thu Thập<br/>Dữ Liệu</p>
+                <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Nội bộ doanh nghiệp</p>
+              </div>
+
+              <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
+
+              <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>2</div>
+                <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Nhận Diện<br/>Cơ Hội</p>
+                <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Chuyển hóa dữ liệu</p>
+              </div>
+
+              <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
+
+              <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>3</div>
+                <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Ma Trận<br/>Ưu Tiên</p>
+                <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Lọc dự án Tốn Sức</p>
+              </div>
+
+              <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
+
+              <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #333, #000)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2)' }}>4</div>
+                <p style={{ color: '#fff', fontSize: '1.05rem', fontWeight: 600, margin: 0 }}>Xây Dựng<br/>Lộ Trình</p>
+                <p style={{ color: '#a1a1a6', fontSize: '0.85rem', marginTop: '8px' }}>Kế hoạch thực thi</p>
+              </div>
+
+              <div className="flow-arrow" style={{ color: '#555', fontSize: '1.5rem' }}>➔</div>
+
+              <div style={{ flex: '1 1 150px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'linear-gradient(135deg, #444, #111)', border: '1px solid rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem', marginBottom: '16px', color: '#fff', boxShadow: '0 0 15px rgba(255,255,255,0.1), inset 0 1px 0 rgba(255,255,255,0.4)' }}>5</div>
+                <p style={{ color: '#fff', fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>Hoàn Vốn<br/>Tài Chính (ROI)</p>
+                <p style={{ color: '#d2d2d7', fontSize: '0.85rem', marginTop: '8px' }}>Mục tiêu tối thượng</p>
+              </div>
+
+            </div>
+            
+            <style dangerouslySetInnerHTML={{ __html: `
+              @media (max-width: 768px) {
+                .process-flow { flex-direction: column !important; gap: 24px !important; }
+                .flow-arrow { transform: rotate(90deg); margin: 8px 0; }
+              }
+            `}} />
+          </div>
 
           {/* 7. DAY BY DAY BREAKDOWN */}
           <div style={{ marginBottom: '80px' }}>
@@ -434,7 +497,7 @@ export default function Home() {
           }}>
             <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: 'linear-gradient(to bottom, #fff, #86868b)' }} />
             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at top, rgba(255,255,255,0.05), transparent 70%)', pointerEvents: 'none' }} />
-            
+
             <div style={{ position: 'relative', zIndex: 1 }}>
               <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🛡️</div>
               <h3 style={{ fontSize: '2rem', marginBottom: '16px', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
