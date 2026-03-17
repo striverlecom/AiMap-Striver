@@ -130,7 +130,7 @@ export default function Home() {
 
           <p style={{ marginBottom: '24px' }}>
             Hàng vạn công cụ AI sẽ được tạo ra và sẽ có rất nhiều xác chết Tool AI sẽ trôi vào bờ. Đừng chạy theo công cụ AI nữa, bạn sẽ quá tải và bị kiệt sức<br />
-            HÃY HIỂU RÕ BẢN CHẤT VÀ QUAY VỀ LẠI GỐC RỄ. <strong>CHỈ CẦN MỘT CHỈ DẪN HÀNH ĐỘNG RÕ RÀNG ĐƯỢC XÂY DỰNG TỪ GỐC RỄ CỦA DOANH NGHIỆP</strong>
+            PHẢI HIỂU RÕ BẢN CHẤT VÀ QUAY VỀ LẠI BÀI TOÁN GỐC RỄ CỦA DOANH NGHIỆP
           </p>
 
           <div style={{ background: 'rgba(255,255,255,0.03)', padding: '24px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center', marginBottom: '40px' }}>
@@ -147,7 +147,7 @@ export default function Home() {
           </p>
 
           <p style={{ marginBottom: '24px' }}>
-            Tôi đã làm việc với hàng chục doanh nghiệp - từ startup 5 người đến công ty 200+ nhân viên. Và tôi thấy một khuôn mẫu lặp đi lặp lại:
+            Hệ thống này đã giúp cho hàng chục doanh nghiệp - từ startup 5 người đến công ty 200+ nhân viên. Hiện nay có một thực trạng lặp đi lặp lại:
           </p>
 
           <h3 style={{ fontSize: '1.6rem', fontWeight: 700, color: '#fff', marginBottom: '20px', textAlign: 'center' }}>

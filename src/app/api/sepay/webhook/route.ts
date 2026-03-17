@@ -13,13 +13,13 @@ export async function POST(req: Request) {
     //    "code": "XYZ",
     //    "content": "AI123456 thanh toan ban do AI",
     //    "transferType": "in",
-    //    "transferAmount": 50000,
+    //    "transferAmount": 500000,
     //    ...
     // }
     
     // Safety check - You should implement Sepay Webhook Token verification here in production
     
-    if (data.transferType === 'in' && data.transferAmount >= 50000) {
+    if (data.transferType === 'in' && data.transferAmount >= 500000) {
       const content = (data.content || '').toUpperCase()
       
       // Find user where paymentRef is included in the content
