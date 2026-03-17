@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
 import { cookies } from 'next/headers';
+import Image from 'next/image';
 
 const inter = Inter({
   subsets: ["latin", "vietnamese"],
@@ -74,8 +75,9 @@ export default async function RootLayout({
         <ScrollToTop />
         <header className="nav-header">
           <nav className="nav-container">
-            <Link href="/" className="nav-logo">
-              STRIVER.AI.VN
+            <Link href="/" className="nav-brand">
+              <Image src="/logo.png" alt="STRIVER.AI.VN Logo" width={28} height={28} className="rounded-md" style={{ borderRadius: '6px' }} />
+              <span className="nav-logo">STRIVER.AI.VN</span>
             </Link>
             <NavLinks hasSession={hasSession} />
           </nav>
