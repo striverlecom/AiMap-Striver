@@ -151,6 +151,23 @@ p {
   display: none !important;
 }
 
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-brand:hover {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+.nav-brand:active {
+  transform: scale(0.95);
+}
+
 /* Modern Apple-style Text Logo */
 .nav-logo {
   font-size: 1.4rem;
@@ -162,18 +179,10 @@ p {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  transition: opacity 0.2s ease, transform 0.2s ease;
   display: inline-block;
 }
 
-.nav-logo:hover {
-  opacity: 0.8;
-  transform: scale(0.98);
-}
 
-.nav-logo:active {
-  transform: scale(0.95);
-}
 
 .input-field {
   width: 100%;
