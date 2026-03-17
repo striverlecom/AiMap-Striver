@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
 import { cookies } from 'next/headers';
-import Script from 'next/script';
 
 const inter = Inter({
   subsets: ["latin", "vietnamese"],
@@ -53,28 +52,25 @@ export default async function RootLayout({
 }>) {
   const cookieStore = await cookies()
   const hasSession = cookieStore.has('session')
-  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
   return (
     <html lang="vi" className="dark" suppressHydrationWarning>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-N0HJH5EFHE"></script>
+        <script
+          dangerouslySetInnerHTML={{
+             __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            
+              gtag('config', 'G-N0HJH5EFHE');
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} antialiased`} suppressHydrationWarning>
-        {gaMeasurementId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){window.dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', '${gaMeasurementId}');
-              `}
-            </Script>
-          </>
-        )}
         <ScrollToTop />
         <header className="nav-header">
           <nav className="nav-container">
