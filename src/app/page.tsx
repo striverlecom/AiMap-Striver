@@ -64,7 +64,7 @@ export default function Home() {
           marginBottom: '50px'
         }}>
           <strong>Hành động thật • Dữ liệu thật • Kết quả thật</strong><br className="hide-on-mobile" />
-          <span className="show-on-mobile"> </span>Đừng trả tiền cho thử nghiệm AI, hãy trả tiền cho kết quả thật. Thời đại này không cần nhiều thông tin hay công cụ, CHỈ CẦN MỘT CHỈ DẪN HÀNH ĐỘNG RÕ RÀNG ĐƯỢC XÂY DỰNG TỪ GỐC RỄ CỦA DOANH NGHIỆP.
+          <span className="show-on-mobile"> </span>Đừng trả tiền cho thử nghiệm AI, hãy trả tiền cho kết quả thật. AI đã chín mùi công nghệ và pháp lý đã rõ ràng. Đa số chỉ tò mò và phản ứng. Chỉ rất ít người có kế hoạch để dẫn đầu. Bản Đồ Hành Động AI xây dựng dành cho số ít đó.
         </h2>
 
         {/* 4. VIDEO SALES LETTER (VSL) in Apple-style Glass Frame */}
