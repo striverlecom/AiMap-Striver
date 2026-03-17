@@ -52,7 +52,7 @@ export default function PaymentPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           transferType: 'in',
-          transferAmount: 50000,
+          transferAmount: 500000,
           content: user.paymentRef
         })
       })
@@ -78,13 +78,13 @@ export default function PaymentPage() {
   const BANK_ID = 'TPB'
   const ACCOUNT_NO = '00005510675'
   const ACCOUNT_NAME = 'LE QUANG CUONG'
-  const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact2.png?amount=50000&addInfo=${user?.paymentRef}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`
+  const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-compact2.png?amount=500000&addInfo=${user?.paymentRef}&accountName=${encodeURIComponent(ACCOUNT_NAME)}`
 
   return (
     <div className="container" style={{ display: 'flex', justifyContent: 'center', paddingTop: '10vh', paddingBottom: '10vh' }}>
       <div className="glass-panel fade-in" style={{ width: '100%', maxWidth: '500px', textAlign: 'center' }}>
         <h2 style={{ marginBottom: '1rem' }}>Sẵn sàng đột phá?</h2>
-        <p style={{ marginBottom: '2rem', color: 'var(--muted)' }}>Quét mã thanh toán <strong>50,000đ</strong> để mở khóa bản đồ 7 Ngày.</p>
+        <p style={{ marginBottom: '2rem', color: 'var(--muted)' }}>Quét mã thanh toán <strong>500,000đ</strong> để mở khóa bản đồ 7 Ngày.</p>
         
         {/* Modern Apple-style Floating QR Card */}
         <div style={{ 
