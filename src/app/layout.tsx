@@ -76,8 +76,8 @@ export default async function RootLayout({
         <header className="nav-header">
           <nav className="nav-container">
             <Link href="/" className="nav-brand">
-              <Image src="/logo.png" alt="STRIVER.AI.VN Logo" width={28} height={28} className="rounded-md" style={{ borderRadius: '6px' }} />
-              <span className="nav-logo">STRIVER.AI.VN</span>
+              <Image src="/logo.png" alt="AI ACTION MAP Logo" width={28} height={28} className="rounded-md" style={{ borderRadius: '6px' }} />
+              <span className="nav-logo">AI ACTION MAP</span>
             </Link>
             <NavLinks hasSession={hasSession} />
           </nav>

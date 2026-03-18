@@ -4,7 +4,7 @@ import Script from 'next/script';
 import CountdownTimer from './components/countdown-timer';
 
 export const metadata: Metadata = {
-  title: 'BẢN ĐỒ HÀNH ĐỘNG AI CHO DOANH NGHIỆP | STRIVER.AI.VN',
+  title: 'BẢN ĐỒ HÀNH ĐỘNG AI CHO DOANH NGHIỆP | AI ACTION MAP',
   description: '7 ngày hành động thật • Dữ liệu thật • Kết quả thật Không phải lý thuyết. Không phải xu hướng. Đừng trả tiền cho thử nghiệm AI nữa, hãy trả tiền cho kết quả.',
 }
 
@@ -659,7 +659,7 @@ export default function Home() {
           fontSize: '0.85rem',
           fontWeight: 400
         }}>
-          © 2026 STRIVER.AI.VN. Một sản phẩm của <a href="https://striverle.com" target="_blank" rel="noopener noreferrer" style={{ color: '#f5f5f7', textDecoration: 'none', fontWeight: 500 }}>STRIVER LE</a>
+          © 2026 AI ACTION MAP. Một sản phẩm của <a href="https://striverle.com" target="_blank" rel="noopener noreferrer" style={{ color: '#f5f5f7', textDecoration: 'none', fontWeight: 500 }}>STRIVER LE</a>
         </footer>
 
       </div>
