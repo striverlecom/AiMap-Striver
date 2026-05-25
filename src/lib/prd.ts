@@ -1,0 +1,145 @@
+export type PrdStatus = 'pending' | 'generating' | 'completed' | 'failed'
+
+export type PrdUseCase = {
+  useCaseIndex: number
+  useCaseTitle: string
+  sourceProblem: string
+  sourceSolution: string
+  roiInput?: Record<string, unknown> | null
+  roadmapContext?: Record<string, unknown> | null
+}
+
+export type PrdItem = PrdUseCase & {
+  status: PrdStatus
+  markdown: string
+  errorMessage: string | null
+  model: string | null
+  responseId: string | null
+  generatedAt: string | null
+}
+
+export const PRD_REQUIRED_SECTIONS = [
+  'Thẻ điều hành',
+  'Ngữ cảnh người dùng',
+  'Kiến trúc quy trình',
+  'Data Workflow JSON',
+  'Data Flow Map',
+  'Concrete Example',
+  'RCICE',
+  'INPUT SCHEMA',
+  'OUTPUT SCHEMA',
+  'Knowledge Base Strategy',
+  'Human-in-the-loop',
+  'Failure Paths',
+  'Evaluation Framework',
+  'Roadmap',
+  'Open Questions'
+]
+
+export function safeJsonParse<T>(value: string | null | undefined, fallback: T): T {
+  if (!value) return fallback
+  try {
+    return JSON.parse(value) as T
+  } catch {
+    return fallback
+  }
+}
+
+export function extractPrdUseCases(user: any): PrdUseCase[] {
+  const priorities = safeJsonParse<any[]>(user?.day5Data?.priorities, [])
+  const roiData = safeJsonParse<any[]>(user?.day6Data?.roiData, [])
+  const roadmap = safeJsonParse<Record<string, unknown>>(user?.day7Data?.roadmap, {})
+  const topSolutions = priorities.filter(item => item?.isTop3).slice(0, 3)
+
+  return topSolutions.map((item, index) => {
+    const roi = roiData[index] || null
+    const sourceSolution = String(item?.solution || roi?.name || item?.problem || `Giải pháp #${index + 1}`).trim()
+    const sourceProblem = String(item?.problem || '').trim()
+
+    return {
+      useCaseIndex: index + 1,
+      useCaseTitle: sourceSolution || `Giải pháp #${index + 1}`,
+      sourceProblem,
+      sourceSolution,
+      roiInput: roi,
+      roadmapContext: roadmap
+    }
+  })
+}
+
+export function mergePrdItems(existing: PrdItem[], useCases: PrdUseCase[]): PrdItem[] {
+  return useCases.map(useCase => {
+    const old = existing.find(item => item.useCaseIndex === useCase.useCaseIndex)
+    return {
+      ...useCase,
+      status: old?.status || 'pending',
+      markdown: old?.markdown || '',
+      errorMessage: old?.errorMessage || null,
+      model: old?.model || null,
+      responseId: old?.responseId || null,
+      generatedAt: old?.generatedAt || null
+    }
+  })
+}
+
+export function getMissingPrdSections(markdown: string) {
+  const lower = markdown.toLowerCase()
+  return PRD_REQUIRED_SECTIONS.filter(section => !lower.includes(section.toLowerCase()))
+}
+
+export function slugifyFileName(value: string) {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80) || 'prd'
+}
+
+export function buildPrdPrompt(useCase: PrdUseCase, user: any) {
+  const businessContext = {
+    day1Score: user?.day1Data?.totalScore || null,
+    day2Parameters: safeJsonParse(user?.day2Data?.parameters, {}),
+    day2Challenges: safeJsonParse(user?.day2Data?.challenges, {}),
+    day4MapData: safeJsonParse(user?.day4Data?.mapData, {}),
+    selectedUseCase: useCase
+  }
+
+  return `
+Bạn là StriverAI PRD. Hãy tạo một PRD Markdown hoàn chỉnh cho use-case AI sau.
+
+Yêu cầu bắt buộc:
+- Chỉ trả về Markdown thô, không bọc trong code fence.
+- Bắt đầu bằng: # PRD: ${useCase.useCaseTitle}
+- Viết tiếng Việt.
+- Không tóm tắt. Triển khai đầy đủ từng phần.
+- Mọi tên Agent phải dùng format "Agent + Chức năng chính", ví dụ "Agent Phân Tích Quy Trình".
+- PRD phải có Data Workflow JSON, Data Flow Map, Concrete Example, RCICE, INPUT SCHEMA, OUTPUT SCHEMA, failure paths, human-in-the-loop, evaluation rubric và roadmap.
+- Nếu thiếu dữ liệu, ghi {TODO - Nghiêm trọng}, {TODO - Quan trọng}, hoặc {TODO - Nên biết}; không bịa.
+- Dùng knowledge pack được cung cấp qua file_search làm chuẩn cấu trúc PRD.
+
+Danh sách phần phải triển khai:
+1. Thẻ điều hành
+2. Ngữ cảnh người dùng
+3. Kiến trúc quy trình
+4. Data Workflow JSON
+5. Data Flow Map
+6. Concrete Example
+7. Đặc tả Agent theo RCICE
+8. INPUT SCHEMA và OUTPUT SCHEMA cho từng Agent
+9. Knowledge Base Strategy
+10. Integration & Technical Requirements
+11. Human-in-the-loop & Failure Paths
+12. Evaluation Framework
+13. Roadmap & Risks
+14. Open Questions/TODO
+
+Use-case AI:
+${JSON.stringify(useCase, null, 2)}
+
+Ngữ cảnh doanh nghiệp từ 7 ngày:
+${JSON.stringify(businessContext, null, 2)}
+`
+}
+
