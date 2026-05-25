@@ -1,0 +1,47 @@
+import Day8Client from './client'
+import { cookies } from 'next/headers'
+import { decrypt } from '@/lib/auth'
+import prisma from '@/lib/prisma'
+import { redirect } from 'next/navigation'
+import { extractPrdUseCases, mergePrdItems, safeJsonParse, type PrdItem } from '@/lib/prd'
+
+export const dynamic = 'force-dynamic'
+
+export default async function Day8Page() {
+  const cookieStore = await cookies()
+  const token = cookieStore.get('session')?.value
+  if (!token) redirect('/login')
+
+  let payload
+  try {
+    payload = await decrypt(token)
+  } catch {
+    redirect('/login')
+  }
+
+  if (!payload?.userId) redirect('/login')
+
+  const user = await prisma.user.findUnique({
+    where: { id: payload.userId as string },
+    include: {
+      day5Data: true,
+      day6Data: true,
+      day7Data: true,
+      day8Data: true
+    }
+  })
+
+  if (!user || !user.isPaid) redirect('/payment')
+
+  const useCases = extractPrdUseCases(user)
+  const prdItems = mergePrdItems(safeJsonParse<PrdItem[]>(user.day8Data?.prdData, []), useCases)
+
+  return (
+    <Day8Client
+      useCases={useCases}
+      initialPrds={prdItems}
+      isConfigured={Boolean(process.env.OPENAI_API_KEY && process.env.OPENAI_PRD_VECTOR_STORE_ID)}
+    />
+  )
+}
+

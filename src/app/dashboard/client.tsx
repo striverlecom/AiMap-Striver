@@ -37,6 +37,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
     { title: 'Ưu tiên', desc: 'Thuật toán ma trận thông minh, định vị giải pháp tối ưu nguồn lực.', date: 'Trạm 5' },
     { title: 'Tính ROI', desc: 'Lượng hóa giá trị tương lai, biến thời gian tiết kiệm được thành tài sản.', date: 'Trạm 6' },
     { title: 'Kế hoạch', desc: 'Chiến lược 30 ngày chuyển đổi số, roadmap độc bản cho riêng bạn.', date: 'Trạm 7' },
+    { title: 'PRD triển khai', desc: 'Biến 3 use-case AI ưu tiên thành 3 bản thiết kế PRD Markdown sẵn sàng giao đội xây dựng.', date: 'Trạm 8' },
   ]
 
   return (

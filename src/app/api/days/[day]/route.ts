@@ -89,7 +89,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ day: st
     }
 
     const user = await prisma.user.findUnique({ where: { id: userId } })
-    if (user && user.currentDay <= dayNum && dayNum < 7) {
+    if (user && user.currentDay <= dayNum && dayNum < 8) {
       await prisma.user.update({
         where: { id: userId },
         data: { currentDay: dayNum + 1 }

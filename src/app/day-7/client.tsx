@@ -107,7 +107,7 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
       })
       if (res.ok) {
         router.refresh();
-        router.push('/results'); // bypass client cache
+        router.push('/day-8'); // bypass client cache
       }
     } finally {
       setLoading(false)
