@@ -42,6 +42,11 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
   const generate = async (useCaseIndex?: number) => {
     setLoading(useCaseIndex || 'all')
     setError('')
+    const targetIndexes = useCaseIndex ? [useCaseIndex] : items.map(item => item.useCaseIndex)
+    setItems(prev => prev.map(item => targetIndexes.includes(item.useCaseIndex)
+      ? { ...item, status: 'generating', errorMessage: null }
+      : item
+    ))
 
     try {
       const res = await fetch('/api/prd/generate', {
