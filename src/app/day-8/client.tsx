@@ -34,15 +34,21 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
   const activeItem = items.find(item => item.useCaseIndex === activeIndex) || items[0]
   const hasEnoughUseCases = useCases.length === 3
   const hasAllManualWorkflows = items.length === 3 && items.every(item => item.manualWorkflow.trim().length > 0)
+  const hasGeneratingItem = items.some(item => item.status === 'generating')
+  const activeItemIsGenerating = activeItem?.status === 'generating'
 
   const updateManualWorkflow = (useCaseIndex: number, value: string) => {
     setItems(prev => prev.map(item => item.useCaseIndex === useCaseIndex ? { ...item, manualWorkflow: value } : item))
   }
 
   useEffect(() => {
-    if (loading === null) return
+    if (loading === null && !hasGeneratingItem) return
 
-    const targetIndexes = loading === 'all' ? items.map(item => item.useCaseIndex) : [loading]
+    const targetIndexes = loading === 'all'
+      ? items.map(item => item.useCaseIndex)
+      : loading !== null
+        ? [loading]
+        : items.filter(item => item.status === 'generating').map(item => item.useCaseIndex)
     let stopped = false
 
     const poll = async () => {
@@ -68,7 +74,7 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
       stopped = true
       window.clearInterval(interval)
     }
-  }, [loading, items])
+  }, [loading, hasGeneratingItem, items])
 
   const generate = async (useCaseIndex?: number) => {
     setLoading(useCaseIndex || 'all')
@@ -80,20 +86,28 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
     ))
 
     try {
+      const controller = new AbortController()
+      const timeout = window.setTimeout(() => controller.abort(), 135000)
       const res = await fetch('/api/prd/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           ...(useCaseIndex ? { useCaseIndex } : {}),
           manualWorkflows: Object.fromEntries(items.map(item => [String(item.useCaseIndex), item.manualWorkflow]))
         })
       })
+      window.clearTimeout(timeout)
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Không thể tạo PRD.')
       setItems(data.prdData)
       if (useCaseIndex) setActiveIndex(useCaseIndex)
     } catch (err: any) {
-      setError(err.message)
+      if (err?.name === 'AbortError') {
+        setError('Yêu cầu tạo PRD vẫn đang xử lý trên máy chủ. Trang sẽ tự cập nhật khi PRD hoàn tất.')
+      } else {
+        setError(err.message)
+      }
     } finally {
       setLoading(null)
     }
@@ -211,12 +225,12 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
               ))}
             </div>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1.5rem' }}>
-              <button className="btn-primary" onClick={() => generate()} disabled={!isConfigured || loading !== null || !hasAllManualWorkflows}>
+              <button className="btn-primary" onClick={() => generate()} disabled={!isConfigured || loading !== null || hasGeneratingItem || !hasAllManualWorkflows}>
                 {loading === 'all' ? 'Đang tạo 3 PRD...' : 'Tạo 3 PRD'}
               </button>
               {activeItem && (
-                <button className="btn-secondary" onClick={() => generate(activeItem.useCaseIndex)} disabled={!isConfigured || loading !== null || !activeItem.manualWorkflow.trim()}>
-                  {loading === activeItem.useCaseIndex ? 'Đang tạo lại...' : 'Tạo lại PRD đang chọn'}
+                <button className="btn-secondary" onClick={() => generate(activeItem.useCaseIndex)} disabled={!isConfigured || loading !== null || activeItemIsGenerating || !activeItem.manualWorkflow.trim()}>
+                  {loading === activeItem.useCaseIndex || activeItemIsGenerating ? 'Đang tạo lại...' : 'Tạo lại PRD đang chọn'}
                 </button>
               )}
             </div>
