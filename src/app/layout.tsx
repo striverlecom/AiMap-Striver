@@ -1,15 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
-
-const inter = Inter({
-  subsets: ["latin", "vietnamese"],
-  variable: '--font-inter',
-  display: 'swap',
-});
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -71,7 +64,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} antialiased`} suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
         <ScrollToTop />
         <header className="nav-header">
           <nav className="nav-container">
