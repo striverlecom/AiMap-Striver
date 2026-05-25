@@ -5,12 +5,14 @@ export type PrdUseCase = {
   useCaseTitle: string
   sourceProblem: string
   sourceSolution: string
+  manualWorkflow?: string
   roiInput?: Record<string, unknown> | null
   roadmapContext?: Record<string, unknown> | null
 }
 
 export type PrdItem = PrdUseCase & {
   status: PrdStatus
+  manualWorkflow: string
   markdown: string
   errorMessage: string | null
   model: string | null
@@ -73,6 +75,7 @@ export function mergePrdItems(existing: PrdItem[], useCases: PrdUseCase[]): PrdI
     return {
       ...useCase,
       status: old?.status || 'pending',
+      manualWorkflow: old?.manualWorkflow || '',
       markdown: old?.markdown || '',
       errorMessage: old?.errorMessage || null,
       model: old?.model || null,
@@ -116,6 +119,7 @@ Yêu cầu bắt buộc:
 - Không tóm tắt. Triển khai đầy đủ từng phần.
 - Mọi tên Agent phải dùng format "Agent + Chức năng chính", ví dụ "Agent Phân Tích Quy Trình".
 - PRD phải có Data Workflow JSON, Data Flow Map, Concrete Example, RCICE, INPUT SCHEMA, OUTPUT SCHEMA, failure paths, human-in-the-loop, evaluation rubric và roadmap.
+- Phải dùng "Mô tả luồng thủ công thực tế" bên dưới làm dữ liệu đầu vào chính để thiết kế workflow, Agent, schema, failure paths và roadmap. Không được chỉ dựa vào tên use-case.
 - Nếu thiếu dữ liệu, ghi {TODO - Nghiêm trọng}, {TODO - Quan trọng}, hoặc {TODO - Nên biết}; không bịa.
 - Dùng knowledge pack được cung cấp qua file_search làm chuẩn cấu trúc PRD.
 
@@ -138,8 +142,10 @@ Danh sách phần phải triển khai:
 Use-case AI:
 ${JSON.stringify(useCase, null, 2)}
 
+Mô tả luồng thủ công thực tế do người dùng nhập cho use-case này:
+${useCase.manualWorkflow?.trim() || '{TODO - Nghiêm trọng: Chưa có mô tả luồng thủ công thực tế}'}
+
 Ngữ cảnh doanh nghiệp từ 7 ngày:
 ${JSON.stringify(businessContext, null, 2)}
 `
 }
-

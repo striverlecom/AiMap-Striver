@@ -85,11 +85,22 @@ export async function POST(req: Request) {
 
   const body = await req.json().catch(() => ({}))
   const requestedIndex = Number(body?.useCaseIndex || 0)
-  const existing = mergePrdItems(safeJsonParse<PrdItem[]>(user.day8Data?.prdData, []), useCases)
+  const manualWorkflows = body?.manualWorkflows && typeof body.manualWorkflows === 'object' ? body.manualWorkflows : {}
+  const existing = mergePrdItems(safeJsonParse<PrdItem[]>(user.day8Data?.prdData, []), useCases).map(item => {
+    const submitted = manualWorkflows[String(item.useCaseIndex)]
+    return typeof submitted === 'string' ? { ...item, manualWorkflow: submitted.trim() } : item
+  })
   const targets = requestedIndex ? existing.filter(item => item.useCaseIndex === requestedIndex) : existing
 
   if (requestedIndex && targets.length !== 1) {
     return NextResponse.json({ error: 'Invalid useCaseIndex' }, { status: 400 })
+  }
+
+  const missingManualWorkflow = targets.find(item => !item.manualWorkflow.trim())
+  if (missingManualWorkflow) {
+    return NextResponse.json({
+      error: `Vui lòng mô tả luồng/các bước công việc thủ công thực tế cho use-case #${missingManualWorkflow.useCaseIndex} trước khi tạo PRD.`
+    }, { status: 400 })
   }
 
   let items = existing.map(item => targets.some(target => target.useCaseIndex === item.useCaseIndex)

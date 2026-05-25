@@ -33,6 +33,11 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
   const [error, setError] = useState('')
   const activeItem = items.find(item => item.useCaseIndex === activeIndex) || items[0]
   const hasEnoughUseCases = useCases.length === 3
+  const hasAllManualWorkflows = items.length === 3 && items.every(item => item.manualWorkflow.trim().length > 0)
+
+  const updateManualWorkflow = (useCaseIndex: number, value: string) => {
+    setItems(prev => prev.map(item => item.useCaseIndex === useCaseIndex ? { ...item, manualWorkflow: value } : item))
+  }
 
   const generate = async (useCaseIndex?: number) => {
     setLoading(useCaseIndex || 'all')
@@ -42,7 +47,10 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
       const res = await fetch('/api/prd/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(useCaseIndex ? { useCaseIndex } : {})
+        body: JSON.stringify({
+          ...(useCaseIndex ? { useCaseIndex } : {}),
+          manualWorkflows: Object.fromEntries(items.map(item => [String(item.useCaseIndex), item.manualWorkflow]))
+        })
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Không thể tạo PRD.')
@@ -123,6 +131,40 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
             </div>
           </section>
 
+          {activeItem && (
+            <section className="glass-panel" style={{ marginBottom: '2rem' }}>
+              <h2 style={{ fontSize: '1.2rem', marginBottom: '0.75rem' }}>
+                Mô tả luồng thủ công cho use-case #{activeItem.useCaseIndex}
+              </h2>
+              <p style={{ color: 'var(--muted)', marginBottom: '1rem', lineHeight: 1.6 }}>
+                Hãy mô tả chi tiết các luồng, các bước công việc thực tế nếu làm thủ công cho use-case AI này. PRD sẽ dùng phần mô tả này làm dữ liệu đầu vào chính để thiết kế workflow, Agent, schema, điểm duyệt con người và các đường lỗi.
+              </p>
+              <textarea
+                value={activeItem.manualWorkflow}
+                onChange={event => updateManualWorkflow(activeItem.useCaseIndex, event.target.value)}
+                placeholder={`Ví dụ: Hiện tại nhân sự A nhận yêu cầu qua Zalo/email, kiểm tra thông tin khách hàng trong file Google Sheet, phân loại nhu cầu, hỏi lại nếu thiếu dữ liệu, tạo báo giá, gửi trưởng nhóm duyệt, sau đó phản hồi khách hàng...`}
+                style={{
+                  width: '100%',
+                  minHeight: 220,
+                  resize: 'vertical',
+                  borderRadius: 8,
+                  border: '1px solid var(--card-border)',
+                  background: 'rgba(0,0,0,0.28)',
+                  color: 'var(--foreground)',
+                  padding: '1rem',
+                  lineHeight: 1.6,
+                  fontSize: '1rem',
+                  outline: 'none'
+                }}
+              />
+              <p style={{ color: activeItem.manualWorkflow.trim() ? 'var(--success)' : 'var(--warning)', marginTop: '0.75rem', fontSize: '0.9rem' }}>
+                {activeItem.manualWorkflow.trim()
+                  ? 'Đã có mô tả luồng thủ công cho use-case này.'
+                  : 'Cần nhập mô tả trước khi tạo PRD cho use-case này.'}
+              </p>
+            </section>
+          )}
+
           <section className="glass-panel" style={{ marginBottom: '2rem' }}>
             <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Các phần PRD sẽ triển khai</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem' }}>
@@ -133,15 +175,20 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
               ))}
             </div>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1.5rem' }}>
-              <button className="btn-primary" onClick={() => generate()} disabled={!isConfigured || loading !== null}>
+              <button className="btn-primary" onClick={() => generate()} disabled={!isConfigured || loading !== null || !hasAllManualWorkflows}>
                 {loading === 'all' ? 'Đang tạo 3 PRD...' : 'Tạo 3 PRD'}
               </button>
               {activeItem && (
-                <button className="btn-secondary" onClick={() => generate(activeItem.useCaseIndex)} disabled={!isConfigured || loading !== null}>
+                <button className="btn-secondary" onClick={() => generate(activeItem.useCaseIndex)} disabled={!isConfigured || loading !== null || !activeItem.manualWorkflow.trim()}>
                   {loading === activeItem.useCaseIndex ? 'Đang tạo lại...' : 'Tạo lại PRD đang chọn'}
                 </button>
               )}
             </div>
+            {!hasAllManualWorkflows && (
+              <p style={{ color: 'var(--warning)', marginTop: '1rem', textAlign: 'center' }}>
+                Vui lòng nhập mô tả luồng thủ công cho đủ 3 use-case trước khi bấm “Tạo 3 PRD”.
+              </p>
+            )}
             {error && <p style={{ color: 'var(--error)', marginTop: '1rem', textAlign: 'center' }}>{error}</p>}
           </section>
 
@@ -190,4 +237,3 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
     </div>
   )
 }
-
