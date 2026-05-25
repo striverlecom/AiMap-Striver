@@ -122,7 +122,7 @@ export default function Day6Client({ serverUser }: { serverUser: any }) {
 
             return (
               <div key={sol.id} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <h3 style={{ borderBottom: '1px solid var(--card-border)', paddingBottom: '0.8rem', color: 'var(--success)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <h3 style={{ borderBottom: '1px solid var(--card-border)', paddingBottom: '0.8rem', color: 'var(--success)', whiteSpace: 'normal', overflowWrap: 'anywhere', lineHeight: 1.4 }}>
                   #{i+1}: {sol.name}
                 </h3>
                 
