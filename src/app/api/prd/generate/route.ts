@@ -288,3 +288,14 @@ export async function POST(req: Request) {
 
   return NextResponse.json({ success: true, prdData: items })
 }
+
+export async function GET(req: Request) {
+  const user = await getUserFromSession(req)
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!user.isPaid) return NextResponse.json({ error: 'Payment required' }, { status: 402 })
+
+  const useCases = extractPrdUseCases(user)
+  const items = mergePrdItems(safeJsonParse<PrdItem[]>(user.day8Data?.prdData, []), useCases)
+
+  return NextResponse.json({ success: true, prdData: items })
+}

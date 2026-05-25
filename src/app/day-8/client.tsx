@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { slugifyFileName, type PrdItem, type PrdUseCase } from '@/lib/prd'
 
 const PRD_SECTIONS = [
@@ -38,6 +38,37 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
   const updateManualWorkflow = (useCaseIndex: number, value: string) => {
     setItems(prev => prev.map(item => item.useCaseIndex === useCaseIndex ? { ...item, manualWorkflow: value } : item))
   }
+
+  useEffect(() => {
+    if (loading === null) return
+
+    const targetIndexes = loading === 'all' ? items.map(item => item.useCaseIndex) : [loading]
+    let stopped = false
+
+    const poll = async () => {
+      try {
+        const res = await fetch('/api/prd/generate', { cache: 'no-store' })
+        const data = await res.json()
+        if (!res.ok || stopped) return
+
+        setItems(data.prdData)
+        const targetItems = data.prdData.filter((item: PrdItem) => targetIndexes.includes(item.useCaseIndex))
+        const stillGenerating = targetItems.some((item: PrdItem) => item.status === 'generating')
+        const hasFinished = targetItems.some((item: PrdItem) => item.status === 'completed' || item.status === 'failed')
+        if (hasFinished && !stillGenerating) setLoading(null)
+      } catch {
+        // Keep the visible generation state; the submit request still owns the final error.
+      }
+    }
+
+    const interval = window.setInterval(poll, 5000)
+    poll()
+
+    return () => {
+      stopped = true
+      window.clearInterval(interval)
+    }
+  }, [loading, items])
 
   const generate = async (useCaseIndex?: number) => {
     setLoading(useCaseIndex || 'all')
