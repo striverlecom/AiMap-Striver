@@ -17,7 +17,7 @@ export const dynamic = 'force-dynamic'
 
 const PROVIDER = (process.env.PRD_PROVIDER || 'gemini').toLowerCase()
 const OPENAI_MODEL = process.env.OPENAI_PRD_MODEL || 'gpt-4.1'
-const GEMINI_MODEL = process.env.GEMINI_PRD_MODEL || 'gemini-2.5-flash'
+const GEMINI_MODEL = process.env.GEMINI_PRD_MODEL || 'gemini-2.5-flash-lite'
 const GEMINI_FALLBACK_MODEL = process.env.GEMINI_PRD_FALLBACK_MODEL || 'gemini-2.5-flash-lite'
 const OPENAI_TIMEOUT_MS = Number(process.env.OPENAI_PRD_TIMEOUT_MS || 180000)
 const OPENAI_MAX_OUTPUT_TOKENS = Number(process.env.OPENAI_PRD_MAX_OUTPUT_TOKENS || 14000)
@@ -75,6 +75,23 @@ async function generateOpenAiMarkdown(client: OpenAI, vectorStoreId: string, pro
 function isRetriableGeminiError(error: any) {
   const message = String(error?.message || '')
   return error?.status === 429 || error?.status === 503 || message.includes('"code":429') || message.includes('"code":503')
+}
+
+function getPublicGenerationError(error: any) {
+  const message = String(error?.message || '')
+  if (error?.status === 429 || message.includes('"code":429') || message.includes('RESOURCE_EXHAUSTED')) {
+    return 'Gemini đang giới hạn quota/tần suất. Vui lòng đợi một lát rồi bấm tạo lại PRD này.'
+  }
+
+  if (error?.status === 503 || message.includes('"code":503') || message.includes('UNAVAILABLE') || message.includes('high demand')) {
+    return 'Gemini đang quá tải tạm thời. Hệ thống đã thử lại và fallback model nhưng chưa thành công, vui lòng bấm tạo lại sau ít phút.'
+  }
+
+  if (message.includes('timed out')) {
+    return 'Tạo PRD mất quá lâu và đã timeout. Vui lòng bấm tạo lại PRD này.'
+  }
+
+  return error?.message || 'Không thể tạo PRD.'
 }
 
 async function sleep(ms: number) {
@@ -265,7 +282,7 @@ export async function POST(req: Request) {
       items = items.map(item => item.useCaseIndex === target.useCaseIndex ? {
         ...item,
         status: 'failed',
-        errorMessage: error?.message || 'Không thể tạo PRD.',
+        errorMessage: getPublicGenerationError(error),
         model,
         responseId,
         generatedAt: new Date().toISOString()
