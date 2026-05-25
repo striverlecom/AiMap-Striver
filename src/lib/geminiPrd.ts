@@ -2,8 +2,8 @@ import { GoogleGenAI } from '@google/genai'
 
 export const GEMINI_MODEL = process.env.GEMINI_PRD_MODEL || 'gemini-2.5-flash-lite'
 export const GEMINI_FALLBACK_MODEL = process.env.GEMINI_PRD_FALLBACK_MODEL || 'gemini-2.5-flash-lite'
-export const GEMINI_MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_PRD_MAX_OUTPUT_TOKENS || 14000)
-export const GENERATION_TIMEOUT_MS = Number(process.env.PRD_GENERATION_TIMEOUT_MS || 120000)
+export const GEMINI_MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_PRD_MAX_OUTPUT_TOKENS || 24000)
+export const GENERATION_TIMEOUT_MS = Number(process.env.PRD_GENERATION_TIMEOUT_MS || 180000)
 
 export function isRetriableGeminiError(error: any) {
   const message = String(error?.message || '')
