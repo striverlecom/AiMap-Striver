@@ -56,6 +56,16 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
     } catch(e){}
   }
 
+  let day5TopSolutions: any[] = []
+  if (user.day5Data?.priorities) {
+    try {
+      const parsed = JSON.parse(user.day5Data.priorities)
+      if (Array.isArray(parsed)) {
+        day5TopSolutions = parsed.filter((item: any) => item.isTop3).slice(0, 3)
+      }
+    } catch(e){}
+  }
+
   let totalHoursWeek = 0
   let totalHoursMonth = 0
   let totalSavingsYear = 0
@@ -65,7 +75,15 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
   let totalEmployeesSol = 0
   let totalFtes = 0
 
-  const processedRois = rois.map(sol => {
+  const processedRois = rois.map((sol, index) => {
+    const day5Solution = day5TopSolutions[index]
+    const solutionName = [
+      day5Solution?.solution,
+      sol.name,
+      day5Solution?.problem,
+      `Giải pháp #${index + 1}`
+    ].find(value => typeof value === 'string' && value.trim().length > 0) as string
+
     const totalResourceHours = sol.employees * sol.hoursPerWeek
     const hoursSavedWeek = totalResourceHours * (sol.aiReplacementPct / 100)
     const hoursSavedMonth = hoursSavedWeek * (globalParams.weeksPerYear / 12)
@@ -87,7 +105,7 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
     totalEmployeesSol += sol.employees
     totalFtes += fteSaved
 
-    return { ...sol, hoursSavedWeek, hoursSavedMonth, savingsYear, revenueYear, tvYear, roi, paybackMonths, fteSaved }
+    return { ...sol, name: solutionName.trim(), hoursSavedWeek, hoursSavedMonth, savingsYear, revenueYear, tvYear, roi, paybackMonths, fteSaved }
   })
 
   const globalRoiPct = totalInvestment > 0 ? (totalValueYear / totalInvestment) * 100 : 0
@@ -138,6 +156,15 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
         {/* BẢNG GIẢI PHÁP KHUYẾN NGHỊ */}
         <section className="glass-panel">
           <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', color: 'var(--success)' }}>💡 GIẢI PHÁP AI KHUYẾN NGHỊ</h2>
+
+          <div style={{ display: 'grid', gap: '0.75rem', marginBottom: '1.5rem' }}>
+            {processedRois.map((r, i) => (
+              <div key={i} style={{ display: 'grid', gridTemplateColumns: '48px 1fr', gap: '0.75rem', alignItems: 'start', padding: '1rem', border: '1px solid var(--card-border)', borderRadius: '8px', background: 'rgba(255,255,255,0.03)' }}>
+                <span style={{ color: 'var(--success)', fontWeight: 700 }}>#{i + 1}</span>
+                <strong style={{ whiteSpace: 'normal', overflowWrap: 'anywhere', lineHeight: 1.5 }}>{r.name}</strong>
+              </div>
+            ))}
+          </div>
           
           {/* DESKTOP MATRIX TABLE (Hidden on Mobile) */}
           <div className="report-wrapper hide-on-mobile">
@@ -145,7 +172,11 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
               <thead>
                 <tr>
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '2px solid var(--card-border)', color: 'var(--muted)' }}>Chỉ số</th>
-                {processedRois.map((r,i) => <th key={i} style={{ padding: '1rem', borderBottom: '2px solid var(--card-border)' }}>{r.name}</th>)}
+                {processedRois.map((r,i) => (
+                  <th key={i} style={{ padding: '1rem', borderBottom: '2px solid var(--card-border)', minWidth: '220px', verticalAlign: 'top' }}>
+                    <div style={{ whiteSpace: 'normal', overflowWrap: 'anywhere', lineHeight: 1.45 }}>{r.name}</div>
+                  </th>
+                ))}
                 <th style={{ padding: '1rem', borderBottom: '2px solid var(--card-border)', color: 'var(--success)' }}>TỔNG TỰ TÍNH</th>
               </tr>
             </thead>
