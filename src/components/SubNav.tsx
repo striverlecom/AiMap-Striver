@@ -20,7 +20,8 @@ export default function SubNav({ hasSession }: { hasSession: boolean }) {
     { num: 6, path: '/day-6', label: '6. Xác định ROI' },
     { num: 7, path: '/day-7', label: '7. Lộ trình' },
     { num: 8, path: '/day-8', label: '8. PRD' },
-    { num: 9, path: '/results', label: 'Báo cáo' }
+    { num: 9, path: '/day-9', label: '9. SI' },
+    { num: 10, path: '/results', label: 'Báo cáo' }
   ]
 
   return (
