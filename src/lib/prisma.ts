@@ -1,7 +1,34 @@
 import { PrismaClient } from '@prisma/client'
+import fs from 'fs'
+import path from 'path'
+
+function getDatasourceUrl() {
+  if (process.env.VERCEL) {
+    const sourceDb = path.join(process.cwd(), 'prisma', 'dev.db')
+    const targetDb = path.join('/tmp', 'striver-dev.db')
+
+    if (!fs.existsSync(targetDb)) {
+      fs.copyFileSync(sourceDb, targetDb)
+    }
+
+    return `file:${targetDb}`
+  }
+
+  return process.env.DATABASE_URL
+}
 
 const prismaClientSingleton = () => {
-  return new PrismaClient()
+  const url = getDatasourceUrl()
+
+  return new PrismaClient(
+    url
+      ? {
+          datasources: {
+            db: { url },
+          },
+        }
+      : undefined
+  )
 }
 
 declare global {
