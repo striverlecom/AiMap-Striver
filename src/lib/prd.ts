@@ -121,7 +121,7 @@ Yêu cầu bắt buộc:
 - PRD phải có Data Workflow JSON, Data Flow Map, Concrete Example, RCICE, INPUT SCHEMA, OUTPUT SCHEMA, failure paths, human-in-the-loop, evaluation rubric và roadmap.
 - Phải dùng "Mô tả luồng thủ công thực tế" bên dưới làm dữ liệu đầu vào chính để thiết kế workflow, Agent, schema, failure paths và roadmap. Không được chỉ dựa vào tên use-case.
 - Nếu thiếu dữ liệu, ghi {TODO - Nghiêm trọng}, {TODO - Quan trọng}, hoặc {TODO - Nên biết}; không bịa.
-- Dùng knowledge pack được cung cấp qua file_search làm chuẩn cấu trúc PRD.
+- Dùng knowledge pack PRD được cung cấp trong ngữ cảnh hệ thống làm chuẩn cấu trúc PRD.
 
 Danh sách phần phải triển khai:
 1. Thẻ điều hành

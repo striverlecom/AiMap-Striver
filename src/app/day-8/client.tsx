@@ -95,9 +95,9 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
 
       {!isConfigured && (
         <div className="glass-panel" style={{ border: '1px solid var(--warning)', marginBottom: '2rem' }}>
-          <strong style={{ color: 'var(--warning)' }}>Chưa cấu hình OpenAI PRD Agent.</strong>
+          <strong style={{ color: 'var(--warning)' }}>Chưa cấu hình PRD Agent.</strong>
           <p style={{ color: 'var(--muted)', marginTop: '0.5rem' }}>
-            Máy chủ cần có OPENAI_API_KEY và OPENAI_PRD_VECTOR_STORE_ID trước khi tạo PRD.
+            Máy chủ cần có GEMINI_API_KEY trước khi tạo PRD.
           </p>
         </div>
       )}

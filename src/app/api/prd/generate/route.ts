@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
+import { GoogleGenAI } from '@google/genai'
 import prisma from '@/lib/prisma'
 import { decrypt } from '@/lib/auth'
+import { buildPrdSystemInstruction, loadPrdKnowledgePack } from '@/lib/prdKnowledge'
 import {
   buildPrdPrompt,
   extractPrdUseCases,
@@ -13,9 +15,12 @@ import {
 
 export const dynamic = 'force-dynamic'
 
-const MODEL = process.env.OPENAI_PRD_MODEL || 'gpt-5'
+const PROVIDER = (process.env.PRD_PROVIDER || 'gemini').toLowerCase()
+const OPENAI_MODEL = process.env.OPENAI_PRD_MODEL || 'gpt-4.1'
+const GEMINI_MODEL = process.env.GEMINI_PRD_MODEL || 'gemini-2.5-flash'
 const OPENAI_TIMEOUT_MS = Number(process.env.OPENAI_PRD_TIMEOUT_MS || 180000)
 const OPENAI_MAX_OUTPUT_TOKENS = Number(process.env.OPENAI_PRD_MAX_OUTPUT_TOKENS || 14000)
+const GEMINI_MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_PRD_MAX_OUTPUT_TOKENS || 14000)
 
 function getSessionToken(req: Request) {
   return req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
@@ -48,9 +53,9 @@ async function getUserFromSession(req: Request) {
   })
 }
 
-async function generateMarkdown(client: OpenAI, vectorStoreId: string, prompt: string) {
+async function generateOpenAiMarkdown(client: OpenAI, vectorStoreId: string, prompt: string) {
   const response = await client.responses.create({
-    model: MODEL,
+    model: OPENAI_MODEL,
     input: prompt,
     max_output_tokens: OPENAI_MAX_OUTPUT_TOKENS,
     tools: [{
@@ -65,15 +70,43 @@ async function generateMarkdown(client: OpenAI, vectorStoreId: string, prompt: s
   }
 }
 
+async function generateGeminiMarkdown(client: GoogleGenAI, prompt: string, systemInstruction: string) {
+  const response = await client.models.generateContent({
+    model: GEMINI_MODEL,
+    contents: prompt,
+    config: {
+      systemInstruction,
+      maxOutputTokens: GEMINI_MAX_OUTPUT_TOKENS,
+      temperature: 0.4
+    }
+  })
+
+  return {
+    responseId: null,
+    markdown: response.text || ''
+  }
+}
+
 export async function POST(req: Request) {
   const user = await getUserFromSession(req)
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   if (!user.isPaid) return NextResponse.json({ error: 'Payment required' }, { status: 402 })
 
-  const apiKey = process.env.OPENAI_API_KEY
+  const openAiApiKey = process.env.OPENAI_API_KEY
   const vectorStoreId = process.env.OPENAI_PRD_VECTOR_STORE_ID
+  const geminiApiKey = process.env.GEMINI_API_KEY
 
-  if (!apiKey || !vectorStoreId) {
+  if (!['gemini', 'openai'].includes(PROVIDER)) {
+    return NextResponse.json({ error: 'Invalid PRD_PROVIDER. Use gemini or openai.' }, { status: 500 })
+  }
+
+  if (PROVIDER === 'gemini' && !geminiApiKey) {
+    return NextResponse.json({
+      error: 'Gemini PRD generation is not configured. Set GEMINI_API_KEY on the server.'
+    }, { status: 500 })
+  }
+
+  if (PROVIDER === 'openai' && (!openAiApiKey || !vectorStoreId)) {
     return NextResponse.json({
       error: 'OpenAI PRD generation is not configured. Set OPENAI_API_KEY and OPENAI_PRD_VECTOR_STORE_ID on the server.'
     }, { status: 500 })
@@ -117,25 +150,41 @@ export async function POST(req: Request) {
     create: { userId: user.id, prdData: JSON.stringify(items) }
   })
 
-  const client = new OpenAI({ apiKey, timeout: OPENAI_TIMEOUT_MS, maxRetries: 1 })
+  const openAiClient = PROVIDER === 'openai' && openAiApiKey
+    ? new OpenAI({ apiKey: openAiApiKey, timeout: OPENAI_TIMEOUT_MS, maxRetries: 1 })
+    : null
+  const geminiClient = PROVIDER === 'gemini' && geminiApiKey
+    ? new GoogleGenAI({ apiKey: geminiApiKey })
+    : null
+  const systemInstruction = PROVIDER === 'gemini'
+    ? buildPrdSystemInstruction(await loadPrdKnowledgePack())
+    : ''
 
   for (const target of targets) {
     const prompt = buildPrdPrompt(target, user)
     let responseId: string | null = null
+    const model = PROVIDER === 'gemini' ? GEMINI_MODEL : OPENAI_MODEL
 
     try {
-      console.info('day8_prd_generate_start', { userId: user.id, useCaseIndex: target.useCaseIndex, model: MODEL })
-      let generated = await generateMarkdown(client, vectorStoreId, prompt)
+      console.info('day8_prd_generate_start', {
+        userId: user.id,
+        useCaseIndex: target.useCaseIndex,
+        provider: PROVIDER,
+        model
+      })
+
+      let generated = PROVIDER === 'gemini'
+        ? await generateGeminiMarkdown(geminiClient!, prompt, systemInstruction)
+        : await generateOpenAiMarkdown(openAiClient!, vectorStoreId!, prompt)
       responseId = generated.responseId
       let markdown = generated.markdown.trim()
       let missing = getMissingPrdSections(markdown)
 
       if (missing.length > 0) {
-        generated = await generateMarkdown(
-          client,
-          vectorStoreId,
-          `${prompt}\n\nBản trước thiếu các phần sau: ${missing.join(', ')}. Hãy tạo lại PRD đầy đủ, không tóm tắt và không bỏ phần.`
-        )
+        const repairPrompt = `${prompt}\n\nBản trước thiếu các phần sau: ${missing.join(', ')}. Hãy tạo lại PRD đầy đủ, không tóm tắt và không bỏ phần.`
+        generated = PROVIDER === 'gemini'
+          ? await generateGeminiMarkdown(geminiClient!, repairPrompt, systemInstruction)
+          : await generateOpenAiMarkdown(openAiClient!, vectorStoreId!, repairPrompt)
         responseId = generated.responseId
         markdown = generated.markdown.trim()
         missing = getMissingPrdSections(markdown)
@@ -146,7 +195,7 @@ export async function POST(req: Request) {
         status: missing.length > 0 ? 'failed' : 'completed',
         markdown,
         errorMessage: missing.length > 0 ? `PRD còn thiếu phần: ${missing.join(', ')}` : null,
-        model: MODEL,
+        model,
         responseId,
         generatedAt: new Date().toISOString()
       }
@@ -155,6 +204,7 @@ export async function POST(req: Request) {
       console.info('day8_prd_generate_done', {
         userId: user.id,
         useCaseIndex: target.useCaseIndex,
+        provider: PROVIDER,
         status: updated.status,
         markdownLength: markdown.length,
         missingCount: missing.length
@@ -163,6 +213,7 @@ export async function POST(req: Request) {
       console.error('day8_prd_generate_error', {
         userId: user.id,
         useCaseIndex: target.useCaseIndex,
+        provider: PROVIDER,
         message: error?.message,
         status: error?.status,
         code: error?.code
@@ -171,7 +222,7 @@ export async function POST(req: Request) {
         ...item,
         status: 'failed',
         errorMessage: error?.message || 'Không thể tạo PRD.',
-        model: MODEL,
+        model,
         responseId,
         generatedAt: new Date().toISOString()
       } : item)
