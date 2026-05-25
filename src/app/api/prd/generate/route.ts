@@ -18,6 +18,7 @@ export const dynamic = 'force-dynamic'
 const PROVIDER = (process.env.PRD_PROVIDER || 'gemini').toLowerCase()
 const OPENAI_MODEL = process.env.OPENAI_PRD_MODEL || 'gpt-4.1'
 const GEMINI_MODEL = process.env.GEMINI_PRD_MODEL || 'gemini-2.5-flash'
+const GEMINI_FALLBACK_MODEL = process.env.GEMINI_PRD_FALLBACK_MODEL || 'gemini-2.5-flash-lite'
 const OPENAI_TIMEOUT_MS = Number(process.env.OPENAI_PRD_TIMEOUT_MS || 180000)
 const OPENAI_MAX_OUTPUT_TOKENS = Number(process.env.OPENAI_PRD_MAX_OUTPUT_TOKENS || 14000)
 const GEMINI_MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_PRD_MAX_OUTPUT_TOKENS || 14000)
@@ -71,21 +72,47 @@ async function generateOpenAiMarkdown(client: OpenAI, vectorStoreId: string, pro
   }
 }
 
-async function generateGeminiMarkdown(client: GoogleGenAI, prompt: string, systemInstruction: string) {
-  const response = await client.models.generateContent({
-    model: GEMINI_MODEL,
-    contents: prompt,
-    config: {
-      systemInstruction,
-      maxOutputTokens: GEMINI_MAX_OUTPUT_TOKENS,
-      temperature: 0.4
-    }
-  })
+function isRetriableGeminiError(error: any) {
+  const message = String(error?.message || '')
+  return error?.status === 429 || error?.status === 503 || message.includes('"code":429') || message.includes('"code":503')
+}
 
-  return {
-    responseId: null,
-    markdown: response.text || ''
+async function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function generateGeminiMarkdown(client: GoogleGenAI, prompt: string, systemInstruction: string) {
+  const models = Array.from(new Set([GEMINI_MODEL, GEMINI_FALLBACK_MODEL].filter(Boolean)))
+  let lastError: any = null
+
+  for (const model of models) {
+    for (let attempt = 1; attempt <= 2; attempt += 1) {
+      try {
+        const response = await client.models.generateContent({
+          model,
+          contents: prompt,
+          config: {
+            systemInstruction,
+            maxOutputTokens: GEMINI_MAX_OUTPUT_TOKENS,
+            temperature: 0.4
+          }
+        })
+
+        return {
+          responseId: null,
+          markdown: response.text || '',
+          model
+        }
+      } catch (error: any) {
+        lastError = error
+        if (!isRetriableGeminiError(error)) throw error
+        console.warn('day8_prd_gemini_retry', { model, attempt, message: error?.message, status: error?.status })
+        await sleep(attempt * 1500)
+      }
+    }
   }
+
+  throw lastError
 }
 
 async function withGenerationTimeout<T>(task: Promise<T>) {
@@ -178,7 +205,7 @@ export async function POST(req: Request) {
   for (const target of targets) {
     const prompt = buildPrdPrompt(target, user)
     let responseId: string | null = null
-    const model = PROVIDER === 'gemini' ? GEMINI_MODEL : OPENAI_MODEL
+    let model = PROVIDER === 'gemini' ? GEMINI_MODEL : OPENAI_MODEL
 
     try {
       console.info('day8_prd_generate_start', {
@@ -192,6 +219,7 @@ export async function POST(req: Request) {
         ? await withGenerationTimeout(generateGeminiMarkdown(geminiClient!, prompt, systemInstruction))
         : await withGenerationTimeout(generateOpenAiMarkdown(openAiClient!, vectorStoreId!, prompt))
       responseId = generated.responseId
+      if ('model' in generated && generated.model) model = generated.model
       let markdown = generated.markdown.trim()
       let missing = getMissingPrdSections(markdown)
 
@@ -201,6 +229,7 @@ export async function POST(req: Request) {
           ? await withGenerationTimeout(generateGeminiMarkdown(geminiClient!, repairPrompt, systemInstruction))
           : await withGenerationTimeout(generateOpenAiMarkdown(openAiClient!, vectorStoreId!, repairPrompt))
         responseId = generated.responseId
+        if ('model' in generated && generated.model) model = generated.model
         markdown = generated.markdown.trim()
         missing = getMissingPrdSections(markdown)
       }
