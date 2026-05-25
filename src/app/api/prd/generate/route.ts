@@ -296,10 +296,11 @@ export async function POST(req: Request) {
     })
   }
 
-  if (user.currentDay < 8) {
+  const nextDay = items.every(item => item.status === 'completed' && item.markdown.trim().length > 0) ? 9 : 8
+  if (user.currentDay < nextDay) {
     await prisma.user.update({
       where: { id: user.id },
-      data: { currentDay: 8 }
+      data: { currentDay: nextDay }
     })
   }
 

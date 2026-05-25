@@ -25,6 +25,7 @@ model User {
   day6Data   Day6Data?
   day7Data   Day7Data?
   day8Data   Day8Data?
+  day9Data   Day9Data?
 }
 
 model Day1Data {
@@ -99,6 +100,15 @@ model Day8Data {
   userId    String @unique
   user      User   @relation(fields: [userId], references: [id])
   prdData   String @default("[]")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Day9Data {
+  id        String @id @default(cuid())
+  userId    String @unique
+  user      User   @relation(fields: [userId], references: [id])
+  siData    String @default("[]")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

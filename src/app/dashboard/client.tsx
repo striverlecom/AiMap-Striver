@@ -38,6 +38,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
     { title: 'Tính ROI', desc: 'Lượng hóa giá trị tương lai, biến thời gian tiết kiệm được thành tài sản.', date: 'Trạm 6' },
     { title: 'Kế hoạch', desc: 'Chiến lược 30 ngày chuyển đổi số, roadmap độc bản cho riêng bạn.', date: 'Trạm 7' },
     { title: 'PRD triển khai', desc: 'Biến 3 use-case AI ưu tiên thành 3 bản thiết kế PRD Markdown sẵn sàng giao đội xây dựng.', date: 'Trạm 8' },
+    { title: 'System Instruction', desc: 'Chuyển 3 PRD thành bộ System Instruction XML production-ready cho từng Agent trong mỗi use-case.', date: 'Trạm 9' },
   ]
 
   return (
@@ -63,7 +64,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
             <span className="text-gradient">Chuyển Đổi AI</span>
           </h1>
           <p className="hero-subtitle">
-            Khám phá 7 ngày xây dựng bản đồ hành động AI cho doanh nghiệp của bạn.
+            Khám phá 9 ngày xây dựng bản đồ hành động AI cho doanh nghiệp của bạn.
           </p>
         </div>
       </section>
@@ -137,7 +138,7 @@ export default function DashboardClient({ serverUser }: { serverUser: any }) {
             <div className="glass-reflection"></div>
             <div className="badge-pro">KẾT QUẢ HÀNH ĐỘNG</div>
             <h2 className="final-title">Báo Cáo Tổng Thể</h2>
-            <p className="final-desc">Kiệt tác chiến lược kiến tạo tương lai khác biệt. Dành riêng cho Doanh Nghiệp của bạn sau hành trình 7 ngày.</p>
+            <p className="final-desc">Kiệt tác chiến lược kiến tạo tương lai khác biệt. Dành riêng cho Doanh Nghiệp của bạn sau hành trình 9 ngày.</p>
             <div className="btn-wrapper" style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
               <span className="apple-luxury-btn">Xem Báo Cáo Trực Quan</span>
             </div>
