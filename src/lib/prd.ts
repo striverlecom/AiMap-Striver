@@ -21,21 +21,21 @@ export type PrdItem = PrdUseCase & {
 }
 
 export const PRD_REQUIRED_SECTIONS = [
-  'Thẻ điều hành',
-  'Ngữ cảnh người dùng',
-  'Kiến trúc quy trình',
-  'Data Workflow JSON',
-  'Data Flow Map',
-  'Concrete Example',
-  'RCICE',
-  'INPUT SCHEMA',
-  'OUTPUT SCHEMA',
-  'Knowledge Base Strategy',
-  'Human-in-the-loop',
-  'Failure Paths',
-  'Evaluation Framework',
-  'Roadmap',
-  'Open Questions'
+  { name: 'Thẻ điều hành', aliases: ['Thẻ điều hành', 'Executive'] },
+  { name: 'Ngữ cảnh người dùng', aliases: ['Ngữ cảnh người dùng', 'User Context'] },
+  { name: 'Kiến trúc quy trình', aliases: ['Kiến trúc quy trình', 'Process Architecture'] },
+  { name: 'Data Workflow JSON', aliases: ['Data Workflow JSON'] },
+  { name: 'Data Flow Map', aliases: ['Data Flow Map'] },
+  { name: 'Concrete Example', aliases: ['Concrete Example', 'Ví dụ dữ liệu'] },
+  { name: 'RCICE', aliases: ['RCICE'] },
+  { name: 'INPUT SCHEMA', aliases: ['INPUT SCHEMA', 'Input Schema'] },
+  { name: 'OUTPUT SCHEMA', aliases: ['OUTPUT SCHEMA', 'Output Schema'] },
+  { name: 'Knowledge Base Strategy', aliases: ['Knowledge Base Strategy', 'Chiến lược cơ sở tri thức'] },
+  { name: 'Human-in-the-loop', aliases: ['Human-in-the-loop', 'Human in the loop', 'HITL'] },
+  { name: 'Failure Paths', aliases: ['Failure Paths', 'Đường lỗi', 'Luồng lỗi'] },
+  { name: 'Evaluation Framework', aliases: ['Evaluation Framework', 'Khung đánh giá'] },
+  { name: 'Roadmap', aliases: ['Roadmap', 'Lộ trình'] },
+  { name: 'Open Questions', aliases: ['Open Questions', 'Open Questions/TODO', 'Câu hỏi mở', 'Câu hỏi/TODO', 'TODO'] }
 ]
 
 export function safeJsonParse<T>(value: string | null | undefined, fallback: T): T {
@@ -100,7 +100,9 @@ export function mergePrdItems(existing: PrdItem[], useCases: PrdUseCase[]): PrdI
 
 export function getMissingPrdSections(markdown: string) {
   const lower = markdown.toLowerCase()
-  return PRD_REQUIRED_SECTIONS.filter(section => !lower.includes(section.toLowerCase()))
+  return PRD_REQUIRED_SECTIONS
+    .filter(section => !section.aliases.some(alias => lower.includes(alias.toLowerCase())))
+    .map(section => section.name)
 }
 
 export function slugifyFileName(value: string) {
