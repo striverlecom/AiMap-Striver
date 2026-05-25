@@ -53,7 +53,6 @@ async function generateMarkdown(client: OpenAI, vectorStoreId: string, prompt: s
     model: MODEL,
     input: prompt,
     max_output_tokens: OPENAI_MAX_OUTPUT_TOKENS,
-    ...(MODEL.startsWith('gpt-5') ? { reasoning: { effort: 'minimal' } } : {}),
     tools: [{
       type: 'file_search',
       vector_store_ids: [vectorStoreId]
