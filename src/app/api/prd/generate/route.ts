@@ -21,6 +21,7 @@ const GEMINI_MODEL = process.env.GEMINI_PRD_MODEL || 'gemini-2.5-flash'
 const OPENAI_TIMEOUT_MS = Number(process.env.OPENAI_PRD_TIMEOUT_MS || 180000)
 const OPENAI_MAX_OUTPUT_TOKENS = Number(process.env.OPENAI_PRD_MAX_OUTPUT_TOKENS || 14000)
 const GEMINI_MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_PRD_MAX_OUTPUT_TOKENS || 14000)
+const GENERATION_TIMEOUT_MS = Number(process.env.PRD_GENERATION_TIMEOUT_MS || 120000)
 
 function getSessionToken(req: Request) {
   return req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
@@ -87,6 +88,19 @@ async function generateGeminiMarkdown(client: GoogleGenAI, prompt: string, syste
   }
 }
 
+async function withGenerationTimeout<T>(task: Promise<T>) {
+  let timer: ReturnType<typeof setTimeout> | undefined
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`PRD generation timed out after ${Math.round(GENERATION_TIMEOUT_MS / 1000)} seconds.`)), GENERATION_TIMEOUT_MS)
+  })
+
+  try {
+    return await Promise.race([task, timeout])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
+}
+
 export async function POST(req: Request) {
   const user = await getUserFromSession(req)
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -139,8 +153,9 @@ export async function POST(req: Request) {
     }, { status: 400 })
   }
 
+  const startedAt = new Date().toISOString()
   let items = existing.map(item => targets.some(target => target.useCaseIndex === item.useCaseIndex)
-    ? { ...item, status: 'generating' as const, errorMessage: null }
+    ? { ...item, status: 'generating' as const, errorMessage: null, generatedAt: startedAt }
     : item
   )
 
@@ -174,8 +189,8 @@ export async function POST(req: Request) {
       })
 
       let generated = PROVIDER === 'gemini'
-        ? await generateGeminiMarkdown(geminiClient!, prompt, systemInstruction)
-        : await generateOpenAiMarkdown(openAiClient!, vectorStoreId!, prompt)
+        ? await withGenerationTimeout(generateGeminiMarkdown(geminiClient!, prompt, systemInstruction))
+        : await withGenerationTimeout(generateOpenAiMarkdown(openAiClient!, vectorStoreId!, prompt))
       responseId = generated.responseId
       let markdown = generated.markdown.trim()
       let missing = getMissingPrdSections(markdown)
@@ -183,8 +198,8 @@ export async function POST(req: Request) {
       if (missing.length > 0) {
         const repairPrompt = `${prompt}\n\nBản trước thiếu các phần sau: ${missing.join(', ')}. Hãy tạo lại PRD đầy đủ, không tóm tắt và không bỏ phần.`
         generated = PROVIDER === 'gemini'
-          ? await generateGeminiMarkdown(geminiClient!, repairPrompt, systemInstruction)
-          : await generateOpenAiMarkdown(openAiClient!, vectorStoreId!, repairPrompt)
+          ? await withGenerationTimeout(generateGeminiMarkdown(geminiClient!, repairPrompt, systemInstruction))
+          : await withGenerationTimeout(generateOpenAiMarkdown(openAiClient!, vectorStoreId!, repairPrompt))
         responseId = generated.responseId
         markdown = generated.markdown.trim()
         missing = getMissingPrdSections(markdown)
