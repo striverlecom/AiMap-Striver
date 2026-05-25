@@ -1,0 +1,11 @@
+.git
+.next
+node_modules
+.codex-logs
+node_installer.msi
+dev.db
+backup.sql
+database_backup.json
+report_dump.txt
+*.log
+*.tsbuildinfo
