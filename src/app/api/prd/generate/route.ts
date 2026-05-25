@@ -14,6 +14,8 @@ import {
 export const dynamic = 'force-dynamic'
 
 const MODEL = process.env.OPENAI_PRD_MODEL || 'gpt-5'
+const OPENAI_TIMEOUT_MS = Number(process.env.OPENAI_PRD_TIMEOUT_MS || 180000)
+const OPENAI_MAX_OUTPUT_TOKENS = Number(process.env.OPENAI_PRD_MAX_OUTPUT_TOKENS || 14000)
 
 function getSessionToken(req: Request) {
   return req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
@@ -50,11 +52,13 @@ async function generateMarkdown(client: OpenAI, vectorStoreId: string, prompt: s
   const response = await client.responses.create({
     model: MODEL,
     input: prompt,
+    max_output_tokens: OPENAI_MAX_OUTPUT_TOKENS,
+    ...(MODEL.startsWith('gpt-5') ? { reasoning: { effort: 'minimal' } } : {}),
     tools: [{
       type: 'file_search',
       vector_store_ids: [vectorStoreId]
     }] as any
-  })
+  } as any)
 
   return {
     responseId: response.id,
@@ -114,13 +118,14 @@ export async function POST(req: Request) {
     create: { userId: user.id, prdData: JSON.stringify(items) }
   })
 
-  const client = new OpenAI({ apiKey })
+  const client = new OpenAI({ apiKey, timeout: OPENAI_TIMEOUT_MS, maxRetries: 1 })
 
   for (const target of targets) {
     const prompt = buildPrdPrompt(target, user)
     let responseId: string | null = null
 
     try {
+      console.info('day8_prd_generate_start', { userId: user.id, useCaseIndex: target.useCaseIndex, model: MODEL })
       let generated = await generateMarkdown(client, vectorStoreId, prompt)
       responseId = generated.responseId
       let markdown = generated.markdown.trim()
@@ -148,7 +153,21 @@ export async function POST(req: Request) {
       }
 
       items = items.map(item => item.useCaseIndex === target.useCaseIndex ? updated : item)
+      console.info('day8_prd_generate_done', {
+        userId: user.id,
+        useCaseIndex: target.useCaseIndex,
+        status: updated.status,
+        markdownLength: markdown.length,
+        missingCount: missing.length
+      })
     } catch (error: any) {
+      console.error('day8_prd_generate_error', {
+        userId: user.id,
+        useCaseIndex: target.useCaseIndex,
+        message: error?.message,
+        status: error?.status,
+        code: error?.code
+      })
       items = items.map(item => item.useCaseIndex === target.useCaseIndex ? {
         ...item,
         status: 'failed',
