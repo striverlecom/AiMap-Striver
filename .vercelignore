@@ -3,7 +3,8 @@
 node_modules
 .codex-logs
 node_installer.msi
-dev.db
+/dev.db
+!prisma/dev.db
 backup.sql
 database_backup.json
 report_dump.txt

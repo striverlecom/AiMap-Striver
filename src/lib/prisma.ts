@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 
 function getDatasourceUrl() {
-  if (process.env.VERCEL) {
+  if (process.env.VERCEL && process.env.NEXT_PHASE !== 'phase-production-build') {
     const sourceDb = path.join(process.cwd(), 'prisma', 'dev.db')
     const targetDb = path.join('/tmp', 'striver-dev.db')
 
