@@ -76,7 +76,7 @@ export default function Day9Client({ prdCount, initialItems, isConfigured }: Pro
 
     try {
       const controller = new AbortController()
-      const timeout = window.setTimeout(() => controller.abort(), 135000)
+      const timeout = window.setTimeout(() => controller.abort(), 210000)
       const res = await fetch('/api/si/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

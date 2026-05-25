@@ -87,7 +87,7 @@ export default function Day8Client({ useCases, initialPrds, isConfigured }: Prop
 
     try {
       const controller = new AbortController()
-      const timeout = window.setTimeout(() => controller.abort(), 135000)
+      const timeout = window.setTimeout(() => controller.abort(), 210000)
       const res = await fetch('/api/prd/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
