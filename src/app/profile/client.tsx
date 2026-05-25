@@ -4,7 +4,16 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-export default function ProfileClient({ serverUser }: { serverUser: any }) {
+type ProfileClientProps = {
+  serverUser: {
+    email?: string
+    name?: string | null
+    isPaid?: boolean
+  }
+  serverWarning?: string
+}
+
+export default function ProfileClient({ serverUser, serverWarning }: ProfileClientProps) {
   const [name, setName] = useState(serverUser.name || '')
   const [email, setEmail] = useState(serverUser.email || '')
   const [password, setPassword] = useState('')
@@ -23,7 +32,7 @@ export default function ProfileClient({ serverUser }: { serverUser: any }) {
       const res = await fetch('/api/users/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password: password || undefined })
+        body: JSON.stringify({ email, password: password || undefined })
       })
 
       const data = await res.json()
@@ -33,8 +42,8 @@ export default function ProfileClient({ serverUser }: { serverUser: any }) {
       }
 
       setSuccess('Cập nhật thông tin thành công!')
-      setPassword('') // Clear password field after update
-      router.refresh() // Sync server components layout
+      setPassword('')
+      router.refresh()
     } catch (err: any) {
       setError(err.message)
     } finally {
@@ -45,13 +54,17 @@ export default function ProfileClient({ serverUser }: { serverUser: any }) {
   return (
     <div className="container" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center', maxWidth: '600px', width: '100%' }}>
-        <h1 style={{fontSize: 'clamp(2rem, 5vw, 3rem)', letterSpacing: '-0.02em', marginBottom: '0.5rem'}}>Hồ Sơ Cá Nhân</h1>
+        <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '0.5rem' }}>Hồ Sơ Cá Nhân</h1>
         <p style={{ color: 'var(--muted)', fontSize: '1rem' }}>Quản lý thông tin và bảo mật tài khoản</p>
       </header>
 
       <div style={{ maxWidth: '500px', width: '100%', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-        
-        {/* Payment Status Card */}
+        {serverWarning && (
+          <div style={{ color: 'var(--warning)', fontSize: '0.9rem', padding: '12px', background: 'rgba(255, 204, 0, 0.1)', borderRadius: '8px' }}>
+            {serverWarning}
+          </div>
+        )}
+
         <div className="glass-panel" style={{ border: serverUser.isPaid ? '1px solid var(--success)' : '1px solid var(--warning)' }}>
           <h2 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: serverUser.isPaid ? 'var(--success)' : 'var(--warning)' }}>Trạng thái Gói Cước</h2>
           {serverUser.isPaid ? (
@@ -68,29 +81,30 @@ export default function ProfileClient({ serverUser }: { serverUser: any }) {
           )}
         </div>
 
-        {/* Profile Settings Form */}
         <div className="glass-panel">
           <form onSubmit={handleUpdate} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {error && <div style={{ color: 'var(--error)', fontSize: '0.9rem', padding: '12px', background: 'rgba(255,69,58,0.1)', borderRadius: '8px' }}>{error}</div>}
             {success && <div style={{ color: 'var(--success)', fontSize: '0.9rem', padding: '12px', background: 'rgba(50,215,75,0.1)', borderRadius: '8px' }}>{success}</div>}
-            
+
             <div>
               <label style={{ display: 'block', marginBottom: '8px', color: 'var(--muted)', fontSize: '0.9rem' }}>Họ và tên</label>
-              <input 
-                type="text" 
-                className="input-field" 
-                value={name} 
+              <input
+                type="text"
+                className="input-field"
+                value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="Ví dụ: Nguyễn Văn A"
+                disabled
               />
+              <p style={{ fontSize: '0.8rem', marginTop: '6px', color: 'var(--muted)' }}>Tên sẽ được bật lại sau khi database production được đồng bộ schema.</p>
             </div>
 
             <div>
               <label style={{ display: 'block', marginBottom: '8px', color: 'var(--muted)', fontSize: '0.9rem' }}>Email đăng nhập</label>
-              <input 
-                type="email" 
-                className="input-field" 
-                value={email} 
+              <input
+                type="email"
+                className="input-field"
+                value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
               />
@@ -98,10 +112,10 @@ export default function ProfileClient({ serverUser }: { serverUser: any }) {
 
             <div style={{ borderTop: '1px solid var(--card-border)', paddingTop: '1.5rem', marginTop: '0.5rem' }}>
               <label style={{ display: 'block', marginBottom: '8px', color: 'var(--muted)', fontSize: '0.9rem' }}>Mật khẩu mới</label>
-              <input 
-                type="password" 
-                className="input-field" 
-                value={password} 
+              <input
+                type="password"
+                className="input-field"
+                value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Bỏ trống nếu không muốn đổi"
               />
