@@ -1,21 +1,43 @@
 import { NextResponse } from 'next/server';
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { promisify } from 'util';
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const code = searchParams.get('code')
+function isAuthorized(request: Request) {
+  const token = process.env.ADMIN_MAINTENANCE_TOKEN;
+  const authHeader = request.headers.get('authorization') || '';
 
-  if (code !== 'striver2026') {
+  if (!token) return false;
+  return authHeader === `Bearer ${token}`;
+}
+
+export async function POST(request: Request) {
+  if (!isAuthorized(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  try {
-    const { stdout, stderr } = await execAsync('npx prisma db push --accept-data-loss');
-    return NextResponse.json({ success: true, stdout, stderr });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (process.env.NODE_ENV === 'production' && process.env.ALLOW_DB_SYNC !== 'true') {
+    return NextResponse.json({ error: 'Database sync is disabled in production.' }, { status: 403 })
   }
+
+  try {
+    const args = ['prisma', 'db', 'push'];
+    if (process.env.ALLOW_PRISMA_DATA_LOSS === 'true') args.push('--accept-data-loss');
+
+    const command = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+    const { stdout, stderr } = await execFileAsync(command, args, {
+      cwd: process.cwd(),
+      timeout: 60_000,
+    });
+
+    return NextResponse.json({ success: true, stdout, stderr });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown database sync error';
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
+
+export async function GET() {
+  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
 }

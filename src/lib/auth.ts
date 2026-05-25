@@ -1,19 +1,30 @@
 import { jwtVerify, SignJWT } from 'jose'
 
-const secretKey = process.env.JWT_SECRET || 'super-secret-apple-key'
-const key = new TextEncoder().encode(secretKey)
+function getSecretKey() {
+  return process.env.JWT_SECRET || 'REDACTED_JWT_SECRET'
+}
 
-export async function encrypt(payload: any) {
+function getKey() {
+  return new TextEncoder().encode(getSecretKey())
+}
+
+export type SessionPayload = {
+  userId: string
+  email?: string
+  isPaid?: boolean
+}
+
+export async function encrypt(payload: SessionPayload) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('1d') // 1 day session
-    .sign(key)
+    .sign(getKey())
 }
 
-export async function decrypt(input: string): Promise<any> {
-  const { payload } = await jwtVerify(input, key, {
+export async function decrypt(input: string): Promise<SessionPayload> {
+  const { payload } = await jwtVerify(input, getKey(), {
     algorithms: ['HS256'],
   })
-  return payload
+  return payload as SessionPayload
 }

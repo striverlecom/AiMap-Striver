@@ -1,9 +1,30 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 
+type SepayWebhookPayload = {
+  transferType?: string
+  transferAmount?: number
+  content?: string
+}
+
+function isAuthorized(req: Request) {
+  const secret = process.env.SEPAY_WEBHOOK_SECRET
+  if (!secret) return process.env.NODE_ENV !== 'production'
+
+  const bearer = req.headers.get('authorization')?.replace(/^Bearer\s+/i, '')
+  const tokenHeader = req.headers.get('x-sepay-token')
+  const apiKeyHeader = req.headers.get('x-api-key')
+
+  return bearer === secret || tokenHeader === secret || apiKeyHeader === secret
+}
+
 export async function POST(req: Request) {
   try {
-    const data = await req.json()
+    if (!isAuthorized(req)) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const data = await req.json() as SepayWebhookPayload
     // data from sepay usually has:
     // {
     //    "id": 12345,
@@ -17,9 +38,9 @@ export async function POST(req: Request) {
     //    ...
     // }
     
-    // Safety check - You should implement Sepay Webhook Token verification here in production
-    
-    if (data.transferType === 'in' && data.transferAmount >= 500000) {
+    const transferAmount = Number(data.transferAmount || 0)
+
+    if (data.transferType === 'in' && transferAmount >= 500000) {
       const content = (data.content || '').toUpperCase()
       
       // Find user where paymentRef is included in the content
@@ -42,8 +63,9 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ success: true, message: 'Webhook received but no matching user found.' })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Sepay Webhook Error:', error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    const message = error instanceof Error ? error.message : 'Unknown webhook error'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }
