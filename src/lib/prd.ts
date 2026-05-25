@@ -72,12 +72,25 @@ export function extractPrdUseCases(user: any): PrdUseCase[] {
 export function mergePrdItems(existing: PrdItem[], useCases: PrdUseCase[]): PrdItem[] {
   return useCases.map(useCase => {
     const old = existing.find(item => item.useCaseIndex === useCase.useCaseIndex)
+    let status = old?.status || 'pending'
+    let errorMessage = old?.errorMessage || null
+    if (status === 'generating' && old?.markdown) {
+      status = 'completed'
+      errorMessage = null
+    } else if (status === 'generating' && old?.generatedAt) {
+      const ageMs = Date.now() - new Date(old.generatedAt).getTime()
+      if (Number.isFinite(ageMs) && ageMs > 10 * 60 * 1000) {
+        status = 'failed'
+        errorMessage = 'Lần tạo trước bị ngắt do timeout. Vui lòng bấm tạo lại PRD này.'
+      }
+    }
+
     return {
       ...useCase,
-      status: old?.status || 'pending',
+      status,
       manualWorkflow: old?.manualWorkflow || '',
       markdown: old?.markdown || '',
-      errorMessage: old?.errorMessage || null,
+      errorMessage,
       model: old?.model || null,
       responseId: old?.responseId || null,
       generatedAt: old?.generatedAt || null
