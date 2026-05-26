@@ -326,9 +326,15 @@ export async function GET(req: Request) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   if (!user.isPaid) return NextResponse.json({ error: 'Payment required' }, { status: 402 })
 
+  const mode = new URL(req.url).searchParams.get('mode') === 'custom' ? 'custom' : 'system'
   const systemUseCases = extractPrdUseCases(user)
   const storedItems = safeJsonParse<PrdItem[]>(user.day8Data?.prdData, [])
-  const items = systemUseCases.length === 3
+  const storedCustomItems = storedItems.filter(item => item.sourceType === 'custom')
+  const items = mode === 'custom'
+    ? storedCustomItems.length > 0
+      ? storedCustomItems
+      : mergePrdItems([], buildBlankCustomUseCases())
+    : systemUseCases.length === 3
     ? mergePrdItems(storedItems, systemUseCases)
     : storedItems.length > 0
       ? storedItems

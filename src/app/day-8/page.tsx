@@ -50,6 +50,7 @@ export default async function Day8Page() {
       useCases={useCases}
       initialPrds={prdItems}
       initialCustomPrds={customPrdItems}
+      initialMode={storedCustomItems.length > 0 ? 'custom' : 'system'}
       isConfigured={process.env.PRD_PROVIDER === 'openai'
         ? Boolean(process.env.OPENAI_API_KEY && process.env.OPENAI_PRD_VECTOR_STORE_ID)
         : Boolean(process.env.GEMINI_API_KEY)}
