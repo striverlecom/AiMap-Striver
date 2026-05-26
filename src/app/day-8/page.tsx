@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { decrypt } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 import { redirect } from 'next/navigation'
-import { extractPrdUseCases, mergePrdItems, safeJsonParse, type PrdItem } from '@/lib/prd'
+import { buildBlankCustomUseCases, extractPrdUseCases, mergePrdItems, safeJsonParse, type PrdItem } from '@/lib/prd'
 
 export const dynamic = 'force-dynamic'
 
@@ -34,12 +34,22 @@ export default async function Day8Page() {
   if (!user || !user.isPaid) redirect('/payment')
 
   const useCases = extractPrdUseCases(user)
-  const prdItems = mergePrdItems(safeJsonParse<PrdItem[]>(user.day8Data?.prdData, []), useCases)
+  const storedItems = safeJsonParse<PrdItem[]>(user.day8Data?.prdData, [])
+  const storedCustomItems = storedItems.filter(item => item.sourceType === 'custom')
+  const prdItems = useCases.length === 3
+    ? mergePrdItems(storedItems, useCases)
+    : storedItems.length > 0
+      ? storedItems
+      : mergePrdItems([], buildBlankCustomUseCases())
+  const customPrdItems = storedCustomItems.length > 0
+    ? mergePrdItems(storedCustomItems, storedCustomItems)
+    : mergePrdItems([], buildBlankCustomUseCases())
 
   return (
     <Day8Client
       useCases={useCases}
       initialPrds={prdItems}
+      initialCustomPrds={customPrdItems}
       isConfigured={process.env.PRD_PROVIDER === 'openai'
         ? Boolean(process.env.OPENAI_API_KEY && process.env.OPENAI_PRD_VECTOR_STORE_ID)
         : Boolean(process.env.GEMINI_API_KEY)}

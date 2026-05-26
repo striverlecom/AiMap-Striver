@@ -49,8 +49,8 @@ export async function POST(req: Request) {
   }
 
   const prds = extractCompletedPrds(user.day8Data)
-  if (prds.length !== 3) {
-    return NextResponse.json({ error: 'Cần có đủ 3 PRD completed từ Ngày 8 trước khi tạo System Instruction ở Ngày 9.' }, { status: 400 })
+  if (prds.length < 1) {
+    return NextResponse.json({ error: 'Cần có ít nhất 1 PRD completed từ Ngày 8 trước khi tạo System Instruction ở Ngày 9.' }, { status: 400 })
   }
 
   const body = await req.json().catch(() => ({}))

@@ -6,9 +6,11 @@ import { decrypt } from '@/lib/auth'
 import { buildPrdSystemInstruction, loadPrdKnowledgePack } from '@/lib/prdKnowledge'
 import {
   buildPrdPrompt,
+  buildBlankCustomUseCases,
   extractPrdUseCases,
   getMissingPrdSections,
   mergePrdItems,
+  normalizeCustomUseCases,
   safeJsonParse,
   type PrdItem
 } from '@/lib/prd'
@@ -21,8 +23,8 @@ const GEMINI_MODEL = process.env.GEMINI_PRD_MODEL || 'gemini-2.5-flash-lite'
 const GEMINI_FALLBACK_MODEL = process.env.GEMINI_PRD_FALLBACK_MODEL || 'gemini-2.5-flash-lite'
 const OPENAI_TIMEOUT_MS = Number(process.env.OPENAI_PRD_TIMEOUT_MS || 180000)
 const OPENAI_MAX_OUTPUT_TOKENS = Number(process.env.OPENAI_PRD_MAX_OUTPUT_TOKENS || 14000)
-const GEMINI_MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_PRD_MAX_OUTPUT_TOKENS || 14000)
-const GENERATION_TIMEOUT_MS = Number(process.env.PRD_GENERATION_TIMEOUT_MS || 120000)
+const GEMINI_MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_PRD_MAX_OUTPUT_TOKENS || 24000)
+const GENERATION_TIMEOUT_MS = Number(process.env.PRD_GENERATION_TIMEOUT_MS || 180000)
 
 function getSessionToken(req: Request) {
   return req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
@@ -170,17 +172,29 @@ export async function POST(req: Request) {
     }, { status: 500 })
   }
 
-  const useCases = extractPrdUseCases(user)
-  if (useCases.length !== 3 || !user.day6Data || !user.day7Data) {
+  const body = await req.json().catch(() => ({}))
+  const mode = body?.mode === 'custom' ? 'custom' : 'system'
+  const systemUseCases = extractPrdUseCases(user)
+  const customUseCases = normalizeCustomUseCases(body?.customUseCases)
+  const useCases = mode === 'custom' ? customUseCases : systemUseCases
+
+  if (mode === 'system' && (useCases.length !== 3 || !user.day6Data || !user.day7Data)) {
     return NextResponse.json({
       error: 'Cần có đủ 3 use-case từ Ngày 5 và dữ liệu Ngày 6/7 trước khi tạo PRD.'
     }, { status: 400 })
   }
 
-  const body = await req.json().catch(() => ({}))
+  if (mode === 'custom' && (useCases.length < 1 || useCases.length > 3)) {
+    return NextResponse.json({
+      error: 'Vui lÃ²ng nháº­p tá»« 1 Ä‘áº¿n 3 use-case tÃ¹y chá»‰nh trÆ°á»›c khi táº¡o PRD.'
+    }, { status: 400 })
+  }
+
   const requestedIndex = Number(body?.useCaseIndex || 0)
   const manualWorkflows = body?.manualWorkflows && typeof body.manualWorkflows === 'object' ? body.manualWorkflows : {}
-  const existing = mergePrdItems(safeJsonParse<PrdItem[]>(user.day8Data?.prdData, []), useCases).map(item => {
+  const storedItems = safeJsonParse<PrdItem[]>(user.day8Data?.prdData, [])
+  const seedItems = mode === 'custom' ? [] : storedItems
+  const existing = mergePrdItems(seedItems, useCases).map(item => {
     const submitted = manualWorkflows[String(item.useCaseIndex)]
     return typeof submitted === 'string' ? { ...item, manualWorkflow: submitted.trim() } : item
   })
@@ -296,7 +310,7 @@ export async function POST(req: Request) {
     })
   }
 
-  const nextDay = items.every(item => item.status === 'completed' && item.markdown.trim().length > 0) ? 9 : 8
+  const nextDay = items.length > 0 && items.every(item => item.status === 'completed' && item.markdown.trim().length > 0) ? 9 : 8
   if (user.currentDay < nextDay) {
     await prisma.user.update({
       where: { id: user.id },
@@ -312,8 +326,13 @@ export async function GET(req: Request) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   if (!user.isPaid) return NextResponse.json({ error: 'Payment required' }, { status: 402 })
 
-  const useCases = extractPrdUseCases(user)
-  const items = mergePrdItems(safeJsonParse<PrdItem[]>(user.day8Data?.prdData, []), useCases)
+  const systemUseCases = extractPrdUseCases(user)
+  const storedItems = safeJsonParse<PrdItem[]>(user.day8Data?.prdData, [])
+  const items = systemUseCases.length === 3
+    ? mergePrdItems(storedItems, systemUseCases)
+    : storedItems.length > 0
+      ? storedItems
+      : mergePrdItems([], buildBlankCustomUseCases())
 
   return NextResponse.json({ success: true, prdData: items })
 }
