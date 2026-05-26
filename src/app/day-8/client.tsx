@@ -174,20 +174,28 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
 
       <section className="glass-panel" style={{ marginBottom: '2rem' }}>
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <button className={mode === 'system' ? 'btn-primary' : 'btn-secondary'} onClick={() => switchMode('system')} disabled={!hasSystemUseCases}>
+          <button className={mode === 'system' ? 'btn-primary' : 'btn-secondary'} onClick={() => switchMode('system')}>
             Use-case hệ thống đề xuất
           </button>
           <button className={mode === 'custom' ? 'btn-primary' : 'btn-secondary'} onClick={() => switchMode('custom')}>
             Tự nhập use-case AI
           </button>
         </div>
-        {!hasSystemUseCases && (
+        {!hasSystemUseCases && mode === 'custom' && (
           <p style={{ color: 'var(--warning)', marginTop: '1rem', textAlign: 'center' }}>
             Chưa đủ dữ liệu Ngày 5/6/7, nên hệ thống đang mở chế độ tự nhập use-case để tạo PRD trực tiếp.
           </p>
         )}
       </section>
 
+      {mode === 'system' && !hasSystemUseCases ? (
+        <section className="glass-panel" style={{ marginBottom: '2rem', textAlign: 'center' }}>
+          <h2 style={{ marginBottom: '1rem' }}>Chưa đủ 3 use-case hệ thống đề xuất</h2>
+          <p style={{ color: 'var(--muted)', maxWidth: 760, margin: '0 auto', lineHeight: 1.6 }}>
+            Chế độ này cần dữ liệu Ngày 5, Ngày 6 và Ngày 7 để lấy 3 use-case ưu tiên từ hành trình hệ thống. Nếu khách đã có use-case riêng, hãy chuyển sang tab “Tự nhập use-case AI”.
+          </p>
+        </section>
+      ) : (
       <section className="glass-panel" style={{ marginBottom: '2rem' }}>
         <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: 'var(--success)' }}>
           {mode === 'system' ? '3 use-case hệ thống sẽ được tạo PRD' : 'Nhập 1-3 use-case AI tùy chỉnh'}
@@ -214,6 +222,7 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
           ))}
         </div>
       </section>
+      )}
 
       {activeItem && (
         <section className="glass-panel" style={{ marginBottom: '2rem' }}>
