@@ -10,17 +10,6 @@ type Props = {
   isConfigured: boolean
 }
 
-const SI_SECTIONS = [
-  'Danh sách Agent sẽ đặc tả',
-  'Header: [Số thứ tự]. [Tên Agent tiếng Việt]',
-  '```xml code fence cho từng Agent',
-  '<role>',
-  '<context> + Input JSON Schema',
-  '<instructions> + Output JSON Schema',
-  '<criteria> có ngưỡng đo lường',
-  '<examples> happy path + edge case'
-]
-
 export default function Day9Client({ prdCount, initialItems, isConfigured }: Props) {
   const [items, setItems] = useState<SiItem[]>(initialItems)
   const [activeIndex, setActiveIndex] = useState(initialItems[0]?.useCaseIndex || 1)
@@ -164,12 +153,6 @@ export default function Day9Client({ prdCount, initialItems, isConfigured }: Pro
           </section>
 
           <section className="glass-panel" style={{ marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Các phần System Instruction sẽ triển khai</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem' }}>
-              {SI_SECTIONS.map(section => (
-                <div key={section} style={{ padding: '0.75rem', border: '1px solid var(--card-border)', borderRadius: 8, color: 'var(--muted)' }}>{section}</div>
-              ))}
-            </div>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1.5rem' }}>
               <button className="btn-primary" onClick={() => generate()} disabled={!isConfigured || loading !== null || hasGeneratingItem}>
                 {loading === 'all' ? 'Đang tạo bộ SI...' : `Tạo System Instruction cho ${items.length} PRD`}

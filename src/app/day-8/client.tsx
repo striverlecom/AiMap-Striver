@@ -3,23 +3,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { slugifyFileName, type PrdItem, type PrdUseCase } from '@/lib/prd'
 
-const PRD_SECTIONS = [
-  'Thẻ điều hành',
-  'Ngữ cảnh người dùng',
-  'Kiến trúc quy trình',
-  'Data Workflow JSON',
-  'Data Flow Map',
-  'Concrete Example',
-  'Đặc tả Agent theo RCICE',
-  'INPUT SCHEMA và OUTPUT SCHEMA cho từng Agent',
-  'Knowledge Base Strategy',
-  'Integration & Technical Requirements',
-  'Human-in-the-loop & Failure Paths',
-  'Evaluation Framework',
-  'Roadmap & Risks',
-  'Open Questions/TODO'
-]
-
 type Mode = 'system' | 'custom'
 
 type Props = {
@@ -277,12 +260,6 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
       )}
 
       <section className="glass-panel" style={{ marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>Các phần PRD sẽ triển khai</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem' }}>
-          {PRD_SECTIONS.map(section => (
-            <div key={section} style={{ padding: '0.75rem', border: '1px solid var(--card-border)', borderRadius: 8, color: 'var(--muted)' }}>{section}</div>
-          ))}
-        </div>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1.5rem' }}>
           <button className="btn-primary" onClick={() => generate()} disabled={!isConfigured || loading !== null || hasGeneratingItem || !canGenerateAll}>
             {loading === 'all' ? 'Đang tạo PRD...' : mode === 'custom' ? `Tạo PRD cho ${validCustomItems.length || 0} use-case` : 'Tạo 3 PRD'}
