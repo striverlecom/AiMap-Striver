@@ -48,7 +48,6 @@ async function getUserFromSession(req: Request) {
     include: {
       day1Data: true,
       day2Data: true,
-      day3Data: true,
       day4Data: true,
       day5Data: true,
       day6Data: true,
