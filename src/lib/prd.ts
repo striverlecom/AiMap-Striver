@@ -154,14 +154,7 @@ export function slugifyFileName(value: string) {
 
 export function buildPrdPrompt(useCase: PrdUseCase, user: any) {
   const businessContext = {
-    day1Score: user?.day1Data?.totalScore || null,
-    day2Parameters: safeJsonParse(user?.day2Data?.parameters, {}),
-    day2Challenges: safeJsonParse(user?.day2Data?.challenges, {}),
-    day3InterviewData: safeJsonParse(user?.day3Data?.interviewData, {}),
-    day4MapData: safeJsonParse(user?.day4Data?.mapData, {}),
-    day5Priorities: safeJsonParse(user?.day5Data?.priorities, []),
-    selectedUseCase: useCase,
-    contextUsageInstruction: 'Bắt buộc dùng dữ liệu Ngày 1, 2, 3, 4, 5 cùng mô tả luồng thủ công để thiết kế PRD sát thực tế. Nếu dữ liệu hệ thống và mô tả luồng thủ công khác nhau, ưu tiên mô tả luồng cho chi tiết thao tác, nhưng vẫn dùng dữ liệu Ngày 1-5 để hiệu chỉnh mục tiêu, ràng buộc, người dùng, vấn đề và tiêu chí thành công.'
+    selectedUseCase: useCase
   }
 
   return `

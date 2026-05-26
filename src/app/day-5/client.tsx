@@ -43,10 +43,26 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
 
   const [solutions, setSolutions] = useState<any[]>(loadedSolutions)
   const [loading, setLoading] = useState(false)
+  const [suggesting, setSuggesting] = useState(false)
+  const [suggestError, setSuggestError] = useState('')
   const [top3Count, setTop3Count] = useState(loadedSolutions.filter(s => s.isTop3).length)
   const router = useRouter()
 
-
+  const handleSuggest = async () => {
+    setSuggesting(true)
+    setSuggestError('')
+    try {
+      const res = await fetch('/api/day5/suggest', { method: 'POST' })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Không thể tạo đề xuất AI.')
+      setSolutions(data.suggestions)
+      setTop3Count(data.suggestions.filter((s: any) => s.isTop3).length)
+    } catch (error: any) {
+      setSuggestError(error.message)
+    } finally {
+      setSuggesting(false)
+    }
+  }
 
   const handleSave = async () => {
     setLoading(true)
@@ -95,6 +111,12 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
         <div style={{ marginTop: '1rem', color: top3Count === 3 ? 'var(--success)' : 'var(--warning)' }}>
           Đã chọn TOP 3: {top3Count}/3
         </div>
+        <div style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <button className="btn-secondary" onClick={handleSuggest} disabled={suggesting || loading}>
+            {suggesting ? 'Đang dùng Gemini phân tích Ngày 1-4...' : 'Tự động đề xuất giải pháp AI từ Ngày 1-4'}
+          </button>
+        </div>
+        {suggestError && <p style={{ color: 'var(--error)', marginTop: '0.75rem' }}>{suggestError}</p>}
       </header>
 
       <div className="fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
