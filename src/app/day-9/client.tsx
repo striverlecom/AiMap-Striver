@@ -28,7 +28,7 @@ export default function Day9Client({ prdCount, initialItems, isConfigured }: Pro
   const [error, setError] = useState('')
 
   const activeItem = items.find(item => item.useCaseIndex === activeIndex) || items[0]
-  const hasEnoughPrds = prdCount === 3
+  const hasEnoughPrds = prdCount >= 1
   const hasGeneratingItem = items.some(item => item.status === 'generating')
   const activeItemIsGenerating = activeItem?.status === 'generating'
 
@@ -120,7 +120,7 @@ export default function Day9Client({ prdCount, initialItems, isConfigured }: Pro
       <header style={{ marginBottom: '2rem', textAlign: 'center' }}>
         <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '0.5rem' }}>Ngày 9: System Instruction</h1>
         <p style={{ color: 'var(--muted)', maxWidth: 800, margin: '0 auto' }}>
-          Chuyển 3 PRD từ Ngày 8 thành System Instruction XML production-ready cho từng Agent bên trong từng use-case AI.
+          Chuyển các PRD completed từ Ngày 8 thành System Instruction XML production-ready cho từng Agent bên trong từng use-case AI.
         </p>
       </header>
 
@@ -133,13 +133,13 @@ export default function Day9Client({ prdCount, initialItems, isConfigured }: Pro
 
       {!hasEnoughPrds ? (
         <div className="glass-panel" style={{ textAlign: 'center' }}>
-          <h2 style={{ marginBottom: '1rem' }}>Chưa đủ 3 PRD completed từ Ngày 8</h2>
-          <p style={{ color: 'var(--muted)' }}>Vui lòng quay lại Ngày 8 và tạo đủ 3 PRD trước khi sang Ngày 9.</p>
+          <h2 style={{ marginBottom: '1rem' }}>Chưa có PRD completed từ Ngày 8</h2>
+          <p style={{ color: 'var(--muted)' }}>Vui lòng quay lại Ngày 8 và tạo ít nhất 1 PRD trước khi sang Ngày 9.</p>
         </div>
       ) : (
         <>
           <section className="glass-panel" style={{ marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: 'var(--success)' }}>3 use-case sẽ được tạo System Instruction</h2>
+            <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: 'var(--success)' }}>{items.length} use-case sẽ được tạo System Instruction</h2>
             <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
               {items.map(item => (
                 <button
@@ -172,7 +172,7 @@ export default function Day9Client({ prdCount, initialItems, isConfigured }: Pro
             </div>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '1.5rem' }}>
               <button className="btn-primary" onClick={() => generate()} disabled={!isConfigured || loading !== null || hasGeneratingItem}>
-                {loading === 'all' ? 'Đang tạo 3 bộ SI...' : 'Tạo System Instruction cho 3 PRD'}
+                {loading === 'all' ? 'Đang tạo bộ SI...' : `Tạo System Instruction cho ${items.length} PRD`}
               </button>
               {activeItem && (
                 <button className="btn-secondary" onClick={() => generate(activeItem.useCaseIndex)} disabled={!isConfigured || loading !== null || activeItemIsGenerating}>

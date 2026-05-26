@@ -5,6 +5,7 @@ export type PrdUseCase = {
   useCaseTitle: string
   sourceProblem: string
   sourceSolution: string
+  sourceType?: 'system' | 'custom'
   manualWorkflow?: string
   roiInput?: Record<string, unknown> | null
   roadmapContext?: Record<string, unknown> | null
@@ -63,15 +64,51 @@ export function extractPrdUseCases(user: any): PrdUseCase[] {
       useCaseTitle: sourceSolution || `Giải pháp #${index + 1}`,
       sourceProblem,
       sourceSolution,
+      sourceType: 'system',
       roiInput: roi,
       roadmapContext: roadmap
     }
   })
 }
 
+export function buildBlankCustomUseCases(count = 3): PrdUseCase[] {
+  return Array.from({ length: count }, (_, index) => ({
+    useCaseIndex: index + 1,
+    useCaseTitle: '',
+    sourceProblem: '',
+    sourceSolution: '',
+    sourceType: 'custom' as const,
+    manualWorkflow: '',
+    roiInput: null,
+    roadmapContext: null
+  }))
+}
+
+export function normalizeCustomUseCases(value: unknown): PrdUseCase[] {
+  if (!Array.isArray(value)) return []
+
+  return value.slice(0, 3).map((item, index) => {
+    const useCaseTitle = String(item?.useCaseTitle || item?.title || '').trim()
+    const sourceProblem = String(item?.sourceProblem || item?.problem || '').trim()
+    const sourceSolution = String(item?.sourceSolution || item?.solution || useCaseTitle).trim()
+    const manualWorkflow = String(item?.manualWorkflow || '').trim()
+
+    return {
+      useCaseIndex: index + 1,
+      useCaseTitle,
+      sourceProblem,
+      sourceSolution,
+      sourceType: 'custom' as const,
+      manualWorkflow,
+      roiInput: null,
+      roadmapContext: null
+    }
+  }).filter(item => item.useCaseTitle || item.sourceProblem || item.sourceSolution || item.manualWorkflow)
+}
+
 export function mergePrdItems(existing: PrdItem[], useCases: PrdUseCase[]): PrdItem[] {
   return useCases.map(useCase => {
-    const old = existing.find(item => item.useCaseIndex === useCase.useCaseIndex)
+    const old = existing.find(item => item.useCaseIndex === useCase.useCaseIndex && (!useCase.sourceType || !item.sourceType || item.sourceType === useCase.sourceType))
     let status = old?.status || 'pending'
     let errorMessage = old?.errorMessage || null
     if (status === 'generating' && old?.markdown) {
@@ -88,7 +125,7 @@ export function mergePrdItems(existing: PrdItem[], useCases: PrdUseCase[]): PrdI
     return {
       ...useCase,
       status,
-      manualWorkflow: old?.manualWorkflow || '',
+      manualWorkflow: useCase.manualWorkflow || old?.manualWorkflow || '',
       markdown: old?.markdown || '',
       errorMessage,
       model: old?.model || null,
