@@ -172,6 +172,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Gemini chưa tạo được giải pháp hợp lệ từ dữ liệu Ngày 1-4.' }, { status: 500 })
     }
 
+    await prisma.day5Data.upsert({
+      where: { userId: user.id },
+      update: { priorities: JSON.stringify(normalizedTop3) },
+      create: { userId: user.id, priorities: JSON.stringify(normalizedTop3) }
+    })
+
     return NextResponse.json({ success: true, suggestions: normalizedTop3, model: generated.model })
   } catch (error: any) {
     console.error('day5_suggest_error', { userId: user.id, message: error?.message, status: error?.status, code: error?.code })
