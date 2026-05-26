@@ -73,10 +73,12 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
   }
 
   let totalVal = 0
+  let roiSolutions: any[] = []
   if (u?.day6Data?.roiData) {
     try {
       const parsed = JSON.parse(u.day6Data.roiData);
       if (Array.isArray(parsed)) {
+        roiSolutions = parsed
         parsed.forEach((sol:any) => {
           const hw = sol.employees * sol.hoursPerWeek * (sol.aiReplacementPct/100)
           const wg = sol.avgSalaryMonth / globalParams.hoursPerMonth
@@ -84,6 +86,33 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
         })
       }
     } catch(e){}
+  }
+
+  const topNames = [t1, t2, t3].filter(Boolean)
+  if (topNames.length > 0) {
+    initialRoadmap = {
+      ...initialRoadmap,
+      phases: initialRoadmap.phases.map((phase, index) => {
+        if (String(phase.task || '').trim()) return phase
+        const name = topNames[index] || topNames[index % topNames.length] || ''
+        const roi = roiSolutions[index]
+        return {
+          ...phase,
+          task: name ? `Triển khai ${name}` : phase.task,
+          savings: roi?.name === name || roi ? 'Theo ROI Ngày 6' : phase.savings
+        }
+      }),
+      week1Actions: initialRoadmap.week1Actions.map((action, index) => {
+        if (String(action.action || '').trim()) return action
+        const name = topNames[index] || ''
+        return {
+          ...action,
+          action: name ? `Chuẩn bị dữ liệu và quy trình cho ${name}` : action.action,
+          deadline: action.deadline || `Ngày ${index + 1}`,
+          expected: name ? `Có đầu vào MVP cho ${name}` : action.expected
+        }
+      })
+    }
   }
 
   const [roadmap, setRoadmap] = useState(initialRoadmap)
