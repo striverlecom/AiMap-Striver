@@ -26,6 +26,7 @@ type Props = {
   useCases: PrdUseCase[]
   initialPrds: PrdItem[]
   initialCustomPrds: PrdItem[]
+  initialMode: Mode
   isConfigured: boolean
 }
 
@@ -33,9 +34,9 @@ function isCustomItemValid(item: PrdItem) {
   return item.useCaseTitle.trim().length > 0 && item.sourceProblem.trim().length > 0 && item.manualWorkflow.trim().length > 0
 }
 
-export default function Day8Client({ useCases, initialPrds, initialCustomPrds, isConfigured }: Props) {
+export default function Day8Client({ useCases, initialPrds, initialCustomPrds, initialMode, isConfigured }: Props) {
   const hasSystemUseCases = useCases.length === 3
-  const [mode, setMode] = useState<Mode>(hasSystemUseCases ? 'system' : 'custom')
+  const [mode, setMode] = useState<Mode>(initialMode === 'custom' || !hasSystemUseCases ? 'custom' : 'system')
   const [systemItems, setSystemItems] = useState<PrdItem[]>(initialPrds)
   const [customItems, setCustomItems] = useState<PrdItem[]>(initialCustomPrds)
   const [activeIndex, setActiveIndex] = useState(initialPrds[0]?.useCaseIndex || 1)
@@ -79,7 +80,7 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
 
     const poll = async () => {
       try {
-        const res = await fetch('/api/prd/generate', { cache: 'no-store' })
+        const res = await fetch(`/api/prd/generate?mode=${mode}`, { cache: 'no-store' })
         const data = await res.json()
         if (!res.ok || stopped) return
 
@@ -103,7 +104,7 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
       stopped = true
       window.clearInterval(interval)
     }
-  }, [loading, hasGeneratingItem, items])
+  }, [loading, hasGeneratingItem, items, mode])
 
   const generate = async (useCaseIndex?: number) => {
     const targetItems = mode === 'custom'
