@@ -52,6 +52,14 @@ function normalizeSolutionName(value: unknown, index: number) {
     .slice(0, 56)
 }
 
+function normalizeProblemSummary(value: unknown, index: number) {
+  return String(value || `Vấn đề ${index + 1}`)
+    .replace(/\s+/g, ' ')
+    .replace(/\b(Ngày|Day)\s*\d+\s*[:\-–—]?\s*/gi, '')
+    .trim()
+    .slice(0, 90)
+}
+
 function buildDay5Prompt(user: any) {
   const context = {
     day1: {
@@ -93,6 +101,7 @@ Nhiệm vụ: dùng toàn bộ dữ liệu thực tế Ngày 1, Ngày 2, Ngày 3
 
 Nguyên tắc bắt buộc:
 - Mỗi giải pháp phải gắn với một vấn đề thật từ Ngày 1-4.
+- Field problem phải là bản tóm tắt ngắn gọn của vấn đề, 5-12 từ, tối đa 80 ký tự. Không liệt kê dài "Ngày 1..., Ngày 2..., Ngày 3..." trong problem. Nếu cần dẫn chứng dữ liệu từ ngày nào, đưa vào notes.
 - Ưu tiên vấn đề có lãng phí giờ, ảnh hưởng doanh thu, nghẽn quy trình, lặp thao tác thủ công, hoặc xuất hiện trong phỏng vấn.
 - Không đề xuất tên chung chung như "dùng ChatGPT"; hãy viết thành use-case triển khai rõ, ví dụ "Agent Phân Loại Lead Và Gợi Ý Kịch Bản Tư Vấn".
 - Tên solution phải ngắn gọn, dễ đọc trên dashboard: 2-5 từ tiếng Việt, tối đa 45 ký tự. Ví dụ đúng: "AI Chấm Lead", "AI Nhắc Khách", "AI Tóm Tắt Đơn", "AI Soạn Báo Giá". Ví dụ sai: tên dài hơn một câu hoặc mô tả cả quy trình trong tên.
@@ -105,7 +114,7 @@ Schema JSON array:
 [
   {
     "id": 1,
-    "problem": "string - vấn đề thật, ghi rõ lấy từ ngày/bộ phận/luồng nào nếu có",
+    "problem": "string - tóm tắt vấn đề thật, ngắn gọn 5-12 từ",
     "solution": "string - tên giải pháp AI cụ thể, triển khai được",
     "hoursImpact": 0,
     "impact": 1,
@@ -145,7 +154,7 @@ export async function POST(req: Request) {
     const parsed = extractJsonArray(generated.text)
     const suggestions = parsed.slice(0, 12).map((item: any, index: number) => ({
       id: index + 1,
-      problem: String(item.problem || '').trim(),
+      problem: normalizeProblemSummary(item.problem, index),
       solution: normalizeSolutionName(item.solution, index),
       hoursImpact: Number(item.hoursImpact || 0),
       impact: Math.min(5, Math.max(1, Number(item.impact || 3))),
