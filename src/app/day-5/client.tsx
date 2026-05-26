@@ -57,6 +57,10 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
       if (!res.ok) throw new Error(data.error || 'Không thể tạo đề xuất AI.')
       setSolutions(data.suggestions)
       setTop3Count(data.suggestions.filter((s: any) => s.isTop3).length)
+      await fetch('/api/days/5', {
+        method: 'POST',
+        body: JSON.stringify({ priorities: JSON.stringify(data.suggestions) })
+      })
     } catch (error: any) {
       setSuggestError(error.message)
     } finally {
