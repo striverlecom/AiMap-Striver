@@ -14,7 +14,9 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
     } catch(e){}
   }
 
-  if (serverUser?.day4Data?.mapData) {
+  if (savedPriorities.length > 0) {
+    loadedSolutions = savedPriorities
+  } else if (serverUser?.day4Data?.mapData) {
     try {
       const mapData = JSON.parse(serverUser.day4Data.mapData)
       let idCounter = 1;
@@ -37,8 +39,6 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
         }
       })
     } catch(e){}
-  } else {
-    loadedSolutions = savedPriorities;
   }
 
   const [solutions, setSolutions] = useState<any[]>(loadedSolutions)
