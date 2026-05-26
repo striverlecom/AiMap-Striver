@@ -44,6 +44,14 @@ function extractJsonArray(text: string) {
   return JSON.parse(cleaned.slice(start, end + 1))
 }
 
+function normalizeSolutionName(value: unknown, index: number) {
+  return String(value || `Giải pháp AI ${index + 1}`)
+    .replace(/^agent\s+/i, 'AI ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 56)
+}
+
 function buildDay5Prompt(user: any) {
   const context = {
     day1: {
@@ -87,6 +95,8 @@ Nguyên tắc bắt buộc:
 - Mỗi giải pháp phải gắn với một vấn đề thật từ Ngày 1-4.
 - Ưu tiên vấn đề có lãng phí giờ, ảnh hưởng doanh thu, nghẽn quy trình, lặp thao tác thủ công, hoặc xuất hiện trong phỏng vấn.
 - Không đề xuất tên chung chung như "dùng ChatGPT"; hãy viết thành use-case triển khai rõ, ví dụ "Agent Phân Loại Lead Và Gợi Ý Kịch Bản Tư Vấn".
+- Tên solution phải ngắn gọn, dễ đọc trên dashboard: 2-5 từ tiếng Việt, tối đa 45 ký tự. Ví dụ đúng: "AI Chấm Lead", "AI Nhắc Khách", "AI Tóm Tắt Đơn", "AI Soạn Báo Giá". Ví dụ sai: tên dài hơn một câu hoặc mô tả cả quy trình trong tên.
+- Nếu cần mô tả chi tiết, đưa vào notes, không nhồi vào solution.
 - Chấm impact và effort từ 1-5. Impact cao khi liên quan doanh thu, thời gian lãng phí, trải nghiệm khách hàng, hoặc năng suất nhiều nhân sự. Effort thấp nếu có thể MVP bằng form/chatbot/sheet/automation đơn giản.
 - Tự chọn đúng 3 giải pháp có ROI/khả năng triển khai tốt nhất bằng isTop3=true.
 - Chỉ trả về JSON array, không markdown, không giải thích ngoài JSON.
@@ -136,7 +146,7 @@ export async function POST(req: Request) {
     const suggestions = parsed.slice(0, 12).map((item: any, index: number) => ({
       id: index + 1,
       problem: String(item.problem || '').trim(),
-      solution: String(item.solution || '').trim(),
+      solution: normalizeSolutionName(item.solution, index),
       hoursImpact: Number(item.hoursImpact || 0),
       impact: Math.min(5, Math.max(1, Number(item.impact || 3))),
       effort: Math.min(5, Math.max(1, Number(item.effort || 3))),
