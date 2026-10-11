@@ -22,92 +22,92 @@ interface Message {
 
 const CONTEXT_GUIDES: Record<string, { title: string; subtitle: string; chips: string[] }> = {
   '/day-1': {
-    title: 'Ngày 1: Sự Thật & Khám Sức Khỏe',
-    subtitle: 'Bóc tách Top 3 vấn đề, đo số giờ lãng phí',
+    title: 'Ngày 1: Khám Bệnh Doanh Nghiệp',
+    subtitle: 'Tìm ra việc ngốn nhiều giờ nhất, hay làm sót nhất',
     chips: [
-      'Làm sao tính số giờ lãng phí chuẩn xác?',
-      'Gợi ý Top 3 vấn đề cho ngành Agency?',
-      'Thang điểm 1-5 tự chấm như thế nào?'
+      'Khâu nào hay làm tốn thời gian nhất?',
+      'Ví dụ các việc lặp lại hay làm mất thời gian',
+      'Làm sao tính số giờ nhân viên bị lãng phí?'
     ]
   },
   '/day-2': {
-    title: 'Ngày 2: Tài Chính & Quy Mô',
-    subtitle: 'Quỹ lương phòng ban, doanh thu & metrics',
+    title: 'Ngày 2: Tính Tiền & Quỹ Lương',
+    subtitle: 'Nhẩm chi phí lương, giá trị 1 giờ làm việc',
     chips: [
-      'Cách điền quỹ lương để tính ROI chuẩn?',
-      'Cách tính tỷ lệ khách hàng rời bỏ (Churn)?',
-      'Gợi ý trả lời 4 câu hỏi định tính'
+      'Cách nhẩm chi phí lương từng bộ phận?',
+      'Khách hay bỏ đi vì những lý do gì?',
+      'Tính giá trị 1 giờ làm việc của nhân sự'
     ]
   },
   '/day-3': {
-    title: 'Ngày 3: Phỏng Vấn Sâu',
-    subtitle: 'Góc nhìn Lãnh đạo vs Nhân viên thực thi',
+    title: 'Ngày 3: Lắng Nghe Nhân Viên',
+    subtitle: 'Xem nhân viên đang ức chế và vướng chỗ nào',
     chips: [
-      'Nên hỏi nhân viên thực thi những câu gì?',
-      'Cách rút ra 5 phát hiện cốt lõi (Findings)?',
-      'Làm sao thu hẹp khoảng cách sếp và nhân viên?'
+      'Nhân viên thường ức chế chuyện gì nhất?',
+      'Làm sao biết sự thật ở văn phòng/xưởng?',
+      'Cách thu hẹp khoảng cách giữa sếp và nhân viên'
     ]
   },
   '/day-4': {
-    title: 'Ngày 4: Chuỗi Giá Trị 3 Động Cơ',
-    subtitle: 'Acquisition, Delivery & Support Mapping',
+    title: 'Ngày 4: Nhìn Lại Luồng Công Việc',
+    subtitle: 'Từ lúc khách hỏi -> làm hàng -> giao hàng -> chăm sóc',
     chips: [
-      'Giải thích nguyên lý 3 Động cơ trong Striver?',
-      'Quy trình mẫu chuỗi giá trị cho Bán lẻ?',
-      'Cách xác định bước nào là rủi ro chất lượng?'
+      'Khâu bán hàng và giao hàng hay bị nghẽn ở đâu?',
+      'Làm sao để không bị sót việc, sót đơn?',
+      'Khâu nào nhân viên làm sai là khách phàn nàn?'
     ]
   },
   '/day-5': {
-    title: 'Ngày 5: Ma Trận Ưu Tiên Use-Case',
-    subtitle: 'Impact vs Effort & Lựa chọn Top 3',
+    title: 'Ngày 5: Chọn Việc Dễ Làm Trước',
+    subtitle: 'Làm cái gì nhanh ra kết quả, tránh tốn tiền vô ích',
     chips: [
-      'Tiêu chí chấm điểm Impact và Effort?',
-      'Quick Wins khác gì Strategic Bets?',
-      'Làm sao chọn Top 3 giải pháp thực chiến nhất?'
+      'Nên làm việc gì trước để thấy kết quả ngay?',
+      'Làm sao tránh những thứ phức tạp tốn tiền?',
+      'Chọn 3 việc cấp bách nhất cần làm'
     ]
   },
   '/day-6': {
-    title: 'Ngày 6: Bài Toán Tài Chính & ROI',
-    subtitle: 'Thời gian hoàn vốn Payback & Lợi nhuận ròng',
+    title: 'Ngày 6: Bài Toán Kinh Tế & Thu Hồi Vốn',
+    subtitle: 'Tiết kiệm được mấy đồng, bao lâu thu hồi vốn',
     chips: [
-      'Công thức tính ROI hoàn vốn trong Striver?',
-      'Chi phí đầu tư AI gồm những khoản nào?',
-      'Thời gian hoàn vốn bao lâu là tốt?'
+      'Làm AI thì bao lâu thu hồi vốn?',
+      'Cách tính số tiền tiết kiệm được mỗi tháng',
+      'Chi phí đầu tư gồm những khoản nào?'
     ]
   },
   '/day-7': {
-    title: 'Ngày 7: Lộ Trình 30-60-90 Ngày',
-    subtitle: 'Roadmap hành động & Quản trị thay đổi',
+    title: 'Ngày 7: Kế Hoạch Từng Bước',
+    subtitle: '30 ngày đầu làm gì để nhân viên quen dần',
     chips: [
-      'Phase 1 (30 ngày đầu) nên bắt đầu từ đâu?',
-      'Làm sao để nhân viên không sợ AI thay thế?',
-      'Khi nào nên chuyển sang tự động hóa cấp L2?'
+      '30 ngày đầu nên bắt đầu từ việc gì?',
+      'Làm sao để nhân viên không sợ AI cướp việc?',
+      'Cách hướng dẫn nhân sự làm quen với AI'
     ]
   },
   '/day-8': {
-    title: 'Ngày 8: Soạn Thảo PRD Enterprise',
-    subtitle: '14 mục bắt buộc, Rubric thẩm định 80đ',
+    title: 'Ngày 8: Viết Yêu Cầu Giao Việc',
+    subtitle: 'Mô tả rõ ràng để đưa cho đội IT làm đúng ý',
     chips: [
-      '14 mục bắt buộc trong PRD Ngày 8 là gì?',
-      'Làm sao để PRD đạt trên 80 điểm Rubric?',
-      'Phân biệt Autonomy Tier L0, L1, L2, L3?'
+      'Cách viết yêu cầu để giao cho đội làm công nghệ',
+      'Làm sao để người duyệt trước khi AI gửi đi?',
+      'Những trường hợp AI bị sai cần phòng ngừa'
     ]
   },
   '/day-9': {
-    title: 'Ngày 9: Thiết Kế System Instruction',
-    subtitle: 'XML 5 thẻ: role, context, instructions, criteria, examples',
+    title: 'Ngày 9: Kịch Bản Giao Việc Cho AI',
+    subtitle: 'Đóng gói hướng dẫn chuẩn để máy chạy mượt mà',
     chips: [
-      'Cấu trúc XML 5 thẻ của System Instruction?',
-      'Viết mẫu System Instruction cho 1 Agent?',
-      'Happy path và Edge case cần có gì?'
+      'Kịch bản giao việc cho AI chạy chuẩn',
+      'Cách thử nghiệm xem AI làm đúng ý chưa',
+      'Khi nào thì đưa vào chạy thực tế?'
     ]
   },
   '/results': {
-    title: 'Báo Cáo Tổng Hợp Bản Đồ',
-    subtitle: 'Đánh giá mức độ sẵn sàng toàn diện',
+    title: 'Báo Cáo Tổng Hợp Doanh Nghiệp',
+    subtitle: 'Bức tranh toàn cảnh và các bước tiếp theo',
     chips: [
-      'Giải thích các chỉ số trong bản báo cáo?',
-      'Bước tiếp theo sau khi hoàn thành là gì?',
+      'Giải thích các con số trong bản báo cáo?',
+      'Bước tiếp theo sau khi làm xong bản đồ là gì?',
       'Tư vấn triển khai trọn gói cùng Striver AI'
     ]
   }
@@ -115,11 +115,11 @@ const CONTEXT_GUIDES: Record<string, { title: string; subtitle: string; chips: s
 
 const DEFAULT_GUIDE = {
   title: 'Bản Đồ Hành Động AI Cho Doanh Nghiệp',
-  subtitle: 'Đồng hành cùng bạn hoàn tất 9 ngày chẩn đoán',
+  subtitle: 'Đồng hành giúp bạn bớt việc chân tay, tiết kiệm chi phí',
   chips: [
-    'Tôi là người mới, nên bắt đầu từ đâu?',
-    'Hành trình 9 Ngày của Striver hoạt động thế nào?',
-    'AI có thể giúp gì cho ngành của tôi?'
+    'Tôi chưa rành công nghệ, nên bắt đầu từ đâu?',
+    'Công ty tôi có áp dụng được AI không?',
+    'Khâu nào nên tự động hóa trước để đỡ mệt?'
   ]
 }
 
@@ -145,7 +145,7 @@ export default function RaiChatWidget() {
         const initialMsg: Message = {
           id: 'welcome',
           role: 'assistant',
-          content: `Xin chào! Tôi là **RAI** 🧭 — Chuyên gia Tư vấn Cấp cao về Trí tuệ Nhân tạo & Kiến trúc sư Multi-Agent của hệ thống **AiMap-Striver**.\n\nTôi ở đây để đồng hành 1:1, giúp bạn tháo gỡ mọi vướng mắc và hoàn thành trọn vẹn **9 Ngày Chẩn đoán AI**.\n\nBạn đang làm đến phần nào, hoặc cần tôi hỗ trợ bước nào hôm nay?`,
+          content: `Chào bạn! Tôi là **RAI** 🧭 — Trợ lý đồng hành cùng bạn làm Bản đồ Hành động AI cho doanh nghiệp.\n\nTôi ở đây để giúp bạn tìm ra những chỗ đang ngốn nhiều thời gian và tiền bạc nhất trong công ty để tự động hóa gọn gàng — bạn không cần biết về công nghệ hay AI, cứ chia sẻ như hai người làm kinh doanh với nhau nhé.\n\nHiện tại công ty bạn đang kinh doanh mảng gì, và khâu nào trong ngày làm bạn thấy mệt mỏi nhất?`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
         setMessages([initialMsg])
