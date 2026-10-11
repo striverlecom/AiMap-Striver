@@ -153,39 +153,65 @@ export function slugifyFileName(value: string) {
 }
 
 export function buildPrdPrompt(useCase: PrdUseCase, user: any) {
+  let companyInfo = { companyName: '', authorName: '' }
+  try {
+    const p = safeJsonParse<any>(user?.day2Data?.parameters, {})
+    companyInfo = {
+      companyName: p.companyName || '',
+      authorName: p.authorName || ''
+    }
+  } catch {}
+
+  const salaryData = safeJsonParse<any[]>(user?.day2Data?.salaryData, [])
+  const mapData = safeJsonParse<Record<string, any>>(user?.day4Data?.mapData, {})
+  const top3Problems = safeJsonParse<any[]>(user?.day1Data?.top3Problems, [])
+
   const businessContext = {
-    selectedUseCase: useCase
+    company: companyInfo.companyName || 'Doanh nghiệp SME Việt Nam',
+    author: companyInfo.authorName || 'Chủ doanh nghiệp',
+    selectedUseCase: useCase,
+    identifiedProblems: top3Problems,
+    keyDepartments: salaryData.map(d => ({ title: d.title, count: d.count })),
+    processMapHighlights: Object.keys(mapData).map(dept => ({
+      dept,
+      issues: Array.isArray(mapData[dept]) ? mapData[dept].filter((x: any) => x.issues || x.wastedTime).map((x: any) => x.step) : []
+    }))
   }
 
   return `
-Bạn là StriverAI PRD. Hãy tạo một PRD Markdown hoàn chỉnh cho use-case AI sau.
+Bạn là StriverAI PRD, chuyên gia kiến trúc giải pháp Enterprise Multi-Agent Systems. Hãy tạo một bản PRD Markdown hoàn chỉnh, chuyên sâu và thực chiến cho use-case sau.
 
 Yêu cầu bắt buộc:
-- Chỉ trả về Markdown thô, không bọc trong code fence.
+- Chỉ trả về Markdown thô, không bọc trong code fence ngoài cùng.
 - Bắt đầu bằng: # PRD: ${useCase.useCaseTitle}
-- Viết tiếng Việt.
-- Không tóm tắt. Triển khai đầy đủ từng phần.
-- Mọi tên Agent phải dùng format "Agent + Chức năng chính", ví dụ "Agent Phân Tích Quy Trình".
-- PRD phải có Data Workflow JSON, Data Flow Map, Concrete Example, RCICE, INPUT SCHEMA, OUTPUT SCHEMA, failure paths, human-in-the-loop, evaluation rubric và roadmap.
-- Phải dùng "Mô tả luồng thủ công thực tế" bên dưới làm dữ liệu đầu vào chính để thiết kế workflow, Agent, schema, failure paths và roadmap. Không được chỉ dựa vào tên use-case.
-- Nếu thiếu dữ liệu, ghi {TODO - Nghiêm trọng}, {TODO - Quan trọng}, hoặc {TODO - Nên biết}; không bịa.
-- Dùng knowledge pack PRD được cung cấp trong ngữ cảnh hệ thống làm chuẩn cấu trúc PRD.
+- Viết tiếng Việt chuyên nghiệp, gãy gọn, chuẩn ngôn ngữ kỹ thuật phần mềm.
+- Không tóm tắt, không viết tắt. Triển khai sâu sắc, chi tiết từng phần.
+- Mọi tên Agent phải dùng format "Agent + Chức năng chính", ví dụ "Agent Phân Loại Ý Định", "Agent Trích Xuất Dữ Liệu".
+- Mỗi Agent BẮT BUỘC phải được chỉ định Autonomy Tier rõ ràng:
+  * L0 – Read-Only (Chỉ đọc dữ liệu)
+  * L1 – Draft / Propose (Soạn thảo đề xuất, BẮT BUỘC người duyệt trước khi phát tán)
+  * L2 – Execute with Guardrails (Tự thực thi trong ngưỡng an toàn định lượng)
+  * L3 – Full Autonomy (Tự chủ hoàn toàn cho tác vụ nội bộ rủi ro thấp)
+- Mục 8: Bắt buộc cung cấp đầy đủ JSON Schema chuẩn (có type, properties, required, description) cho cả INPUT SCHEMA và OUTPUT SCHEMA.
+- Mục 11: Bắt buộc cung cấp ma trận bảng Failure Paths (Model Hallucination, API Timeout, Vượt hạn mức, Khách khiếu nại gay gắt) và điểm chặn con người (Human-in-the-loop Approval Queue).
+- Phải gắn liền với "Mô tả luồng thủ công thực tế" và "Bối cảnh doanh nghiệp thực tế" bên dưới để thiết kế các Agent giải quyết đúng nỗi đau của họ.
+- Nếu thiếu dữ liệu, ghi {TODO - Nghiêm trọng}, {TODO - Quan trọng}, hoặc {TODO - Nên biết}; tuyệt đối không bịa đặt.
 
-Danh sách phần phải triển khai:
-1. Thẻ điều hành
-2. Ngữ cảnh người dùng
-3. Kiến trúc quy trình
-4. Data Workflow JSON
-5. Data Flow Map
-6. Concrete Example
-7. Đặc tả Agent theo RCICE
-8. INPUT SCHEMA và OUTPUT SCHEMA cho từng Agent
-9. Knowledge Base Strategy
-10. Integration & Technical Requirements
-11. Human-in-the-loop & Failure Paths
-12. Evaluation Framework
-13. Roadmap & Risks
-14. Open Questions/TODO
+Danh sách 14 phần bắt buộc triển khai:
+1. Thẻ điều hành (Executive Summary: Bối cảnh, Mục tiêu định lượng ROI, Phạm vi In-scope & Out-of-scope)
+2. Ngữ cảnh người dùng (Đối tượng vận hành, Nỗi đau và lỗi thường gặp trong quy trình hiện tại)
+3. Kiến trúc quy trình tự động hóa (Sơ đồ luồng mới To-Be, vai trò Con người vs Multi-Agent)
+4. Data Workflow JSON (Cấu trúc định tuyến luồng dữ liệu chuẩn JSON)
+5. Data Flow Map (Bản đồ luồng đi của dữ liệu từ nguồn vào, làm sạch PII, qua các Agent đến hệ thống đích)
+6. Concrete Example (01 kịch bản cụ thể: Input thực tế -> Bước xử lý trung gian -> Output hoàn chỉnh)
+7. Đặc tả Agent theo mô hình RCICE (Role, Context, Instructions, Constraints, Examples)
+8. INPUT SCHEMA và OUTPUT SCHEMA (Đặc tả JSON Schema chuẩn cho từng Agent)
+9. Knowledge Base Strategy (Nguồn tài liệu, chiến lược Vector Embeddings, Chunking, Hybrid Search)
+10. Integration & Technical Requirements (Giao thức MCP / REST API / Webhooks, Zalo OA, CRM, Docker/PostgreSQL)
+11. Human-in-the-loop & Failure Paths Matrix (Ma trận xử lý đường lỗi, timeout, rào chắn an ninh & hàng đợi phê duyệt)
+12. Evaluation Framework (Chỉ số kỹ thuật: Latency, Accuracy, Token budget và chỉ số kinh doanh CSAT, Resolution Time)
+13. Roadmap & Risks (Lộ trình 3 giai đoạn: Prototype -> Pilot -> Production & Giảm thiểu rủi ro bảo mật)
+14. Open Questions/TODOs (Phân loại: TODO Nghiêm trọng, TODO Quan trọng, TODO Nên biết)
 
 Use-case AI:
 ${JSON.stringify(useCase, null, 2)}
@@ -193,7 +219,7 @@ ${JSON.stringify(useCase, null, 2)}
 Mô tả luồng thủ công thực tế do người dùng nhập cho use-case này:
 ${useCase.manualWorkflow?.trim() || '{TODO - Nghiêm trọng: Chưa có mô tả luồng thủ công thực tế}'}
 
-Ngữ cảnh doanh nghiệp từ 7 ngày:
+Ngữ cảnh doanh nghiệp thực tế từ các ngày kiểm toán trước:
 ${JSON.stringify(businessContext, null, 2)}
 `
 }

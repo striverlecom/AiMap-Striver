@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { slugifyFileName, type PrdItem, type PrdUseCase } from '@/lib/prd'
+import { evaluatePrdQuality } from '@/lib/prdRubric'
 import ConsultingCta from '@/components/ConsultingCta'
 
 type Mode = 'system' | 'custom'
@@ -31,6 +32,7 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
   const setItems = mode === 'system' ? setSystemItems : setCustomItems
   const activeItem = items.find(item => item.useCaseIndex === activeIndex) || items[0]
   const validCustomItems = useMemo(() => customItems.filter(isCustomItemValid), [customItems])
+  const rubric = useMemo(() => (activeItem?.markdown ? evaluatePrdQuality(activeItem.markdown) : null), [activeItem?.markdown])
   const hasGeneratingItem = items.some(item => item.status === 'generating')
   const activeItemIsGenerating = activeItem?.status === 'generating'
   const canGenerateAll = mode === 'system'
@@ -300,6 +302,79 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
 
           {activeItem.errorMessage && (
             <div style={{ color: 'var(--error)', padding: '1rem', border: '1px solid var(--error)', borderRadius: 8, marginBottom: '1rem' }}>{activeItem.errorMessage}</div>
+          )}
+
+          {/* PRD QUALITY RUBRIC CARD */}
+          {rubric && (
+            <div
+              style={{
+                background: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderLeft: `4px solid ${rubric.gradeColor}`,
+                borderRadius: '16px',
+                padding: '1.25rem 1.5rem',
+                marginBottom: '1.5rem'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
+                <div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Kết Quả Thẩm Định Kỹ Thuật (Enterprise Rubric)
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '4px' }}>
+                    <span style={{ fontSize: '1.6rem', fontWeight: 800, color: rubric.gradeColor }}>
+                      {rubric.totalScore}/100
+                    </span>
+                    <span style={{
+                      padding: '4px 12px',
+                      borderRadius: '999px',
+                      fontSize: '0.85rem',
+                      fontWeight: 600,
+                      background: 'rgba(255, 255, 255, 0.06)',
+                      border: `1px solid ${rubric.gradeColor}`,
+                      color: rubric.gradeColor
+                    }}>
+                      {rubric.grade}
+                    </span>
+                  </div>
+                </div>
+
+                <div style={{ fontSize: '0.85rem', color: 'var(--muted)', textAlign: 'right' }}>
+                  Tiêu chuẩn: <strong style={{ color: 'var(--foreground)' }}>Architect Multi-Agent 2026</strong>
+                </div>
+              </div>
+
+              {/* 4 Rubric Dimensions */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.75rem', marginBottom: '1rem' }}>
+                {Object.values(rubric.rubrics).map((r) => (
+                  <div key={r.id} style={{ background: 'rgba(0,0,0,0.25)', padding: '0.85rem 1rem', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', marginBottom: '4px' }}>
+                      <span style={{ color: 'var(--muted)' }}>{r.title}</span>
+                      <strong style={{ color: r.status === 'pass' ? 'var(--success)' : r.status === 'warn' ? '#f5a623' : 'var(--error)' }}>
+                        {r.score}/{r.maxScore}đ
+                      </strong>
+                    </div>
+                    <div style={{ fontSize: '0.78rem', color: '#8e8e93', lineHeight: 1.4 }}>
+                      {r.details}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Strengths & Improvements */}
+              {rubric.strengths.length > 0 && (
+                <div style={{ fontSize: '0.85rem', color: 'var(--success)', display: 'flex', gap: '8px', alignItems: 'flex-start', marginTop: '0.5rem' }}>
+                  <span>✓</span>
+                  <span><strong>Điểm mạnh:</strong> {rubric.strengths.join(' ')}</span>
+                </div>
+              )}
+              {rubric.improvements.length > 0 && (
+                <div style={{ fontSize: '0.85rem', color: '#f5a623', display: 'flex', gap: '8px', alignItems: 'flex-start', marginTop: '0.25rem' }}>
+                  <span>⚡</span>
+                  <span><strong>Cần lưu ý khi triển khai:</strong> {rubric.improvements.join(' ')}</span>
+                </div>
+              )}
+            </div>
           )}
 
           <pre style={{
