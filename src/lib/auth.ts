@@ -1,7 +1,11 @@
 import { jwtVerify, SignJWT } from 'jose'
 
 function getSecretKey() {
-  return process.env.JWT_SECRET || 'temporary-live-test-secret-change-in-vercel'
+  const secret = process.env.JWT_SECRET
+  if (!secret && process.env.NODE_ENV === 'production') {
+    console.warn('⚠️ WARNING: JWT_SECRET environment variable is missing in production! Please set it on Vercel.')
+  }
+  return secret || 'temporary-live-test-secret-change-in-vercel'
 }
 
 function getKey() {

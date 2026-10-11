@@ -6,6 +6,7 @@ import { safeJsonParse } from '@/lib/prd'
 import { generateGeminiText, getPublicGenerationError, withGenerationTimeout } from '@/lib/geminiPrd'
 
 export const dynamic = 'force-dynamic'
+export const maxDuration = 60
 
 function getSessionToken(req: Request) {
   return req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]

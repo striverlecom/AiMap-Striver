@@ -16,6 +16,13 @@ export async function POST(req: Request, { params }: { params: Promise<{ day: st
     const data = await req.json()
     const { userId } = payload
 
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, isPaid: true, currentDay: true }
+    })
+    if (!user) return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    if (!user.isPaid) return NextResponse.json({ error: 'Payment required' }, { status: 402 })
+
     let result;
 
     switch(dayNum) {
@@ -88,8 +95,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ day: st
         return NextResponse.json({ error: 'Invalid day' }, { status: 400 })
     }
 
-    const user = await prisma.user.findUnique({ where: { id: userId } })
-    if (user && user.currentDay <= dayNum && dayNum < 8) {
+    if (user.currentDay <= dayNum && dayNum < 8) {
       await prisma.user.update({
         where: { id: userId },
         data: { currentDay: dayNum + 1 }
