@@ -6,12 +6,13 @@ export async function POST(req: Request) {
   try {
     const { email, password } = await req.json()
     const normalizedEmail = typeof email === 'string' ? email.trim().toLowerCase() : ''
-    if (!normalizedEmail || !password || typeof password !== 'string') {
-      return NextResponse.json({ error: 'Vui lòng điền đầy đủ email và mật khẩu.' }, { status: 400 })
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!normalizedEmail || !emailRegex.test(normalizedEmail) || !password || typeof password !== 'string') {
+      return NextResponse.json({ error: 'Email không hợp lệ hoặc thiếu thông tin.' }, { status: 400 })
     }
 
-    if (password.length < 6) {
-      return NextResponse.json({ error: 'Mật khẩu phải có độ dài tối thiểu 6 ký tự.' }, { status: 400 })
+    if (password.length < 8) {
+      return NextResponse.json({ error: 'Mật khẩu phải có độ dài tối thiểu 8 ký tự.' }, { status: 400 })
     }
 
     const existing = await prisma.user.findUnique({ where: { email: normalizedEmail } })

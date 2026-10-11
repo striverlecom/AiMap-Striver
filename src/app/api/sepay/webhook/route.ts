@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
+import { safeEqual } from '@/lib/adminAuth'
 
 type SepayWebhookPayload = {
   transferType?: string
@@ -11,11 +12,11 @@ function isAuthorized(req: Request) {
   const secret = process.env.SEPAY_WEBHOOK_SECRET
   if (!secret) return process.env.NODE_ENV !== 'production'
 
-  const bearer = req.headers.get('authorization')?.replace(/^Bearer\s+/i, '')
-  const tokenHeader = req.headers.get('x-sepay-token')
-  const apiKeyHeader = req.headers.get('x-api-key')
+  const bearer = req.headers.get('authorization')?.replace(/^Bearer\s+/i, '') || ''
+  const tokenHeader = req.headers.get('x-sepay-token') || ''
+  const apiKeyHeader = req.headers.get('x-api-key') || ''
 
-  return bearer === secret || tokenHeader === secret || apiKeyHeader === secret
+  return safeEqual(bearer, secret) || safeEqual(tokenHeader, secret) || safeEqual(apiKeyHeader, secret)
 }
 
 export async function POST(req: Request) {

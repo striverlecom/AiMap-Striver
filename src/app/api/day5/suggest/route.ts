@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { GoogleGenAI } from '@google/genai'
 import prisma from '@/lib/prisma'
-import { decrypt } from '@/lib/auth'
+import { decrypt, readSessionCookie } from '@/lib/auth'
 import { safeJsonParse } from '@/lib/prd'
 import { generateGeminiText, getPublicGenerationError, withGenerationTimeout } from '@/lib/geminiPrd'
 import { getGeminiApiKey } from '@/lib/geminiConfig'
@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 export const maxDuration = 60
 
 function getSessionToken(req: Request) {
-  return req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
+  return readSessionCookie(req)
 }
 
 async function getUserFromSession(req: Request) {
@@ -116,8 +116,7 @@ TƯ DUY TƯ VẤN CỐT LÕI (RẤT QUAN TRỌNG):
 3. ĐỀ XUẤT GIẢI PHÁP AI CỤ THỂ, KHẢ THI (MVP ĐƯỢC NGAY):
    - Không đặt tên chung chung như "dùng ChatGPT". Hãy đặt tên use-case rõ ràng: "AI Chấm Lead", "AI Soạn Báo Giá", "AI Phản Hồi CSKH", "AI Tóm Tắt Đơn".
    - Tên solution: 2-5 từ tiếng Việt, tối đa 45 ký tự.
-   - Chấm impact (1-5) và effort (1-5).
-   - Chọn ra ĐÚNG 3 giải pháp AI có ROI và tính khả thi cao nhất để gán isTop3 = true.
+   - Đề xuất TỐI ĐA 3 giải pháp AI (1 đến 3 giải pháp) có ROI và tính khả thi cao nhất dựa trên dữ liệu thật để gán isTop3 = true. Chỉ chọn các giải pháp thực sự có cơ sở dữ liệu.
 
 Schema JSON array:
 [

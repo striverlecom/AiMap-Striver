@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { execFile } from 'child_process';
 import { promisify } from 'util';
+import { safeEqual } from '@/lib/adminAuth';
 
 const execFileAsync = promisify(execFile);
 
@@ -8,8 +9,8 @@ function isAuthorized(request: Request) {
   const token = process.env.ADMIN_MAINTENANCE_TOKEN;
   const authHeader = request.headers.get('authorization') || '';
 
-  if (!token) return false;
-  return authHeader === `Bearer ${token}`;
+  if (!token || token.length < 16) return false;
+  return safeEqual(authHeader, `Bearer ${token}`);
 }
 
 export async function POST(request: Request) {

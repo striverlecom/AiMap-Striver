@@ -35,7 +35,7 @@ export default function AdminClient() {
     setLoading(true)
     setErrorMsg('')
     try {
-      const res = await fetch(`/api/admin/leads?adminKey=${encodeURIComponent(key)}`, {
+      const res = await fetch('/api/admin/leads', {
         headers: { 'x-admin-key': key }
       })
       const data = await res.json()
@@ -62,7 +62,7 @@ export default function AdminClient() {
 
   const handleUpdateStatus = async (leadId: string, nextStatus: string) => {
     try {
-      const res = await fetch(`/api/admin/leads/${leadId}?adminKey=${encodeURIComponent(adminKey)}`, {
+      const res = await fetch(`/api/admin/leads/${leadId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

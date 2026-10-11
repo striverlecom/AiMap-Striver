@@ -10,10 +10,14 @@ export async function POST(req: Request) {
     if (!normalizedEmail || !password) return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
 
     const user = await prisma.user.findUnique({ where: { email: normalizedEmail } })
-    if (!user) return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+    if (!user) {
+      // Dummy compare to mitigate user enumeration timing attacks
+      await bcrypt.compare(password, '$2a$10$e8wJ6Q3.4c5B2a1z9y8x7u6t5s4r3q2p1o0n9m8l7k6j5h4g3f2e1d')
+      return NextResponse.json({ error: 'Email hoặc mật khẩu không chính xác.' }, { status: 401 })
+    }
 
     const pwdMatch = await bcrypt.compare(password, user.password)
-    if (!pwdMatch) return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+    if (!pwdMatch) return NextResponse.json({ error: 'Email hoặc mật khẩu không chính xác.' }, { status: 401 })
 
     // Create session
     const sessionData = { userId: user.id, email: user.email, isPaid: user.isPaid }

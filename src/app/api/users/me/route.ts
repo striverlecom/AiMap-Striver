@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
-import { decrypt } from '@/lib/auth'
+import { decrypt, readSessionCookie } from '@/lib/auth'
 
 export const dynamic = 'force-dynamic'
 
 
 export async function GET(req: Request) {
   try {
-    const token = req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
+    const token = readSessionCookie(req)
     if (!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     
     let payload

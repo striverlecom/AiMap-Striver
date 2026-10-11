@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
-import { decrypt } from '@/lib/auth'
+import { decrypt, readSessionCookie } from '@/lib/auth'
 
 export async function POST(req: Request) {
   try {
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     // Attempt to extract userId from session cookie if available
     let userId: string | undefined = undefined
     try {
-      const token = req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
+      const token = readSessionCookie(req)
       if (token) {
         const payload = await decrypt(token)
         if (payload?.userId) {

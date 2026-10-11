@@ -1,38 +1,6 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
-import { decrypt } from '@/lib/auth'
-
-const ADMIN_KEY = process.env.ADMIN_KEY || 'REDACTED_ADMIN_KEY'
-
-async function isAuthorizedAdmin(req: Request) {
-  // Check header or query key
-  const url = new URL(req.url)
-  const queryKey = url.searchParams.get('adminKey')
-  const headerKey = req.headers.get('x-admin-key')
-  if (queryKey === ADMIN_KEY || headerKey === ADMIN_KEY) {
-    return true
-  }
-
-  // Check cookie session
-  try {
-    const token = req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
-    if (token) {
-      const payload = await decrypt(token)
-      if (payload?.userId) {
-        const user = await prisma.user.findUnique({
-          where: { id: payload.userId },
-          select: { email: true }
-        })
-        const adminEmails = (process.env.ADMIN_EMAILS || 'admin@striver.ai,striverle.com,lequangcuong,striveraivn@gmail.com').toLowerCase().split(',')
-        if (user?.email && adminEmails.some(adm => user.email.toLowerCase().includes(adm.trim()))) {
-          return true
-        }
-      }
-    }
-  } catch {}
-
-  return false
-}
+import { isAuthorizedAdmin } from '@/lib/adminAuth'
 
 export async function GET(req: Request) {
   const isAuth = await isAuthorizedAdmin(req)

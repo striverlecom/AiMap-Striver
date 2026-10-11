@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
-import { decrypt } from '@/lib/auth'
+import { decrypt, readSessionCookie } from '@/lib/auth'
 
 export async function POST(req: Request, { params }: { params: Promise<{ day: string }> }) {
   try {
-    const token = req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
+    const token = readSessionCookie(req)
     if (!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     
     const payload = await decrypt(token)

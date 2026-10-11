@@ -11,7 +11,7 @@ export interface PrdRubricItem {
 
 export interface PrdEvaluationResult {
   totalScore: number
-  grade: 'Xuất Sắc (Ready to Code)' | 'Đạt Chuẩn (Chấp Nhận Được)' | 'Cần Hoàn Thiện Thêm'
+  grade: 'Đạt Chuẩn Cấu Trúc (Tham Khảo)' | 'Đạt Chuẩn (Chấp Nhận Được)' | 'Cần Hoàn Thiện Thêm'
   gradeColor: string
   rubrics: {
     structure: PrdRubricItem
@@ -125,12 +125,17 @@ export function evaluatePrdQuality(markdown: string): PrdEvaluationResult {
     : 'Cần bổ sung các đường rẽ nhánh khi API timeout hoặc dữ liệu đầu vào không hợp lệ.'
 
   // TỔNG KẾT
-  const totalScore = structureScore + technicalScore + hitlScore + resilienceScore
+  let totalScore = structureScore + technicalScore + hitlScore + resilienceScore
+
+  // Phòng thủ chống nhồi từ khóa: Văn bản dưới 350 từ không thể đạt điểm cao
+  if (wordCount < 350) {
+    totalScore = Math.min(totalScore, 55)
+  }
 
   let grade: PrdEvaluationResult['grade'] = 'Cần Hoàn Thiện Thêm'
   let gradeColor = 'var(--error)'
   if (totalScore >= 80) {
-    grade = 'Xuất Sắc (Ready to Code)'
+    grade = 'Đạt Chuẩn Cấu Trúc (Tham Khảo)'
     gradeColor = 'var(--success)'
   } else if (totalScore >= 60) {
     grade = 'Đạt Chuẩn (Chấp Nhận Được)'

@@ -2,10 +2,10 @@ import { jwtVerify, SignJWT } from 'jose'
 
 function getSecretKey() {
   const secret = process.env.JWT_SECRET
-  if (!secret && process.env.NODE_ENV === 'production') {
-    console.warn('⚠️ WARNING: JWT_SECRET environment variable is missing in production! Please set it on Vercel.')
+  if (!secret || secret.length < 32) {
+    throw new Error('JWT_SECRET is required and must be at least 32 characters')
   }
-  return secret || 'REDACTED_JWT_SECRET'
+  return secret
 }
 
 function getKey() {
@@ -32,3 +32,10 @@ export async function decrypt(input: string): Promise<SessionPayload> {
   })
   return payload as SessionPayload
 }
+
+export function readSessionCookie(req: Request): string | undefined {
+  const raw = req.headers.get('cookie') || ''
+  const part = raw.split(';').map(s => s.trim()).find(s => s.startsWith('session='))
+  return part ? part.slice('session='.length) : undefined
+}
+

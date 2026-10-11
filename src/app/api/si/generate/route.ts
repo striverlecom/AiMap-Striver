@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { GoogleGenAI } from '@google/genai'
 import prisma from '@/lib/prisma'
-import { decrypt } from '@/lib/auth'
+import { decrypt, readSessionCookie } from '@/lib/auth'
 import { buildPrdSystemInstruction, loadPrdKnowledgePack } from '@/lib/prdKnowledge'
 import {
   buildSiPrompt,
@@ -18,7 +18,7 @@ export const dynamic = 'force-dynamic'
 export const maxDuration = 60
 
 function getSessionToken(req: Request) {
-  return req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
+  return readSessionCookie(req)
 }
 
 async function getUserFromSession(req: Request) {

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { GoogleGenAI } from '@google/genai'
 import prisma from '@/lib/prisma'
-import { decrypt } from '@/lib/auth'
+import { decrypt, readSessionCookie } from '@/lib/auth'
 import { buildPrdSystemInstruction, loadPrdKnowledgePack } from '@/lib/prdKnowledge'
 import {
   buildPrdPrompt,
@@ -29,7 +29,7 @@ const GEMINI_MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_PRD_MAX_OUTPUT_TOKENS
 const GENERATION_TIMEOUT_MS = Number(process.env.PRD_GENERATION_TIMEOUT_MS || 180000)
 
 function getSessionToken(req: Request) {
-  return req.headers.get('cookie')?.split('session=')[1]?.split(';')[0]
+  return readSessionCookie(req)
 }
 
 async function getUserFromSession(req: Request) {
@@ -188,7 +188,7 @@ export async function POST(req: Request) {
 
   if (mode === 'custom' && (useCases.length < 1 || useCases.length > 3)) {
     return NextResponse.json({
-      error: 'Vui lÃ²ng nháº­p tá»« 1 Ä‘áº¿n 3 use-case tÃ¹y chá»‰nh trÆ°á»›c khi táº¡o PRD.'
+      error: 'Vui lòng nhập từ 1 đến 3 use-case tùy chỉnh trước khi tạo PRD.'
     }, { status: 400 })
   }
 
