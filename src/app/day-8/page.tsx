@@ -36,7 +36,7 @@ export default async function Day8Page() {
   const useCases = extractPrdUseCases(user)
   const storedItems = safeJsonParse<PrdItem[]>(user.day8Data?.prdData, [])
   const storedCustomItems = storedItems.filter(item => item.sourceType === 'custom')
-  const prdItems = useCases.length === 3
+  const prdItems = useCases.length >= 1
     ? mergePrdItems(storedItems, useCases)
     : storedItems.length > 0
       ? storedItems

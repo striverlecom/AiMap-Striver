@@ -52,7 +52,23 @@ export function extractPrdUseCases(user: any): PrdUseCase[] {
   const priorities = safeJsonParse<any[]>(user?.day5Data?.priorities, [])
   const roiData = safeJsonParse<any[]>(user?.day6Data?.roiData, [])
   const roadmap = safeJsonParse<Record<string, unknown>>(user?.day7Data?.roadmap, {})
-  const topSolutions = priorities.filter(item => item?.isTop3).slice(0, 3)
+  let topSolutions = priorities.filter(item => item?.isTop3).slice(0, 3)
+
+  if (topSolutions.length === 0 && priorities.length > 0) {
+    topSolutions = [...priorities].sort((a, b) => {
+      const scoreA = (Number(a.impact) || 3) / (Number(a.effort) || 3)
+      const scoreB = (Number(b.impact) || 3) / (Number(b.effort) || 3)
+      return scoreB - scoreA
+    }).slice(0, 3)
+  }
+
+  if (topSolutions.length === 0 && roiData.length > 0) {
+    topSolutions = roiData.slice(0, 3).map((r, i) => ({
+      solution: r.name || `Giải pháp #${i + 1}`,
+      problem: r.desc || '',
+      isTop3: true
+    }))
+  }
 
   return topSolutions.map((item, index) => {
     const roi = roiData[index] || null

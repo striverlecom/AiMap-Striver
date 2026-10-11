@@ -20,7 +20,7 @@ function isCustomItemValid(item: PrdItem) {
 }
 
 export default function Day8Client({ useCases, initialPrds, initialCustomPrds, initialMode, isConfigured }: Props) {
-  const hasSystemUseCases = useCases.length === 3
+  const hasSystemUseCases = useCases.length >= 1
   const [mode, setMode] = useState<Mode>(initialMode === 'custom' || !hasSystemUseCases ? 'custom' : 'system')
   const [systemItems, setSystemItems] = useState<PrdItem[]>(initialPrds)
   const [customItems, setCustomItems] = useState<PrdItem[]>(initialCustomPrds)
@@ -36,7 +36,7 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
   const hasGeneratingItem = items.some(item => item.status === 'generating')
   const activeItemIsGenerating = activeItem?.status === 'generating'
   const canGenerateAll = mode === 'system'
-    ? items.length === 3 && items.every(item => item.manualWorkflow.trim().length > 0)
+    ? items.length >= 1 && items.every(item => item.manualWorkflow.trim().length > 0)
     : validCustomItems.length > 0
   const canGenerateSelected = mode === 'system'
     ? Boolean(activeItem?.manualWorkflow.trim())
@@ -193,15 +193,15 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
 
       {mode === 'system' && !hasSystemUseCases ? (
         <section className="glass-panel" style={{ marginBottom: '2rem', textAlign: 'center' }}>
-          <h2 style={{ marginBottom: '1rem' }}>Chưa đủ 3 use-case hệ thống đề xuất</h2>
+          <h2 style={{ marginBottom: '1rem' }}>Chưa có use-case từ hệ thống đề xuất</h2>
           <p style={{ color: 'var(--muted)', maxWidth: 760, margin: '0 auto', lineHeight: 1.6 }}>
-            Chế độ này cần dữ liệu Ngày 5, Ngày 6 và Ngày 7 để lấy 3 use-case ưu tiên từ hành trình hệ thống. Nếu khách đã có use-case riêng, hãy chuyển sang tab “Tự nhập use-case AI”.
+            Chế độ này cần dữ liệu Ngày 5, Ngày 6 và Ngày 7 để lấy use-case ưu tiên từ hành trình hệ thống. Nếu khách đã có use-case riêng, hãy chuyển sang tab “Tự nhập use-case AI”.
           </p>
         </section>
       ) : (
       <section className="glass-panel" style={{ marginBottom: '2rem' }}>
         <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: 'var(--success)' }}>
-          {mode === 'system' ? '3 use-case hệ thống sẽ được tạo PRD' : 'Nhập 1-3 use-case AI tùy chỉnh'}
+          {mode === 'system' ? `${items.length} use-case hệ thống sẽ được tạo PRD` : 'Nhập 1-3 use-case AI tùy chỉnh'}
         </h2>
         <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
           {items.map(item => (
