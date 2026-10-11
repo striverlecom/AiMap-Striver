@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import AppleNotice from '@/components/AppleNotice'
 
 const QUESTIONS = [
   { q: "Nhân sự mất nhiều thời gian cho tác vụ thủ công lặp lại?", hint: "Gõ báo giá, copy paste, lọc Excel, trả lời tin nhắn mẫu - Mấy giờ/ngày?" },
@@ -151,34 +150,7 @@ export default function Day1Client({ serverUser }: { serverUser: any }) {
         </section>
 
         <section className="glass-panel" style={{ marginBottom: '3rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
-            <h2 style={{ margin: 0, color: 'var(--foreground)', fontSize: '1.25rem' }}>B. CÁC NÚT THẮT CẦN GIẢI PHÓNG</h2>
-          </div>
-
-          <AppleNotice
-            badge="Ưu Tiên Trọng Tâm"
-            title="Điểm Nghẽn Lớn Nhất Cần AI Tự Động Hóa"
-            variant="accent"
-            style={{ marginBottom: '1.75rem' }}
-            action={
-              <button
-                type="button"
-                onClick={() => {
-                  setTop3Problems([
-                    { id: 1, problem: 'Soạn báo cáo & tài liệu thủ công', victim: 'Founder / Quản lý', hoursLost: '12 giờ', description: 'Mất nhiều giờ nghe lại ghi âm, tổng hợp dữ liệu và viết báo cáo thủ công' },
-                    { id: 2, problem: 'Lọc lead & nhắn tin tư vấn phân tán', victim: 'Kinh doanh / Founder', hoursLost: '10 giờ', description: 'Phải trả lời tin nhắn và phân loại khách hàng tiềm năng bằng tay trên mạng xã hội' },
-                    { id: 3, problem: 'Đối soát bảng tính & nhập liệu Excel', victim: 'Vận hành', hoursLost: '8 giờ', description: 'Nhập tay số liệu giữa các file tính và ứng dụng rời rạc' }
-                  ])
-                }}
-                className="btn-secondary"
-                style={{ padding: '0.35rem 0.75rem', fontSize: '0.78rem', borderRadius: '8px', whiteSpace: 'nowrap' }}
-              >
-                ✨ Điền mẫu phổ biến
-              </button>
-            }
-          >
-            Chỉ cần <strong>ít nhất 1 vấn đề cụ thể</strong> đang làm bạn kiệt sức hoặc ngốn nhiều giờ nhất. Nếu bạn làm việc Solo độc lập, chỉ cần điền dòng số 1 và có thể bỏ trống 2 dòng còn lại.
-          </AppleNotice>
+          <h2 style={{borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', marginBottom: '2rem', color: 'var(--error)'}}>🔴 3 VẤN ĐỀ LỚN NHẤT PHÁT HIỆN</h2>
           
           <div style={{ overflowX: 'auto', width: '100%' }}>
             <table className="responsive-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>

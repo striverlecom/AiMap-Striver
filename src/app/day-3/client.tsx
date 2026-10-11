@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import AppleNotice from '@/components/AppleNotice'
 
 export default function Day3Client({ serverUser }: { serverUser: any }) {
   let initialBld = [{ id: 1, name: 'Sếp 1', role: 'Giám Đốc', q1: '', q2: '', q3: '', q4: '', q5: '' }]
@@ -129,24 +128,17 @@ export default function Day3Client({ serverUser }: { serverUser: any }) {
       </header>
 
       <div className="glass-panel fade-in" style={{ maxWidth: '900px', margin: '0 auto' }}>
-        <AppleNotice
-          badge="Solo & Nhóm Tinh Gọn"
-          title="Không Có Nhân Viên Để Phỏng Vấn?"
-          variant="blue"
-          style={{ marginBottom: '2.5rem' }}
-          action={
-            <button
-              type="button"
-              onClick={autoFillFindingsFromPastDays}
-              className="btn-secondary"
-              style={{ padding: '0.45rem 0.9rem', fontSize: '0.82rem', whiteSpace: 'nowrap', borderRadius: '10px' }}
-            >
-              ⚡ Điền nhanh cho Solo
-            </button>
-          }
-        >
-          Nếu bạn làm việc độc lập một mình, bạn không cần phỏng vấn nhân viên. Bạn có thể bấm nút <strong style={{ color: '#fff' }}>"⚡ Điền nhanh cho Solo"</strong> bên cạnh hoặc bấm <strong style={{ color: '#fff' }}>"Bỏ qua bước này"</strong> ở cuối trang để sang Ngày 4.
-        </AppleNotice>
+        <div style={{ background: 'rgba(56, 189, 248, 0.08)', border: '1px solid rgba(56, 189, 248, 0.25)', borderRadius: '8px', padding: '1rem 1.25rem', marginBottom: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, minWidth: '280px' }}>
+            <span style={{ fontSize: '1.5rem' }}>💡</span>
+            <div style={{ fontSize: '0.88rem', color: '#e0f2fe', lineHeight: 1.5 }}>
+              <strong>Dành cho Solo / 1 người:</strong> Nếu bạn làm việc độc lập một mình, bạn <strong>không có nhân viên để phỏng vấn</strong>. Bạn có thể bấm nút bên phải để tự động điền phát hiện quan trọng hoặc bấm thẳng nút <strong>"Bỏ qua bước này"</strong> ở cuối trang để sang Ngày 4.
+            </div>
+          </div>
+          <button type="button" onClick={autoFillFindingsFromPastDays} className="btn-secondary" style={{ padding: '0.45rem 0.85rem', fontSize: '0.82rem', whiteSpace: 'nowrap' }}>
+            ⚡ Điền nhanh cho Solo
+          </button>
+        </div>
         
         {/* BLD INTERVIEWS */}
         <div style={{ marginBottom: '4rem' }}>
