@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 import { decrypt } from '@/lib/auth'
 
-const ADMIN_KEY = process.env.ADMIN_KEY || 'striver2026'
+const ADMIN_KEY = process.env.ADMIN_KEY || 'REDACTED_ADMIN_KEY'
 
 async function isAuthorizedAdmin(req: Request) {
   // Check header or query key
@@ -23,7 +23,7 @@ async function isAuthorizedAdmin(req: Request) {
           where: { id: payload.userId },
           select: { email: true }
         })
-        const adminEmails = (process.env.ADMIN_EMAILS || 'admin@striver.ai,striverle.com,lequangcuong').toLowerCase().split(',')
+        const adminEmails = (process.env.ADMIN_EMAILS || 'admin@striver.ai,striverle.com,lequangcuong,striveraivn@gmail.com').toLowerCase().split(',')
         if (user?.email && adminEmails.some(adm => user.email.toLowerCase().includes(adm.trim()))) {
           return true
         }
