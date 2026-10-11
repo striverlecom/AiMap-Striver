@@ -37,6 +37,7 @@ export default async function Day9Page() {
   return (
     <Day9Client
       prdCount={prds.length}
+      prds={prds}
       initialItems={siItems}
       isConfigured={isGeminiConfigured()}
     />
