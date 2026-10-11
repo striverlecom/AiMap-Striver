@@ -4,6 +4,7 @@ import { decrypt } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 import { redirect } from 'next/navigation'
 import { buildBlankCustomUseCases, extractPrdUseCases, mergePrdItems, safeJsonParse, type PrdItem } from '@/lib/prd'
+import { isGeminiConfigured } from '@/lib/geminiConfig'
 
 export const dynamic = 'force-dynamic'
 
@@ -53,7 +54,7 @@ export default async function Day8Page() {
       initialMode={storedCustomItems.length > 0 ? 'custom' : 'system'}
       isConfigured={process.env.PRD_PROVIDER === 'openai'
         ? Boolean(process.env.OPENAI_API_KEY && process.env.OPENAI_PRD_VECTOR_STORE_ID)
-        : Boolean(process.env.GEMINI_API_KEY)}
+        : isGeminiConfigured()}
     />
   )
 }

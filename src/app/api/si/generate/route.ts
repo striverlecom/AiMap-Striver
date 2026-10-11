@@ -12,6 +12,7 @@ import {
   type SiItem
 } from '@/lib/systemInstruction'
 import { generateGeminiText, getPublicGenerationError, withGenerationTimeout } from '@/lib/geminiPrd'
+import { getGeminiApiKey } from '@/lib/geminiConfig'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 60
@@ -44,7 +45,7 @@ export async function POST(req: Request) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   if (!user.isPaid) return NextResponse.json({ error: 'Payment required' }, { status: 402 })
 
-  const apiKey = process.env.GEMINI_API_KEY
+  const apiKey = getGeminiApiKey()
   if (!apiKey) {
     return NextResponse.json({ error: 'Gemini SI generation is not configured. Set GEMINI_API_KEY on the server.' }, { status: 500 })
   }

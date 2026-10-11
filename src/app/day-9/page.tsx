@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation'
 import { extractCompletedPrds } from '@/lib/systemInstruction'
 import { mergeSiItems, safeJsonParse, type SiItem } from '@/lib/systemInstruction'
 
+import { isGeminiConfigured } from '@/lib/geminiConfig'
+
 export const dynamic = 'force-dynamic'
 
 export default async function Day9Page() {
@@ -36,7 +38,7 @@ export default async function Day9Page() {
     <Day9Client
       prdCount={prds.length}
       initialItems={siItems}
-      isConfigured={Boolean(process.env.GEMINI_API_KEY)}
+      isConfigured={isGeminiConfigured()}
     />
   )
 }
