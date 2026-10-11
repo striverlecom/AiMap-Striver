@@ -32,6 +32,11 @@ export default function Day2Client({ serverUser }: { serverUser: any }) {
 
   const [salaryData, setSalaryData] = useState(initialSalaryData)
 
+  let day1Top3: any[] = []
+  try {
+    day1Top3 = JSON.parse(serverUser?.day1Data?.top3Problems || '[]')
+  } catch(e) {}
+
   let initialChallenges = {
     biggestChallenge: '', timeConsumingProcess: '', customerComplaints: '', aiWishlist: ''
   }
@@ -39,7 +44,41 @@ export default function Day2Client({ serverUser }: { serverUser: any }) {
     initialChallenges = { ...initialChallenges, ...JSON.parse(d2.challenges || '{}') }
   } catch(e){}
 
+  // Tự động kế thừa từ Top 3 của Ngày 1 nếu chưa điền
+  if (!initialChallenges.biggestChallenge && day1Top3[0]?.problem) {
+    initialChallenges.biggestChallenge = day1Top3[0].problem
+  }
+  if (!initialChallenges.timeConsumingProcess) {
+    if (day1Top3[1]?.problem) {
+      initialChallenges.timeConsumingProcess = `${day1Top3[1].problem}${day1Top3[1].hoursLost ? ` (${day1Top3[1].hoursLost})` : ''}`
+    } else if (day1Top3[0]?.hoursLost) {
+      initialChallenges.timeConsumingProcess = `${day1Top3[0].problem} (${day1Top3[0].hoursLost})`
+    }
+  }
+
   const [challenges, setChallenges] = useState(initialChallenges)
+
+  const applyPreset = (type: 'solo' | 'team5' | 'sme15') => {
+    if (type === 'solo') {
+      setSalaryData([
+        { id: 1, department: 'Founder & Điều hành (Solopreneur)', salary: 30000000, count: 1 }
+      ])
+    } else if (type === 'team5') {
+      setSalaryData([
+        { id: 1, department: 'Giám đốc / Quản lý', salary: 30000000, count: 1 },
+        { id: 2, department: 'Kinh doanh / Bán hàng', salary: 12000000, count: 2 },
+        { id: 3, department: 'Vận hành / CSKH', salary: 10000000, count: 2 }
+      ])
+    } else if (type === 'sme15') {
+      setSalaryData([
+        { id: 1, department: 'Ban Lãnh Đạo', salary: 40000000, count: 2 },
+        { id: 2, department: 'Sales / Kinh doanh', salary: 12000000, count: 5 },
+        { id: 3, department: 'Marketing', salary: 12000000, count: 2 },
+        { id: 4, department: 'Vận hành / Sản xuất / Kho', salary: 10000000, count: 4 },
+        { id: 5, department: 'Kế toán / Hành chính', salary: 11000000, count: 2 }
+      ])
+    }
+  }
 
   let initialParameters = {
     companyName: '', authorName: '', startDate: '', hoursPerMonth: 160, weeksPerYear: 52, reinvestPct: 50
@@ -130,7 +169,7 @@ export default function Day2Client({ serverUser }: { serverUser: any }) {
               <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.customerCount} onChange={e => setData({...data, customerCount: parseInt(e.target.value)||0})} />
             </div>
             <div>
-              <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Tỷ lệ giữ chân KH (%)</label>
+              <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Tỷ lệ giữ chân KH (%) (để 0 nếu không áp dụng)</label>
               <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.churnRate} onChange={e => setData({...data, churnRate: parseFloat(e.target.value)||0})} />
             </div>
             <div>
@@ -142,7 +181,15 @@ export default function Day2Client({ serverUser }: { serverUser: any }) {
 
         {/* PART B */}
         <div className="glass-panel" style={{ overflowX: 'auto', width: '100%' }}>
-          <h2 style={{borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', margin: '0 0 1.5rem 0', color: 'var(--success)'}}>B. BẢNG LƯƠNG THEO BỘ PHẬN</h2>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', margin: '0 0 1.25rem 0', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <h2 style={{ margin: 0, color: 'var(--success)', fontSize: '1.25rem' }}>B. BẢNG LƯƠNG THEO BỘ PHẬN</h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>Điền nhanh:</span>
+              <button type="button" onClick={() => applyPreset('solo')} className="btn-secondary" style={{ padding: '0.3rem 0.6rem', fontSize: '0.78rem' }}>🎯 1 Founder (Solo)</button>
+              <button type="button" onClick={() => applyPreset('team5')} className="btn-secondary" style={{ padding: '0.3rem 0.6rem', fontSize: '0.78rem' }}>👥 Team 5 người</button>
+              <button type="button" onClick={() => applyPreset('sme15')} className="btn-secondary" style={{ padding: '0.3rem 0.6rem', fontSize: '0.78rem' }}>🏢 SME 15 người</button>
+            </div>
+          </div>
           <table className="responsive-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ background: 'var(--background)' }}>
@@ -195,7 +242,14 @@ export default function Day2Client({ serverUser }: { serverUser: any }) {
 
         {/* PART C */}
         <div className="glass-panel">
-          <h2 style={{borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', marginBottom: '1.5rem', color: 'var(--warning)'}}>C. THÁCH THỨC & VẤN ĐỀ CHÍNH</h2>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--card-border)', paddingBottom: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <h2 style={{ margin: 0, color: 'var(--warning)', fontSize: '1.25rem' }}>C. THÁCH THỨC & VẤN ĐỀ CHÍNH</h2>
+            {day1Top3.length > 0 && (
+              <span style={{ fontSize: '0.8rem', background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', padding: '0.25rem 0.6rem', borderRadius: '4px', border: '1px solid rgba(56, 189, 248, 0.25)' }}>
+                ✨ Đã tự động kế thừa từ Top vấn đề Ngày 1 (có thể chỉnh sửa)
+              </span>
+            )}
+          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Thách thức lớn nhất đang gặp:</label>

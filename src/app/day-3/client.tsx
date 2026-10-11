@@ -22,6 +22,16 @@ export default function Day3Client({ serverUser }: { serverUser: any }) {
     } catch(e) {}
   }
 
+  let isSolopreneur = false
+  let companyAuthor = ''
+  try {
+    const sData = JSON.parse(serverUser?.day2Data?.salaryData || '[]')
+    const totalCount = sData.reduce((acc: number, row: any) => acc + (parseInt(row.count) || 0), 0)
+    if (totalCount === 1) isSolopreneur = true
+    const p = JSON.parse(serverUser?.day2Data?.parameters || '{}')
+    companyAuthor = p.authorName || ''
+  } catch(e) {}
+
   const [bldInterviews, setBldInterviews] = useState(initialBld)
   const [nvInterviews, setNvInterviews] = useState(initialNv)
   const [findings, setFindings] = useState(initialFindings)
@@ -88,6 +98,28 @@ export default function Day3Client({ serverUser }: { serverUser: any }) {
     setFindings(prev => ({ ...prev, [field]: value }))
   }
 
+  const autoFillFindingsFromPastDays = () => {
+    let top1 = ''
+    try {
+      const top3 = JSON.parse(serverUser?.day1Data?.top3Problems || '[]')
+      top1 = top3[0]?.problem || ''
+    } catch(e) {}
+    
+    let timeConsuming = ''
+    try {
+      const ch = JSON.parse(serverUser?.day2Data?.challenges || '{}')
+      timeConsuming = ch.timeConsumingProcess || ''
+    } catch(e) {}
+
+    setFindings(prev => ({
+      ...prev,
+      commonProblems: prev.commonProblems || top1 || 'Khâu xử lý tài liệu và đối soát dữ liệu thủ công',
+      mostTimeConsuming: prev.mostTimeConsuming || timeConsuming || top1 || 'Tổng hợp báo cáo và nhập liệu bảng tính',
+      mostFrustratingTool: prev.mostFrustratingTool || 'Google Docs / Excel / Chat Zalo rời rạc',
+      goalGap: prev.goalGap || 'Cần tự động hóa 80% tác vụ lặp để giải phóng thời gian cho tăng trưởng'
+    }))
+  }
+
   return (
     <div className="container" style={{ padding: '2rem' }}>
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
@@ -96,6 +128,14 @@ export default function Day3Client({ serverUser }: { serverUser: any }) {
       </header>
 
       <div className="glass-panel fade-in" style={{ maxWidth: '900px', margin: '0 auto' }}>
+        {isSolopreneur && (
+          <div style={{ background: 'rgba(56, 189, 248, 0.08)', border: '1px solid rgba(56, 189, 248, 0.25)', borderRadius: '8px', padding: '1rem 1.25rem', marginBottom: '2.5rem', display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <span style={{ fontSize: '1.5rem' }}>💡</span>
+            <div style={{ fontSize: '0.9rem', color: '#e0f2fe' }}>
+              <strong>Chế độ Doanh nghiệp 1 Founder:</strong> Bạn đang đóng cả 2 vai trò. Phần 1 dành cho <em>Góc nhìn Chiến lược & Doanh thu</em>, Phần 2 dành cho <em>Góc nhìn Kỹ thuật & Thực thi trực tiếp</em> của bạn.
+            </div>
+          </div>
+        )}
         
         {/* BLD INTERVIEWS */}
         <div style={{ marginBottom: '4rem' }}>
@@ -278,7 +318,12 @@ export default function Day3Client({ serverUser }: { serverUser: any }) {
 
         {/* KEY FINDINGS */}
         <div style={{ marginBottom: '2rem', padding: '2rem', background: 'var(--card-bg)', borderRadius: 'var(--radius-lg)' }}>
-          <h2 style={{marginBottom: '1.5rem', color: '#fff', fontSize: '1.4rem'}}>3. Phát Hiện Quan Trọng (Đối chiếu Sếp vs Nhân viên)</h2>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <h2 style={{ margin: 0, color: '#fff', fontSize: '1.4rem' }}>3. Phát Hiện Quan Trọng (Đối chiếu Sếp vs Nhân viên)</h2>
+            <button type="button" onClick={autoFillFindingsFromPastDays} className="btn-secondary" style={{ padding: '0.4rem 0.85rem', fontSize: '0.82rem' }}>
+              ✨ Điền nhanh từ Ngày 1 & 2
+            </button>
+          </div>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div>
