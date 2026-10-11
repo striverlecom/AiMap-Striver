@@ -6,10 +6,16 @@ export async function POST(req: Request) {
   try {
     const { email, password } = await req.json()
     const normalizedEmail = typeof email === 'string' ? email.trim().toLowerCase() : ''
-    if (!normalizedEmail || !password) return NextResponse.json({ error: 'Missing fields' }, { status: 400 })
+    if (!normalizedEmail || !password || typeof password !== 'string') {
+      return NextResponse.json({ error: 'Vui lòng điền đầy đủ email và mật khẩu.' }, { status: 400 })
+    }
+
+    if (password.length < 6) {
+      return NextResponse.json({ error: 'Mật khẩu phải có độ dài tối thiểu 6 ký tự.' }, { status: 400 })
+    }
 
     const existing = await prisma.user.findUnique({ where: { email: normalizedEmail } })
-    if (existing) return NextResponse.json({ error: 'User already exists' }, { status: 409 })
+    if (existing) return NextResponse.json({ error: 'Tài khoản email này đã tồn tại.' }, { status: 409 })
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -17,13 +23,17 @@ export async function POST(req: Request) {
       data: {
         email: normalizedEmail,
         password: hashedPassword,
-        // Optional: generate random paymentRef initially
         paymentRef: 'AI' + Math.floor(100000 + Math.random() * 900000)
       }
     })
 
     return NextResponse.json({ success: true, userId: user.id })
   } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 })
+    console.error('Registration error:', err)
+    const isProduction = process.env.NODE_ENV === 'production'
+    const message = isProduction
+      ? 'Hệ thống đang gặp sự cố kết nối máy chủ. Vui lòng thử lại sau ít phút.'
+      : (err?.message || 'Internal server error')
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

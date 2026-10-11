@@ -43,22 +43,34 @@ export async function POST(req: Request) {
     if (data.transferType === 'in' && transferAmount >= 500000) {
       const content = (data.content || '').toUpperCase()
       
-      // Find user where paymentRef is included in the content
-      // Since SQLite doesn't natively support contains easily in Prisma without full scan, 
-      // we ideally fetch users that are not paid and check memory, but this is a POC.
-      const users = await prisma.user.findMany({
-        where: { isPaid: false, paymentRef: { not: null } }
-      })
-      
-      for (const user of users) {
-        if (user.paymentRef && content.includes(user.paymentRef.toUpperCase())) {
-          await prisma.user.update({
-            where: { id: user.id },
-            data: { isPaid: true }
-          })
-          console.log(`User ${user.email} marked as PAID.`)
-          return NextResponse.json({ success: true, message: 'Payment applied.' })
-        }
+      // Extract paymentRef pattern (e.g. AI123456) directly from transaction content
+      const match = content.match(/AI\d{6}/i)
+      let targetUser = null
+
+      if (match) {
+        targetUser = await prisma.user.findFirst({
+          where: {
+            paymentRef: match[0].toUpperCase(),
+            isPaid: false
+          }
+        })
+      }
+
+      if (!targetUser) {
+        // Fallback in case of custom formats
+        const users = await prisma.user.findMany({
+          where: { isPaid: false, paymentRef: { not: null } }
+        })
+        targetUser = users.find(u => u.paymentRef && content.includes(u.paymentRef.toUpperCase())) || null
+      }
+
+      if (targetUser) {
+        await prisma.user.update({
+          where: { id: targetUser.id },
+          data: { isPaid: true }
+        })
+        console.log(`User ${targetUser.email} marked as PAID.`)
+        return NextResponse.json({ success: true, message: 'Payment applied.' })
       }
     }
 

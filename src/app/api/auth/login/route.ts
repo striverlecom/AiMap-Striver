@@ -29,6 +29,11 @@ export async function POST(req: Request) {
 
     return response
   } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 })
+    console.error('Login error:', err)
+    const isProduction = process.env.NODE_ENV === 'production'
+    const message = isProduction
+      ? 'Hệ thống đang gặp sự cố. Vui lòng thử lại sau.'
+      : (err?.message || 'Internal server error')
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

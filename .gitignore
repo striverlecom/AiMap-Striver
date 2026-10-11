@@ -45,3 +45,14 @@ next-env.d.ts
 /src/generated/prisma
 
 .vercel
+
+# database & backups
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sql
+*backup*
+*.msi
+*.dump
+report_dump.txt
