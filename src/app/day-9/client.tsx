@@ -26,7 +26,7 @@ export default function Day9Client({ prdCount, prds, initialItems, isConfigured 
 
   // Runtime View States
   const [activeRuntime, setActiveRuntime] = useState<RuntimeTarget>('goclaw')
-  const [activeGoclawFile, setActiveGoclawFile] = useState<'agents' | 'soul' | 'identity' | 'userPredefined' | 'capabilities' | 'heartbeat'>('agents')
+  const [activeGoclawFile, setActiveGoclawFile] = useState<'agents' | 'soul' | 'identity' | 'user' | 'userPredefined' | 'capabilities' | 'heartbeat'>('agents')
   const [copyNotice, setCopyNotice] = useState<string | null>(null)
 
   const activeItem = items.find(item => item.useCaseIndex === activeIndex) || items[0]
@@ -157,6 +157,10 @@ cat << 'EOF' > "$WORKSPACE/IDENTITY.md"
 ${goClawPkg.identityMd}
 EOF
 
+cat << 'EOF' > "$WORKSPACE/USER.md"
+${goClawPkg.userMd}
+EOF
+
 cat << 'EOF' > "$WORKSPACE/USER_PREDEFINED.md"
 ${goClawPkg.userPredefinedMd}
 EOF
@@ -173,10 +177,11 @@ cat << 'EOF' > "$WORKSPACE/goclaw-agent.json"
 ${goClawPkg.importJson}
 EOF
 
-echo "✅ Đã tạo xong 6 file cấu hình gốc của GoClaw:"
+echo "✅ Đã tạo xong trọn bộ file cấu hình gốc của GoClaw:"
 echo "   - AGENTS.md"
 echo "   - SOUL.md"
 echo "   - IDENTITY.md"
+echo "   - USER.md"
 echo "   - USER_PREDEFINED.md"
 echo "   - CAPABILITIES.md"
 echo "   - HEARTBEAT.md"
@@ -435,13 +440,14 @@ echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
                     </div>
                   </div>
 
-                  {/* Sub-file tabs: 6 native files of GoClaw */}
+                  {/* Sub-file tabs: Full native files of GoClaw */}
                   <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
                     {[
                       { id: 'agents', label: 'AGENTS.md', desc: 'Danh sách Agents & Phân quyền' },
                       { id: 'soul', label: 'SOUL.md', desc: 'Bản sắc, Tính cách & Ranh giới' },
                       { id: 'identity', label: 'IDENTITY.md', desc: 'Định danh, Model & Vibe' },
-                      { id: 'userPredefined', label: 'USER_PREDEFINED.md', desc: 'Bối cảnh người dùng & Input Schema' },
+                      { id: 'user', label: 'USER.md', desc: 'Ngữ cảnh người dùng (theo user)' },
+                      { id: 'userPredefined', label: 'USER_PREDEFINED.md', desc: 'Bối cảnh nghiệp vụ & Input Schema' },
                       { id: 'capabilities', label: 'CAPABILITIES.md', desc: 'Quy trình thực thi & Output Schema' },
                       { id: 'heartbeat', label: 'HEARTBEAT.md', desc: 'Checklist định kỳ' }
                     ].map(f => (
@@ -472,6 +478,7 @@ echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
                             agents: { content: goClawPkg.agentsMd, name: 'AGENTS.md' },
                             soul: { content: goClawPkg.soulMd, name: 'SOUL.md' },
                             identity: { content: goClawPkg.identityMd, name: 'IDENTITY.md' },
+                            user: { content: goClawPkg.userMd, name: 'USER.md' },
                             userPredefined: { content: goClawPkg.userPredefinedMd, name: 'USER_PREDEFINED.md' },
                             capabilities: { content: goClawPkg.capabilitiesMd, name: 'CAPABILITIES.md' },
                             heartbeat: { content: goClawPkg.heartbeatMd, name: 'HEARTBEAT.md' }
@@ -491,6 +498,7 @@ echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
                             agents: { content: goClawPkg.agentsMd, name: 'AGENTS.md' },
                             soul: { content: goClawPkg.soulMd, name: 'SOUL.md' },
                             identity: { content: goClawPkg.identityMd, name: 'IDENTITY.md' },
+                            user: { content: goClawPkg.userMd, name: 'USER.md' },
                             userPredefined: { content: goClawPkg.userPredefinedMd, name: 'USER_PREDEFINED.md' },
                             capabilities: { content: goClawPkg.capabilitiesMd, name: 'CAPABILITIES.md' },
                             heartbeat: { content: goClawPkg.heartbeatMd, name: 'HEARTBEAT.md' }
@@ -522,6 +530,7 @@ echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
                     {activeGoclawFile === 'agents' && goClawPkg.agentsMd}
                     {activeGoclawFile === 'soul' && goClawPkg.soulMd}
                     {activeGoclawFile === 'identity' && goClawPkg.identityMd}
+                    {activeGoclawFile === 'user' && goClawPkg.userMd}
                     {activeGoclawFile === 'userPredefined' && goClawPkg.userPredefinedMd}
                     {activeGoclawFile === 'capabilities' && goClawPkg.capabilitiesMd}
                     {activeGoclawFile === 'heartbeat' && goClawPkg.heartbeatMd}

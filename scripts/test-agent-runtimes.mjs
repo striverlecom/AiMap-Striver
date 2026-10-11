@@ -151,22 +151,40 @@ Nội dung báo giá gồm 3 gói: Starter, Pro, Enterprise.
 
   console.log('\n--- BƯỚC 1: KIỂM TRA CHẾ ĐỘ 1 - GOCLAW.SH / OPENCLAW ---')
   const goclawPkg = generateGoClawPackage(prdSample, siSample)
+  console.log('✓ AGENTS.md độ dài:', goclawPkg.agentsMd.length, 'ký tự')
   console.log('✓ SOUL.md độ dài:', goclawPkg.soulMd.length, 'ký tự')
-  console.log('✓ INSTRUCTIONS.md độ dài:', goclawPkg.instructionsMd.length, 'ký tự')
-  console.log('✓ config.yaml độ dài:', goclawPkg.configYaml.length, 'ký tự')
-  console.log('✓ tools.json độ dài:', goclawPkg.toolsJson.length, 'ký tự')
+  console.log('✓ IDENTITY.md độ dài:', goclawPkg.identityMd.length, 'ký tự')
+  console.log('✓ USER.md độ dài:', goclawPkg.userMd.length, 'ký tự')
+  console.log('✓ USER_PREDEFINED.md độ dài:', goclawPkg.userPredefinedMd.length, 'ký tự')
+  console.log('✓ CAPABILITIES.md độ dài:', goclawPkg.capabilitiesMd.length, 'ký tự')
+  console.log('✓ HEARTBEAT.md độ dài:', goclawPkg.heartbeatMd.length, 'ký tự')
 
-  // Kiểm tra tính hợp lệ của tools.json
+  // Kiểm tra tính hợp lệ của goclaw-agent.json (import package)
   try {
-    const parsedTools = JSON.parse(goclawPkg.toolsJson)
-    if (!Array.isArray(parsedTools.tools) || parsedTools.tools.length === 0) {
-      throw new Error('tools.json thiếu mảng tools')
+    const parsedPkg = JSON.parse(goclawPkg.importJson)
+    if (!parsedPkg.name || !parsedPkg.files) {
+      throw new Error('importJson thiếu name hoặc files')
     }
-    console.log('✓ tools.json PARSE THÀNH CÔNG! Số tool:', parsedTools.tools.length)
-    console.log('  Tool name:', parsedTools.tools[0].name)
-    console.log('  Parameters properties:', Object.keys(parsedTools.tools[0].parameters?.properties || {}))
+    const expectedFiles = [
+      'AGENTS.md',
+      'SOUL.md',
+      'IDENTITY.md',
+      'USER.md',
+      'USER_PREDEFINED.md',
+      'CAPABILITIES.md',
+      'HEARTBEAT.md'
+    ]
+    for (const f of expectedFiles) {
+      if (!parsedPkg.files[f] || typeof parsedPkg.files[f] !== 'string') {
+        throw new Error(`importJson thiếu file ${f}`)
+      }
+    }
+    console.log('✓ goclaw-agent.json PARSE THÀNH CÔNG! Đầy đủ 7 files chuẩn:', Object.keys(parsedPkg.files))
+    console.log('  Agent Name:', parsedPkg.name)
+    console.log('  Model:', parsedPkg.model)
+    console.log('  Autonomy tier:', parsedPkg.autonomy?.tier)
   } catch (e) {
-    console.error('❌ LỖI tools.json:', e.message)
+    console.error('❌ LỖI goclaw-agent.json:', e.message)
     process.exit(1)
   }
 

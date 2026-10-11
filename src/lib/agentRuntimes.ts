@@ -91,6 +91,7 @@ export interface GoClawPackage {
   agentsMd: string
   soulMd: string
   identityMd: string
+  userMd: string
   userPredefinedMd: string
   capabilitiesMd: string
   heartbeatMd: string
@@ -137,7 +138,16 @@ ${mainAgent?.criteria || '- Tuyệt đối không tự suy diễn số liệu kh
 - **Cấp độ tự chủ (Autonomy Tier):** L1 / L2 (Human-in-the-loop qua Telegram/Webhook)
 `
 
-  // 4. USER_PREDEFINED.md (Bối cảnh người dùng, đầu vào & KPI)
+  // 4. USER.md (Định nghĩa ngữ cảnh người dùng / khách hàng mục tiêu)
+  const userMd = `# USER.md - Ngữ Cảnh Người Dùng (Theo Người Dùng)
+
+- **Đối tượng tương tác:** Khách hàng, đối tác hoặc nhân sự nội bộ cần xử lý nghiệp vụ: ${title}
+- **Kênh tiếp nhận:** Webhook, Zalo OA, Telegram, Website Form
+- **Ngôn ngữ ưu tiên:** Tiếng Việt (chuẩn mực, ngắn gọn, xúc tích)
+- **Cơ chế ghi nhớ:** Giữ phiên hội thoại theo session_id hoặc user_id.
+`
+
+  // 5. USER_PREDEFINED.md (Bối cảnh nghiệp vụ, Input Schema & KPI)
   const userPredefinedMd = `# USER_PREDEFINED.md - Bối Cảnh Nghiệp Vụ & Dữ Liệu Mục Tiêu
 
 ## 1. MỤC TIÊU NGHIỆP VỤ
@@ -156,7 +166,7 @@ ${inputSchema}
 - Cơ chế leo thang: Chuyển nhân sự khi khách khiếu nại hoặc dữ liệu thiếu
 `
 
-  // 5. CAPABILITIES.md (Năng lực, Quy trình thực thi & Output Schema)
+  // 6. CAPABILITIES.md (Năng lực, Quy trình thực thi & Output Schema)
   const capabilitiesMd = `# CAPABILITIES.md - Năng Lực, Quy Trình Xử Lý & Schema Đầu Ra
 
 ## 1. QUY TRÌNH THỰC THI (STEP-BY-STEP WORKFLOW)
@@ -179,7 +189,7 @@ ${outputSchema}
 \`\`\`
 `
 
-  // 6. HEARTBEAT.md (Kiểm tra định kỳ & xử lý tồn đọng)
+  // 7. HEARTBEAT.md (Kiểm tra định kỳ & xử lý tồn đọng)
   const heartbeatMd = `# HEARTBEAT.md - Tác Vụ Định Kỳ & Kiểm Soát Ngoại Lệ
 
 ## 1. CHU KỲ KIỂM TRA (HEARTBEAT CRON)
@@ -192,7 +202,7 @@ ${outputSchema}
 - [ ] Tự động chuyển tiếp cảnh báo khẩn cấp nếu gặp lỗi API hoặc Timeout.
 `
 
-  // 7. IMPORT JSON (Gói đóng gói 1-click cho nút "Import Agent" trên GoClaw)
+  // 8. IMPORT JSON (Gói đóng gói 1-click cho nút "Import Agent" trên GoClaw)
   const importJson = JSON.stringify({
     name: title,
     slug: `goclaw-${(title || 'agent').toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
@@ -208,6 +218,7 @@ ${outputSchema}
       "AGENTS.md": agentsMd,
       "SOUL.md": soulMd,
       "IDENTITY.md": identityMd,
+      "USER.md": userMd,
       "USER_PREDEFINED.md": userPredefinedMd,
       "CAPABILITIES.md": capabilitiesMd,
       "HEARTBEAT.md": heartbeatMd
@@ -224,7 +235,8 @@ agent/
 ├── AGENTS.md            # Danh sách Agent và phân quyền trách nhiệm
 ├── SOUL.md              # Định danh, tính cách, giới hạn thẩm quyền
 ├── IDENTITY.md          # Tên Agent, model và phong cách
-├── USER_PREDEFINED.md   # Bối cảnh người dùng và Input Schema
+├── USER.md              # Ngữ cảnh người dùng (theo người dùng)
+├── USER_PREDEFINED.md   # Bối cảnh nghiệp vụ và Input Schema
 ├── CAPABILITIES.md      # Quy trình thực thi & Output JSON Schema
 ├── HEARTBEAT.md         # Checklist tác vụ chạy định kỳ
 └── goclaw-import.json   # File nhập 1-click vào GoClaw
@@ -240,6 +252,9 @@ ${soulMd}
 ==================== IDENTITY.md ====================
 ${identityMd}
 
+==================== USER.md ====================
+${userMd}
+
 ==================== USER_PREDEFINED.md ====================
 ${userPredefinedMd}
 
@@ -254,6 +269,7 @@ ${heartbeatMd}
     agentsMd,
     soulMd,
     identityMd,
+    userMd,
     userPredefinedMd,
     capabilitiesMd,
     heartbeatMd,
