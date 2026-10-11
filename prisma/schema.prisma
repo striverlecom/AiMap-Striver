@@ -26,6 +26,7 @@ model User {
   day7Data   Day7Data?
   day8Data   Day8Data?
   day9Data   Day9Data?
+  consultingRequests ConsultingRequest[]
 }
 
 model Day1Data {
@@ -111,4 +112,19 @@ model Day9Data {
   siData    String @default("[]")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ConsultingRequest {
+  id        String   @id @default(cuid())
+  userId    String?
+  name      String
+  phone     String
+  company   String?
+  source    String   @default("general")
+  topic     String?
+  notes     String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id])
 }

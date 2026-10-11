@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import ConsultingCta from '@/components/ConsultingCta'
 
 export default function ResultsClient({ serverUser }: { serverUser: any }) {
   const user = serverUser || {}
@@ -340,6 +341,13 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
           </section>
 
         </div>
+
+        {/* HUMAN-IN-THE-LOOP CONSULTING CTA */}
+        <ConsultingCta
+          variant="roadmap"
+          source="results"
+          defaultTopic="Thẩm định Lộ trình 12 tháng & Bảng tính ROI"
+        />
         
         <div style={{ textAlign: 'center', marginTop: '3rem', paddingBottom: '2rem' }}>
           <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontStyle: 'italic' }}>Striver Le · "Đừng trả tiền để thử nghiệm. Hãy trả tiền cho kết quả."</p>

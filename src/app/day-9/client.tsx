@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { slugifyFileName } from '@/lib/prd'
 import type { SiItem } from '@/lib/systemInstruction'
+import ConsultingCta from '@/components/ConsultingCta'
 
 type Props = {
   prdCount: number
@@ -206,6 +207,13 @@ export default function Day9Client({ prdCount, initialItems, isConfigured }: Pro
           )}
         </>
       )}
+
+      {/* HUMAN-IN-THE-LOOP CONSULTING CTA */}
+      <ConsultingCta
+        variant="si"
+        source="day-9"
+        defaultTopic="Đấu nối System Instruction & Hạ tầng Agent"
+      />
     </div>
   )
 }
