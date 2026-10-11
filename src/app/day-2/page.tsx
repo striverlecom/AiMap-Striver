@@ -16,7 +16,7 @@ export default async function Day2Page() {
 
   const user = await prisma.user.findUnique({
     where: { id: payload.userId as string },
-    include: { day2Data: true }
+    include: { day1Data: true, day2Data: true }
   })
 
   if (!user || !user.isPaid) redirect('/payment')

@@ -4,13 +4,13 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 const QUESTIONS = [
-  { q: "Nhân viên mất nhiều thời gian cho công việc lặp lại?", hint: "Việc gì? Ai làm? Mấy giờ?" },
-  { q: "Tốc độ ra quyết định có bị chậm vì thiếu dữ liệu?", hint: "Quyết định gì? Chờ ai? Mấy ngày?" },
-  { q: "Khách hàng phản hồi có được xử lý nhanh chóng?", hint: "Bằng chứng cụ thể?" },
-  { q: "Quy trình nội bộ có gây nhầm lẫn / sai sót thường xuyên?", hint: "Bằng chứng cụ thể?" },
-  { q: "Đội ngũ có đang quá tải với công việc hành chính?", hint: "Bộ phận nào? Mấy % thời gian làm hành chính?" },
-  { q: "Dữ liệu có được tổ chức tốt và dễ truy cập?", hint: "Bằng chứng cụ thể?" },
-  { q: "Công ty có theo kịp đối thủ về mặt công nghệ?", hint: "Bằng chứng cụ thể?" }
+  { q: "Nhân sự mất nhiều thời gian cho tác vụ thủ công lặp lại?", hint: "Gõ báo giá, copy paste, lọc Excel, trả lời tin nhắn mẫu - Mấy giờ/ngày?" },
+  { q: "Dữ liệu giữa các khâu có bị đứt gãy, thiếu chính xác hoặc thất lạc?", hint: "Kho lệch số, quên đơn, mất bao lâu để tìm lại tài liệu/hợp đồng cũ?" },
+  { q: "Tốc độ phản hồi và chăm sóc khách hàng có bị chậm trễ?", hint: "Khách hỏi giá/hỗ trợ phải chờ bao lâu? Có bị sót tin nhắn khi đông khách?" },
+  { q: "Quy trình nội bộ có gây nhầm lẫn / sai sót thường xuyên?", hint: "Báo giá nhầm, giao nhầm hàng, thiếu bước kiểm tra chất lượng trước khi gửi?" },
+  { q: "Đội ngũ (hoặc Founder) có bị quá tải với các việc gõ phím / giấy tờ?", hint: "Dành mấy % thời gian cho việc hành chính thay vì tạo doanh thu?" },
+  { q: "Kiến thức và kinh nghiệm đang nằm trong đầu cá nhân, thiếu SOP chuẩn?", hint: "Nếu người đó nghỉ/bận thì khâu đó có bị tê liệt hoặc đình trệ không?" },
+  { q: "Khách hàng có phàn nàn vì quy trình của bạn chậm chạp hoặc thiếu chuyên nghiệp?", hint: "Có trường hợp khách hủy đơn hoặc không quay lại vì trải nghiệm chậm không?" }
 ]
 
 export default function Day1Client({ serverUser }: { serverUser: any }) {

@@ -23,9 +23,33 @@ export default function Day4Client({ serverUser }: { serverUser: any }) {
     } catch(e) {}
   }
 
+  let day1Top3: any[] = []
+  try {
+    day1Top3 = JSON.parse(serverUser?.day1Data?.top3Problems || '[]')
+  } catch(e) {}
+
   const [engines, setEngines] = useState(initialEngines)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+
+  const insertFromDay1 = (engineKey: 'acquisition'|'delivery'|'support', p: any) => {
+    setEngines(prev => ({
+      ...prev,
+      [engineKey]: [
+        ...prev[engineKey],
+        {
+          id: Date.now(),
+          step: p.problem || 'Quy trình mới',
+          assignee: p.victim || 'Nhân sự',
+          hours: parseFloat(p.hoursLost) || 4,
+          tools: 'Excel / Zalo / Thủ công',
+          issues: p.description || p.problem || '',
+          wastedTime: true,
+          qualityRisk: false
+        }
+      ]
+    }))
+  }
 
 
 
@@ -92,7 +116,26 @@ export default function Day4Client({ serverUser }: { serverUser: any }) {
         
         {(['acquisition', 'delivery', 'support'] as const).map(engineKey => (
           <div key={engineKey} className="glass-panel" style={{ marginBottom: '3rem' }}>
-            <h2 style={{ color: 'var(--success)', marginBottom: '1.5rem', fontSize: '1.25rem' }}>{engineTitles[engineKey]}</h2>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+              <h2 style={{ color: 'var(--success)', margin: 0, fontSize: '1.25rem' }}>{engineTitles[engineKey]}</h2>
+              {day1Top3.filter((p: any) => p.problem).length > 0 && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--muted)' }}>⚡ Chèn nhanh từ Ngày 1:</span>
+                  {day1Top3.filter((p: any) => p.problem).map((p: any, idx: number) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => insertFromDay1(engineKey, p)}
+                      className="btn-secondary"
+                      style={{ padding: '0.2rem 0.55rem', fontSize: '0.75rem', borderStyle: 'dashed', borderRadius: '4px' }}
+                      title="Bấm để tự động tạo một dòng mới với vấn đề này"
+                    >
+                      + {p.problem.length > 25 ? p.problem.slice(0, 25) + '...' : p.problem}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             
             <div style={{ overflowX: 'auto', width: '100%' }}>
               <table className="responsive-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
