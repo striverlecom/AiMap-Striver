@@ -17,6 +17,17 @@ export default function AdminClient() {
     if (savedKey) {
       setAdminKey(savedKey)
       fetchLeads(savedKey)
+    } else {
+      // Auto-unlock if user is already logged in as admin (e.g. striveraivn@gmail.com)
+      fetch('/api/admin/leads')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.leads) {
+            setLeads(data.leads)
+            setIsUnlocked(true)
+          }
+        })
+        .catch(() => {})
     }
   }, [])
 
