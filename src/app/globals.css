@@ -772,3 +772,12 @@ p {
   }
 }
 
+/* RAI AI Consultant Widget */
+.rai-chat-launcher {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 999999 !important;
+}
+
+

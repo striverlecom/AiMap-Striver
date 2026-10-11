@@ -3,9 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import {
-  MessageSquare,
   X,
-  Send,
   RotateCcw,
   Sparkles,
   ChevronDown,
@@ -47,7 +45,7 @@ const CONTEXT_GUIDES: Record<string, { title: string; subtitle: string; chips: s
     chips: [
       'Nên hỏi nhân viên thực thi những câu gì?',
       'Cách rút ra 5 phát hiện cốt lõi (Findings)?',
-      'Làm sao thu hẹp khoảng cách giữa sếp và nhân viên?'
+      'Làm sao thu hẹp khoảng cách sếp và nhân viên?'
     ]
   },
   '/day-4': {
@@ -82,7 +80,7 @@ const CONTEXT_GUIDES: Record<string, { title: string; subtitle: string; chips: s
     subtitle: 'Roadmap hành động & Quản trị thay đổi',
     chips: [
       'Phase 1 (30 ngày đầu) nên bắt đầu từ đâu?',
-      'Làm sao để nhân viên không sợ bị AI thay thế?',
+      'Làm sao để nhân viên không sợ AI thay thế?',
       'Khi nào nên chuyển sang tự động hóa cấp L2?'
     ]
   },
@@ -144,11 +142,10 @@ export default function RaiChatWidget() {
       if (saved) {
         setMessages(JSON.parse(saved))
       } else {
-        // Initial greeting
         const initialMsg: Message = {
           id: 'welcome',
           role: 'assistant',
-          content: `Xin chào! Tôi là **RAI** — Chuyên gia Tư vấn Cấp cao về Trí tuệ Nhân tạo & Kiến trúc sư Multi-Agent của hệ thống **AiMap-Striver**.\n\nTôi ở đây để đồng hành 1:1, giúp bạn tháo gỡ mọi vướng mắc và hoàn thành trọn vẹn **9 Ngày Chẩn đoán AI**.\n\nBạn đang làm đến phần nào, hoặc cần tôi hỗ trợ bước nào hôm nay?`,
+          content: `Xin chào! Tôi là **RAI** 🧭 — Chuyên gia Tư vấn Cấp cao về Trí tuệ Nhân tạo & Kiến trúc sư Multi-Agent của hệ thống **AiMap-Striver**.\n\nTôi ở đây để đồng hành 1:1, giúp bạn tháo gỡ mọi vướng mắc và hoàn thành trọn vẹn **9 Ngày Chẩn đoán AI**.\n\nBạn đang làm đến phần nào, hoặc cần tôi hỗ trợ bước nào hôm nay?`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
         setMessages([initialMsg])
@@ -174,10 +171,10 @@ export default function RaiChatWidget() {
     }
   }, [messages, isOpen, isLoading])
 
-  // Auto focus input when opened
+  // Focus input when opened
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 200)
+      setTimeout(() => inputRef.current?.focus(), 250)
     }
   }, [isOpen])
 
@@ -220,7 +217,7 @@ export default function RaiChatWidget() {
       }
 
       setMessages(prev => [...prev, assistantMsg])
-    } catch (err: any) {
+    } catch {
       const errorMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
@@ -252,63 +249,13 @@ export default function RaiChatWidget() {
     setTimeout(() => setCopiedId(null), 2000)
   }
 
-  // Apple-style formatting helper
-  const renderFormattedText = (text: string) => {
-    const lines = text.split('\n')
-    return lines.map((line, idx) => {
-      // Empty line
-      if (!line.trim()) {
-        return <div key={idx} className="h-2" />
-      }
-
-      // Headers (e.g. ### Header)
-      if (line.startsWith('### ')) {
-        return <p key={idx} className="font-semibold text-white mt-2 mb-1 text-[13.5px]">{line.replace('### ', '')}</p>
-      }
-      if (line.startsWith('## ')) {
-        return <p key={idx} className="font-bold text-white mt-2.5 mb-1 text-[14.5px]">{line.replace('## ', '')}</p>
-      }
-
-      // Bullet points
-      if (line.startsWith('- ') || line.startsWith('* ')) {
-        const content = line.substring(2)
-        return (
-          <div key={idx} className="flex items-start gap-2 my-0.5 pl-1">
-            <span className="text-[#86868b] mt-1 text-[10px]">•</span>
-            <span className="flex-1 text-[13px] leading-relaxed text-[#f5f5f7]">{parseInlineStyles(content)}</span>
-          </div>
-        )
-      }
-
-      // Numbered list
-      const numMatch = line.match(/^(\d+)\.\s+(.*)$/)
-      if (numMatch) {
-        return (
-          <div key={idx} className="flex items-start gap-2 my-0.5 pl-1">
-            <span className="text-[#86868b] text-[12px] font-medium">{numMatch[1]}.</span>
-            <span className="flex-1 text-[13px] leading-relaxed text-[#f5f5f7]">{parseInlineStyles(numMatch[2])}</span>
-          </div>
-        )
-      }
-
-      // Regular line
-      return (
-        <p key={idx} className="text-[13px] leading-relaxed text-[#f5f5f7] my-0.5">
-          {parseInlineStyles(line)}
-        </p>
-      )
-    })
-  }
-
   const parseInlineStyles = (str: string) => {
     const parts: React.ReactNode[] = []
     let remaining = str
     let keyIdx = 0
 
     while (remaining.length > 0) {
-      // Bold **text**
       const boldMatch = remaining.match(/\*\*(.*?)\*\*/)
-      // Code `code`
       const codeMatch = remaining.match(/`(.*?)`/)
 
       const firstMatchIndex = Math.min(
@@ -327,7 +274,7 @@ export default function RaiChatWidget() {
 
       if (boldMatch && boldMatch.index === firstMatchIndex) {
         parts.push(
-          <strong key={keyIdx++} className="font-semibold text-white">
+          <strong key={keyIdx++} style={{ fontWeight: 600, color: '#ffffff' }}>
             {boldMatch[1]}
           </strong>
         )
@@ -336,7 +283,15 @@ export default function RaiChatWidget() {
         parts.push(
           <code
             key={keyIdx++}
-            className="px-1.5 py-0.5 mx-0.5 rounded bg-white/10 text-emerald-300 font-mono text-[11px]"
+            style={{
+              padding: '2px 6px',
+              margin: '0 3px',
+              borderRadius: '4px',
+              background: 'rgba(255, 255, 255, 0.12)',
+              color: '#6ee7b7',
+              fontFamily: 'monospace',
+              fontSize: '11px'
+            }}
           >
             {codeMatch[1]}
           </code>
@@ -348,145 +303,392 @@ export default function RaiChatWidget() {
     return parts
   }
 
+  const renderFormattedText = (text: string) => {
+    const lines = text.split('\n')
+    return lines.map((line, idx) => {
+      if (!line.trim()) {
+        return <div key={idx} style={{ height: '8px' }} />
+      }
+
+      if (line.startsWith('### ')) {
+        return (
+          <p key={idx} style={{ fontWeight: 600, color: '#ffffff', marginTop: '8px', marginBottom: '4px', fontSize: '13.5px' }}>
+            {line.replace('### ', '')}
+          </p>
+        )
+      }
+      if (line.startsWith('## ')) {
+        return (
+          <p key={idx} style={{ fontWeight: 700, color: '#ffffff', marginTop: '10px', marginBottom: '4px', fontSize: '14.5px' }}>
+            {line.replace('## ', '')}
+          </p>
+        )
+      }
+
+      if (line.startsWith('- ') || line.startsWith('* ')) {
+        const content = line.substring(2)
+        return (
+          <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', margin: '2px 0', paddingLeft: '4px' }}>
+            <span style={{ color: '#86868b', marginTop: '4px', fontSize: '10px' }}>•</span>
+            <span style={{ flex: 1, fontSize: '13px', lineHeight: 1.55, color: '#f5f5f7' }}>{parseInlineStyles(content)}</span>
+          </div>
+        )
+      }
+
+      const numMatch = line.match(/^(\d+)\.\s+(.*)$/)
+      if (numMatch) {
+        return (
+          <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', margin: '2px 0', paddingLeft: '4px' }}>
+            <span style={{ color: '#86868b', fontSize: '12px', fontWeight: 500 }}>{numMatch[1]}.</span>
+            <span style={{ flex: 1, fontSize: '13px', lineHeight: 1.55, color: '#f5f5f7' }}>{parseInlineStyles(numMatch[2])}</span>
+          </div>
+        )
+      }
+
+      return (
+        <p key={idx} style={{ fontSize: '13px', lineHeight: 1.55, color: '#f5f5f7', margin: '2px 0' }}>
+          {parseInlineStyles(line)}
+        </p>
+      )
+    })
+  }
+
   return (
     <>
-      {/* ================= APPLE-STYLE LAUNCHER BUTTON ================= */}
-      <div className="fixed bottom-6 right-6 z-[9999] flex items-center gap-3">
-        {!isOpen && (
+      {/* ================= FIXED FLOATING LAUNCHER BUTTON ================= */}
+      {!isOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            zIndex: 999999,
+            display: 'flex',
+            alignItems: 'center'
+          }}
+        >
           <button
             onClick={() => setIsOpen(true)}
-            className="group flex items-center gap-3 pl-3.5 pr-4 py-2.5 rounded-full bg-[#121214]/90 hover:bg-[#1c1c20] text-white border border-white/15 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-2xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
             style={{
-              boxShadow: '0 16px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15)'
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '10px 18px 10px 14px',
+              borderRadius: '999px',
+              background: 'rgba(18, 18, 20, 0.92)',
+              color: '#ffffff',
+              border: '1px solid rgba(255, 255, 255, 0.18)',
+              boxShadow: '0 16px 42px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+              backdropFilter: 'blur(28px)',
+              WebkitBackdropFilter: 'blur(28px)',
+              cursor: 'pointer',
+              transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
             aria-label="Mở tư vấn cùng RAI"
           >
-            {/* Compass Icon with iridescent gradient */}
-            <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-emerald-400 p-[1.5px] shadow-sm">
-              <div className="w-full h-full rounded-full bg-[#0a0a0c] flex items-center justify-center">
-                <Compass className="w-4 h-4 text-emerald-300 animate-spin-slow" />
+            {/* Iridescent Compass Icon container */}
+            <div
+              style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '34px',
+                height: '34px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #6366f1, #a855f7, #34d399)',
+                padding: '2px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.4)'
+              }}
+            >
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '50%',
+                  background: '#0a0a0c',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Compass style={{ width: '18px', height: '18px', color: '#6ee7b7' }} />
               </div>
-              {/* Online pulsing green dot */}
-              <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 border border-black"></span>
-              </span>
+
+              {/* Pulsing Emerald Dot */}
+              <span
+                style={{
+                  position: 'absolute',
+                  top: '-1px',
+                  right: '-1px',
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  background: '#10b981',
+                  border: '2px solid #000000',
+                  boxShadow: '0 0 8px #10b981'
+                }}
+              />
             </div>
 
             {/* Label */}
-            <div className="flex flex-col text-left">
-              <span className="text-[13px] font-semibold tracking-tight text-white flex items-center gap-1.5">
-                Hỏi RAI <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-white/10 text-emerald-300 font-normal">AI Consultant</span>
-              </span>
-              <span className="text-[11px] text-[#86868b] leading-tight line-clamp-1 max-w-[150px]">
+            <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ fontSize: '13.5px', fontWeight: 600, color: '#ffffff', letterSpacing: '-0.01em' }}>
+                  Hỏi RAI
+                </span>
+                <span
+                  style={{
+                    fontSize: '10px',
+                    fontWeight: 500,
+                    padding: '2px 7px',
+                    borderRadius: '999px',
+                    background: 'rgba(52, 211, 153, 0.15)',
+                    color: '#6ee7b7',
+                    border: '1px solid rgba(52, 211, 153, 0.3)'
+                  }}
+                >
+                  AI Consultant
+                </span>
+              </div>
+              <span style={{ fontSize: '11px', color: '#86868b', lineHeight: 1.2, maxWidth: '160px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {currentGuide.title.split(':')[0]}
               </span>
             </div>
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* ================= CHAT WINDOW (FROSTED GLASS MODAL) ================= */}
+      {/* ================= FIXED FROSTED GLASS CHAT WINDOW ================= */}
       {isOpen && (
         <div
-          className="fixed bottom-6 right-6 z-[9999] w-[92vw] sm:w-[420px] h-[85vh] sm:h-[620px] max-h-[720px] flex flex-col rounded-[26px] bg-[#121214]/88 border border-white/15 shadow-[0_24px_70px_rgba(0,0,0,0.7)] backdrop-blur-3xl overflow-hidden animate-in fade-in zoom-in-95 duration-200"
           style={{
-            boxShadow: '0 30px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.2)'
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            zIndex: 999999,
+            width: 'calc(100vw - 32px)',
+            maxWidth: '420px',
+            height: '82vh',
+            maxHeight: '640px',
+            display: 'flex',
+            flexDirection: 'column',
+            borderRadius: '24px',
+            background: 'rgba(18, 18, 20, 0.92)',
+            border: '1px solid rgba(255, 255, 255, 0.16)',
+            boxShadow: '0 30px 80px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+            backdropFilter: 'blur(36px)',
+            WebkitBackdropFilter: 'blur(36px)',
+            overflow: 'hidden',
+            fontFamily: 'var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
           }}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3.5 border-b border-white/10 bg-white/[0.02]">
-            <div className="flex items-center gap-3">
-              <div className="relative flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-emerald-400 p-[1.5px]">
-                <div className="w-full h-full rounded-full bg-[#0a0a0c] flex items-center justify-center">
-                  <Compass className="w-4.5 h-4.5 text-emerald-300" />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '14px 16px',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'rgba(255, 255, 255, 0.02)'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div
+                style={{
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #6366f1, #a855f7, #34d399)',
+                  padding: '2px'
+                }}
+              >
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    background: '#0a0a0c',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <Compass style={{ width: '18px', height: '18px', color: '#6ee7b7' }} />
                 </div>
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-[#121214]" />
+                <span
+                  style={{
+                    position: 'absolute',
+                    bottom: '0',
+                    right: '0',
+                    width: '9px',
+                    height: '9px',
+                    borderRadius: '50%',
+                    background: '#10b981',
+                    border: '2px solid #121214'
+                  }}
+                />
               </div>
 
               <div>
-                <div className="flex items-center gap-1.5">
-                  <h3 className="text-[14px] font-semibold text-white tracking-tight">RAI</h3>
-                  <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#ffffff', margin: 0 }}>RAI</h3>
+                  <span
+                    style={{
+                      fontSize: '10px',
+                      fontWeight: 600,
+                      padding: '2px 7px',
+                      borderRadius: '999px',
+                      background: 'rgba(16, 185, 129, 0.15)',
+                      color: '#34d399',
+                      border: '1px solid rgba(16, 185, 129, 0.3)'
+                    }}
+                  >
                     Consultant
                   </span>
                 </div>
-                <p className="text-[11px] text-[#86868b] line-clamp-1">
+                <p style={{ fontSize: '11px', color: '#86868b', margin: 0, lineHeight: 1.2 }}>
                   Đồng hành chẩn đoán 9 Ngày
                 </p>
               </div>
             </div>
 
             {/* Header controls */}
-            <div className="flex items-center gap-1">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <button
                 onClick={handleReset}
                 title="Làm mới cuộc trò chuyện"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-[#86868b] hover:text-white hover:bg-white/10 transition-colors"
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#86868b',
+                  cursor: 'pointer'
+                }}
               >
-                <RotateCcw className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={() => setIsOpen(false)}
-                title="Thu nhỏ"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-[#86868b] hover:text-white hover:bg-white/10 transition-colors"
-              >
-                <ChevronDown className="w-4 h-4" />
+                <RotateCcw style={{ width: '15px', height: '15px' }} />
               </button>
               <button
                 onClick={() => setIsOpen(false)}
                 title="Đóng"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-[#86868b] hover:text-white hover:bg-white/10 transition-colors"
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#86868b',
+                  cursor: 'pointer'
+                }}
               >
-                <X className="w-4 h-4" />
+                <X style={{ width: '16px', height: '16px' }} />
               </button>
             </div>
           </div>
 
-          {/* Context pill alert */}
-          <div className="px-4 py-2 bg-gradient-to-r from-emerald-500/10 via-indigo-500/10 to-transparent border-b border-white/5 flex items-center gap-2">
-            <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <div className="flex-1 text-[11px] text-[#a1a1aa] line-clamp-1">
-              <strong className="text-white font-medium">{currentGuide.title}</strong>
-              <span className="text-[#71717a] ml-1.5">({currentGuide.subtitle})</span>
+          {/* Context pill banner */}
+          <div
+            style={{
+              padding: '8px 16px',
+              background: 'linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(99, 102, 241, 0.08), transparent)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
+          >
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: '#34d399',
+                display: 'inline-block',
+                boxShadow: '0 0 6px #34d399'
+              }}
+            />
+            <div style={{ flex: 1, fontSize: '11px', color: '#a1a1aa', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              <strong style={{ color: '#ffffff', fontWeight: 600 }}>{currentGuide.title}</strong>
+              <span style={{ color: '#71717a', marginLeft: '6px' }}>({currentGuide.subtitle})</span>
             </div>
           </div>
 
-          {/* Messages scroll area */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3.5 custom-scrollbar">
+          {/* Messages scroll container */}
+          <div
+            style={{
+              flex: 1,
+              overflowY: 'auto',
+              padding: '16px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '14px'
+            }}
+          >
             {messages.map((m) => {
               const isAssistant = m.role === 'assistant'
               return (
                 <div
                   key={m.id}
-                  className={`flex flex-col ${isAssistant ? 'items-start' : 'items-end'}`}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: isAssistant ? 'flex-start' : 'flex-end'
+                  }}
                 >
-                  <div className="flex items-end gap-1.5 max-w-[88%] group">
-                    {/* Bubble */}
+                  <div style={{ maxWidth: '88%' }}>
+                    {/* Message Bubble */}
                     <div
-                      className={`relative px-3.5 py-2.5 rounded-[18px] text-[13px] ${
-                        isAssistant
-                          ? 'bg-[#1c1c20]/95 text-[#f5f5f7] border border-white/10 rounded-bl-sm shadow-sm'
-                          : 'bg-gradient-to-r from-neutral-800 to-neutral-700 text-white rounded-br-sm border border-white/10 shadow-sm'
-                      }`}
+                      style={{
+                        padding: '10px 14px',
+                        borderRadius: isAssistant ? '16px 16px 16px 4px' : '16px 16px 4px 16px',
+                        fontSize: '13px',
+                        background: isAssistant ? 'rgba(28, 28, 32, 0.95)' : 'linear-gradient(135deg, #38383e, #28282c)',
+                        color: '#f5f5f7',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.25)'
+                      }}
                     >
                       {renderFormattedText(m.content)}
 
-                      {/* Assistant copy action button */}
+                      {/* Copy action */}
                       {isAssistant && m.id !== 'welcome' && (
-                        <div className="flex justify-end mt-1 pt-1 border-t border-white/5">
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            marginTop: '6px',
+                            paddingTop: '4px',
+                            borderTop: '1px solid rgba(255, 255, 255, 0.06)'
+                          }}
+                        >
                           <button
                             onClick={() => handleCopy(m.id, m.content)}
-                            className="flex items-center gap-1 text-[10px] text-[#71717a] hover:text-white transition-colors"
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                              fontSize: '10px',
+                              color: '#71717a',
+                              cursor: 'pointer'
+                            }}
                           >
                             {copiedId === m.id ? (
                               <>
-                                <Check className="w-3 h-3 text-emerald-400" />
-                                <span className="text-emerald-400">Đã chép</span>
+                                <Check style={{ width: '12px', height: '12px', color: '#34d399' }} />
+                                <span style={{ color: '#34d399' }}>Đã chép</span>
                               </>
                             ) : (
                               <>
-                                <Copy className="w-3 h-3" />
+                                <Copy style={{ width: '12px', height: '12px' }} />
                                 <span>Sao chép</span>
                               </>
                             )}
@@ -496,40 +698,83 @@ export default function RaiChatWidget() {
                     </div>
                   </div>
 
-                  <span className="text-[10px] text-[#71717a] mt-1 px-1">
+                  <span style={{ fontSize: '10px', color: '#71717a', marginTop: '3px', padding: '0 4px' }}>
                     {m.timestamp}
                   </span>
                 </div>
               )
             })}
 
-            {/* Typing indicator */}
+            {/* Loading typing indicator */}
             {isLoading && (
-              <div className="flex items-center gap-1.5 px-4 py-3 rounded-[18px] bg-[#1c1c20]/80 border border-white/10 w-fit">
-                <span className="text-[11px] text-[#86868b] mr-1.5 flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-emerald-400 animate-pulse" /> RAI đang suy nghĩ
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-bounce" style={{ animationDelay: '0ms' }} />
-                <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-bounce" style={{ animationDelay: '150ms' }} />
-                <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-bounce" style={{ animationDelay: '300ms' }} />
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 14px',
+                  borderRadius: '16px 16px 16px 4px',
+                  background: 'rgba(28, 28, 32, 0.85)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  width: 'fit-content'
+                }}
+              >
+                <Sparkles style={{ width: '14px', height: '14px', color: '#34d399' }} />
+                <span style={{ fontSize: '11px', color: '#86868b' }}>RAI đang suy nghĩ...</span>
               </div>
             )}
 
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Context Quick Chips */}
-          <div className="px-3 pt-2 pb-1 border-t border-white/5 bg-white/[0.01]">
-            <p className="text-[10px] font-medium text-[#71717a] mb-1.5 px-1 uppercase tracking-wider flex items-center gap-1">
-              <Sparkles className="w-2.5 h-2.5 text-emerald-400" /> Gợi ý câu hỏi nhanh:
+          {/* Quick chips bar */}
+          <div
+            style={{
+              padding: '8px 12px',
+              borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+              background: 'rgba(255, 255, 255, 0.01)'
+            }}
+          >
+            <p
+              style={{
+                fontSize: '10px',
+                fontWeight: 600,
+                color: '#71717a',
+                margin: '0 0 6px 4px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px'
+              }}
+            >
+              <Sparkles style={{ width: '10px', height: '10px', color: '#34d399' }} />
+              Gợi ý câu hỏi nhanh:
             </p>
-            <div className="flex gap-1.5 overflow-x-auto pb-1.5 no-scrollbar">
+            <div
+              style={{
+                display: 'flex',
+                gap: '6px',
+                overflowX: 'auto',
+                paddingBottom: '4px'
+              }}
+            >
               {currentGuide.chips.map((chip, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSend(chip)}
                   disabled={isLoading}
-                  className="whitespace-nowrap px-2.5 py-1 rounded-full text-[11px] text-[#a1a1aa] hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all active:scale-95 disabled:opacity-50"
+                  style={{
+                    whiteSpace: 'nowrap',
+                    padding: '5px 12px',
+                    borderRadius: '999px',
+                    fontSize: '11px',
+                    color: '#d4d4d8',
+                    background: 'rgba(255, 255, 255, 0.07)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease'
+                  }}
                 >
                   {chip}
                 </button>
@@ -543,9 +788,13 @@ export default function RaiChatWidget() {
               e.preventDefault()
               handleSend()
             }}
-            className="p-3 bg-black/40 border-t border-white/10"
+            style={{
+              padding: '12px',
+              background: 'rgba(0, 0, 0, 0.45)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)'
+            }}
           >
-            <div className="relative flex items-center">
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
               <input
                 ref={inputRef}
                 type="text"
@@ -553,21 +802,43 @@ export default function RaiChatWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Hỏi RAI về Ngày chẩn đoán, PRD, ROI..."
                 disabled={isLoading}
-                className="w-full pl-4 pr-11 py-2.5 rounded-full bg-white/10 focus:bg-white/15 text-white placeholder-[#71717a] text-[13px] border border-white/10 focus:border-white/30 focus:outline-none transition-all disabled:opacity-50"
                 style={{
-                  boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.4)'
+                  width: '100%',
+                  padding: '10px 42px 10px 16px',
+                  borderRadius: '999px',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  color: '#ffffff',
+                  fontSize: '13px',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  outline: 'none',
+                  boxShadow: 'inset 0 1px 2px rgba(0, 0, 0, 0.4)'
                 }}
               />
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="absolute right-1.5 w-7 h-7 rounded-full bg-white text-black hover:bg-white/90 disabled:opacity-20 disabled:hover:bg-white flex items-center justify-center transition-all active:scale-90"
+                style={{
+                  position: 'absolute',
+                  right: '6px',
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '50%',
+                  background: '#ffffff',
+                  color: '#000000',
+                  border: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: input.trim() && !isLoading ? 'pointer' : 'default',
+                  opacity: input.trim() && !isLoading ? 1 : 0.25,
+                  transition: 'opacity 0.2s'
+                }}
               >
-                <ArrowUp className="w-4 h-4 stroke-[2.5]" />
+                <ArrowUp style={{ width: '15px', height: '15px', strokeWidth: 2.5 }} />
               </button>
             </div>
-            <p className="text-[10px] text-center text-[#52525b] mt-1.5">
-              RAI phản hồi dựa trên cấu trúc chuẩn của hệ thống Striver
+            <p style={{ fontSize: '10px', textAlign: 'center', color: '#52525b', margin: '6px 0 0 0' }}>
+              RAI tư vấn dựa trên cấu trúc chuẩn của hệ thống Striver
             </p>
           </form>
         </div>
