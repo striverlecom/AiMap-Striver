@@ -14,6 +14,7 @@ import {
   safeJsonParse,
   type PrdItem
 } from '@/lib/prd'
+import { getGeminiApiKey } from '@/lib/geminiConfig'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 60
@@ -155,7 +156,7 @@ export async function POST(req: Request) {
 
   const openAiApiKey = process.env.OPENAI_API_KEY
   const vectorStoreId = process.env.OPENAI_PRD_VECTOR_STORE_ID
-  const geminiApiKey = process.env.GEMINI_API_KEY
+  const geminiApiKey = getGeminiApiKey()
 
   if (!['gemini', 'openai'].includes(PROVIDER)) {
     return NextResponse.json({ error: 'Invalid PRD_PROVIDER. Use gemini or openai.' }, { status: 500 })

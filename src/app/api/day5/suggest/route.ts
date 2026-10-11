@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma'
 import { decrypt } from '@/lib/auth'
 import { safeJsonParse } from '@/lib/prd'
 import { generateGeminiText, getPublicGenerationError, withGenerationTimeout } from '@/lib/geminiPrd'
+import { getGeminiApiKey } from '@/lib/geminiConfig'
 
 export const dynamic = 'force-dynamic'
 export const maxDuration = 60
@@ -145,7 +146,7 @@ export async function POST(req: Request) {
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   if (!user.isPaid) return NextResponse.json({ error: 'Payment required' }, { status: 402 })
 
-  const apiKey = process.env.GEMINI_API_KEY
+  const apiKey = getGeminiApiKey()
   if (!apiKey) {
     return NextResponse.json({ error: 'Gemini chưa được cấu hình. Thiếu GEMINI_API_KEY.' }, { status: 500 })
   }
