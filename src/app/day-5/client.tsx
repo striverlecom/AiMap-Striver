@@ -129,12 +129,12 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
             <thead>
               <tr style={{ borderBottom: '1px solid var(--card-border)' }}>
                 <th style={{ padding: '1rem', color: 'var(--muted)', width: '25%' }}>Vấn đề (Từ N4)</th>
-                <th style={{ padding: '1rem', color: 'var(--muted)' }}>Giải pháp AI đề xuất</th>
+                <th style={{ padding: '1rem', color: 'var(--muted)' }}>Giải pháp đề xuất & Lời khuyên</th>
                 <th style={{ padding: '1rem', color: 'var(--muted)', width: '120px', textAlign: 'center' }}>NV x Giờ/tuần lãng phí</th>
                 <th style={{ padding: '1rem', color: 'var(--muted)', width: '100px', textAlign: 'center' }}>Tác động<br/>(1-5)</th>
                 <th style={{ padding: '1rem', color: 'var(--muted)', width: '100px', textAlign: 'center' }}>Khó khăn<br/>(1-5)</th>
                 <th style={{ padding: '1rem', color: 'var(--muted)', width: '120px', textAlign: 'center' }}>Trạng thái</th>
-                <th style={{ padding: '1rem', color: 'var(--muted)', width: '80px', textAlign: 'center' }}>Top 3</th>
+                <th style={{ padding: '1rem', color: 'var(--muted)', width: '100px', textAlign: 'center' }}>Top 3 AI</th>
               </tr>
             </thead>
             <tbody>
@@ -142,15 +142,34 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
                 <tr><td colSpan={7} style={{ padding: '2rem', textAlign: 'center', color: 'var(--muted)' }}>Không tìm thấy vấn đề nào từ Ngày 4. Vui lòng quay lại Ngày 4 để điền "Vấn đề".</td></tr>
               ) : solutions.map((row) => {
                 const cat = getCategory(row.impact, row.effort)
+                const isProcessOnly = row.solutionType === 'process_only'
                 return (
-                  <tr key={row.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', background: row.isTop3 ? 'rgba(0, 255, 0, 0.05)' : 'transparent' }}>
+                  <tr key={row.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', background: row.isTop3 ? 'rgba(0, 255, 0, 0.05)' : (isProcessOnly ? 'rgba(255, 179, 0, 0.02)' : 'transparent') }}>
                     <td style={{ padding: '1rem 0.5rem', fontSize: '0.9rem' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Vấn đề (Từ N4):</div>
-                      <div style={{ padding: '8px 0' }}>{row.problem}</div>
+                      <div style={{ padding: '8px 0', fontWeight: 500 }}>{row.problem}</div>
                     </td>
                     <td style={{ padding: '1rem 0.5rem' }}>
-                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Giải pháp AI đề xuất:</div>
-                      <input className="input-field" style={{ padding: '12px 16px' }} placeholder="VD: ChatGPT Plus..." value={row.solution} onChange={e => updateRow(row.id, 'solution', e.target.value)} />
+                      <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px'}}>Giải pháp đề xuất:</div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        <div>
+                          {isProcessOnly ? (
+                            <span style={{ fontSize: '0.75rem', padding: '3px 8px', borderRadius: '6px', background: 'rgba(255, 179, 0, 0.15)', color: '#ffb300', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                              🛡️ Tối ưu Quy trình (Không cần AI)
+                            </span>
+                          ) : (
+                            <span style={{ fontSize: '0.75rem', padding: '3px 8px', borderRadius: '6px', background: 'rgba(10, 132, 255, 0.15)', color: '#0a84ff', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                              ⚡ AI Solution
+                            </span>
+                          )}
+                        </div>
+                        <input className="input-field" style={{ padding: '10px 14px' }} placeholder="VD: AI Chấm Lead..." value={row.solution} onChange={e => updateRow(row.id, 'solution', e.target.value)} />
+                        {row.notes && (
+                          <div style={{ fontSize: '0.8rem', color: 'var(--muted)', lineHeight: 1.4, fontStyle: 'italic', background: 'rgba(255,255,255,0.02)', padding: '6px 10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                            💡 {row.notes}
+                          </div>
+                        )}
+                      </div>
                     </td>
                     <td style={{ padding: '1rem 0.5rem', textAlign: 'center', color: 'var(--warning)', fontWeight: 600 }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '4px', textAlign: 'left'}}>Giờ/tuần lãng phí:</div>
@@ -170,24 +189,30 @@ export default function Day5Client({ serverUser }: { serverUser: any }) {
                     </td>
                     <td style={{ padding: '1rem 0.5rem', textAlign: 'center' }}>
                       <div className="mobile-label" style={{display: 'none', color: 'var(--muted)', fontSize: '0.8rem', marginBottom: '8px', textAlign: 'left'}}>Hành động:</div>
-                      <button 
-                        onClick={() => updateRow(row.id, 'isTop3', !row.isTop3)}
-                        disabled={!row.isTop3 && top3Count >= 3}
-                        style={{
-                          width: '100%',
-                          minHeight: '44px',
-                          borderRadius: '12px',
-                          border: row.isTop3 ? '1px solid var(--success)' : '1px solid var(--card-border)',
-                          background: row.isTop3 ? 'rgba(50, 215, 75, 0.1)' : 'transparent',
-                          color: row.isTop3 ? 'var(--success)' : 'var(--muted)',
-                          fontWeight: 600,
-                          fontSize: '0.9rem',
-                          cursor: !row.isTop3 && top3Count >= 3 ? 'not-allowed' : 'pointer',
-                          transition: 'all 0.2s'
-                        }}
-                      >
-                        {row.isTop3 ? '✅ Đã đưa vào Top 3' : (top3Count >= 3 ? 'Đã khoá (Đủ 3)' : '+ Chọn vào Top 3')}
-                      </button>
+                      {isProcessOnly ? (
+                        <div style={{ fontSize: '0.75rem', color: '#ffb300', padding: '6px', background: 'rgba(255, 179, 0, 0.08)', borderRadius: '8px', border: '1px dashed rgba(255, 179, 0, 0.3)', lineHeight: 1.3 }}>
+                          Chuẩn hóa SOP trước
+                        </div>
+                      ) : (
+                        <button 
+                          onClick={() => updateRow(row.id, 'isTop3', !row.isTop3)}
+                          disabled={!row.isTop3 && top3Count >= 3}
+                          style={{
+                            width: '100%',
+                            minHeight: '44px',
+                            borderRadius: '12px',
+                            border: row.isTop3 ? '1px solid var(--success)' : '1px solid var(--card-border)',
+                            background: row.isTop3 ? 'rgba(50, 215, 75, 0.1)' : 'transparent',
+                            color: row.isTop3 ? 'var(--success)' : 'var(--muted)',
+                            fontWeight: 600,
+                            fontSize: '0.85rem',
+                            cursor: !row.isTop3 && top3Count >= 3 ? 'not-allowed' : 'pointer',
+                            transition: 'all 0.2s'
+                          }}
+                        >
+                          {row.isTop3 ? '✅ Đã chọn Top 3' : (top3Count >= 3 ? 'Đủ 3' : '+ Top 3 AI')}
+                        </button>
+                      )}
                     </td>
                   </tr>
                 )

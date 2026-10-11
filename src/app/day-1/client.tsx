@@ -69,10 +69,28 @@ export default function Day1Client({ serverUser }: { serverUser: any }) {
   }
 
   const getEvaluation = () => {
-    if (totalScore <= 14) return { text: "Tốt", color: "var(--success)" }
-    if (totalScore <= 25) return { text: "Trung bình", color: "#f5a623" }
-    return { text: "Cần AI gấp", color: "var(--error)" }
+    if (totalScore <= 14) {
+      return { 
+        text: "Nền tảng Sẵn Sàng Cao", 
+        color: "var(--success)",
+        desc: "Quy trình rõ ràng, ít tắc nghẽn. Ưu tiên tự động hóa các tác vụ lặp để giải phóng tối đa sức lao động."
+      }
+    }
+    if (totalScore <= 25) {
+      return { 
+        text: "Nền tảng Trung Bình", 
+        color: "#f5a623",
+        desc: "Có điểm nghẽn cục bộ. Khuyến nghị chỉ tập trung thí điểm 1-2 khâu lãng phí thời gian nhất, tránh làm AI dàn trải."
+      }
+    }
+    return { 
+      text: "Báo Động Quy Trình Nội Bộ", 
+      color: "var(--error)",
+      desc: "CẢNH BÁO: Quy trình còn phân tán hoặc giao việc miệng. Cần chuẩn hóa dữ liệu & SOP trước, CHƯA NÊN vội vã mua công cụ AI kẻo lãng phí ngân sách."
+    }
   }
+
+  const evalResult = getEvaluation()
 
   return (
     <div className="container" style={{ padding: '2rem' }}>
@@ -122,9 +140,12 @@ export default function Day1Client({ serverUser }: { serverUser: any }) {
           ))}
           
           <div style={{ background: 'var(--background)', padding: '2rem', borderRadius: 'var(--radius-md)', textAlign: 'center', marginTop: '2rem', border: '1px solid var(--card-border)' }}>
-            <h3>TỔNG ĐIỂM: <span style={{fontSize: '2.5rem', display: 'block', margin: '0.5rem 0'}}>{totalScore}</span></h3>
-            <p style={{ color: getEvaluation().color, fontWeight: 600, fontSize: '1.25rem' }}>ĐÁNH GIÁ: {getEvaluation().text}</p>
-            <p style={{ color: 'var(--muted)', fontSize: '0.85rem', marginTop: '0.5rem' }}>(7-14: Tốt | 15-25: Trung bình | 26-35: Cần AI gấp)</p>
+            <h3>TỔNG ĐIỂM SẴN SÀNG: <span style={{fontSize: '2.5rem', display: 'block', margin: '0.5rem 0', fontWeight: 700}}>{totalScore}<span style={{fontSize: '1.2rem', color: 'var(--muted)'}}>/35</span></span></h3>
+            <p style={{ color: evalResult.color, fontWeight: 700, fontSize: '1.25rem', marginBottom: '0.5rem' }}>ĐÁNH GIÁ: {evalResult.text}</p>
+            <p style={{ color: 'var(--foreground)', fontSize: '0.95rem', maxWidth: '650px', margin: '0 auto 1rem auto', lineHeight: 1.6 }}>{evalResult.desc}</p>
+            <p style={{ color: 'var(--muted)', fontSize: '0.8rem', borderTop: '1px dashed var(--card-border)', paddingTop: '0.75rem', marginTop: '0.5rem' }}>
+              Thang chuẩn: 7-14 (Sẵn sàng cao) | 15-25 (Trung bình) | 26-35 (Báo động quy trình, chuẩn hóa trước khi làm AI)
+            </p>
           </div>
         </section>
 
