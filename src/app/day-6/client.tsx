@@ -65,7 +65,11 @@ export default function Day6Client({ serverUser }: { serverUser: any }) {
     } catch(e) {}
   }
 
-  let rois: ROISolution[] = Array(3).fill(0).map((_, i) => {
+  const targetCount = savedRois.length > 0
+    ? savedRois.length
+    : (day5Top3.length > 0 ? day5Top3.length : 1);
+
+  let rois: ROISolution[] = Array(targetCount).fill(0).map((_, i) => {
     const existingDay6 = savedRois[i] || {};
     const d5Item = day5Top3[i] || {};
     
