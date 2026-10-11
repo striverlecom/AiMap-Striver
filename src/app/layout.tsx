@@ -45,6 +45,7 @@ export const metadata: Metadata = {
 import NavLinks from '@/components/NavLinks';
 import SubNav from '@/components/SubNav';
 import ScrollToTop from '@/components/ScrollToTop';
+import RaiChatWidget from '@/components/RaiChatWidget';
 
 export default async function RootLayout({
   children,
@@ -86,6 +87,7 @@ export default async function RootLayout({
         <main style={{ paddingTop: 'calc(48px + 16px)', paddingBottom: '10vh', minHeight: 'calc(100vh - 80px)' }}>
           {children}
         </main>
+        <RaiChatWidget />
       </body>
     </html>
   );
