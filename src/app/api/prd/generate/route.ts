@@ -179,9 +179,9 @@ export async function POST(req: Request) {
   const customUseCases = normalizeCustomUseCases(body?.customUseCases)
   const useCases = mode === 'custom' ? customUseCases : systemUseCases
 
-  if (mode === 'system' && (useCases.length !== 3 || !user.day6Data || !user.day7Data)) {
+  if (mode === 'system' && (useCases.length < 1 || useCases.length > 3 || !user.day6Data || !user.day7Data)) {
     return NextResponse.json({
-      error: 'Cần có đủ 3 use-case từ Ngày 5 và dữ liệu Ngày 6/7 trước khi tạo PRD.'
+      error: 'Cần chọn ít nhất 1 use-case từ Ngày 5 và có dữ liệu Ngày 6/7 trước khi tạo PRD.'
     }, { status: 400 })
   }
 
