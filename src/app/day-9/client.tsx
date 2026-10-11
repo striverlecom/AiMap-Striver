@@ -26,7 +26,7 @@ export default function Day9Client({ prdCount, prds, initialItems, isConfigured 
 
   // Runtime View States
   const [activeRuntime, setActiveRuntime] = useState<RuntimeTarget>('goclaw')
-  const [activeGoclawFile, setActiveGoclawFile] = useState<'soul' | 'instructions' | 'tools' | 'config' | 'readme'>('soul')
+  const [activeGoclawFile, setActiveGoclawFile] = useState<'soul' | 'agents' | 'instructions' | 'tools' | 'config' | 'readme'>('soul')
   const [copyNotice, setCopyNotice] = useState<string | null>(null)
 
   const activeItem = items.find(item => item.useCaseIndex === activeIndex) || items[0]
@@ -149,6 +149,10 @@ cat << 'EOF' > "$WORKSPACE/SOUL.md"
 ${goClawPkg.soulMd}
 EOF
 
+cat << 'EOF' > "$WORKSPACE/AGENTS.md"
+${goClawPkg.agentsMd}
+EOF
+
 cat << 'EOF' > "$WORKSPACE/INSTRUCTIONS.md"
 ${goClawPkg.instructionsMd}
 EOF
@@ -165,7 +169,7 @@ cat << 'EOF' > "$WORKSPACE/README.md"
 ${goClawPkg.readmeMd}
 EOF
 
-echo "✅ Đã tạo xong 5 file: SOUL.md, INSTRUCTIONS.md, tools.json, config.yaml, README.md"
+echo "✅ Đã tạo xong 6 file: SOUL.md, AGENTS.md, INSTRUCTIONS.md, tools.json, config.yaml, README.md"
 echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
 `
     downloadTextFile(script, `setup-goclaw-${slug}.sh`)
@@ -421,6 +425,7 @@ echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
                   <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
                     {[
                       { id: 'soul', label: 'SOUL.md', desc: 'Định danh, Persona & Guardrails' },
+                      { id: 'agents', label: 'AGENTS.md', desc: 'Danh sách Agents & Phân quyền' },
                       { id: 'instructions', label: 'INSTRUCTIONS.md', desc: 'Quy trình thực thi' },
                       { id: 'tools', label: 'tools.json', desc: 'Schema Input/Output' },
                       { id: 'config', label: 'config.yaml', desc: 'Cấu hình Gemini & Duyệt' },
@@ -450,6 +455,7 @@ echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
                         onClick={() => {
                           const contentMap: Record<string, { content: string, name: string }> = {
                             soul: { content: goClawPkg.soulMd, name: 'SOUL.md' },
+                            agents: { content: goClawPkg.agentsMd, name: 'AGENTS.md' },
                             instructions: { content: goClawPkg.instructionsMd, name: 'INSTRUCTIONS.md' },
                             tools: { content: goClawPkg.toolsJson, name: 'tools.json' },
                             config: { content: goClawPkg.configYaml, name: 'config.yaml' },
@@ -468,6 +474,7 @@ echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
                         onClick={() => {
                           const contentMap: Record<string, { content: string, name: string }> = {
                             soul: { content: goClawPkg.soulMd, name: 'SOUL.md' },
+                            agents: { content: goClawPkg.agentsMd, name: 'AGENTS.md' },
                             instructions: { content: goClawPkg.instructionsMd, name: 'INSTRUCTIONS.md' },
                             tools: { content: goClawPkg.toolsJson, name: 'tools.json' },
                             config: { content: goClawPkg.configYaml, name: 'config.yaml' },
@@ -498,6 +505,7 @@ echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
                     lineHeight: 1.6
                   }}>
                     {activeGoclawFile === 'soul' && goClawPkg.soulMd}
+                    {activeGoclawFile === 'agents' && goClawPkg.agentsMd}
                     {activeGoclawFile === 'instructions' && goClawPkg.instructionsMd}
                     {activeGoclawFile === 'tools' && goClawPkg.toolsJson}
                     {activeGoclawFile === 'config' && goClawPkg.configYaml}

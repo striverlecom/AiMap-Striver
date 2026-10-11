@@ -90,6 +90,7 @@ export function extractJsonSchemaFromPrd(prdMarkdown: string, schemaType: 'input
 export interface GoClawPackage {
   soulMd: string
   instructionsMd: string
+  agentsMd: string
   toolsJson: string
   configYaml: string
   readmeMd: string
@@ -110,7 +111,27 @@ ${mainAgent?.role || 'Bạn là AI Agent tự hành của Striver AI.'}
 ${mainAgent?.criteria || '- Luôn kiểm tra định dạng dữ liệu đầu vào.\n- Bắt buộc tuân thủ Output JSON Schema.'}
 `
 
-  const instructionsMd = `# INSTRUCTIONS.md - ${mainAgent?.agentName || title}
+  const agentsMd = `# AGENTS.md - Danh Sách Agents & Phân Quyền (${title})
+
+${agents.length > 0 
+  ? agents.map((ag, i) => `### ${i + 1}. ${ag.agentName}
+**Vai Trò:** ${ag.role || 'Xử lý tác vụ chuyên trách.'}
+**Nguyên Tắc / Tiêu Chí:** ${ag.criteria || 'Tuân thủ schema và giới hạn quyền.'}
+`).join('\n\n')
+  : `### 1. Agent Điều Phối Chính\n**Vai Trò:** Tự động hóa tác vụ theo PRD.\n`}
+`
+
+  const instructionsMd = agents.length > 1
+    ? `# INSTRUCTIONS.md - ${title}
+
+${agents.map((ag, i) => `## PHẦN ${i + 1}: ${ag.agentName}
+### 1. Quy Trình Thực Thi
+${ag.instructions || 'Tiếp nhận payload, xử lý và xuất JSON Schema.'}
+
+### 2. Ví Dụ Mẫu (Few-shot Examples)
+${ag.examples || 'Tham khảo tài liệu PRD.'}
+`).join('\n\n---\n\n')}`
+    : `# INSTRUCTIONS.md - ${mainAgent?.agentName || title}
 
 ## QUY TRÌNH THỰC THI (STEP-BY-STEP)
 ${mainAgent?.instructions || '1. Tiếp nhận payload từ webhook hoặc trigger.\n2. Bóc tách dữ liệu theo Input Schema.\n3. Xử lý tác vụ nghiệp vụ.\n4. Trả về kết quả theo Output Schema.'}
@@ -162,6 +183,7 @@ storage:
 \`\`\`
 agent/
 ├── SOUL.md           # Định danh, tính cách, giới hạn thẩm quyền
+├── AGENTS.md         # Danh mục Agent và phân quyền trách nhiệm
 ├── INSTRUCTIONS.md   # Quy trình thực thi tuần tự & xử lý ngoại lệ
 ├── tools.json        # Định nghĩa Input/Output Tool Schemas
 └── config.yaml       # Cấu hình Autonomy Tier (L1/L2) & Model Gemini 3.5
@@ -180,6 +202,9 @@ goclaw run --workspace .
   const allInOne = `==================== SOUL.md ====================
 ${soulMd}
 
+==================== AGENTS.md ====================
+${agentsMd}
+
 ==================== INSTRUCTIONS.md ====================
 ${instructionsMd}
 
@@ -190,7 +215,7 @@ ${toolsJson}
 ${configYaml}
 `
 
-  return { soulMd, instructionsMd, toolsJson, configYaml, readmeMd, allInOne }
+  return { soulMd, instructionsMd, agentsMd, toolsJson, configYaml, readmeMd, allInOne }
 }
 
 // -------------------------------------------------------------
@@ -236,7 +261,8 @@ export function generateN8nWorkflow(prd: PrdItem | undefined, si: SiItem | undef
       },
       {
         parameters: {
-          model: "gemini-2.0-flash", // n8n native gemini model id
+          modelName: "models/gemini-2.0-flash",
+          model: "models/gemini-2.0-flash",
           options: {
             temperature: 0.3
           }
@@ -255,7 +281,7 @@ export function generateN8nWorkflow(prd: PrdItem | undefined, si: SiItem | undef
         id: "node-structured-output-4",
         name: "Định Dạng JSON Output",
         type: "@n8n/n8n-nodes-langchain.outputParserStructured",
-        typeVersion: 1.2,
+        typeVersion: 1.3,
         position: [680, 520]
       },
       {
