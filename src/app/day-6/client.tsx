@@ -45,6 +45,26 @@ export default function Day6Client({ serverUser }: { serverUser: any }) {
     } catch(e){}
   }
 
+  let defaultAvgSalary = 12000000;
+  if (serverUser?.day2Data?.salaryData) {
+    try {
+      const sData = JSON.parse(serverUser.day2Data.salaryData);
+      let totalSalary = 0;
+      let totalEmployees = 0;
+      if (Array.isArray(sData)) {
+        sData.forEach((row: any) => {
+          const count = parseInt(row.count) || 0;
+          const salary = parseFloat(row.salary) || 0;
+          totalSalary += salary * count;
+          totalEmployees += count;
+        });
+      }
+      if (totalEmployees > 0 && totalSalary > 0) {
+        defaultAvgSalary = Math.round(totalSalary / totalEmployees);
+      }
+    } catch(e) {}
+  }
+
   let rois: ROISolution[] = Array(3).fill(0).map((_, i) => {
     const existingDay6 = savedRois[i] || {};
     const d5Item = day5Top3[i] || {};
@@ -52,11 +72,11 @@ export default function Day6Client({ serverUser }: { serverUser: any }) {
     return {
       id: `sol-${i+1}`,
       name: d5Item.solution || d5Item.problem || existingDay6.name || `Giải pháp #${i+1}`,
-      employees: existingDay6.employees || 0,
-      hoursPerWeek: parseFloat(d5Item.hoursImpact) || existingDay6.hoursPerWeek || 0,
-      aiReplacementPct: existingDay6.aiReplacementPct || 0,
-      avgSalaryMonth: existingDay6.avgSalaryMonth || 0,
-      implementationCost: existingDay6.implementationCost || 0,
+      employees: existingDay6.employees !== undefined && existingDay6.employees !== 0 ? existingDay6.employees : 1,
+      hoursPerWeek: parseFloat(d5Item.hoursImpact) || existingDay6.hoursPerWeek || 8,
+      aiReplacementPct: existingDay6.aiReplacementPct !== undefined && existingDay6.aiReplacementPct !== 0 ? existingDay6.aiReplacementPct : 60,
+      avgSalaryMonth: existingDay6.avgSalaryMonth !== undefined && existingDay6.avgSalaryMonth !== 0 ? existingDay6.avgSalaryMonth : defaultAvgSalary,
+      implementationCost: existingDay6.implementationCost !== undefined && existingDay6.implementationCost !== 0 ? existingDay6.implementationCost : 15000000,
       extraRevenuePerHour: existingDay6.extraRevenuePerHour || 0,
     }
   });
