@@ -62,74 +62,83 @@ function normalizeProblemSummary(value: unknown, index: number) {
 }
 
 function buildDay5Prompt(user: any) {
+  const salaryList = safeJsonParse(user.day2Data?.salaryData, [])
   const context = {
     day1: {
-      q1: user.day1Data?.q1 ?? null,
-      q2: user.day1Data?.q2 ?? null,
-      q3: user.day1Data?.q3 ?? null,
-      q4: user.day1Data?.q4 ?? null,
-      q5: user.day1Data?.q5 ?? null,
-      q6: user.day1Data?.q6 ?? null,
-      q7: user.day1Data?.q7 ?? null,
       totalScore: user.day1Data?.totalScore ?? null,
-      evidenceData: safeJsonParse(user.day1Data?.evidenceData, {}),
       top3Problems: safeJsonParse(user.day1Data?.top3Problems, []),
+      evidenceData: safeJsonParse(user.day1Data?.evidenceData, {}),
       notes: user.day1Data?.notes || ''
     },
-    day2: {
+    day2_tai_chinh_va_luong: {
       revenue: user.day2Data?.revenue ?? null,
       targetRevenue: user.day2Data?.targetRevenue ?? null,
       salaryCost: user.day2Data?.salaryCost ?? null,
       customerCount: user.day2Data?.customerCount ?? null,
       churnRate: user.day2Data?.churnRate ?? null,
       avgOrderTime: user.day2Data?.avgOrderTime ?? null,
-      salaryData: safeJsonParse(user.day2Data?.salaryData, []),
+      bang_luong_phong_ban: Array.isArray(salaryList) ? salaryList.map((s: any) => ({
+        phong_ban: s.department,
+        so_nhan_su: s.count,
+        luong_thang_tb: s.salary
+      })) : [],
       challenges: safeJsonParse(user.day2Data?.challenges, {}),
       parameters: safeJsonParse(user.day2Data?.parameters, {})
     },
-    day3: {
+    day3_phong_van_nhan_su: {
       interviewData: safeJsonParse(user.day3Data?.interviewData, {})
     },
-    day4: {
+    day4_so_do_quy_trinh_3_dong_co: {
       mapData: safeJsonParse(user.day4Data?.mapData, {})
     }
   }
 
   return `
-Bạn là chuyên gia tư vấn AI transformation cho doanh nghiệp nhỏ và vừa.
+Bạn là chuyên gia tư vấn chiến lược AI và tối ưu hóa vận hành (AI Agency Principal Consultant) hàng đầu cho doanh nghiệp SME.
 
-Nhiệm vụ: dùng toàn bộ dữ liệu thực tế Ngày 1, Ngày 2, Ngày 3, Ngày 4 bên dưới để đề xuất danh sách giải pháp AI cho Ngày 5 thật sát thực tế. Không dùng dữ liệu mẫu. Không bịa thông tin ngoài dữ liệu người dùng đã cung cấp.
+Nhiệm vụ: Dựa vào toàn bộ dữ liệu thực tế Ngày 1, Ngày 2, Ngày 3, Ngày 4 bên dưới để đề xuất danh sách giải pháp cho Ngày 5. Không dùng dữ liệu mẫu. Không bịa thông tin ngoài dữ liệu người dùng cung cấp.
 
-Nguyên tắc bắt buộc:
-- Mỗi giải pháp phải gắn với một vấn đề thật từ Ngày 1-4.
-- Field problem phải là bản tóm tắt ngắn gọn của vấn đề, 5-12 từ, tối đa 80 ký tự. Không liệt kê dài "Ngày 1..., Ngày 2..., Ngày 3..." trong problem. Nếu cần dẫn chứng dữ liệu từ ngày nào, đưa vào notes.
-- Ưu tiên vấn đề có lãng phí giờ, ảnh hưởng doanh thu, nghẽn quy trình, lặp thao tác thủ công, hoặc xuất hiện trong phỏng vấn.
-- Không đề xuất tên chung chung như "dùng ChatGPT"; hãy viết thành use-case triển khai rõ, ví dụ "Agent Phân Loại Lead Và Gợi Ý Kịch Bản Tư Vấn".
-- Tên solution phải ngắn gọn, dễ đọc trên dashboard: 2-5 từ tiếng Việt, tối đa 45 ký tự. Ví dụ đúng: "AI Chấm Lead", "AI Nhắc Khách", "AI Tóm Tắt Đơn", "AI Soạn Báo Giá". Ví dụ sai: tên dài hơn một câu hoặc mô tả cả quy trình trong tên.
-- Nếu cần mô tả chi tiết, đưa vào notes, không nhồi vào solution.
-- Chấm impact và effort từ 1-5. Impact cao khi liên quan doanh thu, thời gian lãng phí, trải nghiệm khách hàng, hoặc năng suất nhiều nhân sự. Effort thấp nếu có thể MVP bằng form/chatbot/sheet/automation đơn giản.
-- Tự chọn đúng 3 giải pháp có ROI/khả năng triển khai tốt nhất bằng isTop3=true.
-- Chỉ trả về JSON array, không markdown, không giải thích ngoài JSON.
+TƯ DUY TƯ VẤN CỐT LÕI (RẤT QUAN TRỌNG):
+1. GIÁ TRỊ CỦA CHUYÊN GIA LÀ NÓI "KHÔNG" VỚI AI KHI CHƯA CẦN THIẾT:
+   - Nếu một vấn đề bắt nguồn từ việc thiếu kỷ luật, giao việc miệng, quy trình chưa chuẩn, hoặc dữ liệu chưa được số hóa:
+     ➔ Hãy phân loại là "process_only" (Tối ưu quy trình).
+     ➔ Tên solution: Đặt tên rõ, ví dụ "Chuẩn Hóa SOP Bàn Giao", "Biểu Mẫu Google Form", "Bảng Theo Dõi Khách Hàng".
+     ➔ Ghi rõ trong notes: Khuyên doanh nghiệp KHÔNG NÊN mua công cụ AI cho việc này, mà phải chuẩn hóa biểu mẫu/SOP trước để tránh lãng phí tiền.
+     ➔ Trường solutionType = "process_only". Không đưa vào Top 3.
+   - Nếu một vấn đề lặp đi lặp lại thao tác xử lý văn bản, trả lời khách hàng 24/7, bóc tách tài liệu, tóm tắt dữ liệu, phân loại lead:
+     ➔ Hãy phân loại là "ai_solution". Trường solutionType = "ai_solution".
+
+2. TÍNH TOÁN hoursImpact GẮN CHẶT VỚI BẢNG LƯƠNG NGÀY 2:
+   - Hãy đối chiếu với số lượng nhân sự của phòng ban chịu ảnh hưởng trong bang_luong_phong_ban ở Ngày 2.
+   - hoursImpact là TỔNG SỐ GIỜ LÃNG PHÍ MỖI TUẦN CỦA TOÀN BỘ NHÂN SỰ LIÊN QUAN (Ví dụ: 3 nhân viên sales x 4h/tuần = 12h/tuần).
+
+3. ĐỀ XUẤT GIẢI PHÁP AI CỤ THỂ, KHẢ THI (MVP ĐƯỢC NGAY):
+   - Không đặt tên chung chung như "dùng ChatGPT". Hãy đặt tên use-case rõ ràng: "AI Chấm Lead", "AI Soạn Báo Giá", "AI Phản Hồi CSKH", "AI Tóm Tắt Đơn".
+   - Tên solution: 2-5 từ tiếng Việt, tối đa 45 ký tự.
+   - Chấm impact (1-5) và effort (1-5).
+   - Chọn ra ĐÚNG 3 giải pháp AI có ROI và tính khả thi cao nhất để gán isTop3 = true.
 
 Schema JSON array:
 [
   {
     "id": 1,
-    "problem": "string - tóm tắt vấn đề thật, ngắn gọn 5-12 từ",
-    "solution": "string - tên giải pháp AI cụ thể, triển khai được",
+    "problem": "string - tóm tắt ngắn gọn vấn đề thật (5-12 từ, tối đa 80 ký tự)",
+    "solution": "string - tên giải pháp ngắn gọn (2-5 từ, tối đa 45 ký tự)",
+    "solutionType": "ai_solution hoặc process_only",
     "hoursImpact": 0,
     "impact": 1,
     "effort": 1,
     "isTop3": true,
     "assignee": "",
-    "notes": "string - lý do chọn, dữ liệu nào ủng hộ, MVP nên làm gì"
+    "notes": "string - lý do chuyên gia tư vấn: vì sao nên làm AI hoặc vì sao chỉ nên chuẩn hóa SOP"
   }
 ]
 
-Dữ liệu thực tế Ngày 1-4:
+Dữ liệu thực tế doanh nghiệp:
 ${JSON.stringify(context, null, 2)}
 `
 }
+
 
 export async function POST(req: Request) {
   const user = await getUserFromSession(req)
@@ -153,21 +162,34 @@ export async function POST(req: Request) {
       'Bạn chỉ trả về JSON array hợp lệ, không markdown, không code fence, không giải thích.'
     ))
     const parsed = extractJsonArray(generated.text)
-    const suggestions = parsed.slice(0, 12).map((item: any, index: number) => ({
-      id: index + 1,
-      problem: normalizeProblemSummary(item.problem, index),
-      solution: normalizeSolutionName(item.solution, index),
-      hoursImpact: Number(item.hoursImpact || 0),
-      impact: Math.min(5, Math.max(1, Number(item.impact || 3))),
-      effort: Math.min(5, Math.max(1, Number(item.effort || 3))),
-      isTop3: Boolean(item.isTop3),
-      assignee: String(item.assignee || ''),
-      notes: String(item.notes || '')
-    })).filter((item: any) => item.problem && item.solution)
+    const suggestions = parsed.slice(0, 12).map((item: any, index: number) => {
+      const isProcessOnly = item.solutionType === 'process_only' ||
+        (/quy\s*trình|sop|form|sheet|excel/i.test(item.solution || '') && !/ai|agent|bot|gpt/i.test(item.solution || ''))
+      return {
+        id: index + 1,
+        problem: normalizeProblemSummary(item.problem, index),
+        solution: normalizeSolutionName(item.solution, index),
+        solutionType: isProcessOnly ? 'process_only' : 'ai_solution',
+        hoursImpact: Number(item.hoursImpact || 0),
+        impact: Math.min(5, Math.max(1, Number(item.impact || 3))),
+        effort: Math.min(5, Math.max(1, Number(item.effort || 3))),
+        isTop3: isProcessOnly ? false : Boolean(item.isTop3),
+        assignee: String(item.assignee || ''),
+        notes: String(item.notes || '')
+      }
+    }).filter((item: any) => item.problem && item.solution)
 
-    const normalizedTop3 = suggestions
-      .sort((a: any, b: any) => Number(b.isTop3) - Number(a.isTop3) || (b.impact - b.effort) - (a.impact - a.effort))
-      .map((item: any, index: number) => ({ ...item, id: index + 1, isTop3: index < 3 }))
+    const aiSolutions = suggestions.filter((s: any) => s.solutionType === 'ai_solution')
+    const processSolutions = suggestions.filter((s: any) => s.solutionType === 'process_only')
+
+    const sortedAi = aiSolutions
+      .sort((a: any, b: any) => (b.impact - b.effort) - (a.impact - a.effort) || b.hoursImpact - a.hoursImpact)
+      .map((item: any, index: number) => ({ ...item, isTop3: index < 3 }))
+
+    const normalizedTop3 = [...sortedAi, ...processSolutions].map((item: any, index: number) => ({
+      ...item,
+      id: index + 1
+    }))
 
     if (normalizedTop3.length === 0) {
       return NextResponse.json({ error: 'Gemini chưa tạo được giải pháp hợp lệ từ dữ liệu Ngày 1-4.' }, { status: 500 })

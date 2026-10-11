@@ -8,9 +8,21 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
   // Calculated Metrics
   const scoreAI = user.day1Data?.totalScore || 0
   let scoreText = 'Chưa xác định'
-  if (scoreAI >= 7 && scoreAI <= 14) scoreText = 'Tốt'
-  else if (scoreAI >= 15 && scoreAI <= 25) scoreText = 'Trung bình'
-  else if (scoreAI >= 26 && scoreAI <= 35) scoreText = 'Cần AI gấp'
+  let scoreColor = 'var(--muted)'
+  let scoreDesc = ''
+  if (scoreAI >= 7 && scoreAI <= 14) {
+    scoreText = 'Nền tảng Sẵn Sàng Cao'
+    scoreColor = 'var(--success)'
+    scoreDesc = 'Quy trình rõ ràng, ít tắc nghẽn. Ưu tiên tự động hóa các tác vụ lặp để giải phóng tối đa sức lao động.'
+  } else if (scoreAI >= 15 && scoreAI <= 25) {
+    scoreText = 'Nền tảng Trung Bình'
+    scoreColor = '#f5a623'
+    scoreDesc = 'Có điểm nghẽn cục bộ. Khuyến nghị chỉ tập trung thí điểm 1-2 khâu lãng phí thời gian nhất, tránh làm AI dàn trải.'
+  } else if (scoreAI >= 26 && scoreAI <= 35) {
+    scoreText = 'Báo Động Quy Trình Nội Bộ'
+    scoreColor = 'var(--error)'
+    scoreDesc = 'CẢNH BÁO: Dữ liệu phân tán, quy trình còn thủ công/miệng. Cần chuẩn hóa dữ liệu & SOP trước, CHƯA NÊN vội vã mua công cụ AI kẻo lãng phí ngân sách.'
+  }
 
   let totalEmployees = 0
   if (user.day2Data?.salaryData) {
@@ -138,7 +150,12 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
             <div>
               <div style={{ color: 'var(--muted)', marginBottom: '0.5rem' }}>Điểm Sẵn Sàng AI</div>
               <div style={{ fontSize: '2.5rem', fontWeight: 700 }}>{scoreAI}<span style={{fontSize: '1.5rem', color: 'var(--muted)'}}>/35</span></div>
-              <div style={{ color: 'var(--warning)', fontWeight: 600, marginTop: '0.5rem' }}>Đánh giá: {scoreText}</div>
+              <div style={{ color: scoreColor, fontWeight: 700, marginTop: '0.5rem', fontSize: '1.05rem' }}>{scoreText}</div>
+              {scoreDesc && (
+                <div style={{ color: 'var(--muted)', fontSize: '0.85rem', marginTop: '0.5rem', lineHeight: 1.5 }}>
+                  {scoreDesc}
+                </div>
+              )}
             </div>
             <div>
               <div style={{ color: 'var(--muted)', marginBottom: '0.5rem' }}>Tổng nhân viên</div>
