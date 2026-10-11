@@ -391,28 +391,47 @@ echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
                         </p>
                       </div>
                       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                        <button
+                        <a
                           className="btn-primary"
-                          style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', background: '#10b981', borderColor: '#10b981' }}
+                          style={{
+                            fontSize: '0.85rem',
+                            padding: '0.5rem 1rem',
+                            background: '#10b981',
+                            borderColor: '#10b981',
+                            textDecoration: 'none',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            cursor: activeItem?.markdown ? 'pointer' : 'not-allowed',
+                            opacity: activeItem?.markdown ? 1 : 0.5
+                          }}
+                          href={activeItem?.markdown ? `/api/goclaw/export?useCaseIndex=${activeItem.useCaseIndex}` : undefined}
+                          download
+                          title="Tải file lưu trữ tar.gz để Import trực tiếp vào GoClaw.sh"
+                        >
+                          📦 Tải Gói Nhập GoClaw (.tar.gz)
+                        </a>
+                        <button
+                          className="btn-secondary"
+                          style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}
                           onClick={() => downloadTextFile(goClawPkg.importJson, `goclaw-agent-${slugifyFileName(activeItem?.useCaseTitle || 'agent')}.json`, 'application/json')}
                           disabled={!activeItem.markdown}
-                          title="Tải file JSON để bấm nút 'Import Agent' trên GoClaw.sh"
+                          title="Tải file JSON phụ trợ"
                         >
-                          📥 Tải File Nhập GoClaw (goclaw-agent.json)
+                          📄 Tải goclaw-agent.json
                         </button>
                         <button
                           className="btn-secondary"
                           style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}
                           onClick={downloadGoclawSetupScript}
                           disabled={!activeItem.markdown}
-                          title="Tải bash script tự động tạo thư mục và 6 file"
+                          title="Tải bash script tự động tạo thư mục và trọn bộ file"
                         >
-                          ⚡ Script Tạo Workspace
+                          ⚡ Script Tạo Workspace (.sh)
                         </button>
                         <button
                           className="btn-secondary"
                           style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}
-                          onClick={() => copyToClipboard(goClawPkg.allInOne, 'Trọn bộ 6 file GoClaw')}
+                          onClick={() => copyToClipboard(goClawPkg.allInOne, 'Trọn bộ file GoClaw')}
                           disabled={!activeItem.markdown}
                         >
                           📋 Sao chép All-in-One
@@ -433,9 +452,9 @@ echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
                       gap: '1rem',
                       flexWrap: 'wrap'
                     }}>
-                      <div style={{ color: 'var(--muted)' }}>
-                        <span style={{ color: '#10b981', fontWeight: 600 }}>Cách 1 (Nhanh nhất):</span> Bấm nút xanh <strong>"Tải File Nhập GoClaw"</strong> ➔ Trên GoClaw.sh chọn <strong>"Import Agent"</strong> ➔ Chọn file vừa tải.<br />
-                        <span style={{ color: '#10b981', fontWeight: 600 }}>Cách 2:</span> Trên GoClaw.sh vào tab <strong>"Tệp"</strong> ➔ Chọn từng file (AGENTS.md, SOUL.md,...) ➔ Copy nội dung bên dưới dán vào.
+                      <div style={{ color: 'var(--muted)', lineHeight: 1.6 }}>
+                        <span style={{ color: '#10b981', fontWeight: 700 }}>🟢 Cách 1 (Chuẩn nhất - Import vào GoClaw):</span> Bấm nút xanh <strong>"📦 Tải Gói Nhập GoClaw (.tar.gz)"</strong> ➔ Trên GoClaw.sh bấm <strong>"Import Agent"</strong> ➔ Chọn file <code>.tar.gz</code> vừa tải.<br />
+                        <span style={{ color: '#10b981', fontWeight: 700 }}>🟡 Cách 2 (Chỉnh sửa trực tiếp):</span> Trên GoClaw.sh vào tab <strong>"Tệp"</strong> ➔ Bấm vào từng file (<code>AGENTS.md</code>, <code>SOUL.md</code>, <code>IDENTITY.md</code>,...) ➔ Copy nội dung tương ứng bên dưới dán vào.
                       </div>
                     </div>
                   </div>
