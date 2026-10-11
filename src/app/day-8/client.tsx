@@ -394,6 +394,36 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
           }}>
             {activeItem.markdown || 'PRD Markdown sẽ xuất hiện ở đây sau khi tạo.'}
           </pre>
+
+          {activeItem.markdown && (
+            <div style={{
+              background: 'rgba(50,215,75,0.06)',
+              border: '1px solid rgba(50,215,75,0.2)',
+              borderRadius: 8,
+              padding: '1.25rem',
+              marginTop: '1.5rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '1rem'
+            }}>
+              <div>
+                <strong style={{ color: 'var(--success)', fontSize: '1rem' }}>✓ PRD đã hoàn tất &amp; sẵn sàng triển khai!</strong>
+                <p style={{ color: 'var(--muted)', fontSize: '0.88rem', margin: '0.25rem 0 0' }}>
+                  Tiếp tục sang Ngày 9 để tạo System Instruction XML và xuất trọn bộ runtime cho GoClaw.sh, n8n Workflow, Claude Code.
+                </p>
+              </div>
+              <a
+                href="/day-9"
+                className="btn-primary"
+                style={{ textDecoration: 'none', padding: '0.6rem 1.25rem', fontSize: '0.9rem', display: 'inline-flex', alignItems: 'center', gap: 6 }}
+              >
+                <span>Sang Ngày 9: System Instruction &amp; Runtimes</span>
+                <span>➔</span>
+              </a>
+            </div>
+          )}
         </section>
       )}
 
