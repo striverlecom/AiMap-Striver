@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import ConsultingCta from '@/components/ConsultingCta'
 
 export default function Day7Client({ serverUser }: { serverUser: any }) {
   const u = serverUser || {}
@@ -264,8 +265,15 @@ export default function Day7Client({ serverUser }: { serverUser: any }) {
               </tbody>
             </table>
           </div>
+
+        {/* HUMAN-IN-THE-LOOP CONSULTING CTA */}
+        <ConsultingCta
+          variant="roadmap"
+          source="day-7"
+          defaultTopic="Thẩm định Lộ trình 12 tháng & Bảng tính ROI"
+        />
         
-        <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
           <button className="btn-primary" onClick={handleSave} disabled={loading} style={{ width: '100%', maxWidth: '300px', padding: '1rem', fontSize: '1.1rem' }}>
             {loading ? 'Đang Xử Lý...' : 'Xuất Báo Cáo Kiểm Toán (Hoàn Tất)'}
           </button>

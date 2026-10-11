@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { slugifyFileName, type PrdItem, type PrdUseCase } from '@/lib/prd'
+import ConsultingCta from '@/components/ConsultingCta'
 
 type Mode = 'system' | 'custom'
 
@@ -320,6 +321,13 @@ export default function Day8Client({ useCases, initialPrds, initialCustomPrds, i
           </pre>
         </section>
       )}
+
+      {/* HUMAN-IN-THE-LOOP CONSULTING CTA */}
+      <ConsultingCta
+        variant="prd"
+        source="day-8"
+        defaultTopic="Triển khai Trọn gói Multi-Agent theo PRD"
+      />
     </div>
   )
 }
