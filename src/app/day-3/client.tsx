@@ -128,14 +128,17 @@ export default function Day3Client({ serverUser }: { serverUser: any }) {
       </header>
 
       <div className="glass-panel fade-in" style={{ maxWidth: '900px', margin: '0 auto' }}>
-        {isSolopreneur && (
-          <div style={{ background: 'rgba(56, 189, 248, 0.08)', border: '1px solid rgba(56, 189, 248, 0.25)', borderRadius: '8px', padding: '1rem 1.25rem', marginBottom: '2.5rem', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ background: 'rgba(56, 189, 248, 0.08)', border: '1px solid rgba(56, 189, 248, 0.25)', borderRadius: '8px', padding: '1rem 1.25rem', marginBottom: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, minWidth: '280px' }}>
             <span style={{ fontSize: '1.5rem' }}>💡</span>
-            <div style={{ fontSize: '0.9rem', color: '#e0f2fe' }}>
-              <strong>Chế độ Doanh nghiệp 1 Founder:</strong> Bạn đang đóng cả 2 vai trò. Phần 1 dành cho <em>Góc nhìn Chiến lược & Doanh thu</em>, Phần 2 dành cho <em>Góc nhìn Kỹ thuật & Thực thi trực tiếp</em> của bạn.
+            <div style={{ fontSize: '0.88rem', color: '#e0f2fe', lineHeight: 1.5 }}>
+              <strong>Dành cho Solo / 1 người:</strong> Nếu bạn làm việc độc lập một mình, bạn <strong>không có nhân viên để phỏng vấn</strong>. Bạn có thể bấm nút bên phải để tự động điền phát hiện quan trọng hoặc bấm thẳng nút <strong>"Bỏ qua bước này"</strong> ở cuối trang để sang Ngày 4.
             </div>
           </div>
-        )}
+          <button type="button" onClick={autoFillFindingsFromPastDays} className="btn-secondary" style={{ padding: '0.45rem 0.85rem', fontSize: '0.82rem', whiteSpace: 'nowrap' }}>
+            ⚡ Điền nhanh cho Solo
+          </button>
+        </div>
         
         {/* BLD INTERVIEWS */}
         <div style={{ marginBottom: '4rem' }}>
@@ -349,9 +352,12 @@ export default function Day3Client({ serverUser }: { serverUser: any }) {
           </div>
         </div>
         
-        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-          <button className="btn-primary" onClick={handleSave} disabled={loading} style={{ width: '100%', maxWidth: '300px' }}>
-            {loading ? 'Đang lưu...' : 'Hoàn thành Ngày 3 Phỏng Vấn'}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginTop: '3rem' }}>
+          <button className="btn-primary" onClick={handleSave} disabled={loading} style={{ minWidth: '220px' }}>
+            {loading ? 'Đang lưu...' : 'Lưu & Sang Ngày 4'}
+          </button>
+          <button type="button" className="btn-secondary" onClick={handleSave} disabled={loading} style={{ minWidth: '180px' }}>
+            Bỏ qua bước này →
           </button>
         </div>
       </div>
