@@ -113,6 +113,9 @@ export default function Day4Client({ serverUser }: { serverUser: any }) {
       </header>
 
       <div className="fade-in" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '2rem', lineHeight: 1.5, background: 'rgba(255,255,255,0.02)', padding: '0.75rem 1rem', borderRadius: '6px', borderLeft: '3px solid var(--success)' }}>
+          💡 <strong>Dành cho Solo / SME tinh gọn:</strong> Bạn chỉ cần chèn 1-2 bước nghẽn ngốn thời gian nhất (dùng các nút <span style={{ color: 'var(--success)', fontWeight: 600 }}>"⚡ Chèn nhanh từ Ngày 1"</span>) vào đúng động cơ liên quan, không cần thiết phải điền kín cả 3 bảng.
+        </p>
         
         {(['acquisition', 'delivery', 'support'] as const).map(engineKey => (
           <div key={engineKey} className="glass-panel" style={{ marginBottom: '3rem' }}>
@@ -209,9 +212,12 @@ export default function Day4Client({ serverUser }: { serverUser: any }) {
           </div>
         </div>
         
-        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-          <button className="btn-primary" onClick={handleSave} disabled={loading} style={{ width: '100%', maxWidth: '300px' }}>
-            {loading ? 'Đang lưu...' : 'Hoàn thành Ngày 4'}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginTop: '3rem' }}>
+          <button className="btn-primary" onClick={handleSave} disabled={loading} style={{ minWidth: '220px' }}>
+            {loading ? 'Đang lưu...' : 'Lưu & Sang Ngày 5'}
+          </button>
+          <button type="button" className="btn-secondary" onClick={handleSave} disabled={loading} style={{ minWidth: '180px' }}>
+            Bỏ qua bước này →
           </button>
         </div>
       </div>

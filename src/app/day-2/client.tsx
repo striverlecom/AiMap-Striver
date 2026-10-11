@@ -169,11 +169,11 @@ export default function Day2Client({ serverUser }: { serverUser: any }) {
               <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.customerCount} onChange={e => setData({...data, customerCount: parseInt(e.target.value)||0})} />
             </div>
             <div>
-              <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Tỷ lệ giữ chân KH (%) (để 0 nếu không áp dụng)</label>
+              <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Tỷ lệ giữ chân KH (%) (Tùy chọn - Solo có thể để 0)</label>
               <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.churnRate} onChange={e => setData({...data, churnRate: parseFloat(e.target.value)||0})} />
             </div>
             <div>
-              <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Thời gian xử lý đơn hàng TB (Giờ)</label>
+              <label style={{ display: 'block', marginBottom: '6px', color: 'var(--muted)', fontSize: '0.9rem' }}>Thời gian xử lý đơn hàng TB (Giờ) (Tùy chọn)</label>
               <input type="number" className="input-field" style={{ padding: '12px 16px' }} value={data.avgOrderTime} onChange={e => setData({...data, avgOrderTime: parseFloat(e.target.value)||0})} />
             </div>
           </div>
@@ -190,6 +190,9 @@ export default function Day2Client({ serverUser }: { serverUser: any }) {
               <button type="button" onClick={() => applyPreset('sme15')} className="btn-secondary" style={{ padding: '0.3rem 0.6rem', fontSize: '0.78rem' }}>🏢 SME 15 người</button>
             </div>
           </div>
+          <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '1.25rem', lineHeight: 1.5, background: 'rgba(255,255,255,0.02)', padding: '0.75rem 1rem', borderRadius: '6px', borderLeft: '3px solid var(--success)' }}>
+            💡 <strong>Dành cho Solo / 1 người:</strong> Bạn chỉ cần bấm nút <span style={{ color: 'var(--success)', fontWeight: 600 }}>"🎯 1 Founder (Solo)"</span> ở trên và điền mức thu nhập mong muốn. Các trường phòng ban khác hoặc chỉ số không áp dụng bạn có thể để trống và bỏ qua.
+          </p>
           <table className="responsive-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ background: 'var(--background)' }}>
