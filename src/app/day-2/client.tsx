@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import AppleNotice from '@/components/AppleNotice'
 
 export default function Day2Client({ serverUser }: { serverUser: any }) {
   const d2 = serverUser?.day2Data || {}
@@ -190,9 +191,14 @@ export default function Day2Client({ serverUser }: { serverUser: any }) {
               <button type="button" onClick={() => applyPreset('sme15')} className="btn-secondary" style={{ padding: '0.3rem 0.6rem', fontSize: '0.78rem' }}>🏢 SME 15 người</button>
             </div>
           </div>
-          <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '1.25rem', lineHeight: 1.5, background: 'rgba(255,255,255,0.02)', padding: '0.75rem 1rem', borderRadius: '6px', borderLeft: '3px solid var(--success)' }}>
-            💡 <strong>Dành cho Solo / 1 người:</strong> Bạn chỉ cần bấm nút <span style={{ color: 'var(--success)', fontWeight: 600 }}>"🎯 1 Founder (Solo)"</span> ở trên và điền mức thu nhập mong muốn. Các trường phòng ban khác hoặc chỉ số không áp dụng bạn có thể để trống và bỏ qua.
-          </p>
+          <AppleNotice
+            badge="Solo & Nhóm Tinh Gọn"
+            title="Dành cho 1 Founder / Solopreneur"
+            variant="accent"
+            style={{ marginBottom: '1.5rem' }}
+          >
+            Nếu bạn làm việc độc lập một mình, chỉ cần bấm nút <strong style={{ color: '#fff' }}>"🎯 1 Founder (Solo)"</strong> ở trên và điền mức thu nhập mong muốn. Các trường phòng ban hoặc chỉ số khác bạn có thể để trống và bỏ qua.
+          </AppleNotice>
           <table className="responsive-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ background: 'var(--background)' }}>
