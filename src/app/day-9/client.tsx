@@ -26,7 +26,7 @@ export default function Day9Client({ prdCount, prds, initialItems, isConfigured 
 
   // Runtime View States
   const [activeRuntime, setActiveRuntime] = useState<RuntimeTarget>('goclaw')
-  const [activeGoclawFile, setActiveGoclawFile] = useState<'soul' | 'agents' | 'instructions' | 'tools' | 'config' | 'readme'>('soul')
+  const [activeGoclawFile, setActiveGoclawFile] = useState<'agents' | 'soul' | 'identity' | 'userPredefined' | 'capabilities' | 'heartbeat'>('agents')
   const [copyNotice, setCopyNotice] = useState<string | null>(null)
 
   const activeItem = items.find(item => item.useCaseIndex === activeIndex) || items[0]
@@ -142,35 +142,46 @@ export default function Day9Client({ prdCount, prds, initialItems, isConfigured 
 # Script tự động tạo Workspace GoClaw cho: ${activeItem?.useCaseTitle || 'Agent'}
 set -e
 WORKSPACE="goclaw-${slug}"
-echo "🚀 Đang khởi tạo Workspace tại ./$WORKSPACE..."
+echo "🚀 Đang khởi tạo Workspace GoClaw tại ./$WORKSPACE..."
 mkdir -p "$WORKSPACE"
-
-cat << 'EOF' > "$WORKSPACE/SOUL.md"
-${goClawPkg.soulMd}
-EOF
 
 cat << 'EOF' > "$WORKSPACE/AGENTS.md"
 ${goClawPkg.agentsMd}
 EOF
 
-cat << 'EOF' > "$WORKSPACE/INSTRUCTIONS.md"
-${goClawPkg.instructionsMd}
+cat << 'EOF' > "$WORKSPACE/SOUL.md"
+${goClawPkg.soulMd}
 EOF
 
-cat << 'EOF' > "$WORKSPACE/tools.json"
-${goClawPkg.toolsJson}
+cat << 'EOF' > "$WORKSPACE/IDENTITY.md"
+${goClawPkg.identityMd}
 EOF
 
-cat << 'EOF' > "$WORKSPACE/config.yaml"
-${goClawPkg.configYaml}
+cat << 'EOF' > "$WORKSPACE/USER_PREDEFINED.md"
+${goClawPkg.userPredefinedMd}
 EOF
 
-cat << 'EOF' > "$WORKSPACE/README.md"
-${goClawPkg.readmeMd}
+cat << 'EOF' > "$WORKSPACE/CAPABILITIES.md"
+${goClawPkg.capabilitiesMd}
 EOF
 
-echo "✅ Đã tạo xong 6 file: SOUL.md, AGENTS.md, INSTRUCTIONS.md, tools.json, config.yaml, README.md"
-echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
+cat << 'EOF' > "$WORKSPACE/HEARTBEAT.md"
+${goClawPkg.heartbeatMd}
+EOF
+
+cat << 'EOF' > "$WORKSPACE/goclaw-agent.json"
+${goClawPkg.importJson}
+EOF
+
+echo "✅ Đã tạo xong 6 file cấu hình gốc của GoClaw:"
+echo "   - AGENTS.md"
+echo "   - SOUL.md"
+echo "   - IDENTITY.md"
+echo "   - USER_PREDEFINED.md"
+echo "   - CAPABILITIES.md"
+echo "   - HEARTBEAT.md"
+echo "   - goclaw-agent.json (gói Import 1-click)"
+echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
 `
     downloadTextFile(script, `setup-goclaw-${slug}.sh`)
   }
@@ -377,16 +388,26 @@ echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
                       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                         <button
                           className="btn-primary"
-                          style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}
-                          onClick={downloadGoclawSetupScript}
+                          style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', background: '#10b981', borderColor: '#10b981' }}
+                          onClick={() => downloadTextFile(goClawPkg.importJson, `goclaw-agent-${slugifyFileName(activeItem?.useCaseTitle || 'agent')}.json`, 'application/json')}
                           disabled={!activeItem.markdown}
+                          title="Tải file JSON để bấm nút 'Import Agent' trên GoClaw.sh"
                         >
-                          📥 Tải Script Khởi Tạo (setup-goclaw.sh)
+                          📥 Tải File Nhập GoClaw (goclaw-agent.json)
                         </button>
                         <button
                           className="btn-secondary"
                           style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}
-                          onClick={() => copyToClipboard(goClawPkg.allInOne, 'Trọn bộ Workspace GoClaw')}
+                          onClick={downloadGoclawSetupScript}
+                          disabled={!activeItem.markdown}
+                          title="Tải bash script tự động tạo thư mục và 6 file"
+                        >
+                          ⚡ Script Tạo Workspace
+                        </button>
+                        <button
+                          className="btn-secondary"
+                          style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}
+                          onClick={() => copyToClipboard(goClawPkg.allInOne, 'Trọn bộ 6 file GoClaw')}
                           disabled={!activeItem.markdown}
                         >
                           📋 Sao chép All-in-One
@@ -394,52 +415,46 @@ echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
                       </div>
                     </div>
 
-                    {/* Quick run command */}
+                    {/* Quick instruction for GoClaw import */}
                     <div style={{
                       background: 'rgba(0,0,0,0.5)',
                       padding: '0.75rem 1rem',
                       borderRadius: 6,
                       border: '1px solid rgba(255,255,255,0.08)',
-                      fontFamily: 'monospace',
                       fontSize: '0.85rem',
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       gap: '1rem',
-                      overflowX: 'auto'
+                      flexWrap: 'wrap'
                     }}>
-                      <span style={{ color: 'var(--success)' }}>
-                        curl -fsSL https://get.goclaw.sh | bash && goclaw run --workspace .
-                      </span>
-                      <button
-                        className="btn-secondary"
-                        style={{ padding: '0.25rem 0.6rem', fontSize: '0.75rem' }}
-                        onClick={() => copyToClipboard('curl -fsSL https://get.goclaw.sh | bash && goclaw run --workspace .', 'Lệnh khởi chạy GoClaw')}
-                      >
-                        Copy CLI
-                      </button>
+                      <div style={{ color: 'var(--muted)' }}>
+                        <span style={{ color: '#10b981', fontWeight: 600 }}>Cách 1 (Nhanh nhất):</span> Bấm nút xanh <strong>"Tải File Nhập GoClaw"</strong> ➔ Trên GoClaw.sh chọn <strong>"Import Agent"</strong> ➔ Chọn file vừa tải.<br />
+                        <span style={{ color: '#10b981', fontWeight: 600 }}>Cách 2:</span> Trên GoClaw.sh vào tab <strong>"Tệp"</strong> ➔ Chọn từng file (AGENTS.md, SOUL.md,...) ➔ Copy nội dung bên dưới dán vào.
+                      </div>
                     </div>
                   </div>
 
-                  {/* Sub-file tabs */}
+                  {/* Sub-file tabs: 6 native files of GoClaw */}
                   <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
                     {[
-                      { id: 'soul', label: 'SOUL.md', desc: 'Định danh, Persona & Guardrails' },
                       { id: 'agents', label: 'AGENTS.md', desc: 'Danh sách Agents & Phân quyền' },
-                      { id: 'instructions', label: 'INSTRUCTIONS.md', desc: 'Quy trình thực thi' },
-                      { id: 'tools', label: 'tools.json', desc: 'Schema Input/Output' },
-                      { id: 'config', label: 'config.yaml', desc: 'Cấu hình Gemini & Duyệt' },
-                      { id: 'readme', label: 'README.md', desc: 'Hướng dẫn vận hành' }
+                      { id: 'soul', label: 'SOUL.md', desc: 'Bản sắc, Tính cách & Ranh giới' },
+                      { id: 'identity', label: 'IDENTITY.md', desc: 'Định danh, Model & Vibe' },
+                      { id: 'userPredefined', label: 'USER_PREDEFINED.md', desc: 'Bối cảnh người dùng & Input Schema' },
+                      { id: 'capabilities', label: 'CAPABILITIES.md', desc: 'Quy trình thực thi & Output Schema' },
+                      { id: 'heartbeat', label: 'HEARTBEAT.md', desc: 'Checklist định kỳ' }
                     ].map(f => (
                       <button
                         key={f.id}
                         onClick={() => setActiveGoclawFile(f.id as any)}
                         style={{
-                          padding: '0.4rem 0.8rem',
+                          padding: '0.45rem 0.85rem',
                           borderRadius: 6,
                           fontSize: '0.82rem',
+                          fontWeight: activeGoclawFile === f.id ? 700 : 500,
                           border: activeGoclawFile === f.id ? '1px solid var(--success)' : '1px solid var(--card-border)',
-                          background: activeGoclawFile === f.id ? 'rgba(50,215,75,0.1)' : 'transparent',
+                          background: activeGoclawFile === f.id ? 'rgba(50,215,75,0.15)' : 'transparent',
                           color: activeGoclawFile === f.id ? 'var(--success)' : 'var(--muted)',
                           cursor: 'pointer'
                         }}
@@ -454,12 +469,12 @@ echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
                         style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
                         onClick={() => {
                           const contentMap: Record<string, { content: string, name: string }> = {
-                            soul: { content: goClawPkg.soulMd, name: 'SOUL.md' },
                             agents: { content: goClawPkg.agentsMd, name: 'AGENTS.md' },
-                            instructions: { content: goClawPkg.instructionsMd, name: 'INSTRUCTIONS.md' },
-                            tools: { content: goClawPkg.toolsJson, name: 'tools.json' },
-                            config: { content: goClawPkg.configYaml, name: 'config.yaml' },
-                            readme: { content: goClawPkg.readmeMd, name: 'README.md' }
+                            soul: { content: goClawPkg.soulMd, name: 'SOUL.md' },
+                            identity: { content: goClawPkg.identityMd, name: 'IDENTITY.md' },
+                            userPredefined: { content: goClawPkg.userPredefinedMd, name: 'USER_PREDEFINED.md' },
+                            capabilities: { content: goClawPkg.capabilitiesMd, name: 'CAPABILITIES.md' },
+                            heartbeat: { content: goClawPkg.heartbeatMd, name: 'HEARTBEAT.md' }
                           }
                           const cur = contentMap[activeGoclawFile]
                           if (cur) copyToClipboard(cur.content, cur.name)
@@ -473,12 +488,12 @@ echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
                         style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
                         onClick={() => {
                           const contentMap: Record<string, { content: string, name: string }> = {
-                            soul: { content: goClawPkg.soulMd, name: 'SOUL.md' },
                             agents: { content: goClawPkg.agentsMd, name: 'AGENTS.md' },
-                            instructions: { content: goClawPkg.instructionsMd, name: 'INSTRUCTIONS.md' },
-                            tools: { content: goClawPkg.toolsJson, name: 'tools.json' },
-                            config: { content: goClawPkg.configYaml, name: 'config.yaml' },
-                            readme: { content: goClawPkg.readmeMd, name: 'README.md' }
+                            soul: { content: goClawPkg.soulMd, name: 'SOUL.md' },
+                            identity: { content: goClawPkg.identityMd, name: 'IDENTITY.md' },
+                            userPredefined: { content: goClawPkg.userPredefinedMd, name: 'USER_PREDEFINED.md' },
+                            capabilities: { content: goClawPkg.capabilitiesMd, name: 'CAPABILITIES.md' },
+                            heartbeat: { content: goClawPkg.heartbeatMd, name: 'HEARTBEAT.md' }
                           }
                           const cur = contentMap[activeGoclawFile]
                           if (cur) downloadTextFile(cur.content, cur.name)
@@ -504,12 +519,12 @@ echo "👉 Bước tiếp theo: cd $WORKSPACE && goclaw run --workspace ."
                     fontSize: '0.86rem',
                     lineHeight: 1.6
                   }}>
-                    {activeGoclawFile === 'soul' && goClawPkg.soulMd}
                     {activeGoclawFile === 'agents' && goClawPkg.agentsMd}
-                    {activeGoclawFile === 'instructions' && goClawPkg.instructionsMd}
-                    {activeGoclawFile === 'tools' && goClawPkg.toolsJson}
-                    {activeGoclawFile === 'config' && goClawPkg.configYaml}
-                    {activeGoclawFile === 'readme' && goClawPkg.readmeMd}
+                    {activeGoclawFile === 'soul' && goClawPkg.soulMd}
+                    {activeGoclawFile === 'identity' && goClawPkg.identityMd}
+                    {activeGoclawFile === 'userPredefined' && goClawPkg.userPredefinedMd}
+                    {activeGoclawFile === 'capabilities' && goClawPkg.capabilitiesMd}
+                    {activeGoclawFile === 'heartbeat' && goClawPkg.heartbeatMd}
                   </pre>
                 </div>
               )}

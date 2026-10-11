@@ -88,11 +88,13 @@ export function extractJsonSchemaFromPrd(prdMarkdown: string, schemaType: 'input
 // 1. GOCLAW RUNTIME GENERATOR
 // -------------------------------------------------------------
 export interface GoClawPackage {
-  soulMd: string
-  instructionsMd: string
   agentsMd: string
-  toolsJson: string
-  configYaml: string
+  soulMd: string
+  identityMd: string
+  userPredefinedMd: string
+  capabilitiesMd: string
+  heartbeatMd: string
+  importJson: string
   readmeMd: string
   allInOne: string
 }
@@ -104,118 +106,161 @@ export function generateGoClawPackage(prd: PrdItem | undefined, si: SiItem | und
   const outputSchema = extractJsonSchemaFromPrd(prd?.markdown || '', 'output')
   const title = prd?.useCaseTitle || si?.useCaseTitle || 'AI Agent'
 
-  const soulMd = `# SOUL.md - ${mainAgent?.agentName || title}
-${mainAgent?.role || 'Bạn là AI Agent tự hành của Striver AI.'}
-
-## GUARDRAILS & TIÊU CHÍ AN TOÀN
-${mainAgent?.criteria || '- Luôn kiểm tra định dạng dữ liệu đầu vào.\n- Bắt buộc tuân thủ Output JSON Schema.'}
-`
-
-  const agentsMd = `# AGENTS.md - Danh Sách Agents & Phân Quyền (${title})
+  // 1. AGENTS.md (Danh sách & Phân quyền các Agent)
+  const agentsMd = `# AGENTS.md - Danh Sách & Phân Quyền Multi-Agent: ${title}
 
 ${agents.length > 0 
   ? agents.map((ag, i) => `### ${i + 1}. ${ag.agentName}
-**Vai Trò:** ${ag.role || 'Xử lý tác vụ chuyên trách.'}
-**Nguyên Tắc / Tiêu Chí:** ${ag.criteria || 'Tuân thủ schema và giới hạn quyền.'}
+- **Vai Trò & Chức Năng:** ${ag.role || 'Xử lý tác vụ chuyên trách theo quy trình.'}
+- **Bối Cảnh Vận Hành:** ${ag.context || 'Tiếp nhận yêu cầu từ hệ thống và người dùng.'}
+- **Ranh Giới Thẩm Quyền & Guardrails:** ${ag.criteria || 'Tuân thủ schema và kiểm soát an toàn.'}
 `).join('\n\n')
-  : `### 1. Agent Điều Phối Chính\n**Vai Trò:** Tự động hóa tác vụ theo PRD.\n`}
+  : `### 1. Agent Điều Phối Chính\n- **Vai Trò:** Tự động hóa tác vụ ${title} theo chuẩn PRD.\n`}
 `
 
-  const instructionsMd = agents.length > 1
-    ? `# INSTRUCTIONS.md - ${title}
+  // 2. SOUL.md (Bản sắc cốt lõi, Tính cách & Ranh giới an toàn)
+  const soulMd = `# SOUL.md - Bản Sắc Cốt Lõi & Ranh Giới An Toàn: ${mainAgent?.agentName || title}
 
-${agents.map((ag, i) => `## PHẦN ${i + 1}: ${ag.agentName}
-### 1. Quy Trình Thực Thi
-${ag.instructions || 'Tiếp nhận payload, xử lý và xuất JSON Schema.'}
+${mainAgent?.role || 'Bạn là AI Agent tự hành của Striver AI.'}
 
-### 2. Ví Dụ Mẫu (Few-shot Examples)
+## TIÊU CHÍ AN TOÀN & GUARDRAILS (RANH GIỚI BẢO MẬT)
+${mainAgent?.criteria || '- Tuyệt đối không tự suy diễn số liệu khi chưa có dữ liệu đầu vào.\n- Bắt buộc tuân thủ đúng định dạng JSON Schema.\n- Nếu độ tin cậy thấp hoặc nghiệp vụ vượt thẩm quyền, dừng lại và yêu cầu con người phê duyệt.'}
+`
+
+  // 3. IDENTITY.md (Định danh ngắn gọn, Role, Model & Cấp độ tự chủ)
+  const identityMd = `# IDENTITY.md - Định Danh Hệ Thống
+
+- **Tên Agent:** ${mainAgent?.agentName || title}
+- **Chức danh:** Trợ Lý AI Tự Hành Chuyên Trách
+- **Mô hình AI:** gemini-3.5-flash-lite (Primary) / gemini-3.5-flash
+- **Phong cách:** Chuyên nghiệp, trực diện, chuẩn xác, phản hồi < 60s
+- **Cấp độ tự chủ (Autonomy Tier):** L1 / L2 (Human-in-the-loop qua Telegram/Webhook)
+`
+
+  // 4. USER_PREDEFINED.md (Bối cảnh người dùng, đầu vào & KPI)
+  const userPredefinedMd = `# USER_PREDEFINED.md - Bối Cảnh Nghiệp Vụ & Dữ Liệu Mục Tiêu
+
+## 1. MỤC TIÊU NGHIỆP VỤ
+Tự động hóa hoàn toàn use-case: **${title}**
+
+## 2. KÊNH TIẾP NHẬN & DỮ LIỆU ĐẦU VÀO
+- Kênh tương tác: Webhook API, Zalo OA, Telegram, Website Form
+- **Input JSON Schema Chuẩn:**
+\`\`\`json
+${inputSchema}
+\`\`\`
+
+## 3. CHỈ SỐ CAM KẾT (SLA / KPI)
+- Thời gian phản hồi: Dưới 60 giây
+- Độ chính xác trích xuất: >= 95%
+- Cơ chế leo thang: Chuyển nhân sự khi khách khiếu nại hoặc dữ liệu thiếu
+`
+
+  // 5. CAPABILITIES.md (Năng lực, Quy trình thực thi & Output Schema)
+  const capabilitiesMd = `# CAPABILITIES.md - Năng Lực, Quy Trình Xử Lý & Schema Đầu Ra
+
+## 1. QUY TRÌNH THỰC THI (STEP-BY-STEP WORKFLOW)
+${agents.length > 1
+  ? agents.map((ag, i) => `### Bước ${i + 1}: ${ag.agentName}
+${ag.instructions || 'Quy trình thực thi theo tiêu chuẩn.'}
+
+#### Ví Dụ Mẫu (Few-shot):
 ${ag.examples || 'Tham khảo tài liệu PRD.'}
-`).join('\n\n---\n\n')}`
-    : `# INSTRUCTIONS.md - ${mainAgent?.agentName || title}
+`).join('\n\n---\n\n')
+  : `${mainAgent?.instructions || '1. Tiếp nhận payload từ webhook hoặc trigger.\n2. Bóc tách dữ liệu theo Input Schema.\n3. Xử lý tác vụ nghiệp vụ.\n4. Trả về kết quả theo Output Schema.'}
 
-## QUY TRÌNH THỰC THI (STEP-BY-STEP)
-${mainAgent?.instructions || '1. Tiếp nhận payload từ webhook hoặc trigger.\n2. Bóc tách dữ liệu theo Input Schema.\n3. Xử lý tác vụ nghiệp vụ.\n4. Trả về kết quả theo Output Schema.'}
+### Ví Dụ Mẫu (Few-shot):
+${mainAgent?.examples || 'Tham khảo tài liệu PRD.'}
+`}
 
-## VÍ DỤ THỰC TẾ (FEW-SHOT EXAMPLES)
-${mainAgent?.examples || 'Xem thêm trong đặc tả kỹ thuật PRD.'}
+## 2. ĐỊNH DẠNG ĐẦU RA BẮT BUỘC (OUTPUT JSON SCHEMA)
+\`\`\`json
+${outputSchema}
+\`\`\`
 `
 
-  let parsedInputSchema = {}
-  try { parsedInputSchema = JSON.parse(inputSchema) } catch {}
-  let parsedOutputSchema = {}
-  try { parsedOutputSchema = JSON.parse(outputSchema) } catch {}
+  // 6. HEARTBEAT.md (Kiểm tra định kỳ & xử lý tồn đọng)
+  const heartbeatMd = `# HEARTBEAT.md - Tác Vụ Định Kỳ & Kiểm Soát Ngoại Lệ
 
-  const toolsJson = JSON.stringify({
-    tools: [
-      {
-        name: "execute_agent_task",
-        description: `Thực thi nhiệm vụ cốt lõi cho ${title}`,
-        parameters: parsedInputSchema,
-        output_schema: parsedOutputSchema
-      }
-    ]
+## 1. CHU KỲ KIỂM TRA (HEARTBEAT CRON)
+- Tần suất: Mỗi 5 phút (*/5 * * * *)
+
+## 2. CHECKLIST KIỂM TRA ĐỊNH KỲ:
+- [ ] Quét các yêu cầu hoặc lead tồn đọng chưa được xử lý > 10 phút.
+- [ ] Kiểm tra các tác vụ đang chờ con người phê duyệt (Human-in-the-loop).
+- [ ] Báo cáo tóm tắt trạng thái về kênh Telegram định kỳ.
+- [ ] Tự động chuyển tiếp cảnh báo khẩn cấp nếu gặp lỗi API hoặc Timeout.
+`
+
+  // 7. IMPORT JSON (Gói đóng gói 1-click cho nút "Import Agent" trên GoClaw)
+  const importJson = JSON.stringify({
+    name: title,
+    slug: `goclaw-${(title || 'agent').toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+    version: "1.0.0",
+    model: "gemini-3.5-flash-lite",
+    provider: "google-ai-studio",
+    autonomy: {
+      tier: "L1",
+      requireHumanApproval: true,
+      approvalChannel: "telegram"
+    },
+    files: {
+      "AGENTS.md": agentsMd,
+      "SOUL.md": soulMd,
+      "IDENTITY.md": identityMd,
+      "USER_PREDEFINED.md": userPredefinedMd,
+      "CAPABILITIES.md": capabilitiesMd,
+      "HEARTBEAT.md": heartbeatMd
+    }
   }, null, 2)
-
-  const configYaml = `name: "${title.replace(/["\n\r]/g, '')}"
-version: "1.0.0"
-runtime: "goclaw-v1"
-model: "gemini-3.5-flash"
-fallback_model: "gemini-3.5-flash-lite"
-temperature: 0.35
-max_tokens: 16000
-
-autonomy:
-  tier: "L1" # L0: Read-Only | L1: Draft with Human Approval | L2: Guardrailed Auto | L3: Full Auto
-  require_human_approval: true
-  approval_channel: "telegram" # telegram, slack, webhook
-
-storage:
-  type: "memory"
-  vector_store: "chroma"
-  embedding_model: "text-embedding-004"
-`
 
   const readmeMd = `# GoClaw Autonomous Agent: ${title}
 
 Được tự động sinh từ **Striver AI Enterprise Engine**.
 
-## Cấu trúc thư mục:
+## Cấu trúc thư mục tương thích 100% với GoClaw:
 \`\`\`
 agent/
-├── SOUL.md           # Định danh, tính cách, giới hạn thẩm quyền
-├── AGENTS.md         # Danh mục Agent và phân quyền trách nhiệm
-├── INSTRUCTIONS.md   # Quy trình thực thi tuần tự & xử lý ngoại lệ
-├── tools.json        # Định nghĩa Input/Output Tool Schemas
-└── config.yaml       # Cấu hình Autonomy Tier (L1/L2) & Model Gemini 3.5
-\`\`\`
-
-## Cách chạy ngay với GoClaw CLI:
-\`\`\`bash
-# 1. Cài đặt GoClaw (nếu chưa có)
-curl -fsSL https://get.goclaw.sh | bash
-
-# 2. Khởi chạy Agent trong workspace
-goclaw run --workspace .
+├── AGENTS.md            # Danh sách Agent và phân quyền trách nhiệm
+├── SOUL.md              # Định danh, tính cách, giới hạn thẩm quyền
+├── IDENTITY.md          # Tên Agent, model và phong cách
+├── USER_PREDEFINED.md   # Bối cảnh người dùng và Input Schema
+├── CAPABILITIES.md      # Quy trình thực thi & Output JSON Schema
+├── HEARTBEAT.md         # Checklist tác vụ chạy định kỳ
+└── goclaw-import.json   # File nhập 1-click vào GoClaw
 \`\`\`
 `
 
-  const allInOne = `==================== SOUL.md ====================
-${soulMd}
-
-==================== AGENTS.md ====================
+  const allInOne = `==================== AGENTS.md ====================
 ${agentsMd}
 
-==================== INSTRUCTIONS.md ====================
-${instructionsMd}
+==================== SOUL.md ====================
+${soulMd}
 
-==================== tools.json ====================
-${toolsJson}
+==================== IDENTITY.md ====================
+${identityMd}
 
-==================== config.yaml ====================
-${configYaml}
+==================== USER_PREDEFINED.md ====================
+${userPredefinedMd}
+
+==================== CAPABILITIES.md ====================
+${capabilitiesMd}
+
+==================== HEARTBEAT.md ====================
+${heartbeatMd}
 `
 
-  return { soulMd, instructionsMd, agentsMd, toolsJson, configYaml, readmeMd, allInOne }
+  return {
+    agentsMd,
+    soulMd,
+    identityMd,
+    userPredefinedMd,
+    capabilitiesMd,
+    heartbeatMd,
+    importJson,
+    readmeMd,
+    allInOne
+  }
 }
 
 // -------------------------------------------------------------
