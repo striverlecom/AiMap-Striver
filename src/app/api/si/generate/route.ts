@@ -79,7 +79,7 @@ export async function POST(req: Request) {
   const systemInstruction = buildPrdSystemInstruction(await loadPrdKnowledgePack())
 
   for (const target of targets) {
-    let model = process.env.GEMINI_PRD_MODEL || 'gemini-2.5-flash-lite'
+    let model = process.env.GEMINI_PRD_MODEL || 'gemini-3.5-flash'
 
     try {
       console.info('day9_si_generate_start', { userId: user.id, useCaseIndex: target.useCaseIndex, provider: 'gemini', model })

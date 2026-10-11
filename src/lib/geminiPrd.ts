@@ -1,7 +1,7 @@
 import { GoogleGenAI } from '@google/genai'
 
-export const GEMINI_MODEL = process.env.GEMINI_PRD_MODEL || 'gemini-2.5-flash-lite'
-export const GEMINI_FALLBACK_MODEL = process.env.GEMINI_PRD_FALLBACK_MODEL || 'gemini-2.5-flash'
+export const GEMINI_MODEL = process.env.GEMINI_PRD_MODEL || 'gemini-3.5-flash'
+export const GEMINI_FALLBACK_MODEL = process.env.GEMINI_PRD_FALLBACK_MODEL || 'gemini-3.5-flash-lite'
 export const GEMINI_MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_PRD_MAX_OUTPUT_TOKENS || 24000)
 export const GENERATION_TIMEOUT_MS = Number(process.env.PRD_GENERATION_TIMEOUT_MS || 180000)
 
@@ -58,7 +58,8 @@ export async function generateGeminiText(client: GoogleGenAI, prompt: string, sy
           }
         })
 
-        return { text: response.text || '', model }
+        const extractedText = response.text || response.candidates?.[0]?.content?.parts?.map((p: any) => p.text).filter(Boolean).join('') || ''
+        return { text: extractedText, model }
       } catch (error: any) {
         lastError = error
         if (!isRetriableGeminiError(error)) throw error
