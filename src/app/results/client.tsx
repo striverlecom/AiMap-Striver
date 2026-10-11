@@ -127,9 +127,63 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
 
   return (
     <div className="container fade-in" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
+      {/* EXECUTIVE PRINT HEADER (Shown ONLY when printing/saving PDF) */}
+      <div className="print-only" style={{ marginBottom: '16pt', borderBottom: '2px solid #111827', paddingBottom: '10pt' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <div style={{ fontSize: '18pt', fontWeight: 900, letterSpacing: '-0.03em', color: '#111827' }}>
+              STRIVER AI
+            </div>
+            <div style={{ fontSize: '8.5pt', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Báo Cáo Kiểm Toán & Lộ Trình Ứng Dụng AI Doanh Nghiệp (Executive Report)
+            </div>
+          </div>
+          <div style={{ textAlign: 'right', fontSize: '8pt', color: '#6b7280' }}>
+            <div>Mã kiểm toán: <strong>AUDIT-{user.id ? String(user.id).slice(-6).toUpperCase() : '2026-CONF'}</strong></div>
+            <div>Phân loại: <strong>Tài Liệu Chiến Lược Mật</strong></div>
+            <div>Cố vấn: <strong>Striver Le (striverle.com)</strong></div>
+          </div>
+        </div>
+      </div>
+
       <header style={{ marginBottom: '3rem', textAlign: 'center' }}>
         <h1 style={{fontSize: 'clamp(2rem, 5vw, 3rem)', letterSpacing: '-0.02em', marginBottom: '0.5rem'}}>BÁO CÁO KIỂM TOÁN AI</h1>
-        <p style={{ color: 'var(--muted)', fontSize: '1rem' }}>Kết quả sau 7 ngày phân tích - Dựa trên dữ liệu thật</p>
+        <p style={{ color: 'var(--muted)', fontSize: '1rem', marginBottom: '1.5rem' }}>Kết quả sau 7 ngày phân tích - Dựa trên dữ liệu thật</p>
+        
+        {/* EXECUTIVE ACTION BAR (Web Only) */}
+        <div className="no-print" style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <button
+            onClick={() => window.print()}
+            style={{
+              background: 'linear-gradient(135deg, #ffffff 0%, #e5e5ea 100%)',
+              color: '#000000',
+              fontWeight: 700,
+              fontSize: '0.95rem',
+              padding: '12px 26px',
+              borderRadius: '999px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              boxShadow: '0 4px 16px rgba(255,255,255,0.2)',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease'
+            }}
+            onMouseOver={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+            onMouseOut={e => e.currentTarget.style.transform = 'translateY(0)'}
+          >
+            <span>🖨️</span>
+            <span>Xuất Báo Cáo Executive (PDF / In Ấn)</span>
+          </button>
+          
+          <Link
+            href="/dashboard"
+            className="btn-secondary"
+            style={{ padding: '12px 22px', fontSize: '0.95rem', textDecoration: 'none' }}
+          >
+            Bảng Điều Khiển
+          </Link>
+        </div>
       </header>
 
       <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
@@ -352,6 +406,34 @@ export default function ResultsClient({ serverUser }: { serverUser: any }) {
         <div style={{ textAlign: 'center', marginTop: '3rem', paddingBottom: '2rem' }}>
           <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginBottom: '1.5rem', fontStyle: 'italic' }}>Striver Le · "Đừng trả tiền để thử nghiệm. Hãy trả tiền cho kết quả."</p>
           <Link href="/dashboard" prefetch={true} className="btn-secondary" style={{ padding: '12px 24px', minHeight: '48px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Quay Lại Bảng Điều Khiển</Link>
+        </div>
+
+        {/* EXECUTIVE PRINT SIGN-OFF (Shown ONLY when printing/saving PDF) */}
+        <div className="print-only" style={{ marginTop: '30pt', pageBreakInside: 'avoid', borderTop: '1px solid #d1d5db', paddingTop: '15pt' }}>
+          <div style={{ fontSize: '8.5pt', color: '#6b7280', fontStyle: 'italic', marginBottom: '30pt', textAlign: 'center' }}>
+            "Báo cáo này được tính toán độc lập dựa trên dữ liệu hiện trạng doanh nghiệp đã cung cấp qua 7 ngày kiểm toán của hệ thống Striver AI. Kết quả ROI và thời gian hoàn vốn có giá trị định hướng triển khai chiến lược."
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40pt', textAlign: 'center' }}>
+            <div>
+              <div style={{ fontSize: '10pt', fontWeight: 700, color: '#111827', marginBottom: '50pt' }}>
+                ĐẠI DIỆN DOANH NGHIỆP
+              </div>
+              <div style={{ fontSize: '9pt', color: '#374151' }}>
+                {globalParams.authorName || 'Ký & Ghi rõ họ tên'}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: '10pt', fontWeight: 700, color: '#111827', marginBottom: '50pt' }}>
+                CHUYÊN GIA TRƯỞNG STRIVER AI
+              </div>
+              <div style={{ fontSize: '9.5pt', color: '#111827', fontWeight: 700 }}>
+                STRIVER LE (LÊ QUANG CƯỜNG)
+              </div>
+              <div style={{ fontSize: '8pt', color: '#6b7280', marginTop: '2pt' }}>
+                Founder & Lead Consultant · striverle.com
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
