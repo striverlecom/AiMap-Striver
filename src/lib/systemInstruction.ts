@@ -34,14 +34,17 @@ export function extractCompletedPrds(day8Data: any): PrdItem[] {
 export function mergeSiItems(existing: SiItem[], prds: PrdItem[]): SiItem[] {
   return prds.map(prd => {
     const old = existing.find(item => item.useCaseIndex === prd.useCaseIndex)
-    let status = old?.status || 'pending'
-    let errorMessage = old?.errorMessage || null
+    const isSameTitle = old?.useCaseTitle?.trim().toLowerCase() === prd.useCaseTitle?.trim().toLowerCase()
+    const matchedOld = isSameTitle ? old : undefined
 
-    if (status === 'generating' && old?.markdown) {
+    let status = matchedOld?.status || 'pending'
+    let errorMessage = matchedOld?.errorMessage || null
+
+    if (status === 'generating' && matchedOld?.markdown) {
       status = 'completed'
       errorMessage = null
-    } else if (status === 'generating' && old?.generatedAt) {
-      const ageMs = Date.now() - new Date(old.generatedAt).getTime()
+    } else if (status === 'generating' && matchedOld?.generatedAt) {
+      const ageMs = Date.now() - new Date(matchedOld.generatedAt).getTime()
       if (Number.isFinite(ageMs) && ageMs > 10 * 60 * 1000) {
         status = 'failed'
         errorMessage = 'Lần tạo trước bị ngắt do timeout. Vui lòng bấm tạo lại System Instruction này.'
@@ -52,10 +55,10 @@ export function mergeSiItems(existing: SiItem[], prds: PrdItem[]): SiItem[] {
       useCaseIndex: prd.useCaseIndex,
       useCaseTitle: prd.useCaseTitle,
       status,
-      markdown: old?.markdown || '',
+      markdown: matchedOld?.markdown || '',
       errorMessage,
-      model: old?.model || null,
-      generatedAt: old?.generatedAt || null
+      model: matchedOld?.model || null,
+      generatedAt: matchedOld?.generatedAt || null
     }
   })
 }

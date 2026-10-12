@@ -27,6 +27,7 @@ export default function Day9Client({ prdCount, prds, initialItems, isConfigured 
   // Runtime View States
   const [activeRuntime, setActiveRuntime] = useState<RuntimeTarget>('goclaw')
   const [activeGoclawFile, setActiveGoclawFile] = useState<'agents' | 'soul' | 'identity' | 'user' | 'userPredefined' | 'capabilities' | 'heartbeat'>('agents')
+  const [selectedAgentIndex, setSelectedAgentIndex] = useState<'all' | number>('all')
   const [copyNotice, setCopyNotice] = useState<string | null>(null)
 
   const activeItem = items.find(item => item.useCaseIndex === activeIndex) || items[0]
@@ -35,10 +36,19 @@ export default function Day9Client({ prdCount, prds, initialItems, isConfigured 
   const hasGeneratingItem = items.some(item => item.status === 'generating')
   const activeItemIsGenerating = activeItem?.status === 'generating'
 
+  // Reset selectedAgentIndex when switching use-case
+  useEffect(() => {
+    setSelectedAgentIndex('all')
+  }, [activeIndex])
+
   // Memoized Runtime Packages
   const goClawPkg = useMemo(() => {
-    return generateGoClawPackage(activePrd, activeItem)
-  }, [activePrd, activeItem])
+    return generateGoClawPackage(
+      activePrd,
+      activeItem,
+      selectedAgentIndex === 'all' ? undefined : selectedAgentIndex
+    )
+  }, [activePrd, activeItem, selectedAgentIndex])
 
   const n8nJson = useMemo(() => {
     return generateN8nWorkflow(activePrd, activeItem)
@@ -385,9 +395,13 @@ echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '0.75rem' }}>
                       <div>
-                        <strong style={{ color: 'var(--success)', fontSize: '1.05rem' }}>🦅 GoClaw.sh / OpenClaw Autonomous Workspace</strong>
+                        <strong style={{ color: 'var(--success)', fontSize: '1.05rem' }}>
+                          🦅 GoClaw.sh / OpenClaw Autonomous Workspace ({goClawPkg.agentCount || 1} Agents)
+                        </strong>
                         <p style={{ color: 'var(--muted)', fontSize: '0.88rem', margin: '0.25rem 0 0' }}>
-                          Trọn bộ cấu hình Workspace đạt chuẩn Harness Agent. Có thể tải về hoặc chạy lệnh 1-click để khởi chạy ngay trên máy chủ hoặc terminal cá nhân.
+                          {goClawPkg.agentCount > 1
+                            ? `Use-case này có ${goClawPkg.agentCount} Agent. Bạn có thể tải gói Tổng hợp (cả ${goClawPkg.agentCount} Agent phối hợp trong 1 Workspace) hoặc chọn tải riêng từng Agent bên dưới.`
+                            : 'Trọn bộ cấu hình Workspace đạt chuẩn Harness Agent. Có thể tải gói .tar.gz để Import trực tiếp vào GoClaw.sh.'}
                         </p>
                       </div>
                       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -404,21 +418,14 @@ echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
                             cursor: activeItem?.markdown ? 'pointer' : 'not-allowed',
                             opacity: activeItem?.markdown ? 1 : 0.5
                           }}
-                          href={activeItem?.markdown ? `/api/goclaw/export?useCaseIndex=${activeItem.useCaseIndex}` : undefined}
+                          href={activeItem?.markdown ? `/api/goclaw/export?useCaseIndex=${activeItem.useCaseIndex}&agentIndex=${selectedAgentIndex}` : undefined}
                           download
                           title="Tải file lưu trữ tar.gz để Import trực tiếp vào GoClaw.sh"
                         >
-                          📦 Tải Gói Nhập GoClaw (.tar.gz)
+                          📦 {selectedAgentIndex === 'all'
+                            ? `Tải Gói GoClaw Tổng Hợp (${goClawPkg.agentCount || 1} Agents .tar.gz)`
+                            : `Tải Gói GoClaw: Agent ${Number(selectedAgentIndex) + 1} (.tar.gz)`}
                         </a>
-                        <button
-                          className="btn-secondary"
-                          style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}
-                          onClick={() => downloadTextFile(goClawPkg.importJson, `goclaw-agent-${slugifyFileName(activeItem?.useCaseTitle || 'agent')}.json`, 'application/json')}
-                          disabled={!activeItem.markdown}
-                          title="Tải file JSON phụ trợ"
-                        >
-                          📄 Tải goclaw-agent.json
-                        </button>
                         <button
                           className="btn-secondary"
                           style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}
@@ -439,6 +446,58 @@ echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
                       </div>
                     </div>
 
+                    {/* Multi-Agent Selector Bar (hiển thị khi có nhiều hơn 1 Agent) */}
+                    {goClawPkg.agentCount > 1 && (
+                      <div style={{
+                        marginBottom: '0.75rem',
+                        padding: '0.65rem 0.85rem',
+                        background: 'rgba(16, 185, 129, 0.08)',
+                        border: '1px solid rgba(16, 185, 129, 0.25)',
+                        borderRadius: 6,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        flexWrap: 'wrap'
+                      }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#10b981' }}>
+                          🤖 Chế độ đóng gói ({goClawPkg.agentCount} Agents):
+                        </span>
+                        <button
+                          onClick={() => setSelectedAgentIndex('all')}
+                          style={{
+                            padding: '0.35rem 0.75rem',
+                            borderRadius: 6,
+                            fontSize: '0.8rem',
+                            fontWeight: selectedAgentIndex === 'all' ? 700 : 500,
+                            border: selectedAgentIndex === 'all' ? '1px solid #10b981' : '1px solid var(--card-border)',
+                            background: selectedAgentIndex === 'all' ? '#10b981' : 'rgba(0,0,0,0.3)',
+                            color: selectedAgentIndex === 'all' ? '#000' : 'var(--foreground)',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          🔗 Gộp cả {goClawPkg.agentCount} Agents (Orchestrator)
+                        </button>
+                        {goClawPkg.agentNames.map((name, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setSelectedAgentIndex(idx)}
+                            style={{
+                              padding: '0.35rem 0.75rem',
+                              borderRadius: 6,
+                              fontSize: '0.8rem',
+                              fontWeight: selectedAgentIndex === idx ? 700 : 500,
+                              border: selectedAgentIndex === idx ? '1px solid #10b981' : '1px solid var(--card-border)',
+                              background: selectedAgentIndex === idx ? '#10b981' : 'rgba(0,0,0,0.3)',
+                              color: selectedAgentIndex === idx ? '#000' : 'var(--foreground)',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            👤 Agent {idx + 1}: {name.replace(/^\d+[\.\)]\s*/, '').slice(0, 32)}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
                     {/* Quick instruction for GoClaw import */}
                     <div style={{
                       background: 'rgba(0,0,0,0.5)',
@@ -453,7 +512,7 @@ echo "👉 Cách dùng: cd $WORKSPACE hoặc kéo thả file vào GoClaw.sh"
                       flexWrap: 'wrap'
                     }}>
                       <div style={{ color: 'var(--muted)', lineHeight: 1.6 }}>
-                        <span style={{ color: '#10b981', fontWeight: 700 }}>🟢 Cách 1 (Chuẩn nhất - Import vào GoClaw):</span> Bấm nút xanh <strong>"📦 Tải Gói Nhập GoClaw (.tar.gz)"</strong> ➔ Trên GoClaw.sh bấm <strong>"Import Agent"</strong> ➔ Chọn file <code>.tar.gz</code> vừa tải.<br />
+                        <span style={{ color: '#10b981', fontWeight: 700 }}>🟢 Cách 1 (Chuẩn nhất - Import vào GoClaw):</span> Bấm nút xanh <strong>"📦 Tải Gói GoClaw (.tar.gz)"</strong> ➔ Trên GoClaw.sh bấm <strong>"Import Agent"</strong> ➔ Chọn file <code>.tar.gz</code> vừa tải.<br />
                         <span style={{ color: '#10b981', fontWeight: 700 }}>🟡 Cách 2 (Chỉnh sửa trực tiếp):</span> Trên GoClaw.sh vào tab <strong>"Tệp"</strong> ➔ Bấm vào từng file (<code>AGENTS.md</code>, <code>SOUL.md</code>, <code>IDENTITY.md</code>,...) ➔ Copy nội dung tương ứng bên dưới dán vào.
                       </div>
                     </div>

@@ -32,6 +32,10 @@ export async function GET(req: Request) {
 
   const { searchParams } = new URL(req.url)
   const useCaseIndex = parseInt(searchParams.get('useCaseIndex') || '1', 10)
+  const agentIndexParam = searchParams.get('agentIndex')
+  const specificAgentIndex = agentIndexParam !== null && agentIndexParam !== 'all'
+    ? parseInt(agentIndexParam, 10)
+    : undefined
 
   const prds = safeJsonParse<PrdItem[]>(user.day8Data?.prdData, [])
   const sis = safeJsonParse<SiItem[]>(user.day9Data?.siData, [])
@@ -43,8 +47,12 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: 'Chưa có dữ liệu System Instruction cho use-case này.' }, { status: 404 })
   }
 
-  const pkg = generateGoClawPackage(activePrd, activeSi)
-  const slug = (activePrd?.useCaseTitle || activeSi?.useCaseTitle || 'agent')
+  const pkg = generateGoClawPackage(activePrd, activeSi, specificAgentIndex)
+  const rawTitle = typeof specificAgentIndex === 'number' && pkg.agentNames[specificAgentIndex]
+    ? pkg.agentNames[specificAgentIndex]
+    : (activePrd?.useCaseTitle || activeSi?.useCaseTitle || 'agent')
+
+  const slug = rawTitle
     .toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')

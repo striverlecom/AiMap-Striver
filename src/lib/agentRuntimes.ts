@@ -17,13 +17,37 @@ export function extractAgentsFromSi(siMarkdown: string): ParsedAgentXml[] {
   if (!siMarkdown) return []
 
   const agents: ParsedAgentXml[] = []
-  // Matches each agent section: e.g. "### 1. Agent ..." or "1. Agent ..." followed by ```xml ... ```
-  const agentBlockRegex = /(?:###?\s*)?(\d+[\.\)]\s*(?:Agent[^\n\r]+|\*\*[^\*]+\*\*|[^\n\r]+))[\s\S]*?```xml([\s\S]*?)```/gi
-  let match: RegExpExecArray | null
 
-  while ((match = agentBlockRegex.exec(siMarkdown)) !== null) {
-    const rawTitle = match[1]?.replace(/[#\*]/g, '').trim() || 'Agent'
-    const xmlContent = match[2]?.trim() || ''
+  // Strategy 1: Find all ```xml ... ``` (or ``` ... ``` containing <role>) code blocks
+  const xmlBlockRegex = /```(?:xml)?([\s\S]*?)```/gi
+  let match: RegExpExecArray | null
+  let blockIndex = 0
+
+  while ((match = xmlBlockRegex.exec(siMarkdown)) !== null) {
+    const xmlContent = match[1]?.trim() || ''
+    if (!/<role>/i.test(xmlContent)) continue
+
+    blockIndex++
+    // Look backwards up to 400 chars before this ```xml block to find the nearest heading
+    const beforeBlock = siMarkdown.slice(Math.max(0, match.index - 450), match.index)
+    const linesBefore = beforeBlock.split('\n').map(l => l.trim()).filter(Boolean)
+
+    let agentName = `Agent ${blockIndex}`
+    // Search from bottom-most line upwards for a heading or numbered agent title
+    for (let i = linesBefore.length - 1; i >= 0; i--) {
+      const line = linesBefore[i]
+      if (/^(?:#{1,4}\s*)?(?:\d+[\.\)\-:]\s*|Agent\s*\d*[\.\)\-:]?\s*)/i.test(line) || line.startsWith('#')) {
+        const cleaned = line
+          .replace(/^#{1,5}\s*/, '')
+          .replace(/^\d+[\.\)\-:]\s*/, '')
+          .replace(/[\*`_]/g, '')
+          .trim()
+        if (cleaned.length > 2 && !/^danh sách/i.test(cleaned) && !/^system instruction/i.test(cleaned)) {
+          agentName = cleaned
+          break
+        }
+      }
+    }
 
     const role = (/<role>([\s\S]*?)<\/role>/i.exec(xmlContent)?.[1] || '').trim()
     const context = (/<context>([\s\S]*?)<\/context>/i.exec(xmlContent)?.[1] || '').trim()
@@ -32,7 +56,7 @@ export function extractAgentsFromSi(siMarkdown: string): ParsedAgentXml[] {
     const examples = (/<examples>([\s\S]*?)<\/examples>/i.exec(xmlContent)?.[1] || '').trim()
 
     agents.push({
-      agentName: rawTitle,
+      agentName,
       role,
       context,
       instructions,
@@ -42,21 +66,24 @@ export function extractAgentsFromSi(siMarkdown: string): ParsedAgentXml[] {
     })
   }
 
-  // Fallback if regex didn't catch separate headers
-  if (agents.length === 0 && siMarkdown.includes('<role>')) {
-    const role = (/<role>([\s\S]*?)<\/role>/i.exec(siMarkdown)?.[1] || '').trim()
-    const context = (/<context>([\s\S]*?)<\/context>/i.exec(siMarkdown)?.[1] || '').trim()
-    const instructions = (/<instructions>([\s\S]*?)<\/instructions>/i.exec(siMarkdown)?.[1] || '').trim()
-    const criteria = (/<criteria>([\s\S]*?)<\/criteria>/i.exec(siMarkdown)?.[1] || '').trim()
-    const examples = (/<examples>([\s\S]*?)<\/examples>/i.exec(siMarkdown)?.[1] || '').trim()
-    agents.push({
-      agentName: 'Agent Chính',
-      role,
-      context,
-      instructions,
-      criteria,
-      examples,
-      fullXml: siMarkdown
+  // Strategy 2: Fallback if <role> tags exist outside code fences
+  if (agents.length === 0 && /<role>/i.test(siMarkdown)) {
+    const roleMatches = [...siMarkdown.matchAll(/<role>([\s\S]*?)<\/role>/gi)]
+    const contextMatches = [...siMarkdown.matchAll(/<context>([\s\S]*?)<\/context>/gi)]
+    const instructionMatches = [...siMarkdown.matchAll(/<instructions>([\s\S]*?)<\/instructions>/gi)]
+    const criteriaMatches = [...siMarkdown.matchAll(/<criteria>([\s\S]*?)<\/criteria>/gi)]
+    const exampleMatches = [...siMarkdown.matchAll(/<examples>([\s\S]*?)<\/examples>/gi)]
+
+    roleMatches.forEach((rm, idx) => {
+      agents.push({
+        agentName: `Agent ${idx + 1}`,
+        role: (rm[1] || '').trim(),
+        context: (contextMatches[idx]?.[1] || '').trim(),
+        instructions: (instructionMatches[idx]?.[1] || '').trim(),
+        criteria: (criteriaMatches[idx]?.[1] || '').trim(),
+        examples: (exampleMatches[idx]?.[1] || '').trim(),
+        fullXml: siMarkdown
+      })
     })
   }
 
@@ -88,6 +115,8 @@ export function extractJsonSchemaFromPrd(prdMarkdown: string, schemaType: 'input
 // 1. GOCLAW RUNTIME GENERATOR
 // -------------------------------------------------------------
 export interface GoClawPackage {
+  agentCount: number
+  agentNames: string[]
   agentsMd: string
   soulMd: string
   identityMd: string
@@ -100,39 +129,70 @@ export interface GoClawPackage {
   allInOne: string
 }
 
-export function generateGoClawPackage(prd: PrdItem | undefined, si: SiItem | undefined): GoClawPackage {
-  const agents = extractAgentsFromSi(si?.markdown || '')
+export function generateGoClawPackage(
+  prd: PrdItem | undefined,
+  si: SiItem | undefined,
+  specificAgentIndex?: number // 0-based index if exporting a single specific agent, undefined = combined multi-agent orchestrator
+): GoClawPackage {
+  const allAgents = extractAgentsFromSi(si?.markdown || '')
+  const agents = typeof specificAgentIndex === 'number' && allAgents[specificAgentIndex]
+    ? [allAgents[specificAgentIndex]]
+    : allAgents
   const mainAgent = agents[0]
   const inputSchema = extractJsonSchemaFromPrd(prd?.markdown || '', 'input')
   const outputSchema = extractJsonSchemaFromPrd(prd?.markdown || '', 'output')
-  const title = prd?.useCaseTitle || si?.useCaseTitle || 'AI Agent'
+  const baseTitle = prd?.useCaseTitle || si?.useCaseTitle || 'AI Agent'
+  const title = typeof specificAgentIndex === 'number' && mainAgent
+    ? `${mainAgent.agentName} (${baseTitle})`
+    : baseTitle
 
-  // 1. AGENTS.md (Danh sách & Phân quyền các Agent)
-  const agentsMd = `# AGENTS.md - Danh Sách & Phân Quyền Multi-Agent: ${title}
+  // 1. AGENTS.md (Danh sách & Phân quyền toàn bộ Multi-Agent)
+  const agentsMd = `# AGENTS.md - Danh Sách & Phân Quyền Multi-Agent (${agents.length || 1} Agents): ${title}
+
+Hệ thống bao gồm **${agents.length || 1} Agent chuyên trách** phối hợp tuần tự theo kiến trúc Pipeline / Orchestrator:
 
 ${agents.length > 0 
-  ? agents.map((ag, i) => `### ${i + 1}. ${ag.agentName}
-- **Vai Trò & Chức Năng:** ${ag.role || 'Xử lý tác vụ chuyên trách theo quy trình.'}
-- **Bối Cảnh Vận Hành:** ${ag.context || 'Tiếp nhận yêu cầu từ hệ thống và người dùng.'}
-- **Ranh Giới Thẩm Quyền & Guardrails:** ${ag.criteria || 'Tuân thủ schema và kiểm soát an toàn.'}
-`).join('\n\n')
-  : `### 1. Agent Điều Phối Chính\n- **Vai Trò:** Tự động hóa tác vụ ${title} theo chuẩn PRD.\n`}
+  ? agents.map((ag, i) => `## Agent ${i + 1}: ${ag.agentName}
+### Vai Trò & Định Vị (Role)
+${ag.role || 'Xử lý tác vụ chuyên trách theo quy trình.'}
+
+### Bối Cảnh & Đầu Vào (Context)
+${ag.context || 'Tiếp nhận yêu cầu từ bước trước đó hoặc từ người dùng.'}
+
+### Tiêu Chí Kiểm Soát & Ranh Giới (Criteria & Guardrails)
+${ag.criteria || 'Tuân thủ schema và kiểm soát an toàn.'}
+`).join('\n---\n\n')
+  : `## Agent 1: Agent Điều Phối Chính\n- **Vai Trò:** Tự động hóa tác vụ ${title} theo chuẩn PRD.\n`}
 `
 
-  // 2. SOUL.md (Bản sắc cốt lõi, Tính cách & Ranh giới an toàn)
-  const soulMd = `# SOUL.md - Bản Sắc Cốt Lõi & Ranh Giới An Toàn: ${mainAgent?.agentName || title}
+  // 2. SOUL.md (Bản sắc cốt lõi, Tính cách & Ranh giới an toàn của TOÀN BỘ các Agent)
+  const soulMd = `# SOUL.md - Bản Sắc Cốt Lõi & Ranh Giới An Toàn Hệ Thống Multi-Agent: ${title}
 
-${mainAgent?.role || 'Bạn là AI Agent tự hành của Striver AI.'}
+${agents.length > 1
+  ? `Hệ thống vận hành dưới dạng **Tổ Hợp ${agents.length} AI Agent Chuyên Trách**, mỗi Agent giữ một vai trò và ranh giới thẩm quyền độc lập:\n\n` +
+    agents.map((ag, i) => `## ${i + 1}. Bản Sắc & Guardrails - ${ag.agentName}
+### Định Danh & Tính Cách:
+${ag.role || 'AI Agent chuyên trách.'}
+
+### Tiêu Chí An Toàn & Ranh Giới Thẩm Quyền:
+${ag.criteria || '- Tuân thủ nghiêm ngặt JSON Schema.\n- Không tự bịa đặt dữ liệu.'}
+`).join('\n---\n\n')
+  : `${mainAgent?.role || 'Bạn là AI Agent tự hành của Striver AI.'}
 
 ## TIÊU CHÍ AN TOÀN & GUARDRAILS (RANH GIỚI BẢO MẬT)
-${mainAgent?.criteria || '- Tuyệt đối không tự suy diễn số liệu khi chưa có dữ liệu đầu vào.\n- Bắt buộc tuân thủ đúng định dạng JSON Schema.\n- Nếu độ tin cậy thấp hoặc nghiệp vụ vượt thẩm quyền, dừng lại và yêu cầu con người phê duyệt.'}
+${mainAgent?.criteria || '- Tuyệt đối không tự suy diễn số liệu khi chưa có dữ liệu đầu vào.\n- Bắt buộc tuân thủ đúng định dạng JSON Schema.\n- Nếu độ tin cậy thấp hoặc nghiệp vụ vượt thẩm quyền, dừng lại và yêu cầu con người phê duyệt.'}`
+}
 `
 
-  // 3. IDENTITY.md (Định danh ngắn gọn, Role, Model & Cấp độ tự chủ)
-  const identityMd = `# IDENTITY.md - Định Danh Hệ Thống
+  // 3. IDENTITY.md (Định danh Hệ thống & Danh sách các Agent thành viên)
+  const identityMd = `# IDENTITY.md - Định Danh Hệ Thống Multi-Agent
 
-- **Tên Agent:** ${mainAgent?.agentName || title}
-- **Chức danh:** Trợ Lý AI Tự Hành Chuyên Trách
+- **Tên Hệ Thống / Use-Case:** ${title}
+- **Kiến Trúc Vận Hành:** Multi-Agent Pipeline (${agents.length || 1} Agents)
+- **Danh Sách Agent Thành Viên:**
+${agents.length > 0
+  ? agents.map((ag, i) => `  ${i + 1}. **${ag.agentName}**`).join('\n')
+  : `  1. **${title}**`}
 - **Mô hình AI:** gemini-3.5-flash-lite (Primary) / gemini-3.5-flash
 - **Phong cách:** Chuyên nghiệp, trực diện, chuẩn xác, phản hồi < 60s
 - **Cấp độ tự chủ (Autonomy Tier):** L1 / L2 (Human-in-the-loop qua Telegram/Webhook)
@@ -151,7 +211,7 @@ ${mainAgent?.criteria || '- Tuyệt đối không tự suy diễn số liệu kh
   const userPredefinedMd = `# USER_PREDEFINED.md - Bối Cảnh Nghiệp Vụ & Dữ Liệu Mục Tiêu
 
 ## 1. MỤC TIÊU NGHIỆP VỤ
-Tự động hóa hoàn toàn use-case: **${title}**
+Tự động hóa hoàn toàn use-case: **${title}** (với sự phối hợp của ${agents.length || 1} Agent: ${agents.map(a => a.agentName).join(' ➔ ') || title})
 
 ## 2. KÊNH TIẾP NHẬN & DỮ LIỆU ĐẦU VÀO
 - Kênh tương tác: Webhook API, Zalo OA, Telegram, Website Form
@@ -166,24 +226,32 @@ ${inputSchema}
 - Cơ chế leo thang: Chuyển nhân sự khi khách khiếu nại hoặc dữ liệu thiếu
 `
 
-  // 6. CAPABILITIES.md (Năng lực, Quy trình thực thi & Output Schema)
-  const capabilitiesMd = `# CAPABILITIES.md - Năng Lực, Quy Trình Xử Lý & Schema Đầu Ra
+  // 6. CAPABILITIES.md (Năng lực, Quy trình thực thi chi tiết từng Agent & Output Schema)
+  const capabilitiesMd = `# CAPABILITIES.md - Năng Lực, Quy Trình Phối Hợp ${agents.length || 1} Agent & Schema Đầu Ra
 
-## 1. QUY TRÌNH THỰC THI (STEP-BY-STEP WORKFLOW)
-${agents.length > 1
-  ? agents.map((ag, i) => `### Bước ${i + 1}: ${ag.agentName}
+## 1. QUY TRÌNH THỰC THI CHI TIẾT CỦA TỪNG AGENT (MULTI-AGENT WORKFLOW)
+${agents.length > 0
+  ? agents.map((ag, i) => `## Giai Đoạn ${i + 1}: ${ag.agentName}
+
+### A. Bối Cảnh & Input Của ${ag.agentName}:
+${ag.context || 'Nhận dữ liệu từ bước trước.'}
+
+### B. Các Bước Thực Thi (Instructions):
 ${ag.instructions || 'Quy trình thực thi theo tiêu chuẩn.'}
 
-#### Ví Dụ Mẫu (Few-shot):
+### C. Tiêu Chí Nghiệm Thu (Criteria):
+${ag.criteria || 'Đảm bảo đầu ra đúng định dạng.'}
+
+### D. Ví Dụ Mẫu (Few-shot Examples):
 ${ag.examples || 'Tham khảo tài liệu PRD.'}
-`).join('\n\n---\n\n')
+`).join('\n\n======================================================================\n\n')
   : `${mainAgent?.instructions || '1. Tiếp nhận payload từ webhook hoặc trigger.\n2. Bóc tách dữ liệu theo Input Schema.\n3. Xử lý tác vụ nghiệp vụ.\n4. Trả về kết quả theo Output Schema.'}
 
 ### Ví Dụ Mẫu (Few-shot):
 ${mainAgent?.examples || 'Tham khảo tài liệu PRD.'}
 `}
 
-## 2. ĐỊNH DẠNG ĐẦU RA BẮT BUỘC (OUTPUT JSON SCHEMA)
+## 2. ĐỊNH DẠNG ĐẦU RA BẮT BUỘC CUỐI CÙNG (FINAL OUTPUT JSON SCHEMA)
 \`\`\`json
 ${outputSchema}
 \`\`\`
@@ -266,6 +334,8 @@ ${heartbeatMd}
 `
 
   return {
+    agentCount: allAgents.length,
+    agentNames: allAgents.map(a => a.agentName),
     agentsMd,
     soulMd,
     identityMd,
@@ -288,7 +358,9 @@ export function generateN8nWorkflow(prd: PrdItem | undefined, si: SiItem | undef
   const title = prd?.useCaseTitle || si?.useCaseTitle || 'Striver AI Agent'
   const outputSchema = extractJsonSchemaFromPrd(prd?.markdown || '', 'output')
 
-  const systemMessage = `${mainAgent?.role || ''}\n\n${mainAgent?.instructions || ''}`.trim() || 'Bạn là AI Agent tự hành.'
+  const systemMessage = agents.length > 0
+    ? agents.map((ag, i) => `=== AGENT ${i + 1}: ${ag.agentName} ===\n[ROLE]\n${ag.role}\n\n[INSTRUCTIONS]\n${ag.instructions}\n\n[CRITERIA]\n${ag.criteria}`).join('\n\n----------------------------------------\n\n')
+    : 'Bạn là AI Agent tự hành.'
 
   const workflow = {
     name: `Striver AI - ${title.slice(0, 40)}`,

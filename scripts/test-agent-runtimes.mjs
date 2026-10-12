@@ -31,7 +31,17 @@ async function testRuntimes() {
   for (const u of usersWithDay9) {
     try {
       const prds = JSON.parse(u.day8Data?.prdData || '[]')
+      const customPrds = JSON.parse(u.day8Data?.customPrdData || '[]')
+      const prdMode = u.day8Data?.prdMode || 'system'
       const sis = JSON.parse(u.day9Data?.siData || '[]')
+      console.log(`User ${u.email} (prdMode=${prdMode}) has ${prds.length} system PRDs, ${customPrds.length} custom PRDs, and ${sis.length} SIs:`)
+      prds.forEach(p => console.log(`  - System PRD [${p.useCaseIndex}] "${p.useCaseTitle}" (status=${p.status}, len=${(p.markdown || '').length})`))
+      customPrds.forEach(p => console.log(`  - Custom PRD [${p.useCaseIndex}] "${p.useCaseTitle}" (status=${p.status}, len=${(p.markdown || '').length})`))
+      for (const s of sis) {
+        const ags = extractAgentsFromSi(s.markdown || '')
+        console.log(`  - SI [${s.useCaseIndex}] "${s.useCaseTitle}" (status=${s.status}, len=${(s.markdown || '').length}, extractedAgents=${ags.length})`)
+        ags.forEach((a, i) => console.log(`      Agent ${i + 1}: ${a.agentName}`))
+      }
       const completedPrd = prds.find(p => p.status === 'completed' && p.markdown)
       const completedSi = sis.find(s => s.status === 'completed' && s.markdown)
       if (completedPrd && completedSi) {
@@ -150,6 +160,11 @@ Nội dung báo giá gồm 3 gói: Starter, Pro, Enterprise.
   }
 
   console.log('\n--- BƯỚC 1: KIỂM TRA CHẾ ĐỘ 1 - GOCLAW.SH / OPENCLAW ---')
+  const extractedAgents = extractAgentsFromSi(siSample?.markdown || '')
+  console.log('-> Số Agent trích xuất được từ SI:', extractedAgents.length)
+  extractedAgents.forEach((ag, idx) => console.log(`   [${idx + 1}] ${ag.agentName} (role: ${ag.role.slice(0, 60)}...)`))
+  console.log('-> Các dòng tiêu đề trong SI:')
+  console.log((siSample?.markdown || '').split('\n').filter(l => l.startsWith('#') || /^\d+[\.\)]/.test(l) || l.includes('Agent') || l.includes('```')).slice(0, 30).join('\n'))
   const goclawPkg = generateGoClawPackage(prdSample, siSample)
   console.log('✓ AGENTS.md độ dài:', goclawPkg.agentsMd.length, 'ký tự')
   console.log('✓ SOUL.md độ dài:', goclawPkg.soulMd.length, 'ký tự')
